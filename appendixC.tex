@@ -1,4 +1,36 @@
-\chapter{}
+\chapter{Tables and graphs}
+
+\section{Testing}
+
+\subsection{Integration testing test cases}
+
+\begin{table}[ht!]
+\tiny
+\begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
+\hline
+\textbf{ID} & \textbf{Service/Protocol} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
+IT1.1 & CoreService & boot & Start the Application & Thread running and all registered services alive & Success \\ \hline
+IT1.2 & CoreService & stop & Stop the Application & All registered services shut down and threads killed. Invoked flags set to false. CoreService thread removed and invoked flag set to false. & Success \\ \hline
+IT1.3 &CoreService & execute & Create and insert a runnable job to the executor service using the execute method & Job successfully performed & Success \\ \hline
+IT1.4 & CoreService & registerService & Initialize a stub abstractcoreservice and register it to the CoreService & Stub service is correctly registered & Success \\ \hline
+IT1.5 & CoreService & removeService & Perform IT1.4 and then remove the service again & Service correctly removed & Success \\ \hline
+IT1.6 & CoreService & addProtocolServer & Register the DummyProtocolServer & DummyProtocolServer correctly added to list of protocol servers & Success \\ \hline
+IT1.7 & CoreService & removeProtocolServer & Perform IT1.6 and then remove the protocol server again & Protocol server correctly removed & Success \\ \hline
+IT1.8 & CoreService & getTotalRequests FromProtocolServers & Perform a request using DummuProtocolServer and verify counter increment in admin panel & Request counter incremented by 1 per request & Success \\ \hline
+IT1.9 & CoreService & getTotalMessages RecievedFromProtocolServers & Increment the DummyProtocol's recieved messages field & Messages recieved counter incremented by 1 per message & Success \\ \hline
+IT1.10 & CoreService & getTotalMessages SentFromProtocolServers & Increment the DummyProtocol's sent messages field & Messages sent counter incremented by 1 per message & Success \\ \hline
+IT1.11 & CoreService & getTotalBadRequests FromProtocolServers & Write jibberish using the DummyProtocol telnet command interface & Bad requests counter incremented by 1 per bad request sent & Success \\ \hline
+IT1.12 & CoreService & getTotalErrors FromProtocolServers & Increment the DummyProtocol's total errors field & Total errors counter incremented by 1 per error & Success \\ \hline
+IT1.13 & CoreService & getAllProtocolServers & Perform IT6.1 and verify that it is returned from the method & Set of registered protocol servers increased by 1 during registry, and DummyProtocolServer included in the shallow copy hash set returned. & Success \\ \hline
+IT1.14 & CoreService & getProtocolServer & Perform IT6.1 and then provide the Class type of the DummyProtocolServer as an argument. & The instance of DummyProtocolServer successfully returned & Success \\ \hline
+IT1.15 & CoreService & stopAllProtocol Servers & Call the method from test class & All protocol servers gracefully shut down, their threads removed and invoked flag set to false. & ? \\ \hline
+IT1.16 & CoreService & bootCoreServices & Perform 1.4 twice using 2 different stubs. Then call the method. & Both registered stub services booted successfully in their own thread, with run and invoked flags set to true. & Success \\ \hline
+IT1.17 & CoreService & bootProtocolServers & Perform IT1.6 then call the method & DummyProtocoLServer successfully booted in its own thread, with run and invoked flags set to true. & Success \\ \hline
+IT1.18 & CoreService & registerListenerSupport ForAllCoreServices & Perform IT1.4 with debug output in its registerListenerSupport method. Then invoke the test method & Debug output successfully displayed when method is invoked. & Success \\ \hline
+\end{tabular}
+\caption{Integration Testing - Test Cases}
+\label{table:integration-testing-cases}
+\end{table}
 
 \end{appendices}
 

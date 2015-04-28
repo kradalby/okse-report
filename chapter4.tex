@@ -1,31 +1,31 @@
 %===================================== CHAP 4 =================================
 
 \chapter{Requirements engineering}
+\label{ch:requirements_engineering}
 
 The requirements engineering process was a continuous negotiation between the customer and the development team. Although the customer had a solid understanding of what they wanted, this process went on throughout the duration of the project.
 
-Furthermore, requirements are separated into two categories. A functional requirement describes a function of the system or one of it's components. On the other hand, a non-functional requirement can be viewed with regards to the operation of the system. Rather than listing specific functions of the system, it describes the performance or operation of the system as a whole.
+Furthermore, requirements are separated into two categories. A functional requirement describes a function of the system or one of it's components. On the other hand, a non-functional requirement can be viewed with regards to the operation of the system. Rather than listing specific functions of the system, it describes the performance or operation of the system as a whole. In this project, strict requirements and narrow requirement scope was not provided by the customer. The requirements given were general, and listed some features the system would have to provide, but not an extensive list. This led to the group having to create a more comprehensive set of requirements as a basis for development.
 
 \section{Requirements elicitation}
+\label{sec:requirements_engineering-requirements_elicitation}
 
-The functional requirements were elicited as a result of discussion both within the group and with the customer. Use cases and stories were used as help to define the exact requirements and formulations of them. The use cases describe the steps that needed to be performed in order to accomplish a certain task. The result of the process was a list, describing the requirements and the prioritization of them.
+The functional requirements were elicited as a result of discussion both within the group and with the customer. Additional requirements were taken into consideration from the results of the research phase, as well as from the WSN and AMQP standards documents. Use cases and user stories were used as support tools for the group to define the exact requirements and formulations of them. This was due to the lack of strictly defined requirements from the customer. The use cases describe the steps that needed to be performed in order to accomplish a certain task. The result of the process was a list, describing the requirements and the prioritization of them.
 
 The non-functional requirements were purely a result of discussion with the customer. After identifying the properties of the system, they were classified and rated in order of importance.
 
 Two issues arose when requirements for the different protocols were to be defined. First of all, the customer wanted as many protocols to be implemented as possible. After considering the time available, the three most important protocols were listed as requirements. The decision was subject to change however, depending on how much time it would take to implement each protocol.
 
-The other issue was defining the protocols as requirements. On the one hand, they could be seen as functional requirements. As a user, one must be able to send a message using protocol "A". This would be regarded as a functional requirement. On the other hand, a protocol could be viewed as a property of the system. The protocol would then be considered a set of standards the system has to support, and fall under the compatibility category of non-functional requirements. The functional requirements would then only be described as a user being able to send a message, regardless of protocol. The decision wouldn't make a difference to the product, so extensive  research into this definition was discarded.
+The other issue was defining the protocols as requirements. On the one hand, they could be seen as functional requirements. "As a user, one must be able to send a message using protocol A". This would be regarded as a functional requirement. On the other hand, protocol support could be viewed as a property of the system. The protocol would then be considered a set of standards the system has to conform to, and fall under the compatibility category of non-functional requirements. The functional requirements would then only be described as "a user being able to send a message", regardless of protocol. The decision would not make any profound difference to the product. As such, extensive research into this definition was discarded.
 
 \section{Functional requirements}
+\label{sec:requirements_engineering-functional_requirements}
 
-After a brief evaluation, the different protocols were defined as functional requirements. Mainly due to a consideration of how they would be tested. It seemed more reasonable to include them as functional requirements when considering the integration testing of components, as well as acceptance testing. The other functional requirements were concerned with what a user was supposed to do with the user interface. The general goal of the interface was to expose configuration of mappings between supported protocols, publisher and subscriber database listings, as well as topics and content filters. The functional requirements are described in table \ref{func-requirements}, and was a result of the requirements elicitation process.
+After a brief evaluation, the different protocols were defined as functional requirements (hereby denoted as FR). Mainly due to a consideration of how they would be tested. It seemed more reasonable to include them as functional requirements when considering the integration testing of components, as well as acceptance testing. The other functional requirements were concerned with what a user was supposed to do with the user interface. The general goal of the interface was to expose configuration of mappings between supported protocols, publisher and subscriber database listings, as well as topics and content filters. The functional requirements are described in table \ref{tab:func-requirements}, and was a result of the requirements elicitation process.
 
 The protocols were viewed as the most important requirements, as they were the core function of the system. The log in function was not as important. One does not strictly need a log in function in such a system, due to the fact that you only get access to the local instance and database. The function serves as a security measure, in case one accidentally leaves the computer unlocked, or some similar case occurs.
 
-\begin{table}[ht!]
-\centering
-\resizebox{9cm}{!}{
-\begin{tabular}{|l|l|p{5cm}|l|}
+\begin{longtable}{@{\extracolsep{\fill}}|l|l|p{8cm}|l|@{}}
 \hline
 \multicolumn{4}{|c|}{\textbf{Functional requirements}}  \\ \hline
 \multicolumn{1}{|c|}{\textbf{$\#$}} & \textbf{Use Case} & \textbf{Description}    & \textbf{Priority} \\ \hline
@@ -49,52 +49,55 @@ The protocols were viewed as the most important requirements, as they were the c
 \multicolumn{1}{c|}{1} \\ \hline
 \multicolumn{1}{|c|}{FR1.10} & \multicolumn{1}{c|}{??} & A user must be able to send multiple notification messages in a single Notify using the WSN protocol &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR2} & \multicolumn{1}{c|}{U5 \& U6} & A user must be able to send and recieve messages using the AMQP protocol &
+\multicolumn{1}{|c|}{FR2} & \multicolumn{1}{c|}{U5 \& U6} & A user must be able to send and receive messages using the AMQP protocol &
 \multicolumn{1}{c|}{1} \\ \hline
 \multicolumn{1}{|c|}{FR3} & \multicolumn{1}{c|}{U1} & The admin must be able to map topics/dialects with other topics. &
 \multicolumn{1}{c|}{2} \\ \hline
 \multicolumn{1}{|c|}{FR4} & \multicolumn{1}{c|}{U2} & The admin must be able to edit the different subscriptions. That means delete one or all subscriptions on a given topic. This also includes deleting all topics. & \multicolumn{1}{c|}{3} \\ \hline
 \multicolumn{1}{|c|}{FR5} & \multicolumn{1}{c|}{U3} & The admin should be able to get information in the administrator interface about the server. &  \multicolumn{1}{c|}{4} \\ \hline
 \multicolumn{1}{|c|}{FR6} & \multicolumn{1}{c|}{U4} & The admin must be able to log in with a user name and password to get access to core functions. & \multicolumn{1}{c|}{5} \\ \hline
-\end{tabular}
-}
 \caption{Functional requirements}
-\label{func-requirements}
-\end{table}
+\label{tab:func-requirements}
+\end{longtable}
 
 \clearpage
 
 \section{Non-functional requirements}
+\label{sec:requirements_engineering-non_functional_requirements}
 
-Following is a list of the non-functional requirements created. The requirements are listed in descending order of importance. 
+Following is a list of the non-functional requirements (hereby denoted as NFR) created. The requirements are listed in descending order of importance. 
 
 \subsection{NFR1 - Extendability}
+\label{subsec:requirements_engineering-non_functional_requirements-extendibility}
 
 \subsubsection{NFR1.1 - Modularization}
+\label{subsec:requirements_engineering-non_functional_requirements-modularization}
 
 The different components of the system should be decomposed in such away that the respective components are loosely coupled, to allow easier addition of more protocols at a later point in time. It also allows upgrading and further developing of different parts of the system individually.
 
-\subsubsection{NFR1.2 - Protocol independency}
+\subsubsection{NFR1.2 - Protocol Independence}
+\label{subsec:requirements_engineering-non_functional_requirements-protocol_independence}
 
 The system must be able to translate between protocols independent of their type, more precisely it must not only support to/from WSN, but also between protocols like AMQP and MQTT, without having to go through WSN.
 
 \subsection{NFR2 - Documentation}
+\label{subsec:requirements_engineering-non_functional_requirements-documentation}
 
 All parts of the application must be documented according to the language specific standards, preferably in English.
 
 \subsection{NFR3 - Open Source}
+\label{subsec:requirements_engineering-non_functional_requirements-open_source}
 
-The software shall be open source. The software shall be available for use, change and distribution by anyone. It will be licenced under the MiT licence.
+The software shall be open source. The software shall be available for use, change and distribution by anyone. It will be licenced under the MIT licence\footnote{\url{http://en.wikipedia.org/wiki/MIT_License}}.
 
 \section{User stories}
+\label{sec:requirements_engineering-user_stories}
 
-The following table describes the user stories defined. The stories were used as a tool to create use cases. The stories were defined based on conversations with the customer, and answers to what the customer wanted to do with the system. The different aspects were then structured in the following table.
+The following table describes the user stories defined. The stories were used as a tool to create use cases. The stories were defined based on conversations with the customer, and answers to what the customer wanted to do with the system. The different aspects were then structured in the following table. 
 
 \clearpage
 
-\begin{table}[ht!]
-\centering
-\begin{tabular}{|l|p{5cm}|p{3cm}|}
+\begin{longtable}{@{\extracolsep{\fill}}|l|p{5cm}|p{5cm}|@{}}
 \hline
 \multicolumn{3}{|c|}{\textbf{User stories}} \\ \hline
 \textbf{As a(n)} & \textbf{I want to} & \textbf{So that (I can)}  \\ \hline
@@ -111,20 +114,21 @@ User & Send a message over WSN. & Publish information. \\ \hline
 User & Send a message over AMQP. & Publish information. \\ \hline
 User & Receive a message over WSN. & Receive information from other units. \\ \hline
 User & Receive a message over AMQP. & Receive information from other units. \\ \hline
-\end{tabular}
 \caption{User stories}
 \label{user-stories}
-\end{table}
+\end{longtable}
 
 \clearpage
 
 \section{Use cases}
+\label{sub:requirements_engineering-use_cases}
 
-The use cases constructed for this project were used as a tool to create the requirements. They were also used for internal communication within the group, as a simple way to share information about the user interface. The use cases regarding the protocols were combined into one, as they are the same for all of them.
+The use cases constructed for this project were used as a tool to create the requirements. They were also used for internal communication within the group, as a simple way to share information about the user interface. Additionally the group used the use cases to evolve and expand the administration interface by adding information that was useful during the creation of the use cases and the development phase. The use cases regarding the protocols were combined into one, as they are the same for all of them.
 
 \subsection{Use case 1 - Topic mapping}
+\label{subsec:requirements_engineering-use_cases-topic_mapping}
 
-Below is the use case for the topic mapping part of the interface. The main goal is to administer the topics. After (and/or before) a publisher has added a topic, it must be able to map this topic to another topic. It should also be possible to create links and set flags on topics (dialect for WSN).
+Below is the use case for the topic mapping part of the interface. The main goal is to administer the topics. After (and/or before) a publisher has added a topic, it must be able to map this topic to another topic. The topic mapping interface must also provide a way of creating relay from messages received on one topic, to a new different topic. For WSN, it must also be able to flag a topic to only allow messages using a particular WSN topic expression (dialect).
 
 \begin{table}[ht!]
 \begin{minipage}{.6\textwidth}
@@ -171,6 +175,7 @@ Below is the use case for the topic mapping part of the interface. The main goal
 \clearpage
 
 \subsection{Use case 2 - Topic handling}
+\label{subsec:requirements_engineering-use_cases-topic_handling}
 
 This use case describes how an administrator can edit topics. The administrator must be able to delete one or all subscriptions on a topic. Deletion of topics is also included in the use case.
 
@@ -209,6 +214,7 @@ This use case describes how an administrator can edit topics. The administrator 
 \clearpage
 
 \subsection{Use case 3 - Server information}
+\label{subsec:requirements_engineering-use_cases-server_information}
 
 This use case describes how an administrator can view information about the server. This includes server statistics and message brokering statistics. 
 
@@ -242,6 +248,7 @@ This use case describes how an administrator can view information about the serv
 \clearpage
 
 \subsection{Use case 4 - Log in}
+\label{subsec:requirements_engineering-use_cases-log_in}
 
 The following describes the log in procedure. The group concluded that no other functions were needed than a simple username and password log in function. Recover password were not included due to there being little to no persistent data in the database. Thus, a new instance could be initiated instead.
 
@@ -279,6 +286,7 @@ The following describes the log in procedure. The group concluded that no other 
 \end{center}
 
 \subsection{Use case 5 - Message sending}
+\label{subsec:requirements_engineering-use_cases-message_sending}
 
 This use case attempts to capture the process of sending messages over the system. This only captures a simplified version of the message sending. Some variations occur from protocol to protocol.
 
@@ -306,13 +314,14 @@ This use case attempts to capture the process of sending messages over the syste
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase5.png}}
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/fig44.png}}
     \caption{U5 - Message sending}
     \label{fig:u5}
   \end{figure}
 \end{center}
 
 \subsection{Use case 6 - Message Receiving}
+\label{subsec:requirements_engineering-use_cases-message_recieving}
 
 This use case attempts to capture the process of receiving messages over the system. This only captures a simplified version of the message retrieval. Some variations occur from protocol to protocol.
 
@@ -337,9 +346,317 @@ This use case attempts to capture the process of receiving messages over the sys
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase6.png}}
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/fig45.png}}
     \caption{U6 - Message retrieval}
     \label{fig:u6}
+  \end{figure}
+\end{center}
+\clearpage
+
+\subsection{Use case 7 - Subscribe with WSN}
+\label{subsec:requirements_engineering-use_cases-sub_wsn}
+
+This use case attempts to capture the process of subscribing to a topic using the WSN protocol. 
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{Use case ID} & U7 \\ \hline
+\textbf{Use case Name} & Subscribe with WSN. \\ \hline
+\textbf{Description} & A consumer should be able to subscribe to a topic using the WSN protocol.  \\ \hline
+\textbf{Pre conditions} & OKSE broker is up and running. \\ \hline
+\textbf{Standard flow} & \begin{enumerate}
+\item Send subscription request to OKSE.
+\end{enumerate} \\ \hline
+\textbf{Alternative flow} & \\ \hline
+\textbf{Post conditions} & The consumer is now subscribed to the requested topic.  \\ \hline
+\end{tabular}
+\caption{Use case 7 - Subscribe with WSN}
+\label{uc7}
+\end{table}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \caption{U7 - Subscribe with WSN}
+    \label{fig:u7}
+  \end{figure}
+\end{center}
+\clearpage
+
+\subsection{Use case 8 - Register as a publisher on a topic with WSN}
+\label{subsec:requirements_engineering-use_cases-reg_pub_wsn}
+
+Use case showing how to register as a publisher on a topic using the WSN protocol 
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{Use case ID} & U8 \\ \hline
+\textbf{Use case Name} & Register producer WSN. \\ \hline
+\textbf{Description} & A client should be able to register as publisher on a topic with the WSN protocol.  \\ \hline
+\textbf{Pre conditions} & OKSE broker is up and running. \\ \hline
+\textbf{Standard flow} & \begin{enumerate}
+\item Send request to OKSE.
+\item Receive registration confirmation.
+\end{enumerate} \\ \hline
+\textbf{Alternative flow} & \\ \hline
+\textbf{Post conditions} & Client is now registered as a publisher on the requested topic. 
+  \\ \hline
+\end{tabular}
+\caption{Use case 8 - Register producer WSN}
+\label{uc8}
+\end{table}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \caption{U8 - Register producer WSN}
+    \label{fig:u8}
+  \end{figure}
+\end{center}
+
+\clearpage
+
+\subsection{Use case 9 - Unsubscribe with WSN}
+\label{subsec:requirements_engineering-use_cases-unsub_wsn}
+
+Use case showing how to unsubscribe from a topic using the WSN protocol. 
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{Use case ID} & U9 \\ \hline
+\textbf{Use case Name} & Unsubscribe with WSN. \\ \hline
+\textbf{Description} & A user must be able to unsubscribe for a topic using the WSN protocol.  \\ \hline
+\textbf{Pre conditions} & OKSE broker is up and running. The user has an active subscription on the topic which the user wants to 	unsubscribe from. \\ \hline
+\textbf{Standard flow} & \begin{enumerate}
+\item Send unsubscribe request to OKSE.
+\item Receive unsubscribe confirmation.
+\end{enumerate} \\ \hline
+\textbf{Alternative flow} & \\ \hline
+\textbf{Post conditions} & The user is now unsubscribed from requested topic and will no longer receive messages sent on that topic. 
+  \\ \hline
+\end{tabular}
+\caption{Use case 9 - Unsubscribe from topic WSN}
+\label{uc9}
+\end{table}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \caption{U9 - Unsubscribe from topic WSN}
+    \label{fig:u9}
+  \end{figure}
+\end{center}
+
+\clearpage
+
+\subsection{Use case 10 - Unregister as a publisher on a topic wih WSN.}
+\label{subsec:requirements_engineering-use_cases-unreg_pub}
+
+Use case showing how to unregister as a publisher using the WSN protocol. 
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{Use case ID} & U10 \\ \hline
+\textbf{Use case Name} & Unregister as publisher with WSN. \\ \hline
+\textbf{Description} & A user must be able to unregister as a publisher on a topic using the WSN protocol.  \\ \hline
+\textbf{Pre conditions} & OKSE broker is up and running. The user is registered as a publisher on the topic which the user wants to unsubscribe from.  \\ \hline
+\textbf{Standard flow} & \begin{enumerate}
+\item Send unregister request to OKSE.
+\item Receive unregister confirmation.
+\end{enumerate} \\ \hline
+\textbf{Alternative flow} & \\ \hline
+\textbf{Post conditions} & The user is now unregistered as a publisher on the requested topic. 
+  \\ \hline
+\end{tabular}
+\caption{Use case 10 - Unregister as publisher using WSN}
+\label{uc10}
+\end{table}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \caption{U10 - Unregister as publisher using WSN}
+    \label{fig:u10}
+  \end{figure}
+\end{center}
+
+\clearpage
+
+\subsection{Use case 11 - Retrieve the latest message on a topic using the GetCurrentMessage function with WSN.}
+\label{subsec:requirements_engineering-use_cases-get_message_wsn}
+
+Use case showing how to retrieve the latest message on a topic using the GetCurrentMessage function.
+
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{Use case ID} & U11 \\ \hline
+\textbf{Use case Name} & Get latest message on topic using WSN.\\ \hline
+\textbf{Description} & A user must be able to get the last message sent on a topic using the WSN protocol\\ \hline
+\textbf{Pre conditions} & OKSE broker is up and running. There is a message to retrieve.\\ \hline
+\textbf{Standard flow} & \begin{enumerate}
+\item Send request using GetCurrentMessage to OKSE using WSN.
+\item Receive last message sent on requested topic.
+\end{enumerate} \\ \hline
+\textbf{Alternative flow} & \\ \hline
+\textbf{Post conditions} & User now has local copy of last message sent on requested topic  
+  \\ \hline
+\end{tabular}
+\caption{Use case 11 - GetCurrentMessage function with WSN}
+\label{uc11}
+\end{table}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \caption{U11 - GetCurrentMessage function with WSN}
+    \label{fig:u11}
+  \end{figure}
+\end{center}
+
+\clearpage
+
+\subsection{Use case 12 - Renew subscription using the WSN protocol}
+\label{subsec:requirements_engineering-use_cases-renew_sub_wsn}
+
+Use case showing the steps involved in renewing subscription on topic with WSN. 
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{Use case ID} & U12 \\ \hline
+\textbf{Use case Name} & Renew subscription using WSN protocol.\\ \hline
+\textbf{Description} & A user should be able to renew subscription on a requested topic using WSN protocol.\\ \hline
+\textbf{Pre conditions} & OKSE is up and running. The user has an active subscription on the topic which he/she wants to renew.\\ \hline
+\textbf{Standard flow} & \begin{enumerate}
+\item Send request to OKSE with new timeout date. 
+\item Receive confirmation from OKSE with updated subscription timeout date.
+\end{enumerate} \\ \hline
+\textbf{Alternative flow} & \\ \hline
+\textbf{Post conditions} & The user will have a updated timeout date for the subscription on the requested topic.\\ \hline
+\end{tabular}
+\caption{Use case 12 - Renew subscription using WSN}
+\label{uc12}
+\end{table}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \caption{U12 - Renew subscription using WSN}
+    \label{fig:u12}
+  \end{figure}
+\end{center}
+
+\clearpage
+
+\subsection{Use case 13 - Pause subscription using the WSN protocol}
+\label{subsec:requirements_engineering-use_cases-pause_sub_wsn}
+
+Use case showing the steps involved in pausing subscription on topic with WSN. 
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{Use case ID} & U13 \\ \hline
+\textbf{Use case Name} & Pause subscription using WSN protocol.\\ \hline
+\textbf{Description} & The user should be able to pause a subscription on a requested topic using the WSN protocol. \\ \hline
+\textbf{Pre conditions} & OKSE is up and running. User must have active subscription on the topic which he/she wants to pause\\ \hline
+\textbf{Standard flow} & \begin{enumerate}
+\item Send request to OKSE. 
+\item Receive confirmation from OKSE.
+\end{enumerate} \\ \hline
+\textbf{Alternative flow} & \\ \hline
+\textbf{Post conditions} & Subscription is now on pause. User will no longer receive messages sent on that topic. Subscription is not removed from OKSE\\ \hline
+\end{tabular}
+\caption{Use case 13 - Pause subscription using WSN}
+\label{uc13}
+\end{table}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \caption{U13 - Pause subscription using WSN}
+    \label{fig:u13}
+  \end{figure}
+\end{center}
+
+\clearpage
+
+\subsection{Use case 14 - Resume subscription using the WSN}
+\label{subsec:requirements_engineering-use_cases-resume_sub_wsn}
+
+Use case showing the steps involved in resuming a paused subscription on topic with WSN. 
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{Use case ID} & U14 \\ \hline
+\textbf{Use case Name} & Resume subscription with WSN protocol\\ \hline
+\textbf{Description} & The user should be able to resume a subscription on a topic which previously was paused. \\ \hline
+\textbf{Pre conditions} & OKSE is up and running. User has a paused subscription on the topic which he/she wants to resume. \\ \hline
+\textbf{Standard flow} & \begin{enumerate}
+\item Send request to OKSE
+\item Receive confirmation from OKSE	
+\end{enumerate} \\ \hline
+\textbf{Alternative flow} & \\ \hline
+\textbf{Post conditions} & The subscription on the requested topic is resumed. The user will now receive messages sent on the topic which the user resumed subscription on.  \\ \hline
+\end{tabular}
+\caption{Use case 14 - Resume subscription with WSN}
+\label{uc14}
+\end{table}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \caption{U14 - Resume subscription with WSN}
+    \label{fig:u14}
+  \end{figure}
+\end{center}
+
+\clearpage
+
+\subsection{Use case 15 - }
+\label{subsec:requirements_engineering-use_cases-}
+
+Use case showing the steps involved 
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{Use case ID} & U15 \\ \hline
+\textbf{Use case Name} & \\ \hline
+\textbf{Description} & \\ \hline
+\textbf{Pre conditions} & \\ \hline
+\textbf{Standard flow} & \begin{enumerate}
+\item 
+\item 	
+\end{enumerate} \\ \hline
+\textbf{Alternative flow} & \\ \hline
+\textbf{Post conditions} & \\ \hline
+\end{tabular}
+\caption{Use case 15 - }
+\label{uc15}
+\end{table}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \caption{U15 - }
+    \label{fig:u15}
   \end{figure}
 \end{center}
 

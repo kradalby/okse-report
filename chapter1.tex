@@ -1,26 +1,31 @@
 %===================================== CHAP 1 =================================
 
 \chapter{Introduction}
+\label{ch:introduction}
 
 \section{The course}
+\label{sec:introduction-the_course}
 
 The goal of the course IT2901 was to give students experience in working on a project with a customer. The students would work in groups to develop a product related to information technology, with guidance from a supervisor. The project included all parts of the software development process up to, but excluding the maintenance/evolution phase.
 
 \section{The group}
+\label{sec:introduction-the_group}
 
 The group consisted of six members; Aleksander Skraastad, Håkon Ødegård Løvdal, Fredrik Berg, Fredrik Borgen Tørnvall, Trond Walleraunet and Kristoffer Andreas Breiland Dalby. All the group members started a bachelors degree in computer science at NTNU in the fall 2012. Over the course of the study, the members have gained experience in programming, as well as methodologies in software development.
 
 \section{The customer}
+\label{sec:introduction-the_customer}
 
-The groups customer was the Norwegian Defence Research Establishment(FFI). FFI is a governmental organization responsible for research and development for the Norwegian Armed Forces. In addition, the organization is involved in the long term planning of the armed forces, as well as participating in other non-military research projects. The customer was located at Kjeller in Oslo. Due to this, customer meetings were mainly held over Skype. In addition to the regular Skype meetings, the group met with the customer in Trondheim once at the start of the project and at the end of the project for a demonstration and final delivery.
+The groups customer was the Norwegian Defence Research Establishment (hereby denoted as FFI). FFI is a governmental organization responsible for research and development for the Norwegian Armed Forces. In addition, the organization is involved in the long term planning of the armed forces, as well as participating in other non-military research projects. The customer was located at Kjeller in Oslo. Due to this, customer meetings were mainly held over Skype. In addition to the regular Skype meetings, the group met with the customer in Trondheim once at the start of the project and at the end of the project for a demonstration and final delivery.
 
 \section{Project Description}
+\label{sec:introduction-project_description}
 
 FFI was in need of an application aimed at translating between various publish/subscribe communication protocols. That included both protocols used internally in the Norwegian Armed Forces and the North Atlantic Treaty Organisation (NATO). The standard protocol for this type of communication is the Web Service Notification protocol (WSN), which was the main focus.
 
 At the time, FFI did not have such an application. They did however possess an implementation of the WSN protocol, created as a project at NTNU in 2014. The groups motivation with respect to this project was mainly the possibility to provide efficient communication between vehicles, stations, personnel, unmanned aerial vehicles (UAVs) and international NATO forces. Additionally, it would prove a challenge development wise, as the criteria given in the requirements could present the need for a  deeper understanding of various publish/subscribe technologies. This project could yield an important application that would allow quicker adaptation of new devices and tools, that use other protocols than the NATO standard.
 
-The task of this project was to implement a multi-protocol publish/subscribe brokering solution. Although there exists several different publish/subscribe frameworks and protocols, the goal was to make one solution which covered, and was able to translate between several of them. The primary functionality however, was for the solution to support WSNotification (WSN), Advance Message Queuing Protocol (AMQP) and Message Queuing Telemetry Transport (MQTT). ZeroMQ and Data Distribution Service (DDS) were also interesting protocols but with lower priority. The customer wanted the application to translate to and from all the implemented protocols, regardless of their type. The application also had to include a graphical interface for administration.
+The task of this project was to implement a multi-protocol publish/subscribe brokering solution. Although there exists several different publish/subscribe frameworks and protocols, the goal was to make one solution which covered, and was able to translate between several of them. The primary functionality however, was for the solution to support Web Services Notification (WSN), Advance Message Queuing Protocol (AMQP) and Message Queuing Telemetry Transport (MQTT). ZeroMQ and Data Distribution Service (hereby denoted as DDS) were also interesting protocols but with lower priority. The customer wanted the application to translate to and from all the implemented protocols, regardless of their type. The application also had to include a graphical interface for administration.
 
 Finally, there were no clear security requirements defined, as the customer assured the group that security would lay in the Internet layer (e.g IPSec) or link layer (e.g L2TP).
 

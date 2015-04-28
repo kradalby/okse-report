@@ -1,46 +1,60 @@
 %===================================== CHAP 6 =================================
 
 \chapter{Testing, Not finished}
+\label{ch:testing}
 
 \section{Test description}
+\label{sec:testing-test_description}
 
 The sections below covers the different test phases. It explains the different tests, as well as discusses the reasoning and usage of the different test methodologies.
 
 \subsection{Unit Testing}
+\label{subsec:testing-test_description-unit_testing}
 
-A unit test is a specific test written for testing all method in a class (unit). It is written to confirm that the methods will always act as intended, even if other parts of the program code is changed. Unit tests were used on the parts of the system containing logical operations and calculations. Unit tests does not however exclude the possibility of errors. It only reduces the amount of cases where an error might occur.
-
-Initially, the plan was to use test-driven development as often as possible. This proved difficult. In a lot of cases it was hard to know exactly which units were needed, and as the group learned, the units changed. Thus, tests that initially were written to verify units, were changed later on.
-
-Units of the system responsible for inter-thread communication, task processing and queuing were excluded from unit tests. This is due to the group not having the necessary time or experience to write proper unit tests for these conditions.
+In general, a unit is a portion of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures. Varying in scope by language and paradigm. A unit test is a specific test written for testing the validity of said component or components. In Java, a unit is commonly defined as an entire class, but could also be a single object method. A unit test is written to confirm that the methods will always act as intended, even if other parts of the program code is changed. Unit tests were used on the parts of the system containing many logical operations and calculations. Unit tests does not however exclude the possibility of errors. It only reduces the amount of cases where an error might occur.
 
 \subsection{Integration testing}
+\label{subsec:testing-test_description-integration_testing}
 
-Integration testing considers testing where individual modules of the software are grouped. It is a black-box test, in which major parts of the system are tested. The goal of the tests was to make sure that the major parts of the system were working as individual modules. In this case, integration testing was used for the protocols and the core services of the system.
+Integration testing considers testing where individual modules of the software are grouped. It is a black-box test, in which major parts of the system are tested. The goal of the tests was to make sure that the major parts of the system were working as individual modules as well as when communicating with each other.
+
+As each of the protocol implementations and core services of the system are standalone components that communicate with each other, integration testing was vital to the operation of the system.
 
 \subsection{Profiling}
+\label{subsec:testing-test_description-profiling}
 
 Profiling is a way to dynamically analyze the program while it is running. This is done to get an overview of where the resources are used. The method is useful to find bottlenecks and inefficient methods in the program. The software was run as a server instance, and had a possibility for high load on a wide variety of hardware. Profiling was useful to find the parts of the system that had performance issues. It was performed each time some part of the system was completed.
 
 \subsection{System testing}
+\label{subsec:testing-test_description-system_testing}
 
 System testing is performed to ensure that the product meets its requirements. It is a black-box test, often performed upon completion of the product. The goal is to go through all the requirements, and ensure that they are met and working as intended. System testing was performed prior to the acceptance test with the customer.
 
+% Dette må endres når datoene er forbi!
 \subsection{Acceptance Testing}
+\label{subsec:testing-test_description-acceptance_testing}
+Acceptance testing is generally concerned with whether or not the requirements of the system are met in a satisfiable way. Since the system has a lot of functionality that is not visible, the acceptance tests focused on testing the administration interface and to send and receive messages with the implemented applications.
+As parts of the acceptance testing, the group performed internal smoke tests of the system after every medium to big component was finished. This was typical to test if a protocol did follow the standard and to test if the performance was within the groups limits. The reasoning for the smoke tests was to be able to find errors that could impact the result of the final acceptance test.
 
-Acceptance testing was used as the final test conducted with the customer. Acceptance testing is generally concerned with whether or not the requirements of the system are met in a satisfiable way. The inner workings of the system was ignored, and the focus was the usability of the system itself. Due to the fact that the customer was located in Oslo, the acceptance test was combined with the delivery of the product. 
+Additionally, FFI will come to Trondheim the 8th of May to meet with another group and we will use this time to do a preliminary acceptance test.
+
+The final acceptance test will most likely be held during an extended Skype meeting using screen-sharing technology, before the 26th of May when we will hand over the product.
 
 \section{Test Execution}
+\label{subsec:testing-test_execution}
 
 The following sections discusses how tests were planned and executed for each part of the system. The goal is to give a general overview of how tests were conducted and written.
 
-\subsection{Unit testing} 
+\subsection{Unit testing}
+\label{subsec:testing-test_execution-unit_testing}
 
-As previously stated, unit tests were written for parts of the system containing logical operations and calculations. Other components of the system were tested in the integration and system test phases.
+Initially, the plan was to use test-driven development as often as possible given it was a component we were going to write unit tests for. This proved somewhat difficult. In a lot of cases it was hard to know exactly which units were needed, and as the group learned and evolved, the units changed in scope and behaviour. Thus, tests that initially were written to verify units, were changed later on. This was something the group was well aware of, and intentionally opted to discard TDD where the scope and behaviour of a unit was developed with a trial and error approach. However, that did not mean that unit tests were discarded as a whole. After these kind of components were finished, unit tests were added to verify their validity, as well as provide a safeguard for errors caused by future alterations.
+
+Units of the system responsible for inter-thread communication, multi-thread task processing and queuing were excluded from unit tests. This is due to the group not having the necessary time or experience to write unit tests for these conditions. The testing of these types of units and components were performed during integration testing, which incorporated direct usage of these components.
 
 The actual execution of the unit tests were automated using our continuous integration solution, Jenkins, in combination with the Jenkins TestNG plugin.
 
-The metric the group chose to represent this section of the report is test coverage. Test coverage is the percentage of code blocks covered by a corresponding test. All the unit tests passed validation, hence it is somewhat irrelevant to include a per-unit table of tests in this section. It is more descriptive to see how much of the code base is covered by unit tests.
+The metric the group chose to represent this type is test coverage. Test coverage is the percentage of code blocks covered by a corresponding test. All the unit tests passed validation, hence it is somewhat irrelevant to include a per-unit table of tests in this section. It is more descriptive to see how much of the code base is covered by unit tests.
 
 The following list provides an overview of the different packages in the product and their test coverage.
 
@@ -60,50 +74,19 @@ The following list provides an overview of the different packages in the product
 
 The source code, including all the test methods can be found in the "test" package of the application.
 
-\subsection{Integration testing | Incomplete, add tables for remaining components}
+\subsection{Integration testing}
+\label{subsec:testing-test_execution-integration_testing}
 
-Each of the components were tested individually upon completion. For each of the protocols, tests were based on mainly whether or not a message could be correctly sent and received according to protocol standards. Additionally, the messages were tested with regards to length handling and special characters. The tests were performed using two different computers running the system. Following are tables describing the test procedure for each of the components.
+Our strategy for the integration testing was comprised of two parts. The first was to manually test the methods of the services and protocol modules. This first part was aimed at detecting problems with the internal dynamics of a service. A comprehensive list of test cases would not be appropriate to list in this document, as each component and service provides vastly different methods, yielding a large table. In short, all internal methods and components supporting a service's public functionality were tested manually.
 
-\subsubsection{WSN Implementation}
+The second part was to test all the exposed methods of each service and protocol module during normal system operation. This was due to the services needing the methods of other services to perform some of the actions. In our effort to create appropriate test cases for the services and protocol modules, we decided that the best way to uncover any potential flaws was to test every service itself, as well as all other services it communicates with. In practice, this meant starting the application, and using either a pre-written test function or the admin interface, to invoke the service method in question.
 
-\begin{table}[ht!]
-\begin{tabular}{|m{3cm}|m{3cm}|m{3cm}|m{1.5cm}|}
-\hline
-\textbf{Description} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result}\\ \hline
-Test to see if a message can be sent and received.& Person X sends the message "Hello world" on a topic.& Message "Hello world" received by person Y & Success \\ \hline
-x&y&z&f \\ \hline
-x&y&z&f \\ \hline
-y&z&a&f \\ \hline
-\end{tabular}
-\end{table}
+Using this strategy, the group regularly performed integration testing as new features were added to the services, and new aspects of the protocol standards were implemented.
 
-\subsubsection{AMQP Implementation}
-
-\begin{table}[ht!]
-\begin{tabular}{|m{3cm}|m{3cm}|m{3cm}|m{1.5cm}|}
-\hline
-\textbf{Description} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result}\\ \hline
-x&y&z&f \\ \hline
-x&y&z&f \\ \hline
-x&y&z&f \\ \hline
-y&z&x&f \\ \hline
-\end{tabular}
-\end{table}
-
-\subsubsection{Core service}
-
-\begin{table}[h]
-\begin{tabular}{|m{3cm}|m{3cm}|m{3cm}|m{1.5cm}|}
-\hline
-\textbf{Description} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result}\\ \hline
-x&y&z&f \\ \hline
-x&y&z&f \\ \hline
-x&y&z&f \\ \hline
-y&z&x&f \\ \hline
-\end{tabular}
-\end{table}
+This resulted in a table\textsuperscript{\ref{table:integration-testing-cases}} of test cases and their pass criteria, listed in Appendix C. All tests were performed under normal system operation.
 
 \subsection{System testing}
+\label{subsec:testing-test_execution-system_testing}
 
 System testing was performed based on the requirements for the system. Each of the functional requirements were tested in a procedural manner. Additionally, although no clear requirement were set for performance, it was tested to make sure there were no bottlenecks, and the system was performing fairly well. A table was made for each of the requirements.
 
@@ -183,10 +166,12 @@ x&y&z \\ \hline
 \end{table}
 
 \subsection{Acceptance test}
+\label{subsec:testing-test_execution-acceptance_test}
 
 The acceptance test was performed prior to the final delivery of the product. The customer went over the requirements step by step, and gave feedback on whether or not they were implemented in a satisfying way.
 
 \subsubsection{Comments}
+\label{subsec:testing-test_execution-acceptance_test-comments}
 
 
 \clearpage
