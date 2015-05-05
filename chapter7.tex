@@ -1,6 +1,6 @@
 %===================================== CHAP 7 =================================
 
-\chapter{Project lifecycle}
+\chapter{Project life cycle}
 \label{ch:project_lifecycle}
 
 \section{Planning and research}
@@ -32,7 +32,7 @@ All of the goals were achieved in this iteration. The work required during this 
 \subsection{Research phase}
 \label{subsec:project_lifecycle-planning_and_research-research_phase}
 
-The research phase of this project was initially introduced due to the option of using Apollo (section \ref{subsec:prestudies-existing_solutions-apache_apollo}) as the core of the system. Thus, the only goal of this phase was to do extensive research, and find out whether to expand Apollo or develop a new system. The research work was split into different focal points, in order to assess all the major points of uncertainty (table \ref{tab:risk_analysis_apollo}). At the end of this phase, a decision had to made. This was anchored in our risk analysis, where choosing a too complex architectural design would trigger the group to fall back to an alternative solution.
+The research phase of this project was initially introduced due to the option of using Apollo (section \ref{subsec:prestudies-existing_solutions-apache_apollo}) as the core of the system. Thus, the only goal of this phase was to do extensive research, and find out whether to expand Apollo or develop a new system. The research work was split into different focal points, in order to assess all the major points of uncertainty (table \ref{tab:risk_analysis_apollo}). At the end of this phase, a decision had to be made. This was anchored in our risk analysis, where choosing a too complex architectural design would trigger the group to fall back to an alternative solution.
 
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-planning_and_research-research_phase-discussion}
@@ -260,12 +260,13 @@ Start looking into MQTT	& Not completed \\
 \label{subsec:project_lifecycle-development-sprint_4-discussion}
 
 The two main reasons for this sprint not containing the planned workload were major deliveries in other courses, as well as group members being in Oslo for summer job interviews.
-Due to the challenges discussed in the previous sprint, the group had to discuss the priority of requirements with the customer. The solution was to re-prioritize the requirements of MQTT and AMQP support. The result became that AMQP now was the first-in-line protocol to be implemented, bumping MQTT down at a lower priority level. Previously, both AMQP and MQTT had been at the same priority level. That led to a rework of the schedule for the remaining sprints. A lot of time was used for research on the remaining parts of WSN this sprint, along with a lot of report work. WSN proved to be more and more comprehensive and complex, and more code was needed for the implementation than first expected. With this reasoning in mind, the group still somewhat underperformed. Too little time was dedicated to actual development work. Thus, the group realized that a lot more time had to be scheduled for the following sprints. A new work plan was made for the remaining sprints.
+Due to the challenges discussed in the previous sprint, the group had to discuss the priority of requirements with the customer. The solution was to re-prioritize the requirements of MQTT and AMQP support. The result became that AMQP now was the first-in-line protocol to be implemented, bumping MQTT down at a lower priority level. Previously, both AMQP and MQTT had been at the same priority level. That led to a rework of the schedule for the remaining sprints. A lot of time was used for research on the remaining parts of WSN this sprint, along with a lot of report work. WSN proved to be more and more comprehensive and complex, and more code was needed for the implementation than first expected. Even with this in mind, the group still somewhat underperformed. Too little time was dedicated to actual development work. Thus, the group realized that a lot more time had to be scheduled for the following sprints. A new work plan was made for the remaining sprints.
 
 
 \begin{center}
 \begin{table}[ht!]
 \centering
+\small
 \begin{tabular}{ | m{0.4cm} | m{3.3cm}| m{0.7cm} | m{0.9cm} | m{0.9cm}| m{4.4cm} |} 
 \hline
 \rowcolor{lightgray}
@@ -297,11 +298,44 @@ Due to the challenges discussed in the previous sprint, the group had to discuss
 
 \subsection{Sprint 5}
 \label{subsec:project_lifecycle-development-sprint_5}
+At the start of sprint 5, lectures and tasks were completed in other courses. That meant that all resources could be devoted to the project. Considering the issues explained in the previous sprint, as well as the fact that the time left was getting short, a lot of work was scheduled for this sprint. The main task for this sprint was finalizing the most important aspects of WSN, as well as getting an overview of AMQP.
 
 \subsubsection{Goals}
 \label{subsec:project_lifecycle-development-sprint_5-goals}
 
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-development-sprint_5-discussion}
+
+
+
+\subsection{Sprint 6}
+\label{subsec:project_lifecycle-development-sprint_6}
+
+\subsubsection{Goals}
+\label{subsec:project_lifecycle-development-sprint_6-goals}
+
+\subsubsection{Discussion}
+\label{subsec:project_lifecycle-development-sprint_6-discussion}
+
+\subsubsection{AMQP testing}
+After the finalization of AMQP, the testing of the protocol implementation revealed to be more difficult than first thought. As mentioned in \ref{subsec:prestudies-amqp-amqp_version}. There exists two major implementations of AMQP, version 1.0 and version 0.9.1 where the latter being implemented most places. This made the test process and actually finding applications which implements the 1.0 standard more difficult.
+
+The group received a AMQP client from FFI which implemented the 0.9.1 standard. However due to the significant changes in the standard, it could not be used to any extent.
+
+SKRIV NOE HER OM APACHE QPID (IKKE PROTON) SOM TEST.
+SKRIV NOE HER OM SwiftMQ SOM TEST. Fant feil i sasl håndteringen.
+
+Ting som har hvert problematisk med AMQP
+
+SASL
+Integerer subscriber konseptet med resten av systemet
+Integrere Queue systemet med resten av systemet.
+Byte array
+problematikken med 0.9 vs 1.0
+implementasjon av topic når queue gjelder
+integrere qpid med okse
+trådprogrammering
+
+
 
 \clearpage

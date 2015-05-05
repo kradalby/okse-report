@@ -11,7 +11,7 @@ The sections below covers the different test phases. It explains the different t
 \subsection{Unit Testing}
 \label{subsec:testing-test_description-unit_testing}
 
-In general, a unit is a portion of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures. Varying in scope by language and paradigm. A unit test is a specific test written for testing the validity of said component or components. In Java, a unit is commonly defined as an entire class, but could also be a single object method. A unit test is written to confirm that the methods will always act as intended, even if other parts of the program code is changed. Unit tests were used on the parts of the system containing many logical operations and calculations. Unit tests does not however exclude the possibility of errors. It only reduces the amount of cases where an error might occur.
+In general, a unit is a portion of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures. Varying in scope by language and paradigm. A unit test is a specific test written for testing the validity of said component or components. In Java, a unit is commonly defined as an entire class, but could also be a single object method. A unit test is written to confirm that the methods will always act as intended, even if other parts of the program code is changed. Unit tests were used on the parts of the system containing many logical operations and calculations. Unit tests does not however, exclude the possibility of errors. It only reduces the amount of cases where an error might occur.
 
 \subsection{Integration testing}
 \label{subsec:testing-test_description-integration_testing}
@@ -36,9 +36,9 @@ System testing is performed to ensure that the product meets its requirements. I
 Acceptance testing is generally concerned with whether or not the requirements of the system are met in a satisfiable way. Since the system has a lot of functionality that is not visible, the acceptance tests focused on testing the administration interface and to send and receive messages with the implemented applications.
 As parts of the acceptance testing, the group performed internal smoke tests of the system after every medium to big component was finished. This was typical to test if a protocol did follow the standard and to test if the performance was within the groups limits. The reasoning for the smoke tests was to be able to find errors that could impact the result of the final acceptance test.
 
-Additionally, FFI will come to Trondheim the 8th of May to meet with another group and we will use this time to do a preliminary acceptance test.
+Additionally, FFI will come to Trondheim the 8th. of May to meet with another group and this time will be used to do a preliminary acceptance test.
 
-The final acceptance test will most likely be held during an extended Skype meeting using screen-sharing technology, before the 26th of May when we will hand over the product.
+The final acceptance test will most likely be held during an extended Skype meeting using screen-sharing technology, before the 26th. of May when we will hand over the product.
 
 \section{Test Execution}
 \label{subsec:testing-test_execution}
@@ -50,11 +50,11 @@ The following sections discusses how tests were planned and executed for each pa
 
 Initially, the plan was to use test-driven development as often as possible given it was a component we were going to write unit tests for. This proved somewhat difficult. In a lot of cases it was hard to know exactly which units were needed, and as the group learned and evolved, the units changed in scope and behaviour. Thus, tests that initially were written to verify units, were changed later on. This was something the group was well aware of, and intentionally opted to discard TDD where the scope and behaviour of a unit was developed with a trial and error approach. However, that did not mean that unit tests were discarded as a whole. After these kind of components were finished, unit tests were added to verify their validity, as well as provide a safeguard for errors caused by future alterations.
 
-Units of the system responsible for inter-thread communication, multi-thread task processing and queuing were excluded from unit tests. This is due to the group not having the necessary time or experience to write unit tests for these conditions. The testing of these types of units and components were performed during integration testing, which incorporated direct usage of these components.
+Units of the system responsible for inter-thread communication, multi-thread task processing and queuing were excluded from unit tests. This was due to the group not having the necessary time or experience to write unit tests for these conditions. The testing of these types of units and components were performed during integration testing, which incorporated direct usage of these components.
 
-The actual execution of the unit tests were automated using our continuous integration solution, Jenkins, in combination with the Jenkins TestNG plugin.
+The actual execution of the unit tests were automated using Jenkins, in combination with its TestNG plugin.
 
-The metric the group chose to represent this type is test coverage. Test coverage is the percentage of code blocks covered by a corresponding test. All the unit tests passed validation, hence it is somewhat irrelevant to include a per-unit table of tests in this section. It is more descriptive to see how much of the code base is covered by unit tests.
+The metric the group chose to represent this type is test coverage. Test coverage is the percentage of code blocks covered by corresponding tests. All the unit tests passed validation, hence it is somewhat irrelevant to include a per-unit table of tests in this section. It is more descriptive to see how much of the code base is covered by unit tests.
 
 The following list provides an overview of the different packages in the product and their test coverage.
 
@@ -79,7 +79,7 @@ The source code, including all the test methods can be found in the "test" packa
 
 Our strategy for the integration testing was comprised of two parts. The first was to manually test the methods of the services and protocol modules. This first part was aimed at detecting problems with the internal dynamics of a service. A comprehensive list of test cases would not be appropriate to list in this document, as each component and service provides vastly different methods, yielding a large table. In short, all internal methods and components supporting a service's public functionality were tested manually.
 
-The second part was to test all the exposed methods of each service and protocol module during normal system operation. This was due to the services needing the methods of other services to perform some of the actions. In our effort to create appropriate test cases for the services and protocol modules, we decided that the best way to uncover any potential flaws was to test every service itself, as well as all other services it communicates with. In practice, this meant starting the application, and using either a pre-written test function or the admin interface, to invoke the service method in question.
+The second part was to test all the exposed methods of each service and protocol module during normal system operation. This was due to the services needing the methods of other services to perform some of the actions. In an effort to create appropriate test cases for the services and protocol modules, the best way to uncover any potential flaws was to test every service itself, as well as all other services it communicates with. In practice, this meant starting the application, and using either a pre-written test function or the admin interface, to invoke the service method in question.
 
 Using this strategy, the group regularly performed integration testing as new features were added to the services, and new aspects of the protocol standards were implemented.
 
@@ -93,6 +93,7 @@ System testing was performed based on the requirements for the system. Each of t
 \begin{table}[ht!]
 \begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
 \hline
+\rowcolor{lightgray}
 \multicolumn{3}{|c|}{\textbf{FR1, WSN}} \\ \hline
 \multicolumn{3}{|c|}{{Test to see if a WSN message can be sent, and received on all protocols}} \\ \hline
 \textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
@@ -106,6 +107,7 @@ x&y&z \\ \hline
 \begin{table}[ht!]
 \begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
 \hline
+\rowcolor{lightgray}
 \multicolumn{3}{|c|}{\textbf{FR2, AMQP}} \\ \hline
 \multicolumn{3}{|c|}{{Test to see if an AMQP message can be sent, and received on all protocols}} \\ \hline
 \textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
@@ -119,6 +121,7 @@ x&y&z \\ \hline
 \begin{table}[ht!]
 \begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
 \hline
+\rowcolor{lightgray}
 \multicolumn{3}{|c|}{\textbf{FR3, Topic mapping}} \\ \hline
 \multicolumn{3}{|c|}{{Test to see if topics can be properly mapped to each other}} \\ \hline
 \textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
@@ -132,6 +135,7 @@ x&y&z \\ \hline
 \begin{table}[ht!]
 \begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
 \hline
+\rowcolor{lightgray}
 \multicolumn{3}{|c|}{\textbf{FR4, Edit subscription}} \\ \hline
 \multicolumn{3}{|c|}{{Test to see if an admin can delete topics, and subscriptions on topic}} \\ \hline
 \textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
@@ -145,6 +149,7 @@ x&y&z \\ \hline
 \begin{table}[ht!]
 \begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
 \hline
+\rowcolor{lightgray}
 \multicolumn{3}{|c|}{\textbf{FR6, Information}} \\ \hline
 \multicolumn{3}{|c|}{{Test to see if the proper information is viewed.}} \\ \hline
 \textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
@@ -155,6 +160,7 @@ Check all information in the interface, see if it matches actual information & x
 \begin{table}[ht!]
 \begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
 \hline
+\rowcolor{lightgray}
 \multicolumn{3}{|c|}{\textbf{FR5, Log in}} \\ \hline
 \multicolumn{3}{|c|}{{Test to see if an administrator is able to log in}} \\ \hline
 \textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
