@@ -304,8 +304,6 @@ At the start of sprint 5, lectures and tasks were completed in other courses. Th
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-development-sprint_5-discussion}
 
-
-
 \subsection{Sprint 6}
 \label{subsec:project_lifecycle-development-sprint_6}
 
@@ -314,27 +312,5 @@ At the start of sprint 5, lectures and tasks were completed in other courses. Th
 
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-development-sprint_6-discussion}
-
-\subsubsection{AMQP testing}
-After the finalization of AMQP, the testing of the protocol implementation revealed to be more difficult than first thought. As mentioned in \ref{subsec:prestudies-amqp-amqp_version}. There exists two major implementations of AMQP, version 1.0 and version 0.9.1 where the latter being implemented most places. This made the test process and actually finding applications which implements the 1.0 standard more difficult.
-
-The group received a version of NFFIPlayer\footnote{\ref{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer}} with AMQP support from FFI which implemented the 0.9.1 standard. However due to the significant changes in the standard, it could not be used to any extent.
-
-To be able to test the implementation properly, the group found two other AMQP 1.0 Java implementations and wrote simple scripts to test the both send and receive functionality. As there is a limited amount of free/open implementations, the group ended up using one open source from Apache Qpid (not proton)\footnote{\url{https://qpid.apache.org}} and one commercial from SwiftMQ\footnote{\url{http://www.swiftmq.com}}.
-
-By using implementations that where not based on the Qpid Proton library, the group had a better basis for stating the correctness of the implementation and the quality of the product.
-
-\\
-Ting som har hvert problematisk med AMQP
-
-SASL
-Integerer subscriber konseptet med resten av systemet
-Integrere Queue systemet med resten av systemet.
-Byte array
-problematikken med 0.9 vs 1.0
-implementasjon av topic når queue gjelder
-integrere qpid med okse
-trådprogrammering
-
 
 \clearpage

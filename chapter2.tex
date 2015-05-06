@@ -45,6 +45,9 @@ AMQP\footnote{\url{http://www.amqp.org/}} is a binary protocol designed to send 
 \label{subsec:prestudies-amqp-amqp_version}
 AMQP has mainly two versions being used, with some substantial differences. 1.0, which is the current version, has fewer public implementations and less documentation and examples. 0.9.1 is radically different and does many things differently. As 1.0 was a requirement from the customer, little research was done on the standard. The important thing to note however, is the huge differences between the two. The developers of RabbitMQ(\ref{subsec:prestudies-existing_solutions-rabbitmq}), one of the most popular AMQP brokers states: "AMQP 1.0 is a completely different protocol than AMQP 0-9-1 and hence not a suitable replacement for the latter."
 
+\subsubsection{Apache Qpid Proton}
+To implement AMQP 1.0, the Apache Qpid Proton\footnote{\url{http://qpid.apache.org/proton/}} library was chosen. The Proton library is recommended by OASIS\footnote{\url{https://www.oasis-open.org}} as it provides language library bindings to over ten popular languages in addition to the native Java and C++ implementation. Proton was also chosen because of its wide use and the fact that it is actively maintained.
+
 \subsection{Message Queue Telemetry Transport}
 \label{subsec:prestudies-mqtt}
 MQTT\footnote{\url{http://mqtt.org/}} is a publish-subscribe based protocol. It has the advantage of being lightweight and uses a minimal footprint wherever it can. The protocol also minimizes its use of bandwidth. MQTT has gained a lot of popularity over the last years, and its properties makes it suitable for everything from embedded system to big implementations like the Facebook Messenger\footnote{\url{https://www.facebook.com/notes/facebook-engineering/building-facebook-messenger/10150259350998920}}. This protocol was removed from the requirements in the mid stages of the project.
