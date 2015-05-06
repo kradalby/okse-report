@@ -3,12 +3,10 @@
 \chapter{Architecture and implementation, Not finished}
 \label{ch:architecture_and_implementation}
 
-This chapter explains the processes and solutions made in the design phase of the project. It also explains the actual implementation of the system.
-
 \section{User interface}
 \label{sec:architecture_and_implementation-user_interface}
 
-One of the initial requirements from the customer, was to have a graphical user interface. It was supposed to display relevant data and allow the administrator to moderate topics and subscriptions. After an initial consideration, the Spring Framework\footnote{\url{http://projects.spring.io/spring-boot/}} was chosen to be the most suitable framework (see section \ref{subsec:prestudies-tools-spring_mvc}) for building the administration panel. The user interface was implemented using the MVC-pattern. 
+One of the initial requirements from the customer, was to have a graphical user interface. It was supposed to display relevant data and allow the administrator to moderate topics and subscriptions. After an initial consideration, the Spring Framework\footnote{\url{http://projects.spring.io/spring-boot/}} was chosen to be the most suitable framework ( \ref{subsec:prestudies-tools-spring_mvc}) for building the administration panel. The user interface was implemented using the MVC-pattern. 
 
 \subsection{Design}
 \label{subsec:architecture_and_implementation-user_interface-design}
@@ -21,21 +19,21 @@ One of the initial requirements from the customer, was to have a graphical user 
   \end{figure}
 \end{center}
 
-The group spent a considerable amount time researching the Apollo broker during the research phase, and a lot of insight about what such an administration panel should contain was gained. Originally the customer had not stated any specific requirements for the administration panel. Therefore, an initial website wireframe was created, and shown to the customer. The wireframe was heavily influenced by Apollo. This wireframe (fig \ref{fig:initial_prototype}), along with the creation of use cases, set the terms for creating a prototype.
+A considerable amount of time were spent researching the Apollo broker during the research phase, which provided information about what such an interface should provide. Originally the customer had not stated any specific requirements for the administration panel. Therefore, an initial website wireframe was created, and shown to the customer. The wireframe was heavily influenced by Apollo. This wireframe (fig \ref{fig:initial_prototype}), along with the creation of use cases, set the terms for creating a prototype.
 
-The group agreed upon creating a functional prototype for the customer. This prototype was made available, so that the customer could provide feedback. During most customer meetings, the current version of the administration panel was discussed. This customer gave feedback on how new elements in the panel met the customers expectations. This approach gave the group one big advantage; rapid response from the customer which made it easy to improve the interface and add additional features. So throughout the lifetime of the development phase, the administration panel were continuously released and deployed on the test server.
+The group agreed upon creating a functional prototype for the customer. This prototype was made available, so that the customer could provide feedback. During most customer meetings, the current version of the administration panel was discussed. The customer gave feedback on how new elements in the panel met the customers expectations. This approach gave the group one big advantage; rapid response from the customer which made it easy to improve the interface and add additional features. Throughout the lifetime of the development phase, the administration panel were continuously released and deployed on the test server.
 
-The final interface contained five panes; "Main", "Topics", "Statistics", "Logs" and "Configuration". The "Main"-pane contains information about the message broker. It is meant to give a general overview of the current operating environment, as well as the system status (memory usage etc.). The "Statistics"-pane contain useful statistics about requests, messages etc. on the different protocols. The "Logs"-pane contains runtime logs for debugging purposes. The "Topics"-pane shows all registered topics in the message broker. On this pane, information about the current topics and subscriptions is available, as well as the possibility to remove topics and subscribers. Finally, in the "Configuration"-pane, the user can change the brokers settings and map topics together.
+The final interface contained five panes; "Main", "Topics", "Statistics", "Logs" and "Configuration". The "Main"-pane contains information about the message broker. It is meant to give a general overview of the current operating environment, as well as the system status, such as memory usage. The "Statistics"-pane contain useful statistics about requests, messages etc. on the different protocols. The "Logs"-pane contains runtime logs for debugging purposes. The "Topics"-pane shows all registered topics in the message broker. On this pane, information about the current topics and subscriptions is available, as well as the possibility to remove topics and subscribers. Finally, in the "Configuration"-pane, the user can change the brokers settings and map topics together.
 
 \subsection{Implementation}
 \label{subsec:architecture_and_implementation-implementation}
 
-The front-end was designed in a modularized way, where one controller class was responsible for one pane. The main argument for this approach was the idea of having the administration panel designed as a single page web application. The page uses AJAX-requests to reach a representational state transfer (hereby denoted as REST) API. By using the Spring Framework, the system exposes API-endpoints which can be used to access and/or modify data. This is used as the main data source for the front-end and is a critical part of the single page design. Translated to the MVC-pattern, the Spring Framework works as a controller through REST-controllers. Furthermore, the different panes act out as views. Each AJAX-request to the API-endpoints will reach the controllers and modify the models and/or message broker. Structuring the system this way gave some advantages: 
+The front-end was designed in a modularized way, where one controller class was responsible for one pane. The advantage of this approach was having the administration panel designed as a single page web application. The page uses AJAX-requests to reach a representational state transfer (hereby denoted as REST) API. By using the Spring Framework, the system exposes API-endpoints which can be used to access and/or modify data. This is used as the main data source for the front-end and is a critical part of the single page design. Translated to the MVC-pattern, the Spring Framework works as a controller through REST-controllers, and the different panes works as views. Each AJAX-request to the API-endpoints will reach the controllers and modify the models and/or message broker. Structuring the system this way gave some advantages: 
 
 \begin{itemize}
-    \item No need to refresh the entire administration panel
-    \item One controller class served one pane; easy to debug
-    \item Loose coupling, no dependencies between panes
+    \item No need to refresh the entire administration panel.
+    \item One controller class served one pane; easy to debug.
+    \item Loose coupling, no dependencies between panes.
     \item Easy to extend the application further.
 \end{itemize}
 
@@ -54,15 +52,15 @@ Figure \ref{fig:spring} shows an overview of how a request is handled by the ser
 \clearpage
 
 \begin{itemize}
-    \item\textbf{Dispatcher} -  This is the class that is exposed to the user. It forwards the request URL to the mapping handler to get the correct controller. Then it calls the controller responsible for the request. Finally it returns the response to the user. 
-    \item\textbf{Mapping handler} - This class maps the request URL to the controller responsible for the request and returns it to the dispatcher. 
-    \item\textbf{Controller} - This is the class responsible for executing tasks and getting information from the message broker. It returns a response JSON to the dispatcher.  
+    \item\textbf{Dispatcher} -  This is the class that is exposed to the user. It forwards request URL's to the mapping handler to reach the correct controller. It then calls the controller responsible for the request. Finally it returns the response to the user. 
+    \item\textbf{Mapping handler} - This class maps the request URL to the controller responsible for the request, and returns it to the dispatcher. 
+    \item\textbf{Controller} - This is the class responsible for executing tasks and getting information from the message broker. It returns a JSON\footnote{\url{http://www.json.org/}} response string to the dispatcher.  
 \end{itemize}
 
 \section{Broker architecture}
 \label{sec:architecture_and_implementation-broker_architecture}
 
-This section discusses the high-level aspects taken into consideration when designing the broker architecture. Some parts of the system are explained in greater detail to provide clear purpose or intent.
+This section discusses the high-level aspects of the broker architecture. Some parts of the system are explained in greater detail to provide clear purpose or intent.
 
 \subsection{Goals and strategy}
 \label{subsec:architecture_and_implementation-broker_architecture-goals_and_strategy}
@@ -71,12 +69,12 @@ Building on the results and findings in the research phase, the team created a s
 
 Expanding on these traits, the group wanted a system architecture where each component was a standalone service. A service would expose a public interface from which other components could request data access or services from. Another goal of the design was to have a core service responsible for registering other services, starting them, stopping them, and registering protocols. This would allow the system to be extended by simply registering the new component, without further modifications.
 
-The customer had requested a graphical user interface, and building on the experience and knowledge in the group, a web based interface was deemed most appropriate. The group wanted to have an administration interface built using the dynamic properties of the outlined system. Registering a new protocol should not require the administration interface component to be modified. Registering a new core service that a potential developer wanted to expose in the admin interface should only require adding a new model, API controller and template fragment.
+The customer had requested a graphical user interface, and building on the experience and knowledge in the group, a web based interface was deemed most appropriate. The group wanted to have an administration interface built using the dynamic properties of the outlined system. Registering a new protocol should not require the administration interface component to be modified. Registering a new core service that a potential developer wanted to expose in the admin interface, should only require adding a new model, API controller and template fragment.
 
-Based on these thoughts and ideas, a list of goals was created:
+Based on these thoughts and ideas, a list of goals were created:
 
 \begin{itemize}
-\item The system should not need to know about the details of registered protocols in order to perform as intended. In essence, it should be completely protocol agnostic.
+\item The system shouldn't need to know about the details of registered protocols in order to perform as intended. In essence, it should be completely protocol agnostic.
 \item Extending the system with new functionality should be as easy as possible.
 \item Extending the system with new protocols should be as easy as possible.
 \item Extending the system should require as little alteration to existing code as possible.
@@ -100,9 +98,9 @@ Putting all this together, a high-level system architecture was created (fig \re
 \subsection{Component dependency}
 \label{subsec:architecture_and_implementation-broker_architecture-component_dependency}
 
-The next step was to identify possible critical dependencies and usage dependencies required for a component to provide its complete set of features. This meant that a wide range of scenarios and situations, data flows and potential class structures had to be evaluated. By using the principles of SOA and Module Pattern, amount of critical dependencies were reduced to a bare minimum.
+The next step was to identify possible critical dependencies and usage dependencies required for a component to provide its complete set of features. This meant that a wide range of scenarios and situations, data flows and potential class structures had to be evaluated. By using the principles of SOA and Module Pattern, the amount of critical dependencies were reduced to a minimum.
 
-Usage dependency could however, not be reduced to a level lower than what was needed for the system to operate as intended. It was also planned to use event callbacks to handle situations that would have caused extra inter-service dependencies. This would allow services to run regardless of their real-world dependency on other services during certain tasks. An example of this is a situation where a topic is deleted in the administration interface, and subscribers have to be purged from the subscription service. A potential solution was to have the subscription service listen for topic-related events and update its subscriber set accordingly.
+Usage dependency could however, not be reduced to a level lower than what was needed for the system to operate as intended. It was also planned to use event callbacks to handle situations that would have caused extra inter-service dependencies. This would allow services to run regardless of their real-world dependency on other services during certain tasks. An example of this is a situation where a topic is deleted in the administration interface, and subscribers have to be purged from the subscription service. The solution was to have the subscription service listen for topic-related events and update its subscriber set accordingly.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -112,9 +110,9 @@ Usage dependency could however, not be reduced to a level lower than what was ne
   \end{figure}
 \end{center}
 
-After much thought was put into these challenges, a component dependency diagram (fig \ref{fig:architecture_dependency}) was created to illustrate how the administration interface, services and protocols should depend on each other. As with the high-level architecture, core services are denoted by their yellow color and protocols by gray color.
+After much thought was put into these challenges, a component dependency diagram (fig \ref{fig:architecture_dependency}) was created to illustrate how the administration interface, services and protocols should depend on each other. As with the high-level architecture, core services are denoted with yellow and protocols with gray.
 
-Dependencies between components that are annotated with $<< Use >>$ represents situations where a component depends on the other to offer its full set of features. In practice, a complete implementation of the brokering system would rely on all these dependencies to meet the specified requirements. But they should not be required for a component to perform its own internal responsibilities. Hence, a single instance of the WSN protocol should be able to run without connectivity to the rest of the system, and fully function in its local environment. This would however mean that the rest of the system would be unaware of the subscribers, topics and messages handled by the local instance.
+Dependencies between components that are annotated with $<< Use >>$ represents situations where a component depends on the other to offer its full set of features. In practice, a complete implementation of the brokering system would rely on all these dependencies to meet the specified requirements. But they should not be required for a component to perform its own internal responsibilities. Hence, a single instance of the WSN protocol should be able to run without connectivity to the rest of the system, and fully function in its local environment. This would however, mean that the rest of the system would be unaware of the subscribers, topics and messages handled by the local instance.
 
 \clearpage
 
@@ -129,11 +127,11 @@ Dependencies between components that are annotated with $<< Use >>$ represents s
   \end{figure}
 \end{center}
 
-During the analysis of component dependencies, several potential data flows were analysed. The group used these as references when evaluating what components would have critical dependencies and usage dependencies. This proved helpful, as the complexity and scope of what the group had to take into consideration begun to dawn at that point. An example of one of these data flows is a possible notification message being sent. A simplified version of the data flow is illustrated in figure \ref{fig:architecture_data_flow_simple}.
+During the analysis of component dependencies, several potential data flows were analysed. They were used as references when evaluating what components would have critical dependencies and usage dependencies. This proved helpful, as the complexity and scope of what the group had to take into consideration begun to dawn at that point. An example of one of these data flows is a possible notification message being sent. A simplified version of the data flow is illustrated in figure \ref{fig:architecture_data_flow_simple}.
 
-The figure illustrates which system calls would be needed for a sender to send a message to the system, which in turn processes it, and delivers it to a receiver. In practice, there might be several receivers and many additional calls, but this has been abstracted away for simplicity.
+The figure illustrates which system calls are needed for a sender to send a message, process it, and deliver it. In practice, there might be several receivers and many additional calls, but this has been abstracted away for simplicity.
 
-These simplified sequences were expanded later on, to provide a more realistic data flow in greater detail. During development, the detailed sequences were used as support when implementing proper start up sequences of the different components. Additionally they helped to identify possible computational bottlenecks and provide insight into different ways to structure the code.
+These simplified sequences were expanded later on, to provide a more realistic data flow in greater detail. During development, the detailed sequences were used as support when implementing proper start up sequences of the different components. Additionally, they were helpful in identifying possible computational bottlenecks, and provide insight into different ways of structuring the code.
 
 \clearpage
 
@@ -144,8 +142,7 @@ These simplified sequences were expanded later on, to provide a more realistic d
     \label{fig:architecture_data_flow}
   \end{figure}
 \end{center}
-Figure \ref{fig:architecture_data_flow} illustrates an expanded version of what the potential data flow might look like for a send notification message request using WSN. The expanded data flows show ocurrances of loops, as well as some of the ideas for inner workings of the components. In this example, the send message call performed in the task runner would invoke a large branch of actions itself. To reduce complexity, our analysis of potential data flows were divided into different segments of the proposed system architecture.
-
+Figure \ref{fig:architecture_data_flow} illustrates an expanded version of what the potential data flow might look like for a send notification message request using WSN. The expanded data flows show occurrences of loops, as well as some of the ideas for inner workings of the components. In this example, the send message call performed in the task runner would invoke a large branch of actions itself. To reduce complexity, the analysis of potential data flows were divided into different segments of the proposed system architecture.
 
 
 \section{Implementation}

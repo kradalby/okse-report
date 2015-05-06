@@ -37,11 +37,7 @@ The research phase of this project was initially introduced due to the option of
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-planning_and_research-research_phase-discussion}
 
-As required, the group was able to reach a decision regarding the system. The choice was a result of the repeated evaluation of the focal points in the associated risk analysis (table \ref{tab:risk_analysis_apollo}). Two of the members were able to get a fairly good overview of the Scala programming language. However, problems arose when the code base was thoroughly inspected. It proved to be massive, and required a lot more research to get a good enough understanding. That also affected the time it would take to implement additional protocol modules. After hours of discussion, Apollo was ultimately discarded.
-
-A fair amount of time had been invested in this research phase, and one might argue that it impacted the product development in a negative way. This is mainly due to lost development time. On the other hand, several good practices and ways to implement a brokering system were learned during this phase. Additionally, the group might not have been able to finish a working product in time, had the decision been to proceed with Apollo before understanding the amount of effort required.
-
-Ultimately it came down to the following arguments:
+The group were able to reach a decision regarding the system. The choice was a result of the repeated evaluation of the focal points in the associated risk analysis (table \ref{tab:risk_analysis_apollo}). Two of the members were able to get a fairly good overview of the Scala programming language. However, problems arose when the code base was thoroughly inspected. It proved to be massive, and required a lot more research to get a good enough understanding. That also affected the time it would take to implement additional protocol modules. After hours of discussion, Apollo was ultimately discarded. The following arguments made the basis for the final decision:
 
 \begin{itemize}
 \item The group did not have sufficient understanding of the asynchronous workings of the embedded Scala classes
@@ -50,10 +46,12 @@ Ultimately it came down to the following arguments:
 \item The group could not justify proceeding with Apollo, given the time available and the risk of not being able to gain a proper understanding in time to complete a working product.
 \end{itemize}
 
+A large amount of time had been invested in this research phase, and one might argue that it impacted the product development in a negative way. This is mainly due to lost development time. The positive aspect of it were that several good practices and ways to implement a brokering system were learned.. Additionally, the group might not have been able to finish a working product in time, had the decision been to proceed with Apollo before understanding the amount of effort required.
+
 \section{Development}
 \label{subsec:project_lifecycle-development}
 
-This section describes the iterations devoted to development and testing of the software. The following sections includes a general explanation of each sprint, as well as issues the group faced. With the development phase of the project, burndown charts were introduced. This was made in combination with a list of the tasks to be executed, as well as the time usage on each task. Tasks that were not completed in a sprint were transmitted to the next sprint. The charts does not consider time used on the report, peer evaluation and meetings with the customer.
+This section describes the iterations devoted to development and testing of the software. The following sections includes a general explanation of each sprint, as well as issues the group faced. With the development phase of the project, burndown charts were introduced. This was made in combination with a list of the tasks to be executed, as well as the time usage on each task. Tasks that were not completed in a sprint were transferred to the next sprint. The charts does not consider time used on the report, peer evaluation and meetings with the customer.
 
 \subsection{Sprint 1}
 \label{subsec:project_lifecycle-development-sprint_1}
@@ -320,11 +318,13 @@ At the start of sprint 5, lectures and tasks were completed in other courses. Th
 \subsubsection{AMQP testing}
 After the finalization of AMQP, the testing of the protocol implementation revealed to be more difficult than first thought. As mentioned in \ref{subsec:prestudies-amqp-amqp_version}. There exists two major implementations of AMQP, version 1.0 and version 0.9.1 where the latter being implemented most places. This made the test process and actually finding applications which implements the 1.0 standard more difficult.
 
-The group received a AMQP client from FFI which implemented the 0.9.1 standard. However due to the significant changes in the standard, it could not be used to any extent.
+The group received a version of NFFIPlayer\footnote{\ref{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer}} with AMQP support from FFI which implemented the 0.9.1 standard. However due to the significant changes in the standard, it could not be used to any extent.
 
-SKRIV NOE HER OM APACHE QPID (IKKE PROTON) SOM TEST.
-SKRIV NOE HER OM SwiftMQ SOM TEST. Fant feil i sasl håndteringen.
+To be able to test the implementation properly, the group found two other AMQP 1.0 Java implementations and wrote simple scripts to test the both send and receive functionality. As there is a limited amount of free/open implementations, the group ended up using one open source from Apache Qpid (not proton)\footnote{\url{https://qpid.apache.org}} and one commercial from SwiftMQ\footnote{\url{http://www.swiftmq.com}}.
 
+By using implementations that where not based on the Qpid Proton library, the group had a better basis for stating the correctness of the implementation and the quality of the product.
+
+\\
 Ting som har hvert problematisk med AMQP
 
 SASL
@@ -335,7 +335,6 @@ problematikken med 0.9 vs 1.0
 implementasjon av topic når queue gjelder
 integrere qpid med okse
 trådprogrammering
-
 
 
 \clearpage
