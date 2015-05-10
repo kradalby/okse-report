@@ -1,14 +1,15 @@
 \chapter{Tables and graphs}
+\label{ch:tables_and_graphs}
 
 \section{Use cases}
-\label{sec:use_cases_appendixc}
+\label{sec:use_cases_appendix}
 
 Below are the different use cases created during the requirements elicitation process.
 
 \subsection{Use case 2 - Topic handling}
 \label{subsec:requirements_engineering-use_cases-topic_handling}
 
-This use case describes how an administrator can edit topics. The administrator must be able to delete one or all subscriptions on a topic. Deletion of topics is also included in the use case.
+This use case describes how an administrator can delete topics. The administrator must be able to delete one or all topics.
 
 \begin{table}[ht!]
 \begin{minipage}{.5\textwidth}
@@ -22,15 +23,14 @@ This use case describes how an administrator can edit topics. The administrator 
 \textbf{Pre conditions} & The admin is logged in and there exists one or more topics. \\ \hline
 \textbf{Standard flow} & \begin{enumerate}
 \item Click the topics pane.
-\item Click the topic to edit.
+\item Click delete button on the topic.
 \item Alternatives: \begin{enumerate}
     \item Delete one topic.
-    \item Delete one subscriber.
     \item Delete all topics.
 \end{enumerate}
 \end{enumerate} \\ \hline
 \textbf{Alternative flow} &  \\ \hline
-\textbf{Post conditions} & Subscribers or topics are deleted from the broker.  \\ \hline
+\textbf{Post conditions} & Topics are deleted from the broker.  \\ \hline
 \end{tabular}
 }
 \caption{Use case 2 - Topic handling}
@@ -40,7 +40,7 @@ This use case describes how an administrator can edit topics. The administrator 
 \begin{minipage}{.4\textwidth}
 \centering
 \begin{center}
-    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/usecase/usecase_v3_topic.png}}
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/usecase/usecase_u2_topic_mapping.png}}
     \caption{U2 - Topic handling}
     \label{fig:u2}
 \end{center}
@@ -216,7 +216,7 @@ This use case attempts to capture the process of subscribing to a topic using th
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u7_sub_wsn}}
     \caption{U7 - Subscribe with WSN}
     \label{fig:u7}
   \end{figure}
@@ -250,7 +250,7 @@ Use case showing how to register as a publisher on a topic using the WSN protoco
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u8_pubreg_wsn}}
     \caption{U8 - Register producer WSN}
     \label{fig:u8}
   \end{figure}
@@ -285,7 +285,7 @@ Use case showing how to unsubscribe from a topic using the WSN protocol.
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u9_unsub_wsn}}
     \caption{U9 - Unsubscribe from topic WSN}
     \label{fig:u9}
   \end{figure}
@@ -320,7 +320,7 @@ Use case showing how to unregister as a publisher using the WSN protocol.
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u10_pubunreg_wsn}}
     \caption{U10 - Unregister as publisher using WSN}
     \label{fig:u10}
   \end{figure}
@@ -356,7 +356,7 @@ Use case showing how to retrieve the latest message on a topic using the GetCurr
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u11_lastmess_wsn}}
     \caption{U11 - GetCurrentMessage function with WSN}
     \label{fig:u11}
   \end{figure}
@@ -390,7 +390,7 @@ Use case showing the steps involved in renewing subscription on topic with WSN.
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u12_renewsub_wsn}}
     \caption{U12 - Renew subscription using WSN}
     \label{fig:u12}
   \end{figure}
@@ -424,7 +424,7 @@ Use case showing the steps involved in pausing subscription on topic with WSN.
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u13_pause_wsn}}
     \caption{U13 - Pause subscription using WSN}
     \label{fig:u13}
   \end{figure}
@@ -458,7 +458,7 @@ Use case showing the steps involved in resuming a paused subscription on topic w
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u14_resume_wsn}}
     \caption{U14 - Resume subscription with WSN}
     \label{fig:u14}
   \end{figure}
@@ -501,7 +501,7 @@ Use case showing the steps involved
 \clearpage
 
 \section{Testing}
-\label{sec:appendixc-testing}
+\label{sec:appendix-testing}
 
 \subsection{Integration testing test cases}
 
@@ -525,17 +525,220 @@ IT1.11 & CoreService & getTotalBadRequests FromProtocolServers & Write jibberish
 IT1.12 & CoreService & getTotalErrors FromProtocolServers & Increment the DummyProtocol's total errors field & Total errors counter incremented by 1 per error & Success \\ \hline
 IT1.13 & CoreService & getAllProtocolServers & Perform IT6.1 and verify that it is returned from the method & Set of registered protocol servers increased by 1 during registry, and DummyProtocolServer included in the shallow copy hash set returned. & Success \\ \hline
 IT1.14 & CoreService & getProtocolServer & Perform IT6.1 and then provide the Class type of the DummyProtocolServer as an argument. & The instance of DummyProtocolServer successfully returned & Success \\ \hline
-IT1.15 & CoreService & stopAllProtocol Servers & Call the method from test class & All protocol servers gracefully shut down, their threads removed and invoked flag set to false. & ? \\ \hline
+IT1.15 & CoreService & stopAllProtocol Servers & Call the method from test class & All protocol servers gracefully shut down, their threads removed and invoked flag set to false. & Success \\ \hline
 IT1.16 & CoreService & bootCoreServices & Perform 1.4 twice using 2 different stubs. Then call the method. & Both registered stub services booted successfully in their own thread, with run and invoked flags set to true. & Success \\ \hline
 IT1.17 & CoreService & bootProtocolServers & Perform IT1.6 then call the method & DummyProtocoLServer successfully booted in its own thread, with run and invoked flags set to true. & Success \\ \hline
 IT1.18 & CoreService & registerListenerSupport ForAllCoreServices & Perform IT1.4 with debug output in its registerListenerSupport method. Then invoke the test method & Debug output successfully displayed when method is invoked. & Success \\ \hline
 \end{tabular}
-\caption{Integration Testing - Test Cases}
+\caption{Integration Testing - Test Cases - CoreService}
 \label{table:integration-testing-cases}
 \end{table}
 
-\section{System testing test cases}
+\clearpage
+
+\begin{table}[ht!]
+\tiny
+\begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
+\hline
+\rowcolor{lightgray}
+\textbf{ID} & \textbf{Service/Protocol} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
+IT2.1 & SubscriptionService & boot & Start the SubscriptionService & Thread running and awaiting new tasks. Listenersupport registered & Success \\ \hline
+IT2.2 & SubscriptionService & stop & Stop the SubscriptionService & Listener support removed, subscribers purged, thread shut down and invoked flag set to false & Success \\ \hline
+IT2.3 & SubscriptionService & registerListenerSupport & Start the SubscriptionService & Test an unsubscribe and verify that registered listenres recieve call & Success \\ \hline
+IT2.4 & SubscriptionService & startScheduledRemoval OfSubscribersAnd Publishers & Start the SubscriptionService and add a subscriber with 1 min timeout & Verify that the subscriber is purged within 2 minutes & Success \\ \hline
+IT2.5 & SubscriptionService & insertTask & Start the SubscriptionService and inject a SubscriptionTask & Verify that the job is executed & Success \\ \hline
+IT2.6 & SubscriptionService & addSubscriber & Start the SubscriptionService and add a subscriber & Total subscribers increased by 1, subscriber present in local registry & Success \\ \hline
+IT2.7 & SubscriptionService & removeSubscriber & Start the SubscriptionService and add a subscriber, then attempt to remove it & Subscriber successfully removed and not present in local registry & Success \\ \hline
+IT2.8 & SubscriptionService & renewSubscriber & Start the SubscriptionService and add a subscriber. Perform a renew request with a new termination time & Subscriber is successfully updated with a the same termination time as provided & Success \\ \hline
+IT2.9 & SubscriptionService & pauseSubscriber & Start the SubscriptionService and add a subscriber, then perform the pause request & Subscriber has paused flag set to true and does not recieve messages & Success \\ \hline
+IT2.10 & SubscriptionService & resumeSubscriber & Start the SubscriptionService and add a subscriber. Pause the subscriber. Perform a resume request & Subscriber pause flag is false and starts recieving messages again after the resume request has been processed. & Success \\ \hline
+IT2.11 & SubscriptionService & addPublisher & Start the SubscriptionService and add a publisher & Publisher is added and present in the local registry & Success \\ \hline
+IT2.12 & SubscriptionService & removePublisher & Start the SubscriptionService and add a publisher, then remove it & Publisher that was present is removed and no longer present in local registry & Success \\ \hline
+IT2.13 & SubscriptionService & getSubscriberByID & Start the SubscriptionService, add a subscriber. Then get it by providing its subscriber ID & The same object is returned & Success \\ \hline
+IT2.14 & SubscriptionService & getAllSubscribers ForTopic & Start the SubscriptionService and add three subscribers to a topic. Call the method specifying the same topic & All three subscribers are present in the return set & Success \\ \hline
+IT2.15 & SubscriptionService & getAllPublishers ForTopic & Start the SubscriptionService ad add three publishers to a topic. Call the method specifying the same topic & All three publishers are present in the return set & Success \\ \hline
+IT2.16 & SubscriptionService & getAllSubscribers & Start the SubscriptionService and add three subscribers to different topics, call the method & All three subscribers present in return set & Success \\ \hline
+IT2.17 & SubscriptionService & getAllPublishers & Start the SubscriptionService and add three publishers to different topics & All three publishers present in return set & Success \\ \hline
+IT2.18 & SubscriptionService & fireSubscription ChangeEvent & Start the SubscriptionService, register a subscriptionlistener, fire the event & Listener successfully invokes subscriptionChanged method & Success \\ \hline
+IT2.19 & SubscriptionService & firePublisher ChangeEvent & Start the SubscriptionService, register a publisherlistener, fire the event & Listener successfully invokes publisherChanged & Success \\ \hline
+\end{tabular}
+\caption{Integration Testing - Test Cases - SubscriptionService}
+\label{table:integration-testing-cases-subscriptionservice}
+\end{table}
 
 \clearpage
 
-\end{appendices}
+\begin{table}[ht!]
+\tiny
+\begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
+\hline
+\rowcolor{lightgray}
+\textbf{ID} & \textbf{Service/Protocol} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
+IT3.1 & TopicService & boot & Start the TopicService & Thread running and awaiting new tasks. Listenersupport registered & Success \\ \hline
+IT3.2 & TopicService & stop & Start the TopicService, then stop it. & Topics purged, thread stopped, invoked flag set to false  & Success \\ \hline
+IT3.3 & TopicService & getAllRootTopics & Start the TopicService and add two root topics and a child topic to one of them. Call method & Only the two root topics are returned. & Success \\  \hline
+IT3.4 & TopicService & getAllTopics & Start the TopicService and add two root topics and a child topic to one of them. Call method & All three topics are returned & Success \\\hline
+IT3.5 & TopicService & getAllLeafTopics & Start the TopicService and add two root topics and a child topic to one of them. Call method & Only the child topic is returned. & Success \\ \hline
+IT3.6 & TopicService & getTopic & Start the TopicService and add one root topic and a child topic to it. Call method with the full path to the child. & Child topic is returned. & Success \\ \hline
+IT3.7 & TopicService & getTopicByID & Start the TopicService and add two root topics and a child topic to one of them. Call method with ID to the sole root topic & The sole root topic is returned & Success \\ \hline
+IT3.8 & TopicService & getAllMappings & Start the TopicService and add two root topics and a child topic to one of them. Create a mapping from the sole root to the child topic. Call method & The sole root to child topic mapping is returned & Success \\ \hline
+IT3.9 & TopicService & getAllMappings AgainstTopic & Start the TopicService and add two root topics and a child topic to one of them. Create mapping from sole root to the child topic. Call method with child topic as argument. & The sole root topic to child topic mapping is returned & Success \\ \hline
+IT3.10 & TopicService & topicExists & Start the TopicService and add two root topics and a child topic to one of them. Call method with full string path to child topic as argument & Method returns true & Success \\ \hline
+IT3.11 & TopicService & addMapping & Start the TopicService and add two root topics and a child topic to one of them. Create mapping between sole root and the child topic & The mapping is successfully created and messages sent to sole root are recieved on the child topic subscribers & Success \\ \hline
+IT3.12 & TopicService & deleteMapping & Perform IT3.11 and remove the mapping again. & Mapping successfully removed & Success \\ \hline
+IT3.13 & TopicService & fireTopic ChangeEvent & Start the TopicService and register a listener to topic change events. Trigger the fireTopicChangeEvent method & Registered listener successfully invokes topicChange method. & Success \\ \hline
+\end{tabular}
+\caption{Integration Testing - Test Cases - TopicService}
+\label{table:integration-testing-cases-topicservice}
+\end{table}
+
+\begin{table}[ht!]
+\tiny
+\begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
+\hline
+\rowcolor{lightgray}
+\textbf{ID} & \textbf{Service/Protocol} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
+IT4.1 & MessageService & boot & Start the MessageService & Thread running and awaiting new tasks. & Success \\ \hline
+IT4.2 & MessageService & stop & Start the MessageService and then stop it. Start it again, set broadcast system messages to true and stop it again. & First run, thread stopped and removed, invoked flag set to false, no messages broadcasted. Second run, same state, but a shutdown message is broadcasted to all subscribers before shutdown. & Success \\ \hline
+IT4.3 & MessageService & distributeMessage & Start the MessageService and CoreService. Register a dummy protocol server to the core service. Create a message and distribute it. & sendMessage is successfully invoked on the dummy protocol server & Success \\ \hline
+IT4.4 & MessageService & getLatestMessage & Perform IT4.3. Call the method & Message returned is identical to the one sent during IT4.3 & Success \\ \hline
+IT4.5 & MessageService & generateMessages ForAGiven TopicSet & Start the MessageService, create 3 topics and a single message. Call the method with the message and topic set & Returned set contains 3 messages, each one containing the exact same information except they have the three provided topics that differentiate them & Success \\ \hline
+IT4.6 & MessageService & generateMessage ToAllTopics & Start the MessageService and TopicService. Add 3 different topics to the topic service. Create a message and call the method using that message & The returned set of messages contains 3 messages that are equal, except in their topic field, which corresponds to the topics registered in the topic service. & Success \\ \hline
+IT4.7 & MessageService & distributeMessage (with topic mapping) & Start the MessageService and TopicService. Create two topics. Create a mapping between the topics. Create a message bound for topic 1 and distribute it & When message is consumed, a duplicate message bound for topic 2 is created and injected into the send queue. The second, duplicate message is then consumed and dispatched to topic 2 & Success \\ \hline
+
+\end{tabular}
+\caption{Integration Testing - Test Cases - MessageService}
+\label{table:integration-testing-cases-messageservice}
+\end{table}
+
+\begin{table}[ht!]
+\tiny
+\begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
+\hline
+\rowcolor{lightgray}
+\textbf{ID} & \textbf{Controller} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
+IT5.1 & IndexViewController & index & Start the Spring server and access route "/", then log in & Front page loaded successfully with correct information  & Success \\ \hline
+IT5.2 & TopicController & getAllTopics & Start the Spring server, then add some subscriptions.  & Check that the API returns all the unique topics created. & Success \\ \hline
+IT5.3 & TopicController & deleteAllTopcis & Start the Spring server, then add some subscriptions, and make sure they are registered. Then click 'Delete all topics' in the administration panel. & Check that the API returns no topics. & Success \\ \hline
+IT5.4 & TopicController & deleteSingleTopic & Start the Spring server, then add one subscription, and make sure that the topic are registered. Then click 'Delete' on that topic in the administration panel.  & Check that the API returns no topics. & Success \\ \hline
+IT5.5 & SubscriberController & getAllSubscribers & Start the Spring server, then add some subscriptions.  & Check that the API returns all the unique subscriptions created. & Success \\ \hline
+IT5.6 & SubscriberController & deleteAllSubscribers & Start the Spring server, then add some subscriptions, and make sure they are registered. Then click 'Delete all subscribers' in the administration panel. & Check that the API returns no subscribers. & Success \\ \hline
+IT5.7 & SubscriberController & deleteSingleSubscriber & Start the Spring server, then add one subscription, and make sure that the subscription are registered. Then click 'Delete' on that subscription in the administration panel.  & Check that the API returns no subscribers. & Success \\ \hline
+IT5.8 & MainController & main & Start the Spring server, then access the Main-pane. & The main pain contains of all the information it should, like basic stats, protocolservers etc. & Success \\ \hline
+IT5.9 & MainController & powerProtocolServers & Start the Spring server, then use the administration panel to power on and off the protocol servers. Try to access one of the protocols before and after power on/off & The protocol servers should not respons after power off, and vice versa. & Success \\ \hline
+
+IT5.10 & LogController & log & Start the Spring server, then use the administration panel to power on and off the protocol servers. Try to access one of the protocols before and after power on/off & The protocol servers should not respons after power off, and vice versa. & Success \\ \hline
+IT5.11 & LogController & logFilesAvailable & Start the Spring server, then use the administration panel to power on and off the protocol servers. Try to access one of the protocols before and after power on/off & The protocol servers should not respons after power off, and vice versa. & Success \\ \hline
+
+IT5.12 & LogController & logLevelsAvailable & Start the Spring server and access the  & The protocol servers should not respons after power off, and vice versa. & Success \\ \hline
+
+
+\end{tabular}
+\caption{Integration Testing - Test Cases - Web controller}
+\label{table:integration-testing-cases-webcontroller}
+\end{table}
+
+\clearpage
+
+\section{System testing test cases}
+
+\begin{table}[ht!]
+\begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{5}{|c|}{\textbf{FR1, WSN}} \\ \hline
+\multicolumn{5}{|c|}{{Test to see if a WSN message can be sent, and received on all protocols}} \\ \hline
+\textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
+1.1 & Send message & Send a message & Message sent & OK. \\ \hline
+1.2 &a&x&z&y \\ \hline
+1.3&a&x&z&y \\ \hline
+1.4&x&a&y&z \\ \hline
+\end{tabular}
+\caption{System Testing - Test Cases - FR1}
+\label{table:system-testing-cases-fr1}
+\end{table}
+
+\begin{table}[ht!]
+\begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{5}{|c|}{\textbf{FR2, AMQP}} \\ \hline
+\multicolumn{5}{|c|}{{Test to see if an AMQP message can be sent, and received on all protocols}} \\ \hline
+\textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
+2.1 &&Send "Hello World" to other AMQP client & x & y \\ \hline
+2.2 &&Send "Hello World" to other protocols &z&y \\ \hline
+2.3 &&Receive AMQP message from AMQP &y&z \\ \hline
+2.4 &&Receive AMQP message from other protocol &y& \\ \hline
+2.5 &&Send "Hello World" via a mapped topic &y& \\ \hline
+2.6 &&Subscribe to AMQP and update admin interface &z& \\ \hline
+2.7 &&Remove AMQP subscriber from the admin interface &y& \\ \hline
+2.8 &&Check AMQP statistics &y&z \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht!]
+\begin{tabular}{|m{1cm]|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{5}{|c|}{\textbf{FR3, Topic mapping}} \\ \hline
+\multicolumn{5}{|c|}{{Test to see if topics can be properly mapped to each other}} \\ \hline
+\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
+3.1 & x & y \\ \hline
+3.2 &z&y \\ \hline
+3.3 &z&y \\ \hline
+3.4 &y&z \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht!]
+\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{3}{|c|}{\textbf{FR4, Edit subscription}} \\ \hline
+\multicolumn{3}{|c|}{{Test to see if an admin can delete topics, and subscriptions on topic}} \\ \hline
+\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
+Delete a subscriber on topic "test". & x & y \\ \hline
+Delete all subscribers on topic "test" &z&y \\ \hline
+Delete topic "test". &z&y \\ \hline
+x&y&z \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht!]
+\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{3}{|c|}{\textbf{FR5, Information}} \\ \hline
+\multicolumn{3}{|c|}{{Test to see if the proper information is viewed.}} \\ \hline
+\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
+Check all information in the interface, see if it matches actual information & x & y \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht!]
+\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{3}{|c|}{\textbf{FR6, Log in}} \\ \hline
+\multicolumn{3}{|c|}{{Test to see if an administrator is able to log in}} \\ \hline
+\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
+Insert correct username and password & x & y \\ \hline
+Insert string with length X in both fields &z&y \\ \hline
+Insert script tags in username field X &z&y \\ \hline
+x&y&z \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht!]
+\tiny
+\begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
+\hline
+\rowcolor{lightgray}
+\textbf{ID} & \textbf{Category/Area} & \textbf{Description} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
+ST3.1 & WSN & Protocol standards compliance & Send a message using WS-BaseNotitication, and a message using WS-BrokeredNotification. & The system accepts both namespace types and distributes them correctly. & ? \\ \hline
+\end{tabular}
+\caption{System Testing - Additional Test Cases}
+\label{table:system_testing-additional_test_cases}
+\end{table}
+
+\clearpage

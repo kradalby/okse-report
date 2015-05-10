@@ -6,7 +6,8 @@
 \section{Research phase}
 \label{sec:project_evaluation-research_phase}
 
-After the initial evaluation of the task and its requirements, it seemed more difficult than first assumed. As none of the group members had any experience writing this kind of software, a lot of time had to be dedicated to research. Building software with this size and complexity, was unlike anything taught in previous courses. Additionally, there were hundreds of pages of protocol documentation and standards, which required a lot of time to understand. All of this obviously took time, also during the development part of the project. In total, research accounted for a large portion of the time used in the project.
+
+After the initial evaluation of the task and its requirements, it seemed more difficult than first assumed. As none of the group members had any experience writing this kind of software, a lot of time had to be dedicated to research. Building software with this size and complexity, was unlike anything taught in previous courses. Additionally, there were hundreds of pages of protocol documentation and standards, which required a lot of time to understand. Finally, there were no similar applications which implemented a message broker for specifically for WSN. All of this required time, also during the development part of the project. In total, research accounted for a large portion of the time used in the project.
 
 \subsection{Apollo}
 \label{subsec:project_evaluation-research_phase-apollo}
@@ -14,7 +15,6 @@ After the initial evaluation of the task and its requirements, it seemed more di
 Two full weeks were dedicated to research Apollo. As the total time of the project was less than one semester, that was a fairly large portion of it. The positive aspect of it, was that a lot was learned from this work, and some of the aspects and good practices were carried over to the implementation.
 
 The decision to abandon Apollo was not made until the very end. It was only then that a component of the Apollo system proved to be so complex that it failed the gate criteria. After further discussion, additional issues appeared which led to the final decision. Had the research phase been shortened, it might have resulted in the decision to further develop Apollo, possibly resulting in a failure to deliver a working product. Thus, abandoning Apollo was probably the best choice.
-
 
 \subsection{Process Model}
 \label{subsec:project_evaluation-research_phase-process_model}
@@ -39,7 +39,7 @@ In retrospective, the research period should have been compressed. By starting t
 \section{Development}
 \label{sec:project_evaluation-development}
 
-Due to the research work, the development started in late february. This was obviously a problem, as less of the total time could be allocated to development. When constructing the development plan, the group realized that in order to complete the project, it was necessary to develop until late may. This was obviously a risk, as there would be no time to spare if something were to go wrong towards the end. Some of the less important protocols were also removed as requirements, in order to have the time to implement the most important parts.
+Due to the research work, the development started in late february. This was a challenge, as less of the total time could be allocated to development. When constructing the development plan, the group realized that in order to complete the project, it was necessary to develop until late may. This was obviously a risk, as there would be no time to spare if something were to go wrong towards the end. Some of the less important protocols were also removed as requirements, in order to have the time to implement the most important parts.
 
 \subsection{Process model}
 \label{subsec:project_evaluation-development-process_model}
@@ -70,24 +70,22 @@ Overall, the development period worked out fairly well. The main issues were wit
 
 The dynamic of the group were well. No social issues arose, and a nice work environment were upheld throughout the project. Eating lunch together, and taking breaks to talk about other things than the project made the days enjoyable. The social aspect helped throughout the project, as it kept the moral of the group high. There were some minor arguments during the development phase. These were mainly due to different opinions on code principles, report structure etc. None of these arguments led to any anger or issues between anyone in the group however.
 
-Cooperation worked out well throughout the project, both within the group, and with the customer and supervisor. It was easy to ask questions to other members, which was helpful if someone was stuck on a specific task or problem. Additionally, group meetings was an arena were more complex tasks could be assessed by the whole group. All this made development more efficient, as it often prevented long periods of time being used on a specific problem. Meeting agendas were key when communicating with the customer and supervisor. Having them provided a simple way of structuring each meeting, which made sure nothing was forgotten or neglected.
+Cooperation worked out well throughout the project, both within the group, and with the customer and supervisor. It was easy to ask questions to other members, which was helpful if someone was stuck on a specific task or problem. Additionally, group meetings functioned as an arena were more complex tasks could be assessed by the whole group. All this made development more efficient, as it often prevented long periods of time being used on a specific problem. Meeting agendas were key when communicating with the customer and supervisor. Having them provided a simple way of structuring each meeting, which made sure nothing was forgotten or neglected.
 
 The group also occasionally talked with other groups. The discussions were mainly about status on each groups project, and occasionally helping each other with report structure. The insight into other groups were helpful, as the group had someone to compare work with. This was sort of a safety net, making sure no important parts of the project were neglected.
 
-\section{Implementation problems faced}
+\section{Implementation}
+\label{sec:Implementation}
 
 \subsection{AMQP}
+\label{subsec:Implementation_AMQP}
 
 During the first iteration of AMQP implementation, some challenges were uncovered. The largest one was the handling of topic and queues. As a queue is a different concept compared to a topic, the implemented solution gave the user an option to choose which solution to use. Implementing Simple Authentication and Security Layer (SASL) support for authentication was another issue that proved difficult. The solution was to let the user choose whether or not to use it.
 
 Another challenge regarding the construction of outgoing AMQP messages, was to convert a Java object to a fixed size byte array. As AMQP is a byte level protocol, this had to be resolved. The solution was to as accurately as possible calculate the objects byte size. This was done using qualified guessing by looking at the different parts of the object. After a lot of testing, the final guess only missed with between 6-12 bytes. The final size of an object was found by trial and failure.
 
-After the finalization of AMQP, the testing of the protocol implementation revealed to be more difficult than first thought. As mentioned in \ref{subsec:prestudies-amqp-amqp_version}. There exists two major implementations of AMQP, version 1.0 and version 0.9.1 where the latter being implemented most places. This made the test process and actually finding applications which implements the 1.0 standard more difficult.
+After the finalization of AMQP, the testing of the protocol implementation revealed to be more difficult than first thought. Finding applications that implements the 1.0 standard was difficult. FFI provided a version of NFFIPlayer (\ref{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer}) with AMQP which implemented the 0.9.1 standard. However, due to the significant changes in the standard, it could not be used to any extent.
 
-The group received a version of NFFIPlayer\footnote{\ref{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer}} with AMQP support from FFI which implemented the 0.9.1 standard. However due to the significant changes in the standard, it could not be used to any extent.
-
-To be able to test the implementation properly, the group found two other AMQP 1.0 Java implementations and wrote simple scripts to test the both send and receive functionality. As there is a limited amount of free/open implementations, the group ended up using one open source from Apache Qpid (not proton)\footnote{\url{https://qpid.apache.org}} and one commercial from SwiftMQ\footnote{\url{http://www.swiftmq.com}}.
-
-By using implementations that where not based on the Qpid Proton library, the group had a better basis for stating the correctness of the implementation and the quality of the product.
+To be able to test the implementation properly, a functioning implementation was required. Two AMQP 1.0 Java implementations were found, and simple scripts were written to test both send and receive functionality. As there was a limited amount of free/open implementations, the group ended up using one open source solution from Apache Qpid(not proton)\footnote{\url{https://qpid.apache.org}} and one commercial from SwiftMQ\footnote{\url{http://www.swiftmq.com}}. By using these implementations, the basis for stating the correctness of the implementation and the quality of the product was solid.
 
 \clearpage

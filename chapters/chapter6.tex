@@ -30,13 +30,10 @@ Profiling is a way to dynamically analyze the program while it is running. This 
 
 System testing is performed to ensure that the product meets its requirements. It is a black-box test, often performed upon completion of the product. The goal is to go through all the requirements, and ensure that they are met and working as intended. System testing was performed prior to the acceptance test with the customer.
 
-% Dette må endres når datoene er forbi!
 \subsection{Acceptance Testing}
 \label{subsec:testing-test_description-acceptance_testing}
 Acceptance testing is generally concerned with whether or not the requirements of the system are met in a satisfiable way. Since the system has a lot of functionality that is not visible, the acceptance tests focused on testing the administration interface and to send and receive messages with the implemented applications.
-As parts of the acceptance testing, the group performed internal smoke tests of the system after every medium to big component was finished. This was typical to test if a protocol did follow the standard and to test if the performance was within the groups limits. The reasoning for the smoke tests was to be able to find errors that could impact the result of the final acceptance test.
-
-Additionally, FFI will come to Trondheim the 8th. of May to meet with another group and this time will be used to do a preliminary acceptance test. The final acceptance test will most likely be held during an extended Skype meeting using screen-sharing technology, before the 26th. of May when we will hand over the product.
+As parts of the acceptance testing, the group performed internal smoke tests of the system after every medium to big component was implemented. General aspects that were tested were requirements compliance, look and feel of the related user interface components, and double checking our interpretation of the customers stated wishes. The reasoning for the smoke tests was to be able to find errors that could impact the result of the final acceptance test.
 
 \section{Test Execution}
 \label{subsec:testing-test_execution}
@@ -79,105 +76,28 @@ The second part was to test all the exposed methods of each service and protocol
 
 Using this strategy, the group regularly performed integration testing as new features were added to the services, and new aspects of the protocol standards were implemented.
 
-This resulted in a table\textsuperscript{\ref{table:integration-testing-cases}} of test cases and their pass criteria, listed in Appendix C. All tests were performed under normal system operation.
+This resulted in tables \ref{table:integration-testing-cases} to \ref{table:integration-testing-cases-messageservice} of test cases and their pass criteria, listed in Appendix \ref{ch:tables_and_graphs}. All tests were performed under normal system operation.
 
 \subsection{System testing}
 \label{subsec:testing-test_execution-system_testing}
 
 System testing was performed based on the requirements for the system. Each of the functional requirements were tested in a procedural manner. Additionally, although no clear requirement were set for performance, it was tested to make sure there were no bottlenecks, and the system was performing fairly well. A table was made for each of the requirements.
 
-\begin{table}[ht!]
-\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
-\hline
-\rowcolor{lightgray}
-\multicolumn{3}{|c|}{\textbf{FR1, WSN}} \\ \hline
-\multicolumn{3}{|c|}{{Test to see if a WSN message can be sent, and received on all protocols}} \\ \hline
-\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
-Send "Hello World" over the network & OK & Message sent, and received on the correct topic of both protocols. \\ \hline
-x&z&y \\ \hline
-x&z&y \\ \hline
-x&y&z \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[ht!]
-\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
-\hline
-\rowcolor{lightgray}
-\multicolumn{3}{|c|}{\textbf{FR2, AMQP}} \\ \hline
-\multicolumn{3}{|c|}{{Test to see if an AMQP message can be sent, and received on all protocols}} \\ \hline
-\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
-Send "Hello World" to other AMQP client & x & y \\ \hline
-Send "Hello World" to other protocols &z&y \\ \hline
-Receive AMQP message from AMQP &y&z \\ \hline
-Receive AMQP message from other protocol &y&z \\ \hline
-Send "Hello World" via a mapped topic &y&z \\ \hline
-Subscribe to AMQP and update admin interface &z&y \\ \hline
-Remove AMQP subscriber from the admin interface &y&z \\ \hline
-Check AMQP statistics &y&z \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[ht!]
-\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
-\hline
-\rowcolor{lightgray}
-\multicolumn{3}{|c|}{\textbf{FR3, Topic mapping}} \\ \hline
-\multicolumn{3}{|c|}{{Test to see if topics can be properly mapped to each other}} \\ \hline
-\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
-x & x & y \\ \hline
-x &z&y \\ \hline
-x &z&y \\ \hline
-x&y&z \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[ht!]
-\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
-\hline
-\rowcolor{lightgray}
-\multicolumn{3}{|c|}{\textbf{FR4, Edit subscription}} \\ \hline
-\multicolumn{3}{|c|}{{Test to see if an admin can delete topics, and subscriptions on topic}} \\ \hline
-\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
-Delete a subscriber on topic "test". & x & y \\ \hline
-Delete all subscribers on topic "test" &z&y \\ \hline
-Delete topic "test". &z&y \\ \hline
-x&y&z \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[ht!]
-\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
-\hline
-\rowcolor{lightgray}
-\multicolumn{3}{|c|}{\textbf{FR6, Information}} \\ \hline
-\multicolumn{3}{|c|}{{Test to see if the proper information is viewed.}} \\ \hline
-\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
-Check all information in the interface, see if it matches actual information & x & y \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[ht!]
-\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
-\hline
-\rowcolor{lightgray}
-\multicolumn{3}{|c|}{\textbf{FR5, Log in}} \\ \hline
-\multicolumn{3}{|c|}{{Test to see if an administrator is able to log in}} \\ \hline
-\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
-Insert correct username and password & x & y \\ \hline
-Insert string with length X in both fields &z&y \\ \hline
-Insert script tags in username field X &z&y \\ \hline
-x&y&z \\ \hline
-\end{tabular}
-\end{table}
-
 \subsection{Acceptance test}
 \label{subsec:testing-test_execution-acceptance_test}
 
-The acceptance test was performed prior to the final delivery of the product. The customer went over the requirements step by step, and gave feedback on whether or not they were implemented in a satisfying way.
+A final demonstration of the system was performed at a customer meeting the 8th of May at NTNU. As previously stated, the customer did not have a strictly defined set of requirements for the product. This meant that the demonstration acted as our acceptance test. The group demonstrated the implementation of the customers requirements, as well as additional features and internal requirements from the requirements elicitation process. Due to time limitations, it was not possible to demonstrate all the different permutations of functionality acting together, as the customer had a second group meeting later that day. Nonetheless, the feedback given from the customer was very positive. There was some discussion regarding limitations of the WS-Nu library, as well as compatibility issues regarding translating messages between WSN and other non-XML protocols. Apart from one minor request for supporting topic based relaying between instances of the product, the product as a whole was accepted by the customer. Documentation of the limitations of WS-Nu and the challenges regarding message translation were also requested. A summary of the feedback is presented below:
 
-\subsubsection{Comments}
-\label{subsec:testing-test_execution-acceptance_test-comments}
+\begin{itemize}
+\item Having a relay function that can forward messages of certain topics to other instances of the system.
+\item Support of WS-BrokeredNotification\footnote{\url{http://docs.oasis-open.org/wsn/wsn-ws_brokered_notification-1.3-spec-os.pdf}} and WS-BaseNotification\footnote{\url{http://docs.oasis-open.org/wsn/wsn-ws_base_notification-1.3-spec-os.pdf}}, it was important that both were tested and documented.
+\item Document the research done on MQTT and MQTT libraries for further development.
+\item The general functionality and purpose of the system were met.
+\item The interface was intuitive, and the functionality was sufficient and good.
+\end{itemize}
+
+These factors were taken into consideration, and the few issues were assessed towards the end.
+
 
 
 \clearpage

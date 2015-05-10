@@ -23,7 +23,7 @@ A considerable amount of time were spent researching the Apollo broker during th
 
 The group agreed upon creating a functional prototype for the customer. This prototype was made available, so that the customer could provide feedback. During most customer meetings, the current version of the administration panel was discussed. The customer gave feedback on how new elements in the panel met the customers expectations. This approach gave the group one big advantage; rapid response from the customer which made it easy to improve the interface and add additional features. Throughout the lifetime of the development phase, the administration panel were continuously released and deployed on the test server.
 
-The final interface contained five panes; "Main", "Topics", "Statistics", "Logs" and "Configuration". The "Main"-pane contains information about the message broker. It is meant to give a general overview of the current operating environment, as well as the system status, such as memory usage. The "Statistics"-pane contain useful statistics about requests, messages etc. on the different protocols. The "Logs"-pane contains runtime logs for debugging purposes. The "Topics"-pane shows all registered topics in the message broker. On this pane, information about the current topics and subscriptions is available, as well as the possibility to remove topics and subscribers. Finally, in the "Configuration"-pane, the user can change the brokers settings and map topics together.
+The final interface contained six panes; "Main", "Topics", "Subscribers", "Statistics", "Logs" and "Configuration". The "Main"-pane contains information about the message broker. It is meant to give a general overview of the current operating environment, as well as the system status, such as memory usage. The "Statistics"-pane contain useful statistics about requests, messages etc. on the different protocols. The "Logs"-pane contains runtime logs for debugging purposes. The "Topics"-pane shows all registered topics in the message broker. On this pane, information about the current topics, as well as the possibility to remove them. The "Subscribers"-pane has exactly the same functionality as the "Topics"-pane, but it's for subscribers. Finally, in the "Configuration"-pane, the user can change the brokers settings and map topics together. Also, a possibility to add relays between multiple OKSE brokers is located here. 
 
 \subsection{Implementation}
 \label{subsec:architecture_and_implementation-implementation}
@@ -155,6 +155,26 @@ Here be information about how WSN was implemented, as well as how it works
 
 \subsection{AMQP}
 \label{subsec:architecture_and_implementation-implementation-amqp}
+The implementation of AMQP consists of mainly two parts. The first part is the handling of AMQP decoding and encoding of messages and the handling of the AMQP data in the network requests and responses. The second part is the handling of broker behaviour and the integration with the rest of the system. 
+
+As every protocol server is implemented to run on a single thread, there was a need to handle the incoming and outgoing requests/messages in a clever way. After some consideration, the AMQP protocol server was implemented using the reactor event loop pattern\footnote{\url{http://en.wikipedia.org/wiki/Reactor_pattern}}\footnote{\url{http://en.wikipedia.org/wiki/Event_loop}}. 
+The AMQP network socket was implemented using the Java non-blocking I/O library. The benefits of using a non-blocking socket is that instead of creating one socket per client, it will instead open multiple channels on one socket by using multiplexing. This is ideal for the single thread approach, as it runs in non-blocking mode, and will run in the main thread without stopping the entire program. The reactor pattern works well in combination with a multiplexed socket, as one of the key features of the pattern is the handling of incoming data from multiple sources. After the input is received and has been demultiplexed, Qpid will convert the incoming data to an event, which is then added to the event queue.
+
+Simultaneously as the event queue gets new events, the event loop is continuously dispatching the events to the correct methods on different handlers. A handler is a class that extends the BaseHandler class from Qpid. The handler can override event methods invoked by the event queue. The AMQP implementation has the following handlers; AMQPServer, Driver, Handshaker and SubscriptionHandler, with their own specific task.
+
+\subsubsection{AMQPServer}
+The AMQPServer handler is responsible for the incoming and outgoing messages. It handles the messages that come from AMQP producers and the internal messages from other protocols. It has an internal message queue where messages is stored until the corresponding event is triggered. It handles conversion of messages from AMQP format to the OKSE internal representation, and dispatching to the message service. It is implemented with optimizations to get AMQP messages out fast, and to prevent loops. When an AMQP message is received, it will automatically dispatch the AMQP message back to AMQP subscribers, and the OKSE message to the WSN subscribers.
+
+\subsubsection{Driver}
+The event loop and the socket logic is implemented in the Driver class. This class is responsible for accepting incoming connections, and handle the incoming requests. After a connection is opened with a client, every request received is given to Qpid, which in turn decodes the instruction and adds it back to the Driver in form of an event. The event is added straight to a collector, which is used as the event queue. The event loop that is running continuously, will dispatch event as long as there are any in the queue, if there is none, it will enter a wait state.
+
+\subsubsection{SubscriptionHandler}
+In the SubscriptionHandler class, the handling of subscribers and their routes/topics is handled. In addition it handles the basic information about a sender/producer and the integration with the systems centralized subscriber system. Most of the functionality in this handler is focused on the adding and removal of subscribers, as this is an important thing to get right. Upon subscribe request the handler will add the user to the internal subscriber map within AMQP, the system wide subscriber database and update the administration interface. When a subscriber disconnects, it handles the cleanup of the same 
+
+\subsubsection{Handshaker}
+
+
+\subsubsection{Queue vs Topic behavior}
 
 Here be information about how AMQP was implemented, as well as how it works
 

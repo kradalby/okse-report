@@ -1,0 +1,92 @@
+\chapter{Developer Manual}
+
+\section{Setup and installation}
+
+\subsection{Requirements and dependencies}
+
+\begin{itemize}
+\item Java 8 Target and minimum version
+\item Maven project \begin{itemize}
+    \item spring-boot 
+    \item TestNG
+    \item WS-Nu base
+    \item WS-Nu services
+\end{itemize}
+\end{itemize}
+
+\subsection{Recommended IDE}
+
+IntelliJ IDEA 14 (See section \ref{subsec:prestudies-tools-intellij_idea} )
+
+\section{Overview of components}
+
+\subsection{Application}
+
+The \textit{Application.java} file that resides in the root of the project is the main invocation point when starting the OKSE application. The main operations performed in this class are initializing the web admin console, and the CoreService instance, which in turn boot up more services.
+
+The most important thing to note regarding this main class, is that it is also the class in which further extensions should be registered. Extending the application with additional core services is done through registering them to the CoreService via the \textit{registerCoreService()} method.
+
+Extending the application with additional protocol support is done through use of the \textit{addProtocolServers()} method of the CoreService instance.
+
+\subsection{Web Admin}
+
+The OKSE administration console is run using the Spring framework, more exact the \textit{spring-boot} package, using \textit{Thymeleaf} templates. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript.
+
+\subsubsection{Backend}
+
+HAKLOEV PLZ
+
+\subsubsection{Frontend}
+
+HAKLOEV PLZ
+
+\subsection{CoreService}
+
+The CoreService is the main part of the OKSE message translation and brokering system. It is responsible for booting and stopping the registered core services, such as those described in subsequent sections of this manual.
+
+Additionally, the CoreService boots up registered ProtocolServers, which are described in their own section below. The CoreService is also responsible for gracefully shutting down registered ProtocolServers.
+
+As with all the OKSE core services, the main CoreService extends the AbstractCoreService class. This class holds some common attributes that are needed, as well as defninitions of the abstract methods for \textit{init()}, \textit{boot()}, \textit{run()} and \textit{stop()} actions.
+
+All the services are intended to follow the singleton pattern, which in our implementation uses static references. Thus, the remaining needed methods and fields for initialization and instanciation are not provided by the abstract superclass. They have to be implemented using a similar approach as described in the \textbf{Common Patterns Used} and \textbf{Adding new core services} chapters.
+
+An overview of the startup sequence of the main OKSE components is described in figure below
+
+[MAEK GRAPH OF DIS PLIIIIZ AND SEE GOOGLE DOC]
+
+The details of the \textit{init()}, \textit{boot()} and \textit{run()} methods will vary from service to service, and protocol server to protocol server.
+
+After the startup sequence has completed, all of the instances of either core services or protocol servers have their own dedicated thread that awaits the next task or event to execute.
+
+\subsection{TopicService}
+
+\subsection{SubscriptionService}
+
+\subsection{MessageService}
+
+\subsection{ProtocolServer}
+ 
+\subsubsection{WSNotificationServer}
+
+\subsubsection{AMQPServer}
+
+\section{Common Patterns Used}
+
+\begin{itemize}
+\item Singelton
+\item ObserverPattern
+\item Other: \begin{itemize}
+\item Event Driven Single Service Single Thread
+\end{itemize}
+\end{itemize}
+
+\section{Adding new protocols}
+
+Something about AbstractProtocolServer class and ProtocolServer interface
+
+\section{Adding new core services}
+
+Something about AbstractCoreService, Singleton pattern and the needed methods to accomplish this, and the abstract methods needed from the superclass
+
+
+\clearpage

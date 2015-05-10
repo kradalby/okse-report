@@ -21,7 +21,7 @@ The general publish-subscribe pattern is visualized in this figure.
 
 \begin{center}
   \begin{figure}[ht]
-    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/publish-subscribe.jpg}}
+    \makebox[\textwidth]{\includegraphics[width=0.7\textwidth]{fig/publish-subscribe.jpg}}
     \caption{Publish-subscribe}
     \label{fig:publish-subscribe}
   \end{figure}
@@ -43,7 +43,7 @@ AMQP\footnote{\url{http://www.amqp.org/}} is a binary protocol designed to send 
 
 \subsubsection{AMQP version}
 \label{subsec:prestudies-amqp-amqp_version}
-AMQP has mainly two versions being used, with some substantial differences. 1.0, which is the current version, has fewer public implementations and less documentation and examples. 0.9.1 is radically different and does many things differently. As 1.0 was a requirement from the customer, little research was done on the standard. The important thing to note however, is the huge differences between the two. The developers of RabbitMQ(\ref{subsec:prestudies-existing_solutions-rabbitmq}), one of the most popular AMQP brokers states: "AMQP 1.0 is a completely different protocol than AMQP 0-9-1 and hence not a suitable replacement for the latter."
+AMQP has mainly two versions being used, with some substantial differences. 1.0, which is the current version, has fewer public implementations and less documentation and examples. 0.9.1 is radically different and does many things differently. As 1.0 was a requirement from the customer, little research was done on the difference between the versions of the standard. The important thing to note however, is the huge differences between the two. The developers of RabbitMQ(\ref{subsec:prestudies-existing_solutions-rabbitmq}), one of the most popular AMQP brokers states: "AMQP 1.0 is a completely different protocol than AMQP 0-9-1 and hence not a suitable replacement for the latter."
 
 \subsubsection{Apache Qpid Proton}
 To implement AMQP 1.0, the Apache Qpid Proton\footnote{\url{http://qpid.apache.org/proton/}} library was chosen. The Proton library is recommended by OASIS\footnote{\url{https://www.oasis-open.org}} as it provides language library bindings to over ten popular languages in addition to the native Java and C++ implementation. Proton was also chosen because of its wide use and the fact that it is actively maintained.
@@ -155,6 +155,11 @@ Following is the list of all the tools used in the project. This includes tools 
 
 Skype\footnote{\url{www.skype.com}} was the main tool used for communication with the customer. Meetings were held using the group call feature of Skype. Communication within the group was done using both group calls, as well as the instant messaging feature within Skype. The tool was convenient to use both for the customer and the group. It provided all the communication features needed, both voice communication and a textual chat.
 
+\subsection{Mailinglist}
+\label{subsec:prestudies-tools-mailinglist}
+
+In addition to Skype, the group and the customer used email for communication between the meetings. To make sure that every group member always where up to speed on all relevant information, a mailinglist was created. The mailinglist was used to send a copy of every email received to the whole group. This was very beneficial as FFI only needed to communicate with one member and everyone got the information.
+
 \subsection{Java}
 \label{subsec:prestudies-tools-java}
 
@@ -171,7 +176,7 @@ Spring Framework\footnote{\url{http://projects.spring.io/spring-boot/}} is a mod
 \subsection{JavaDoc}
 \label{subsec:prestudies-tools-javadoc}
 
-In this project, the group has chosen to use JavaDoc, an automatic, comment based documentation tool to provide developer documentation of the code base. JavaDoc is supported in most Java Integrated Development Environments (hereby denoted as IDE), and allows for easy generation and updating of developer documentation. JavaDoc is the standard documentation tool for development in Java. Few good alternatives exist that covers the same functionality, and the tool was an obvious choice in this project.
+In this project, the group chose to use JavaDoc, an automatic, comment based documentation tool to provide developer documentation of the code base. JavaDoc is supported in most Java Integrated Development Environments (hereby denoted as IDE), and allows for easy generation and updating of developer documentation. JavaDoc is the standard documentation tool for development in Java. Few good alternatives exist that covers the same functionality, and the tool was an obvious choice in this project.
 
 \subsection{IntelliJ IDEA}
 \label{subsec:prestudies-tools-intellij_idea}

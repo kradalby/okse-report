@@ -32,25 +32,27 @@ The protocols were viewed as the most important requirements, as they were the c
 \multicolumn{1}{|c|}{\textbf{$\#$}} & \textbf{Use Case} & \textbf{Description}    & \textbf{Priority} \\ \hline
 \multicolumn{1}{|c|}{FR1.1} & \multicolumn{1}{c|}{U5, U6} & A user must be able to send and receive messages over the WSN protocol. & 
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.2} & \multicolumn{1}{c|}{??} & A user must be able to subscribe to a topic using the WSN protocol &
+\multicolumn{1}{|c|}{FR1.2} & \multicolumn{1}{c|}{U7} & A user must be able to subscribe to a topic using the WSN protocol &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.3} & \multicolumn{1}{c|}{??} & A user must be able to register as a publisher on a topic using the WSN protocol &
+\multicolumn{1}{|c|}{FR1.3} & \multicolumn{1}{c|}{U8} & A user must be able to register as a publisher on a topic using the WSN protocol &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.4} & \multicolumn{1}{c|}{??} & A user must be able to unsubscribe from a topic using the WSN protocol &
+\multicolumn{1}{|c|}{FR1.4} & \multicolumn{1}{c|}{U9} & A user must be able to unsubscribe from a topic using the WSN protocol &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.5} & \multicolumn{1}{c|}{??} & A user must be able to unregister as a publisher on a topic using the WSN protocol &
+\multicolumn{1}{|c|}{FR1.5} & \multicolumn{1}{c|}{U10} & A user must be able to unregister as a publisher on a topic using the WSN protocol &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.6} & \multicolumn{1}{c|}{??} & A must be able to retrieve the latest message on a topic using the GetCurrentMessage function using the WSN protocol &
+\multicolumn{1}{|c|}{FR1.6} & \multicolumn{1}{c|}{U11} & A must be able to retrieve the latest message on a topic using the GetCurrentMessage function using the WSN protocol &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.7} & \multicolumn{1}{c|}{??} & A user must be able to renew his/her subscription using the WSN protocol &
+\multicolumn{1}{|c|}{FR1.7} & \multicolumn{1}{c|}{U12} & A user must be able to renew his/her subscription using the WSN protocol &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.8} & \multicolumn{1}{c|}{??} & A user must be able to pause his/her subscription using the WSN protocol &
+\multicolumn{1}{|c|}{FR1.8} & \multicolumn{1}{c|}{U13} & A user must be able to pause his/her subscription using the WSN protocol &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.9} & \multicolumn{1}{c|}{??} & A user must be able to resume his/her subscription using the WSN protocol &
+\multicolumn{1}{|c|}{FR1.9} & \multicolumn{1}{c|}{U14} & A user must be able to resume his/her subscription using the WSN protocol &
 \multicolumn{1}{c|}{1} \\ \hline
 \multicolumn{1}{|c|}{FR1.10} & \multicolumn{1}{c|}{??} & A user must be able to send multiple notification messages in a single Notify using the WSN protocol &
 \multicolumn{1}{c|}{1} \\ \hline
 \multicolumn{1}{|c|}{FR2} & \multicolumn{1}{c|}{U5 \& U6} & A user must be able to send and receive messages using the AMQP protocol &
+\multicolumn{1}{c|}{1} \\ \hline
+\multicolumn{1}{|c|}{FR2.1} & \multicolumn{1}{c|}{??} & A user must be able to subscribe using the AMQP protocol &
 \multicolumn{1}{c|}{1} \\ \hline
 \multicolumn{1}{|c|}{FR3} & \multicolumn{1}{c|}{U1} & The admin must be able to map topics/dialects with other topics. &
 \multicolumn{1}{c|}{2} \\ \hline
@@ -144,8 +146,8 @@ Below is the use case for the topic mapping part of the interface. The main goal
 \textbf{Pre conditions} & The admin is logged in.\\ \hline
 \textbf{Standard flow} & \begin{enumerate}
 \item Click the config pane.
-\item Click on the topic to be mapped.
-\item Enter the topic to map against.
+\item Enter the topic you want to map from.
+\item Enter the topic you want to map to.
 \item Click the "Add"-button.
 \end{enumerate} \\ \hline
 \textbf{Alternative flow} & \begin{description}
