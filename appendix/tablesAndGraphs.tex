@@ -466,35 +466,67 @@ Use case showing the steps involved in resuming a paused subscription on topic w
 
 \clearpage
 
-\subsection{Use case 15 - }
+\subsection{Use case 15 - Multiple notifications, single Notify using WSN }
 \label{subsec:requirements_engineering-use_cases-}
 
-Use case showing the steps involved 
+Use case showing the steps involved in sending a Notify to subscribers containing more than one notification using WSN. 
 
 \begin{table}[ht!]
 \centering
 \begin{tabular}{|l|p{5cm}|}
 \hline
 \textbf{Use case ID} & U15 \\ \hline
-\textbf{Use case Name} & \\ \hline
-\textbf{Description} & \\ \hline
-\textbf{Pre conditions} & \\ \hline
+\textbf{Use case Name} & Multiple notification single Notify\\ \hline
+\textbf{Description} & The user must be able to send multiple notification messages in a single Notify using WSN\\ \hline
+\textbf{Pre conditions} & OKSE is up and running. Subscribers on the topic which the Notify is sent to. \\ \hline
 \textbf{Standard flow} & \begin{enumerate}
-\item 
-\item 	
+\item Send one Notify containing multipe notifications
 \end{enumerate} \\ \hline
 \textbf{Alternative flow} & \\ \hline
-\textbf{Post conditions} & \\ \hline
+\textbf{Post conditions} & Subscribers receive more than one Notify on the topic which the notification was sent on\\ \hline
 \end{tabular}
-\caption{Use case 15 - }
+\caption{Use case 15 - Multiple notifications}
 \label{uc15}
 \end{table}
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=6cm]{}}
-    \caption{U15 - }
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u15_notify_wsn.png}}
+    \caption{U15 - Multiple notifications}
     \label{fig:u15}
+  \end{figure}
+\end{center}
+
+\clearpage
+
+\subsection{Use case 16 - Subscribe with AMQP protocol}
+\label{subsec:requirements_engineering-use_cases-}
+
+Use case showing the steps involvedin subscribing to a topic using the AMQP protocol.   
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{Use case ID} & U16 \\ \hline
+\textbf{Use case Name} & AMQP subscribe\\ \hline
+\textbf{Description} & The user must be able to subscribe to a topic using the AMQP protocol. \\ \hline
+\textbf{Pre conditions} & OKSE must be up and running. \\ \hline
+\textbf{Standard flow} & \begin{enumerate}
+\item Connect to the server.
+\end{enumerate} \\ \hline
+\textbf{Alternative flow} & \\ \hline
+\textbf{Post conditions} & The user is now connected and subscribed to the topic of choice. Can now receive messages on that topic. \\ \hline
+\end{tabular}
+\caption{Use case 16 - AMQP subscribe}
+\label{uc16}
+\end{table}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u16_sub_amqp.png}}
+    \caption{U16 - AMQP subscribe}
+    \label{fig:u16}
   \end{figure}
 \end{center}
 
@@ -616,7 +648,7 @@ IT4.7 & MessageService & distributeMessage (with topic mapping) & Start the Mess
 \begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
 \hline
 \rowcolor{lightgray}
-\textbf{ID} & \textbf{Controller} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
+\textbf{ID} & \textbf{Controller} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result} \\ \hline
 IT5.1 & IndexViewController & index & Start the Spring server and access route "/", then log in & Front page loaded successfully with correct information  & Success \\ \hline
 IT5.2 & TopicController & getAllTopics & Start the Spring server, then add some subscriptions.  & Check that the API returns all the unique topics created. & Success \\ \hline
 IT5.3 & TopicController & deleteAllTopcis & Start the Spring server, then add some subscriptions, and make sure they are registered. Then click 'Delete all topics' in the administration panel. & Check that the API returns no topics. & Success \\ \hline
@@ -629,12 +661,20 @@ IT5.9 & MainController & powerProtocolServers & Start the Spring server, then us
 IT5.10 & LogController & log & Start the Spring server and access the Logs-pane. Access the okse.log file. & Check if the okse.log file displayed in the Logs-pane is the same as the one in the \verb!config!-folder & Success \\ \hline
 IT5.11 & LogController & logFilesAvailable & Start the Spring server and access the API-url to get log files. & The returned JSON-string should contain the same files that's located in the \verb!config!-folder & Success \\ \hline
 IT5.12 & LogController & logLevelsAvailable & Start the Spring server and access the API-url to get log levels. & The returned JSON-string should contain the same levels as the logLevels HashMap in the LogController. & Success \\ \hline
-IT5.13 & PasswordChange\\Controller & changePasswordGet & Start the Spring server, log in, and click the 'Change password'-button. & If logged in, the Controller should return the changePassword-view, else it should redirect to the indexNotLoggedIn-view & Success \\ \hline
-IT5.14 & PasswordChange\\Controller & changePasswordPost & Start the Spring server, log in, and click the 'Change password'-button. Change the password to \verb!testPassword! Then log out and & If logged in, the Controller should return the changePassword-view, else it should redirect to the indexNotLoggedIn-view & Success \\ \hline
-
-
+IT5.13 & PasswordChange Controller & changePasswordGet & Start the Spring server, log in, and click the 'Change password'-button. & If logged in, the Controller should return the changePassword-view, else it should redirect to the indexNotLoggedIn-view & Success \\ \hline
+IT5.14 & PasswordChange Controller & changePasswordPost & Start the Spring server, log in, and click the 'Change password'-button. Change the password to \verb!testPassword! & The user should now be able to be log in with the new password & Success \\ \hline
+IT5.15 & StatsController & getAllStats & Start the Spring server, log in. Add a subscriber in WSN and send a message to the subscribed topic. Then subscribe to the same topic with AMQP. Send a message to the same topic & Check the Stats-pane, and make sure the values are correctly updated. Stats should be; total request = 4, total sent = 2, topics = 1, subscribers = 2 & Success \\ \hline
+IT5.16 & ConfigController & getAllMappins & Enter a mapping the the topicmapping.properties file and boot OKSE.  & Check the Configuration-pane, and make sure the mappings are equal to the ones entered in the config-file & Success \\ \hline
+IT5.17 & ConfigController & addMapping & Start OKSE and enter a mapping from no/ffi to nato/hq the Configuration-pane. & Check the API-url, and make sure the mappings are equal to the one entered in the Configuration-file & Success \\ \hline
+IT5.18 & ConfigController & deleteMapping & Enter a mapping the the topicmapping.properties file and boot OKSE. Click 'Delete' on the mapping in the Configuration-pane. & Check the API-url, and make sure the returned list is empty & Success \\ \hline
+IT5.19 & ConfigController & deleteAllMapping & Enter two mappings the the topicmapping.properties file and boot OKSE. Click 'Delete all mappings' in the Configuration-pane. & Check the API-url, and make sure the returned list is empty & Success \\ \hline
+IT5.20 & ConfigController & changeAMQPaueue & Check the flag set in the okse.properties file. Then boot OKSE and change the value in the Configuration-pane & Check the log-file and make sure the value is opposite to the flag set in the okse.properties file & Success \\ \hline
+IT5.21 & ConfigController & addRelay & Boot two OKSE-brokers. Log in to one and add a relay to the other one. & Log into the other OKSE-broker and check that the other broker is a registered subscriber. & Success \\ \hline
+IT5.22 & ConfigController & deleteRelay & Boot two OKSE-brokers. Log in to one and add a relay to the other one. Then delete the relay by clicking the 'Delete'-button & Log into the other OKSE-broker and check the log file. Make sure there is one subscribe and one unsubcribe request. & Success \\ \hline
+IT5.23 & ConfigController & deleteAllRelays & Boot two OKSE-brokers. Log in to one and add a relay to the other one. Then delete the relay by clicking the 'Delete-all-relays'-button & Log into the other OKSE-broker and check the log file. Make sure there is one subscribe and one unsubcribe request. & Success \\ \hline
+IT5.24 & ConfigController & getAllInfo & Enter a mapping the the topicmapping.properties file and boot OKSE. Then add a relay to another OKSE-broker from the Configuration-pane. & Check the API-url and make sure that the relay and topic mapping are returned. & Success \\ \hline
 \end{tabular}
-\caption{Integration Testing - Test Cases - Web controller}
+\caption{Integration Testing - Test Cases - Web controllers}
 \label{table:integration-testing-cases-webcontroller}
 \end{table}
 
@@ -679,72 +719,137 @@ IT5.14 & PasswordChange\\Controller & changePasswordPost & Start the Spring serv
 \end{table}
 
 \begin{table}[ht!]
-\begin{tabular}{|m{1cm]|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
+\begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
 \multicolumn{5}{|c|}{\textbf{FR3, Topic mapping}} \\ \hline
-\multicolumn{5}{|c|}{{Test to see if topics can be properly mapped to each other}} \\ \hline
+\multicolumn{5}{|c|}{{Test to see if an topics can be mapped to each other properly}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
-3.1 &x&y&z&z \\ \hline
-3.2 &z&y&z&z \\ \hline
-3.3 &z&y&z&z \\ \hline
-3.4 &y&z&z&z \\ \hline
+3.1 & Map topic & Set up a topic mapping from topic A to topic B.
+Send a notification message to topic A. & The  system  correctly  duplicates  the  message
+and distributes on topic & Success \\ \hline
+3.2 & Two-way mapping of topics & Set up a topic mapping from topic A to topic
+B. Set up another topic mapping from topic B
+to topic A. Send a notification message to topic
+A. & The  system  correctly  duplicates  the  message
+and  distributes  on  topic  B.  The  system  cor-
+rectly identifies the originating topic mapping
+and does NOT relay back to topic A from B & Success \\ \hline
+
 \end{tabular}
 \caption{System Testing - Test Cases - FR3}
 \label{table:system-testing-cases-fr3}
 \end{table}
 
+
 \begin{table}[ht!]
-\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
+\begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
-\multicolumn{3}{|c|}{\textbf{FR4, Edit subscription}} \\ \hline
-\multicolumn{3}{|c|}{{Test to see if an admin can delete topics, and subscriptions on topic}} \\ \hline
-\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
-Delete a subscriber on topic "test". & x & y \\ \hline
-Delete all subscribers on topic "test" &z&y \\ \hline
-Delete topic "test". &z&y \\ \hline
-x&y&z \\ \hline
+\multicolumn{5}{|c|}{\textbf{FR3, Edit subscription}} \\ \hline
+\multicolumn{5}{|c|}{{Test to see if subscribers and topics can be deleted}} \\ \hline
+\textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
+4.1 & Delete subscription on a topic & Create a topic "test", and subscribe on the topic. Delete the subscription. & The subscription no longer exists on the topic. & Success \\ \hline
+4.2 & Delete all subscribers & Create topic "test" and "test2", then subscribe on both topics from two clients. Click "Delete all subscribers". & No subscribers exists on any of the two topics. & Success \\ \hline
+4.3 & Delete all topics & Create two topics "test" and "test2". Click "Delete all topics". & Both topics are deleted & Success \\ \hline
+
 \end{tabular}
+\caption{System Testing - Test Cases - FR4}
+\label{table:system-testing-cases-fr4}
 \end{table}
 
 \begin{table}[ht!]
-\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
+\begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
-\multicolumn{3}{|c|}{\textbf{FR5, Information}} \\ \hline
-\multicolumn{3}{|c|}{{Test to see if the proper information is viewed.}} \\ \hline
-\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
-Check all information in the interface, see if it matches actual information & x & y \\ \hline
+\multicolumn{5}{|c|}{\textbf{FR5, Information}} \\ \hline
+\multicolumn{5}{|c|}{{Test whether or not correct information is displayed}} \\ \hline
+\textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
+5.1 && & x & y \\ \hline
+5.2 &&&z&y \\ \hline
+5.3 &&&y&z \\ \hline
+5.4 &&&y& \\ \hline
+5.5 &&&y& \\ \hline
+5.6 &&&z& \\ \hline
+5.7 &&&y& \\ \hline
+5.8 &&&y&z \\ \hline
 \end{tabular}
+\caption{System Testing - Test Cases - FR5}
+\label{table:system-testing-cases-fr5}
 \end{table}
 
 \begin{table}[ht!]
-\begin{tabular}{|m{4cm}|m{2cm}|m{4cm}|}
+\begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
-\multicolumn{3}{|c|}{\textbf{FR6, Log in}} \\ \hline
-\multicolumn{3}{|c|}{{Test to see if an administrator is able to log in}} \\ \hline
-\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
-Insert correct username and password & x & y \\ \hline
-Insert string with length X in both fields &z&y \\ \hline
-Insert script tags in username field X &z&y \\ \hline
-x&y&z \\ \hline
+\multicolumn{5}{|c|}{\textbf{FR6, Log in}} \\ \hline
+\multicolumn{5}{|c|}{{Test the log in functionality}} \\ \hline
+\textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
+6.1 && & x & y \\ \hline
+6.2 &&&z&y \\ \hline
+6.3 &&&y&z \\ \hline
+6.4 &&&y& \\ \hline
+6.5 &&&y& \\ \hline
+6.6 &&&z& \\ \hline
+6.7 &&&y& \\ \hline
+6.8 &&&y&z \\ \hline
 \end{tabular}
+\caption{System Testing - Test Cases - FR6}
+\label{table:system-testing-cases-fr6}
+\end{table}
+
+
+\begin{table}[ht!]
+\tiny
+\begin{tabular}{|m{0.5cm}|m{1.2cm}|m{1.2cm}|m{3.3cm}|m{3.3cm}|m{1.5cm}|}
+\hline
+\rowcolor{lightgray}
+\textbf{ID} & \textbf{Area} & \textbf{Category} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
+STA.1 & WSN & Subscribe & Send a valid subscription using SimpleTopic, and an incorrect subscription using child topics & The system accepts the valid SimpleTopic, and rejects the child topic request & ? \\ \hline
+STA.2 & WSN & Subscribe & Send a valid subscription using ConcreteTopic, and an incorrect subscription using XPATH values & The system accepts the valid ConcreteTopic and rejects the one containing XPATH & ? \\ \hline
+STA.3 & WSN & Subscribe & Send a valid subscription using FullTopic, and an incorrect subscription using invalid format & The system accepts the valid FullTopic, and rejects the invalid one & ? \\ \hline
+STA.4 & WSN & Subscribe & Send a valid subscription using FullTopic with wildcards, and an invalid subscription using FullTopic with wildcards & The system accepts the valid FullTopic, and rejects the invalid one & ? \\ \hline
+STA.5 & WSN & Subscribe & Send a valid subscription using XPATH message content filter, and an invalid subscription with an invalid XPATH expression & The system accepts the valid subscription, and rejects the invalid one & ? \\ \hline
+STA.6 & WSN & Subscribe & Send a valid subscription using XPATH topic expression, and an invalid subscription using incorrect XPATH expression & The system accepts the valid XPATH subscription, and rejects the invalid one & ? \\ \hline
+STA.7 & WSN & Subscribe & Send a valid subscription using the UseRaw element & The system accepts the subscription and messages sent to that Subscriber are not wrapped in a Notify element & ? \\ \hline
+STA.7 & WSN & Subscribe & Send a valid subscription using namespace prefixed SimpleTopic, and an invalid subscription using namespace prefixed SimpleTopic & The system accepts the valid subscription and rejects the invalid one & ? \\ \hline
+STA.8 & WSN & Subscribe & Send a valid subscription using namespace prefixed ConcreteTopic, and an invalid subscription using namespace prefixed ConcreteTopic & The system accepts the valid subscription and rejects the invalid one & ? \\ \hline
+STA.9 & WSN & Subscribe & Send a valid subscription using namespace prefixed XPATH topic, and an invalid subscription using namespace prefixed XPATH topic & The system accepts the valid subscription and rejects the invalid one & ? \\ \hline
+STA.10 & WSN & Register & Send a valid RegisterPublisher using SimpleTopic and an invalid one & The system accepts the valid request and rejects the invalid one & ? \\ \hline
+STA.11 & WSN & Register & Send a valid RegisterPublisher using ConcreteTopic and an invalid one & The system accepts the valid request and rejects the invalid one & ? \\ \hline
+STA.12 & WSN & Register & Send a valid RegisterPublisher using FullTopic and an invalid one & The system accepts the valid request and rejects the invalid one & ? \\ \hline
+STA.13 & WSN & Register & Send a valid RegisterPublisher using namespace prefixed SimpleTopic and an invalid one & The system accepts the valid request and rejects the invalid one & ? \\ \hline
+STA.14 & WSN & Register & Send a valid RegisterPublisher using namespace prefixed ConcreteTopic and an invalid one & The system accepts the valid request and rejects the invalid one & ? \\ \hline
+STA.15 & WSN & Register & Send a valid RegisterPublisher using namespace prefixed FullTopic and an invalid one & The system accepts the valid request and rejects the invalid one & ? \\ \hline
+STA.16 & WSN & Notify & Send a valid Notify using SimpleTopic and an invalid one & The system accepts the valid request and rejects the invalid one. & ? \\ \hline
+STA.17 & WSN & Notify & Send a valid Notify using FullTopic and an invalid one & The system accepts the valid request and rejects the invalid one & ? \\ \hline
+STA.18 & WSN & Notify & Send a valid Notify using FullTopic and an invalid one & The system accepts the valid request and rejects the invalid one & ? \\ \hline
+STA.19 & WSN & Notify & Send a valid Notify using namespace prefixed SimpleTopic and an invalid one & The system accepts the valid request and rejects the invalid one. WS-Nu filters message correctly based on namespace prefix & ? \\ \hline
+STA.20 & WSN & Notify & Send a valid Notify using namespace prefixed FullTopic and an invalid one & The system accepts the valid request and rejects the invalid one. WS-Nu filters message correctly based on namespace prefix & ? \\ \hline
+STA.21 & WSN & Notify & Send a valid Notify using namespace prefixed FullTopic and an invalid one & The system accepts the valid request and rejects the invalid one. WS-Nu filters message correctly based on namespace prefix & ? \\ \hline
+STA.22 & WSN & Notify & Send a valid Notify to a subscriber with the UseRaw flag & The system correctly extracts the message content and sends the notify without Notify wrapper & ? \\ \hline
+STA.23 & WSN & Notify & Send one Notify using the WSNotification BaseNotification namespace, and another using the WSNotification BrokeredNotification namespace. & The system correctly accepts and distributes both notifications & ? \\ \hline
+STA.24 & WSN & Notify & Send a valid Notify containing two bundled NotificationMessage elements & The system correctly delivers the Notify to WSN subscibers, and distributes TWO Okse internal Message objects to other protocol subscribers & ? \\ \hline
+STA.25 & WSN & Notify & Send a valid Notify containing two bundled NotificationMessage elements to a subscriber with the UseRaw flag & The system correctly extracts the message contents and sends both messages without Notify wrapper as a single SOAP body & ? \\ \hline
+STA.26 & OKSE & Relay & Set up two OKSE instances, and set up a relay without explicit topic declaration from one instance to the other. Send a message to the PRODUCING instance. & The relay RECEIVING instance correctly consumes the message and starts internal distribution. & ? \\ \hline
+\end{tabular}
+\caption{System Testing - Additional Test Cases}
+\label{table:system_testing-additional_test_cases}
 \end{table}
 
 \begin{table}[ht!]
 \tiny
-\begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
+\begin{tabular}{|m{0.5cm}|m{1.2cm}|m{1.2cm}|m{3.3cm}|m{3.3cm}|m{1.5cm}|}
 \hline
-\rowcolor{lightgray}
-\textbf{ID} & \textbf{Category/Area} & \textbf{Description} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
-STA.1 & WSN & Subscribe & Send a valid subscription using SimpleTopic, and an incorrect subscription using child topics & The system accepts the valid SimpleTopic, and rejects the child topic request & ? \\ \hline
-STA.2 & WSN & Subscribe & Send a valid subscription using ConcreteTopic, and an incorrect subscription using XPATH values & The system accepts the valid ConcreteTopic and rejects the one containing XPATH & ? \\ \hline
-STA.3 & WSN & Subscribe & Send a valid subscription using FullTopic, and an incorrect subscription using erroneous XPATH & The system accepts the valid FuøøTopic, and rejects the invalid one & ? \\ \hline
+
+STA.27 & OKSE & Profiling & Set up 3 WSN subscribers on a topic. Set up 10 AMQP subscribers on the same topic. Use a non-sleeping AMQP send script to produce 1000 messages to the topic. Time the transmissions and note statistics & All messages are successfully distributed without errors. & ? \\ \hline
+STA.28 & OKSE & Profiling & Set up 3 WSN subscribers on a topic. Set up 10 AMQP subscribers on the same topic. Use a non-sleeping AMQP send script to produce 15000 messages to the topic. Time the transmissions and note statistics & All messages are successfully distributed without errors. & ? \\ \hline
+STA.29 & OKSE & Core system & Delete the config folder. Start the application. & Config directory successfully created, all config files created with defaults from internal classpath. & Success \\ \hline
+STA.30 & OKSE & Core system & Delete the logs folder. Start the application. & Log directory successfully created, Log files created and written to. & Success \\ \hline
+STA.31 & OKSE & Core system & Use the administration interface to stop the protocol servers. Then start them again. & The protocol servers are properly shut down. Subscribers removed. Topics persist. Protocol servers are successfully started again, accepting connections. & Success \\ \hline
+STA.32 & OKSE & Core system & Use the administration interface to stop the protocol servers. Edit the host and port of one of the protocol servers. Then start them again. & The protocol servers are properly shut down. Subscribers removed. Topics persist. Protocol servers are successfully started again, accepting connections. The modified server now listens on a different host and port. & Success \\ \hline
+STA.33 & OKSE & Core system & Use the administration interface to check the "Use AMQP queues" checkbox. Subscribe two AMQP clients on the same topic/queue. Send a message to that queue. Then uncheck the checkbox and send another message to the queue. & Only one of the subscribers receives the message when checkbox is ON, both subscribers receives message when checkbox is OFF. & ? \\ \hline
 \end{tabular}
-\caption{System Testing - Additional Test Cases}
-\label{table:system_testing-additional_test_cases}
 \end{table}
 
 \clearpage
