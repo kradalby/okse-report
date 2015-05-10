@@ -626,11 +626,11 @@ IT5.6 & SubscriberController & deleteAllSubscribers & Start the Spring server, t
 IT5.7 & SubscriberController & deleteSingleSubscriber & Start the Spring server, then add one subscription, and make sure that the subscription are registered. Then click 'Delete' on that subscription in the administration panel.  & Check that the API returns no subscribers. & Success \\ \hline
 IT5.8 & MainController & main & Start the Spring server, then access the Main-pane. & The main pain contains of all the information it should, like basic stats, protocolservers etc. & Success \\ \hline
 IT5.9 & MainController & powerProtocolServers & Start the Spring server, then use the administration panel to power on and off the protocol servers. Try to access one of the protocols before and after power on/off & The protocol servers should not respons after power off, and vice versa. & Success \\ \hline
-
-IT5.10 & LogController & log & Start the Spring server, then use the administration panel to power on and off the protocol servers. Try to access one of the protocols before and after power on/off & The protocol servers should not respons after power off, and vice versa. & Success \\ \hline
-IT5.11 & LogController & logFilesAvailable & Start the Spring server, then use the administration panel to power on and off the protocol servers. Try to access one of the protocols before and after power on/off & The protocol servers should not respons after power off, and vice versa. & Success \\ \hline
-
-IT5.12 & LogController & logLevelsAvailable & Start the Spring server and access the  & The protocol servers should not respons after power off, and vice versa. & Success \\ \hline
+IT5.10 & LogController & log & Start the Spring server and access the Logs-pane. Access the okse.log file. & Check if the okse.log file displayed in the Logs-pane is the same as the one in the \verb!config!-folder & Success \\ \hline
+IT5.11 & LogController & logFilesAvailable & Start the Spring server and access the API-url to get log files. & The returned JSON-string should contain the same files that's located in the \verb!config!-folder & Success \\ \hline
+IT5.12 & LogController & logLevelsAvailable & Start the Spring server and access the API-url to get log levels. & The returned JSON-string should contain the same levels as the logLevels HashMap in the LogController. & Success \\ \hline
+IT5.13 & PasswordChange\\Controller & changePasswordGet & Start the Spring server, log in, and click the 'Change password'-button. & If logged in, the Controller should return the changePassword-view, else it should redirect to the indexNotLoggedIn-view & Success \\ \hline
+IT5.14 & PasswordChange\\Controller & changePasswordPost & Start the Spring server, log in, and click the 'Change password'-button. Change the password to \verb!testPassword! Then log out and & If logged in, the Controller should return the changePassword-view, else it should redirect to the indexNotLoggedIn-view & Success \\ \hline
 
 
 \end{tabular}
@@ -674,6 +674,8 @@ IT5.12 & LogController & logLevelsAvailable & Start the Spring server and access
 2.7 &&Remove AMQP subscriber from the admin interface &y& \\ \hline
 2.8 &&Check AMQP statistics &y&z \\ \hline
 \end{tabular}
+\caption{System Testing - Test Cases - FR2}
+\label{table:system-testing-cases-fr2}
 \end{table}
 
 \begin{table}[ht!]
@@ -682,12 +684,14 @@ IT5.12 & LogController & logLevelsAvailable & Start the Spring server and access
 \rowcolor{lightgray}
 \multicolumn{5}{|c|}{\textbf{FR3, Topic mapping}} \\ \hline
 \multicolumn{5}{|c|}{{Test to see if topics can be properly mapped to each other}} \\ \hline
-\textbf{Procedure} & \textbf{Result} & \textbf{Comments} \\ \hline
-3.1 & x & y \\ \hline
-3.2 &z&y \\ \hline
-3.3 &z&y \\ \hline
-3.4 &y&z \\ \hline
+\textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
+3.1 &x&y&z&z \\ \hline
+3.2 &z&y&z&z \\ \hline
+3.3 &z&y&z&z \\ \hline
+3.4 &y&z&z&z \\ \hline
 \end{tabular}
+\caption{System Testing - Test Cases - FR3}
+\label{table:system-testing-cases-fr3}
 \end{table}
 
 \begin{table}[ht!]
@@ -735,7 +739,9 @@ x&y&z \\ \hline
 \hline
 \rowcolor{lightgray}
 \textbf{ID} & \textbf{Category/Area} & \textbf{Description} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
-ST3.1 & WSN & Protocol standards compliance & Send a message using WS-BaseNotitication, and a message using WS-BrokeredNotification. & The system accepts both namespace types and distributes them correctly. & ? \\ \hline
+STA.1 & WSN & Subscribe & Send a valid subscription using SimpleTopic, and an incorrect subscription using child topics & The system accepts the valid SimpleTopic, and rejects the child topic request & ? \\ \hline
+STA.2 & WSN & Subscribe & Send a valid subscription using ConcreteTopic, and an incorrect subscription using XPATH values & The system accepts the valid ConcreteTopic and rejects the one containing XPATH & ? \\ \hline
+STA.3 & WSN & Subscribe & Send a valid subscription using FullTopic, and an incorrect subscription using erroneous XPATH & The system accepts the valid FuøøTopic, and rejects the invalid one & ? \\ \hline
 \end{tabular}
 \caption{System Testing - Additional Test Cases}
 \label{table:system_testing-additional_test_cases}

@@ -169,14 +169,15 @@ The AMQPServer handler is responsible for the incoming and outgoing messages. It
 The event loop and the socket logic is implemented in the Driver class. This class is responsible for accepting incoming connections, and handle the incoming requests. After a connection is opened with a client, every request received is given to Qpid, which in turn decodes the instruction and adds it back to the Driver in form of an event. The event is added straight to a collector, which is used as the event queue. The event loop that is running continuously, will dispatch event as long as there are any in the queue, if there is none, it will enter a wait state.
 
 \subsubsection{SubscriptionHandler}
-In the SubscriptionHandler class, the handling of subscribers and their routes/topics is handled. In addition it handles the basic information about a sender/producer and the integration with the systems centralized subscriber system. Most of the functionality in this handler is focused on the adding and removal of subscribers, as this is an important thing to get right. Upon subscribe request the handler will add the user to the internal subscriber map within AMQP, the system wide subscriber database and update the administration interface. When a subscriber disconnects, it handles the cleanup of the same 
+In the SubscriptionHandler class, the handling of subscribers and their routes/topics is handled. In addition it handles the basic information about a sender/producer and the integration with the systems centralized subscriber system. Most of the functionality in this handler is focused on the adding and removal of subscribers, as this is an important thing to get right. Upon subscribe request the handler will add the user to the internal subscriber map within AMQP, the system wide subscriber database and update the administration interface. When a subscriber disconnects, it removes the disconnected subscriber from all the same databases and interfaces.
 
 \subsubsection{Handshaker}
+The Handshaker handles all the open and close event of a connection. It makes sure that the initiation of the connection, session and link is actually done. It also makes sure that it is closed properly when the link is broken or disconnected.
 
 
 \subsubsection{Queue vs Topic behavior}
 
-Here be information about how AMQP was implemented, as well as how it works
+
 
 \clearpage
 
