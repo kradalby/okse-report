@@ -20,7 +20,7 @@ The Apollo architecture is built around the idea of having a multi-threaded non-
 
 
 \subsection{Scala}
-As stated by the developers of Apollo, they needed to think differently since all tasks that needs to be executed needs to be non-blocking, and should be lock and wait free. There was also needs for a radical change in the network IO handling. To achieve this goal, the object-functional language Scala was chosen. Scala has many features from functional programming and has a good way to express callbacks when writing asynchronous code.
+As stated by the developers of Apollo, they needed to think differently since all tasks that needs to be executed needs to be non-blocking, and should be lock and wait free. There was also needs for a radical change in the network IO handling. To achieve this goal, the object-functional language Scala\footnote{\url{http://www.scala-lang.org}} was chosen. Scala has many features from functional programming\footnote{\url{http://en.wikipedia.org/wiki/Functional_programming}} and has a good way to express callbacks when writing asynchronous code.
 
 \subsection{Protocol Agnostic}
 Apollo has support for the same protocols as ActiveMQ, but the way that it handles conversion between them is rewritten. First because of the need to have all the tasks running asynchronously and the fact that the way ActiveMQ handles this was quite inefficient. 
@@ -31,11 +31,21 @@ In Apollo the handling of protocol conversation was reimplemented. It now saves 
 When running Java application, the Java Virtual Machine is usually configured with a fixed amount of memory. Since a high traffic message service, can end up having millions of messages, smart memory and message queue handling needs to be written. 
 In Apollo, message queues that are not going to be needed for a while will be taken out of memory and put in a message store. When the time to use the queue is approaching, the queue will be put back into memory. This gives Apollo the possibility to handle a lot of messages with a limited amount of memory.
 
+\subsection{Modules}
+Apollo is written to be very modular. Every single component and protocol is implemented as its own protocol. This is a great feature when considering extendability. 
+
 \section{Points of entry}
-
-
-\section{Evaluation}
+YOUR MOM
 
 \subsection{WSN support}
+
+\section{Evaluation for the project}
+The first thing that the research time spent on Apollo yielded, is the impression that it is a well written, and very scalable broker.
+It definitively had a lot of desired features and would easily be a good foundation to build the product for the customer. The main problem with using Apollo is the complexity. The non-blocking asynchronous approach puts a lot of constraints on the developer and if the developer has not been working with this kinds of pattern earlier, then it is quite hard to wrap around. In addition to the new pattern, the development requires the knowledge of Scala, and some experience with functional programming. 
+
+As the group had a limited amount of time available, and not knowledge to any particular extent on the used programming pattern and language. There was made a decision that the risk of failure was to high to go with Apollo. The possibility of not getting through even the source code and obtaining the knowledge needed was to great with our time frame. 
+
+\section{Evaluation for later use}
+Given that the customer has enough time and resources, the group would recommend to evaluate Apollo, and the possibility of extending it too fit the needs of a given project. If scalability and performance is an important part of the feature set, then Apollo or the ideas and patterns Apollo uses should be considered to build the foundation.
 
 \clearpage

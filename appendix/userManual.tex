@@ -20,7 +20,7 @@ The following sections describes how to download and run OKSE. Apart from JRE, n
 
 As previously stated, OKSE Message Broker requires a JRE 8. The broker is developed and tested exclusively with this version. The software is available for free from Oracle.com\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}}.
 
-If you are using a UNIX-based system like Linux or OS X, you must remember to add Java to your path variable. Entering the following commands in a terminal should most likely work: \verb!export JAVA_HOME=<PATH-TO-JRE>! In Windows, open up a command line window(cmd.exe). type in  \verb!path %path%;<PATH-TO-JRE>!.
+If you are using a UNIX-based system like Linux or OS X, you must remember to add Java to your path variable. Entering the following commands in a terminal should most likely work: \verb!export JAVA_HOME=<PATH-TO-JRE>! If you have to add Java to the path in Windows, open up a command line window(cmd.exe). type in  \verb!path %path%;<PATH-TO-JRE>!.
 The variable can also be accessed and modified through the "Environmental variables" tab in the advanced system settings.
 
 \subsection{Download software}
@@ -62,7 +62,7 @@ After installation and the first launch, the OKSE Admin Console can be accessed 
 The OKSE Admin Console provides information about OKSE and it's operation enviroment. It also gives access to configure OKSE. The interface have information sorted in six panes, the Main pane, the Topic pane, the Subscribers pane and the Configuration pane.
 
 \subsection{The Main pane}
-The Main pane is an overview of the status of the broker, system, the operating environment, and the interfaces the different protocol servers are bound to. It is also possible to start and stop the protocol servers from the interface section.
+The Main pane is an overview of the broker's status, system, the operating environment, and the interfaces the different protocol servers are bound to. It is also possible to stop and start the protocol servers from the interface section.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -73,7 +73,7 @@ The Main pane is an overview of the status of the broker, system, the operating 
 \end{center}
 
 \subsection{The Topics pane}
-The Topics pane contains all the registered topics in OKSE. For each topic it is possible to see how many clients are subscribing to the topic (---comment about xpath not being subscribers??---). It is also possible to delete all topics or a specific topic. The 'Stop refresh'-button stops the automatic refreshing of the topic list. (-- noe om hvilke situasjoner stop knappen er tenkt til
+The Topics pane contains all the registered topics in OKSE. For each topic it is possible to see how many clients are subscribing to the topic (---comment about xpath not being subscribers??---). It is also possible to delete all topics or a specific topic. The 'Stop refresh'-button stops the automatic refreshing of the topic list. This can be use full when there are many new topic are generated, and you do not want the list to update (ex: you want to search in the list)
 
 \begin{center}
   \begin{figure}[ht!]
@@ -84,7 +84,7 @@ The Topics pane contains all the registered topics in OKSE. For each topic it is
 \end{center}
 
 \subsection{The Subscribers pane}
-The subscribers pane shows all the subscribers (hosts). It also lists which protocol the subscriber are using, on which port, and if any filters are specified. One or all users can be deleted, denoted as unsubscribe in WSN and disconnect in AMQP. The 'Stop refresh'-button stops the automatic refreshing of the subscription list.
+The subscribers pane shows all the subscribers (hosts). It also lists which protocol the subscriber are using, on which port, and if any filters are specified. One or all users can be deleted, denoted as unsubscribe in WSN and disconnect in AMQP. The 'Stop refresh'-button stops the automatic refreshing of the subscription list. This can be use full when there are many clients subscribing and/or unsubscribing, and you do not want the list to update (ex: you want to search in the list)
 
 \begin{center}
   \begin{figure}[ht!]
@@ -95,7 +95,7 @@ The subscribers pane shows all the subscribers (hosts). It also lists which prot
 \end{center}
 
 \subsection{The Statistics pane}
-The Statistics pane prvides a list of protocol servers with statistics per protocol and total usage. "Sent" denotes the amount of messages sent on the different protocols. "Received" denotes messages received on current protocol. "Requests" are the total amount of requests on the protocol. (--skriv om hvordan det fungerer for både WSN og AMQP--). Bad request (---her---). Errors (---Her---). In the usage panel you get the total stats for all protocols.
+The Statistics pane prvides a list of protocol servers with statistics per protocol and total usage. "Sent" denotes the amount of messages sent on the different protocols. "Received" denotes messages received on current protocol. "Requests" are the total amount of requests on the protocol. The WSNotification protocol server "Requests" are subscribe request, message sendt to the broker, publisher registration, and trying to acccess an endpoint address. For AMQP a request are countet when the broker got a socket connection, and when a message is sendt to the broker. "Bad request" on the WSNotification protocol server can be trying to access an WSNotification endpoint. (---her---). Errors (---Her---). In the usage panel you get the total stats for all protocols.
 
 \begin{center}
   \begin{figure}[ht!]

@@ -39,14 +39,18 @@ In retrospective, the research period should have been compressed. By starting t
 \section{Development}
 \label{sec:project_evaluation-development}
 
-Due to the research work, the development started in late february. This was a challenge, as less of the total time could be allocated to development. When constructing the development plan, the group realized that in order to complete the project, it was necessary to develop until late may. This was obviously a risk, as there would be no time to spare if something were to go wrong towards the end. Some of the less important protocols were also removed as requirements, in order to have the time to implement the most important parts.
+Due to the research work, the development started in late February. This was a challenge, as less of the total time could be allocated to development. When constructing the development plan, the group realized that in order to complete the project, it was necessary to develop until late may. This was obviously a risk, as there would be no time to spare if something were to go wrong towards the end. Some of the less important protocols were also removed as requirements, in order to have the time to implement the most important parts.
 
 \subsection{Process model}
 \label{subsec:project_evaluation-development-process_model}
 
-Initially, it was decided to use test-driven development. This worked out well on the parts of the system which had a clearly defined behaviour. In that regard, the model proved successful as it made the actual code writing simpler. It was however, difficult to enforce on other parts of the system. In the end, TDD weren't a huge success, as time were spent planning how to write tests, instead of using that time to develop. 
+Initially, it was decided to use test-driven development. This worked out well on the parts of the system which had a clearly defined behaviour. In that regard, the model proved successful as it made the actual code writing simpler. It was however, difficult to enforce on other parts of the system. In the end, TDD weren't a huge success, as time were spent planning how to write tests, instead of using that time to develop. Thus, the group weren't able to fully achieve the advantages of the model. 
 
-Scrum worked out well. The most important part of it was the meetings, as they helped in keeping track of progress at all times. Additionally, any problems regarding development were discussed, and assessed by the group as a whole. The burndown charts and backlogs helped keep track of time-usage and progress. This was important to maintain a common understanding of which tasks were on the agenda for each sprint.
+Scrum worked out well. The most important part of it was the meetings, as they helped in keeping track of progress at all times. Communication was key to assess the different development issues faced. Additionally, any problems regarding development were discussed, and assessed by the group as a whole. 
+
+A backlog chart(task list) and burndown chart were created each sprint. The templates were initialized at the start of each sprint, and the workload were decided and distributed amongst the group. This worked out very well, as each member had clearly defined tasks for each sprints. Additionally, it was helpful to keep track of the time usage, when evaluating each sprint. The evaluation of the previous sprint were taken into consideration when defining the next. This were a helpful to assign an appropriate workload for each sprint.
+
+Having sprints lasting two weeks were appropriate. As the group had to consider other coarses and tasks, the work load varied from week to week. Thus, it was nice to have two weeks to complete the tasks assigned. Additionally, shorter sprint intervals would have led to more time being used on management of tasks and time, as it would have to be done each week. Having longer sprints could have affected the communication with the customer. It would be more difficult to decide on which tasks were the most important 
 
 \subsection{Resource management}
 \label{subsec:project_evaluation-development-time_management}
@@ -60,7 +64,7 @@ Combining report writing and development proved to be an issue. Although all of 
 \subsection{Evaluation}
 \label{subsec:project_evaluation-development-evaluation}
 
-Overall, the development period worked out fairly well. The main issues were with resource and time management. Not enough work was devoted to the project in the early stages of the process. This proved to be an issue later on, especially due to the task being more difficult than the initial assessment. Although this was sub-optimal, the issue was solved by adding more hours towards the end of the project.
+Overall, the development period worked out fairly well. The main issues were with resource and time management. Not enough work was devoted to the project in the early stages of the process. This proved to be an issue later on, especially due to the task being more difficult than the initial assessment. Although this was sub-optimal, the issue was solved by adding more hours towards the end of the project. Less emphasis were put on test-driven development as the project went on, but it didn't affect the product in a considerable way. Apart from that, the process model and methodology worked well.
 
 \section{Product evaluation}
 \label{sec:project_evaluation-product_evaluation}
@@ -80,7 +84,7 @@ The group also occasionally talked with other groups. The discussions were mainl
 
 \subsection{Tools}
 
-Several development tools and libraries were used in the Java implementaiton. 
+Several development tools and libraries were used in the Java implementation. 
 
 \subsection{Product}
 
@@ -91,7 +95,7 @@ During the first iteration of AMQP implementation, some challenges were uncovere
 
 Another challenge regarding the construction of outgoing AMQP messages, was to convert a Java object to a fixed size byte array. As AMQP is a byte level protocol, this had to be resolved. The solution was to as accurately as possible calculate the objects byte size. This was done using qualified guessing by looking at the different parts of the object. After a lot of testing, the final guess only missed with between 6-12 bytes. The final size of an object was found by trial and failure.
 
-After the finalization of AMQP, the testing of the protocol implementation revealed to be more difficult than first thought. Finding applications that implements the 1.0 standard was difficult. FFI provided a version of NFFIPlayer (\ref{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer}) with AMQP which implemented the 0.9.1 standard. However, due to the significant changes in the standard, it could not be used to any extent.
+After the finalization of AMQP, the testing of the protocol implementation revealed to be more difficult than first thought. Finding applications that implements the 1.0 standard was difficult. FFI provided a version of NFFIPlayer (see section \ref{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer}) with AMQP which implemented the 0.9.1 standard. However, due to the significant changes in the standard, it could not be used to any extent.
 
 To be able to test the implementation properly, a functioning implementation was required. Two AMQP 1.0 Java implementations were found, and simple scripts were written to test both send and receive functionality. As there was a limited amount of free/open implementations, the group ended up using one open source solution from Apache Qpid(not proton)\footnote{\url{https://qpid.apache.org}} and one commercial from SwiftMQ\footnote{\url{http://www.swiftmq.com}}. By using these implementations, the basis for stating the correctness of the implementation and the quality of the product was solid.
 

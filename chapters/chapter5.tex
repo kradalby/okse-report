@@ -173,11 +173,11 @@ The implementation of AMQP consists of mainly two parts. The first part is the h
 As every protocol server is implemented to run on a single thread, there was a need to handle the incoming and outgoing requests/messages in a clever way. After some consideration, the AMQP protocol server was implemented using the reactor event loop pattern\footnote{\url{http://en.wikipedia.org/wiki/Reactor_pattern}}\footnote{\url{http://en.wikipedia.org/wiki/Event_loop}}. 
 The AMQP network socket was implemented using the Java non-blocking I/O library. The benefits of using a non-blocking socket is that instead of creating one socket per client, it will instead open multiple channels on one socket by using multiplexing. This is ideal for the single thread approach, as it runs in non-blocking mode, and will run in the main thread without stopping the entire program. The reactor pattern works well in combination with a multiplexed socket, as one of the key features of the pattern is the handling of incoming data from multiple sources. After the input is received and has been demultiplexed, Qpid will convert the incoming data to an event, which is then added to the event queue.
 
-Simultaneously as the event queue gets new events, the event loop is continuously dispatching the events to the correct methods on different handlers. A handler is a class that extends the BaseHandler class from Qpid. The handler can override event methods invoked by the event queue. The AMQP implementation has the following handlers; AMQPServer, Driver, Handshaker and SubscriptionHandler, with their own specific task.
+Simultaneously as the event queue gets new events, the event loop is continuously dispatching the events to the correct methods on different handlers. A handler is a class that extends the \verb!BaseHandler! class from Qpid. The handler can override event methods invoked by the event queue. The AMQP implementation has the following handlers; \verb!AMQPServer!, \verb!Driver!, \verb!Handshaker! and \verb!SubscriptionHandler!, with their own specific task.
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[scale=0.6]{fig/amqp_recv.png}}
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/amqp_recv.png}}
     \caption{AMQP Receive implementation overview}
     \label{fig:abstract_architecture}
   \end{figure}
@@ -197,7 +197,7 @@ The Handshaker handles all of the open and close events of a connection. It make
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[scale=0.6]{fig/amqp_send.png}}
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/amqp_send.png}}
     \caption{AMQP Send implementation overview}
     \label{fig:abstract_architecture}
   \end{figure}

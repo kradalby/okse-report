@@ -61,7 +61,7 @@ The backend of OKSE works as a RESTful Web Service. It is responsible for acting
 
 \subsubsection{Frontend}
 
-The front-end of OKSE is the only component of the system accessible for user interaction. It is responsible for making HTTP-requests to the backend to manipulate and present the state of OKSE. Each pane of the administration pane has its own JavaScript module. 
+The front-end of OKSE is the only component of the system accessible for user interaction. It is responsible for making HTTP-requests to the backend to manipulate and present the state of OKSE. To ensure that the probability for cross-browser incompatibilities is as low as possible, the front-end is implemented using jQuery. Each pane of the administration pane has its own module implemented in jQuery. Each of this modules are responsible for event-handling, AJAX-requests and DOM-manipulation for its own pane. 
 
 \subsection{CoreService}
 
@@ -69,9 +69,9 @@ The CoreService is the main part of the OKSE message translation and brokering s
 
 Additionally, the CoreService boots up registered ProtocolServers, which are described in their own section below. The CoreService is also responsible for gracefully shutting down registered ProtocolServers.
 
-As with all the OKSE core services, the main CoreService extends the AbstractCoreService class. This class holds some common attributes that are needed, as well as defninitions of the abstract methods for \verb!init()!, \verb!boot()!, \verb!run()! and \verb!stop()! actions.
+As with all the OKSE core services, the main CoreService extends the AbstractCoreService class. This class holds some common attributes that are needed, as well as definitions of the abstract methods for \verb!init()!, \verb!boot()!, \verb!run()! and \verb!stop()! actions.
 
-All the services are intended to follow the singleton pattern, which in our implementation uses static references. Thus, the remaining needed methods and fields for initialization and instanciation are not provided by the abstract superclass. They have to be implemented using a similar approach as described in the \ref{sec:common-patterns-used} and \ref{sec:adding-new-core-services} chapters.
+All the services are intended to follow the singleton pattern, which in our implementation uses static references. Thus, the remaining needed methods and fields for initialization and instantiation are not provided by the abstract super class. They have to be implemented using a similar approach as described in the \ref{sec:common-patterns-used} and \ref{sec:adding-new-core-services} chapters.
 
 An overview of the boot sequence of the main OKSE components is described in figure \ref{fig:boot-sequence}.
 
@@ -86,7 +86,7 @@ An overview of the boot sequence of the main OKSE components is described in fig
 
 The details of the \verb!init()!, \verb!boot()! and \verb!run()! methods will vary from service to service, and protocol server to protocol server.
 
-After the startup sequence has completed, all of the instances of either core services or protocol servers have their own dedicated thread that awaits the next task or event to execute.
+After the boot sequence has completed, all of the instances of either core services or protocol servers have their own dedicated thread that awaits the next task or event to execute.
 
 \subsection{TopicService}
 
