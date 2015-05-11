@@ -467,7 +467,7 @@ Use case showing the steps involved in resuming a paused subscription on topic w
 \clearpage
 
 \subsection{Use case 15 - Multiple notifications, single Notify using WSN }
-\label{subsec:requirements_engineering-use_cases-}
+\label{subsec:requirements_engineering-use_cases-notify_wsn}
 
 Use case showing the steps involved in sending a Notify to subscribers containing more than one notification using WSN. 
 
@@ -500,9 +500,9 @@ Use case showing the steps involved in sending a Notify to subscribers containin
 \clearpage
 
 \subsection{Use case 16 - Subscribe with AMQP protocol}
-\label{subsec:requirements_engineering-use_cases-}
+\label{subsec:requirements_engineering-use_cases-sub_amqp}
 
-Use case showing the steps involvedin subscribing to a topic using the AMQP protocol.   
+Use case showing the steps involved in subscribing to a topic using the AMQP protocol.   
 
 \begin{table}[ht!]
 \centering
@@ -527,6 +527,39 @@ Use case showing the steps involvedin subscribing to a topic using the AMQP prot
     \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u16_sub_amqp.png}}
     \caption{U16 - AMQP subscribe}
     \label{fig:u16}
+  \end{figure}
+\end{center}
+
+\clearpage
+
+\subsection{Use case 17 - Unsubscribe with AMQP protocol}
+\label{subsec:requirements_engineering-use_cases-unsub_amqp}
+
+Use case showing the steps involved in unsubscribing from at topic using the amqp protocol. 
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\textbf{Use case ID} & U17\\ \hline
+\textbf{Use case Name} & Unsubscribe AMQP\\ \hline
+\textbf{Description} & The user must be able to unsubscribe from a topic using the AMQP protocol.\\ \hline
+\textbf{Pre conditions} & OKSE is up and running. Client is connected and subscribed to a topic.\\ \hline
+\textbf{Standard flow} & \begin{enumerate}
+\item Close connection on the desired topic.
+\end{enumerate} \\ \hline
+\textbf{Alternative flow} & \\ \hline
+\textbf{Post conditions} & Connection on the topic is closed and the subscriber no longer receives messages on that topic.  \\ \hline
+\end{tabular}
+\caption{Use case 17 - Unsubscribe AMQP}
+\label{uc17}
+\end{table}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=6cm]{fig/usecase/usecase_u17_unsub_amqp.png}}
+    \caption{U17 - Unsubscribe AMQP}
+    \label{fig:u17}
   \end{figure}
 \end{center}
 
@@ -697,13 +730,13 @@ IT5.24 & ConfigController & getAllInfo & Enter a mapping the the topicmapping.pr
 \begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
-\multicolumn{5}{|c|}{\textbf{FR1, WSN}} \\ \hline
-\multicolumn{5}{|c|}{{Test to see if a WSN message can be sent, and received on all protocols}} \\ \hline
+\multicolumn{5}{|c|}{\textbf{FR1-10, WSN}} \\ \hline
+\multicolumn{5}{|c|}{{Test general functionality regarding the WSN protocol implementation}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
-1.1 & Send message & Send a message & Message sent & OK. \\ \hline
-1.2 &a&x&z&y \\ \hline
-1.3&a&x&z&y \\ \hline
-1.4&x&a&y&z \\ \hline
+ST1.1 & Send and receive message (FR1.1) & Create a subscriber on a topic, send valid notify to that topic & Message sent and received correctly & Success \\ \hline
+ST1.2 & Subscribe & Send a valid subscription request (FR1.2) & Subscriber successfully added, topic created and admin panel showing subscriber with correct host, port and topic & Success \\ \hline
+ST1.3 & Register Publisher (FR1.3) & Send a valid publisher registration request & The publisher is successfully registered, topic created and total amount of publishers increased by ONE in admin panel & Success \\ \hline
+ST1.4 & & & & \\ \hline
 \end{tabular}
 \caption{System Testing - Test Cases - FR1}
 \label{table:system-testing-cases-fr1}
@@ -716,14 +749,14 @@ IT5.24 & ConfigController & getAllInfo & Enter a mapping the the topicmapping.pr
 \multicolumn{5}{|c|}{\textbf{FR2, AMQP}} \\ \hline
 \multicolumn{5}{|c|}{{Test to see if an AMQP message can be sent, and received on all protocols}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
-2.1 &&Send "Hello World" to other AMQP client & x & y \\ \hline
-2.2 &&Send "Hello World" to other protocols &z&y \\ \hline
-2.3 &&Receive AMQP message from AMQP &y&z \\ \hline
-2.4 &&Receive AMQP message from other protocol &y& \\ \hline
-2.5 &&Send "Hello World" via a mapped topic &y& \\ \hline
-2.6 &&Subscribe to AMQP and update admin interface &z& \\ \hline
-2.7 &&Remove AMQP subscriber from the admin interface &y& \\ \hline
-2.8 &&Check AMQP statistics &y&z \\ \hline
+ST2.1 &&Send "Hello World" to other AMQP client & x & y \\ \hline
+ST2.2 &&Send "Hello World" to other protocols &z&y \\ \hline
+ST2.3 &&Receive AMQP message from AMQP &y&z \\ \hline
+ST2.4 &&Receive AMQP message from other protocol &y& \\ \hline
+ST2.5 &&Send "Hello World" via a mapped topic &y& \\ \hline
+ST2.6 &&Subscribe to AMQP and update admin interface &z& \\ \hline
+ST2.7 &&Remove AMQP subscriber from the admin interface &y& \\ \hline
+ST2.8 &&Check AMQP statistics &y&z \\ \hline
 \end{tabular}
 \caption{System Testing - Test Cases - FR2}
 \label{table:system-testing-cases-fr2}
@@ -736,10 +769,10 @@ IT5.24 & ConfigController & getAllInfo & Enter a mapping the the topicmapping.pr
 \multicolumn{5}{|c|}{\textbf{FR3, Topic mapping}} \\ \hline
 \multicolumn{5}{|c|}{{Test to see if an topics can be mapped to each other properly}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
-3.1 & Map topic & Set up a topic mapping from topic A to topic B.
+ST3.1 & Map topic & Set up a topic mapping from topic A to topic B.
 Send a notification message to topic A. & The  system  correctly  duplicates  the  message
 and distributes on topic & Success \\ \hline
-3.2 & Two-way mapping of topics & Set up a topic mapping from topic A to topic
+ST3.2 & Two-way mapping of topics & Set up a topic mapping from topic A to topic
 B. Set up another topic mapping from topic B
 to topic A. Send a notification message to topic
 A. & The  system  correctly  duplicates  the  message
@@ -760,9 +793,9 @@ and does NOT relay back to topic A from B & Success \\ \hline
 \multicolumn{5}{|c|}{\textbf{FR3, Edit subscription}} \\ \hline
 \multicolumn{5}{|c|}{{Test to see if subscribers and topics can be deleted}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
-4.1 & Delete subscription on a topic & Create a topic "test", and subscribe on the topic. Delete the subscription. & The subscription no longer exists on the topic. & Success \\ \hline
-4.2 & Delete all subscribers & Create topic "test" and "test2", then subscribe on both topics from two clients. Click "Delete all subscribers". & No subscribers exists on any of the two topics. & Success \\ \hline
-4.3 & Delete all topics & Create two topics "test" and "test2". Click "Delete all topics". & Both topics are deleted & Success \\ \hline
+ST4.1 & Delete subscription on a topic & Create a topic "test", and subscribe on the topic. Delete the subscription. & The subscription no longer exists on the topic. & Success \\ \hline
+ST4.2 & Delete all subscribers & Create topic "test" and "test2", then subscribe on both topics from two clients. Click "Delete all subscribers". & No subscribers exists on any of the two topics. & Success \\ \hline
+ST4.3 & Delete all topics & Create two topics "test" and "test2". Click "Delete all topics". & Both topics are deleted & Success \\ \hline
 
 \end{tabular}
 \caption{System Testing - Test Cases - FR4}
@@ -776,14 +809,11 @@ and does NOT relay back to topic A from B & Success \\ \hline
 \multicolumn{5}{|c|}{\textbf{FR5, Information}} \\ \hline
 \multicolumn{5}{|c|}{{Test whether or not correct information is displayed}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
-5.1 & Debian linux & Launch the application on a public server using Linux Debian. Verify validity of information & Server information corresponds to the actual server specification & Success  \\ \hline
-5.2 & Windows 8.1 & Launch a local version of the application on Windows 8.1. Verify validity of information & Server  &y \\ \hline
-5.3 &&&y&z \\ \hline
-5.4 &&&y& \\ \hline
-5.5 &&&y& \\ \hline
-5.6 &&&z& \\ \hline
-5.7 &&&y& \\ \hline
-5.8 &&&y&z \\ \hline
+ST5.1 & Debian linux & Launch the application on a public server using Linux Debian. Verify validity of information & Server information corresponds to the actual server specification & Success  \\ \hline
+ST5.2 & Windows 8.1 & Launch a local version of the application on Windows 8.1. Verify validity of information & Server information corresponds to the actual information & Success \\ \hline
+ST5.3 & Mac OSX 10.9 & Launch a local version of the application on Mac OSX 10.9 & Server information corresponds to the actual information & Success \\ \hline
+ST5.4 & Mac OSX 10.10 & Launch a local version of the application on Mac OSX 10.10 & Server information corresponds to the actual information & Success \\ \hline
+
 \end{tabular}
 \caption{System Testing - Test Cases - FR5}
 \label{table:system-testing-cases-fr5}
@@ -796,8 +826,8 @@ and does NOT relay back to topic A from B & Success \\ \hline
 \multicolumn{5}{|c|}{\textbf{FR6, Log in}} \\ \hline
 \multicolumn{5}{|c|}{{Test the log in functionality}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
-6.1 & Log in with correct information. & Start an instance of the system. Attempt to log in with username=admin, password=password & Access granted, and redirected to "Main" pane. & Success \\ \hline
-6.2 & Log in with wrong information & Attempt to log in with username=something, password=something & Access denied, error message should appear & Success \\ \hline
+ST6.1 & Log in with correct information. & Start an instance of the system. Attempt to log in with username=admin, password=password & Access granted, and redirected to "Main" pane. & Success \\ \hline
+ST6.2 & Log in with wrong information & Attempt to log in with username=something, password=something & Access denied, error message should appear & Success \\ \hline
 
 \end{tabular}
 \caption{System Testing - Test Cases - FR6}

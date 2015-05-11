@@ -7,7 +7,7 @@ The recommended setup, as noted below, is using IntelliJ IDEA\footnote{\url{http
 \subsection{Requirements and dependencies}
 
 \subsubsection{Java}
-The minimum required major version of Java is 8, and we do recommend to use the latest minor release. As of the writing of this guide, update 45 is the latest, and the version which is used to compile the packaged version of OKSE that is bundled.
+The minimum required major version of Java is 8, and we do recommend to use the latest minor release. As of the writing of this guide, update 31 is the latest, and the version which is used to compile the packaged version of OKSE that is bundled.
 
 \subsubsection{Apache Maven}
 The project source code, tests and dependency management is structured with Apache Maven\footnote{\url{https://maven.apache.org}}. Maven is used to fetch dependencies, run the tests and to build the final jar files. The minimum major version of Maven is 3 and any minor version from 3.0.5 and up can be used. However, the development team recommends the latest version. As of the time of this writing, the latest version is 3.3.3.
@@ -45,19 +45,19 @@ After the IntelliJ window is opened with the project, all the needed dependencie
 
 \subsection{Application}
 
-The \textit{Application.java} file that resides in the root of the project is the main invocation point when starting the OKSE application. The main operations performed in this class are initializing the web admin console, and the CoreService instance, which in turn boot up more services.
+The \verb!Application.java! file that resides in the root of the project is the main invocation point when starting the OKSE application. The main operations performed in this class are initializing the web admin console, and the CoreService instance, which in turn boot up more services.
 
-The most important thing to note regarding this main class, is that it is also the class in which further extensions should be registered. Extending the application with additional core services is done through registering them to the CoreService via the \textit{registerCoreService()} method.
+The most important thing to note regarding this main class, is that it is also the class in which further extensions should be registered. Extending the application with additional core services is done through registering them to the CoreService via the \verb!registerCoreService()! method.
 
-Extending the application with additional protocol support is done through use of the \textit{addProtocolServers()} method of the CoreService instance.
+Extending the application with additional protocol support is done through use of the \verb!addProtocolServers()! method of the CoreService instance.
 
 \subsection{Web Admin}
 
-The OKSE administration console is run using the Spring framework, more exact the \textit{spring-boot} package, using \textit{Thymeleaf} templates. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript.
+The OKSE administration console is run using the Spring framework, more exact the spring-boot\footnote{\ref{https://spring.io/guides/gs/rest-service/}} package, using Thymeleaf-templates\footnote{\url{http://www.thymeleaf.org}}. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript. 
 
 \subsubsection{Backend}
 
-HAKLOEV PLZ
+
 
 \subsubsection{Frontend}
 
@@ -69,15 +69,22 @@ The CoreService is the main part of the OKSE message translation and brokering s
 
 Additionally, the CoreService boots up registered ProtocolServers, which are described in their own section below. The CoreService is also responsible for gracefully shutting down registered ProtocolServers.
 
-As with all the OKSE core services, the main CoreService extends the AbstractCoreService class. This class holds some common attributes that are needed, as well as defninitions of the abstract methods for \textit{init()}, \textit{boot()}, \textit{run()} and \textit{stop()} actions.
+As with all the OKSE core services, the main CoreService extends the AbstractCoreService class. This class holds some common attributes that are needed, as well as defninitions of the abstract methods for \verb!init()!, \verb!boot()!, \verb!run()! and \verb!stop()! actions.
 
-All the services are intended to follow the singleton pattern, which in our implementation uses static references. Thus, the remaining needed methods and fields for initialization and instanciation are not provided by the abstract superclass. They have to be implemented using a similar approach as described in the \textbf{Common Patterns Used} and \textbf{Adding new core services} chapters.
+All the services are intended to follow the singleton pattern, which in our implementation uses static references. Thus, the remaining needed methods and fields for initialization and instanciation are not provided by the abstract superclass. They have to be implemented using a similar approach as described in the \ref{sec:common-patterns-used} and \ref{sec:adding-new-core-services} chapters.
 
-An overview of the startup sequence of the main OKSE components is described in figure below
+An overview of the boot sequence of the main OKSE components is described in figure \ref{fig:boot-sequence}.
 
-[MAEK GRAPH OF DIS PLIIIIZ AND SEE GOOGLE DOC]
 
-The details of the \textit{init()}, \textit{boot()} and \textit{run()} methods will vary from service to service, and protocol server to protocol server.
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/bootSequence.png}}
+    \caption{Boot sequence main components of OKSE}
+    \label{fig:boot-sequence}
+  \end{figure}
+\end{center}
+
+The details of the \verb!init()!, \verb!boot()! and \verb!run()! methods will vary from service to service, and protocol server to protocol server.
 
 After the startup sequence has completed, all of the instances of either core services or protocol servers have their own dedicated thread that awaits the next task or event to execute.
 
@@ -94,6 +101,7 @@ After the startup sequence has completed, all of the instances of either core se
 \subsubsection{AMQPServer}
 
 \section{Common Patterns Used}
+\label{sec:common-patterns-used}
 
 \begin{itemize}
 \item Singelton
@@ -108,6 +116,7 @@ After the startup sequence has completed, all of the instances of either core se
 Something about AbstractProtocolServer class and ProtocolServer interface
 
 \section{Adding new core services}
+\label{sec:adding-new-core-services}
 
 Something about AbstractCoreService, Singleton pattern and the needed methods to accomplish this, and the abstract methods needed from the superclass
 
