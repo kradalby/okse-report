@@ -53,15 +53,15 @@ Extending the application with additional protocol support is done through use o
 
 \subsection{Web Admin}
 
-The OKSE administration console is run using the Spring framework, more exact the spring-boot\footnote{\ref{https://spring.io/guides/gs/rest-service/}} package, using Thymeleaf-templates\footnote{\url{http://www.thymeleaf.org}}. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript. 
+The OKSE administration console is run using the Spring framework, more exact the spring-boot\footnote{\url{https://spring.io/guides/gs/rest-service/}} package, using Thymeleaf-templates\footnote{\url{http://www.thymeleaf.org}}. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript. The web administration interface of OKSE is built in a modular way, to achieve loose coupling. Each pane of the interface has its own controller and front-end JavaScript.  With this approach it should be easy to extend and bugfix the interface.
 
 \subsubsection{Backend}
 
-
+The backend of OKSE works as a RESTful Web Service. It is responsible for acting as a link between the administration panel and all the different registered services in OKSE. Since the backend uses Spring framework, the main architectural approach for the backend is based upon Spring’s approach to building RESTful web services. All HTTP requests are handled by a dedicated controller. These controllers are easily identified by the \verb!@RestController! annotation. Each controller are responsible for handling all HTTP-requests defined by \verb!@RequestMapping! annotations.  
 
 \subsubsection{Frontend}
 
-HAKLOEV PLZ
+The front-end of OKSE is the only component of the system accessible for user interaction. It is responsible for making HTTP-requests to the backend to manipulate and present the state of OKSE. Each pane of the administration pane has its own JavaScript module. 
 
 \subsection{CoreService}
 
@@ -120,5 +120,7 @@ Something about AbstractProtocolServer class and ProtocolServer interface
 
 Something about AbstractCoreService, Singleton pattern and the needed methods to accomplish this, and the abstract methods needed from the superclass
 
+\section{Adding new panes}
+\label{sec:adding-new-panes}
 
 \clearpage

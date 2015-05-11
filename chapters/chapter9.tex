@@ -3,5 +3,13 @@
 \chapter{Further development}
 
 \section{Protocols}
+A variety of proposals for other protocols that may be implemented are listed below. Most of them are based on the original wishes from FFI.
 
 This chapter is meant to explain the parts of the system that can or should be improved. 
+
+\subsection{MQTT}
+As MQTT was one of the original planned protocols, it makes sense to view this as the next step when it comes to extending OKSE with new functionality. MQTT is a pure publish/subscribe pattern and the integration with OKSE should be fairly compatible. 
+During the research phase, when the group did research on different libraries for each protocol, the most promising Java implementation discovered was Moquette MQTT\footnote{\url{https://projects.eclipse.org/proposals/moquette-mqtt}}. There was not done any deep research into the project, but the fact that it had a lot of traction and that it was backed by the Eclipsed foundation gave the impression that it was a good bet.
+
+\subsection{ZeroMQ}
+The next protocol that should be looked into is ZeroMQ\footnote{\url{http://zeromq.org}}, it was also on the wish list from FFI, but had a lower priority. ZeroMQ is by some considered to be the biggest competitor to AMQP. It was developed by iMatix Corporation\footnote{\url{http://www.imatix.com}}, one of the original authors of AMQP. If ZeroMQ is considered to be implemented, the AMQP implementation should be analyzed thoroughly and many of the same concepts should apply. There is also worth nothing that there should be done some research on the benefits of using JeroMQ\footnote{\url{https://github.com/zeromq/jeromq}}, a pure java implementation, instead of using the C implementation with Java bindings. Both versions is developed by the ZeroMQ team and is considered a "drop-in" replacement of each other.

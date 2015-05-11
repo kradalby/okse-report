@@ -8,35 +8,35 @@ This chapter contains instructions for installing and using the OKSE Message Bro
 
 OKSE Message Broker requires a Java Runtime Environment (hereby denoted as JRE) version 8 update 31 or newer, to be able to run. The latest available update is always recommended. 
 
-OKSE has been developed on Windows, Debian Linux and OS X, and has therefore been tested on all this systems. It should however, run on all platforms with JRE installed. 
+The system was developed and tested on Windows, Debian Linux and OS X. It should be possible to run on all platforms with JRE installed. 
 
-In addition to JRE, OKSE requires a network connection to be able to send and receive messages. It does not require Internet on the given connection. 
+In addition to JRE, OKSE requires a network connection to be able to send and receive messages. It does not require Internet on the connection. 
 
 \section{Installation}
-(skriv noe her)
+
+The following sections describes how to download and run OKSE. Apart from JRE, no other additional configuration should be necessary.
 
 \subsection{Java Runtime Environment}
 
-As previously stated, OKSE Message Broker requires a JRE 8. The broker is developed, and only tested, with this version. This software is available for free from Oracle.com\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}}.
+As previously stated, OKSE Message Broker requires a JRE 8. The broker is developed and tested exclusively with this version. The software is available for free from Oracle.com\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}}.
 
-If you are using a UNIX-based system like Linux or OS X, you must remember to add Java to your path variable. Entering the following commands in a terminal should most likely work: \verb!export JAVA_HOME=<PATH-TO-JRE>! 
-
-[TODO: ADD FOR WINDOWS]
+If you are using a UNIX-based system like Linux or OS X, you must remember to add Java to your path variable. Entering the following commands in a terminal should most likely work: \verb!export JAVA_HOME=<PATH-TO-JRE>! In Windows, open up a command line window(cmd.exe). type in  \verb!path %path%;<PATH-TO-JRE>!.
+The variable can also be accessed and modified through the "Environmental variables" tab in the advanced system settings.
 
 \subsection{Download software}
 
 Download the latest version of OKSE Message Broker from [URL HERE].
-On UNIX-based systems, the file can be put into for instance \verb!$HOME/okse/!. On Windows, the file can be put into for instance \verb!C:\Program Files\okse\!. 
+The file can placed in an appropriate place in the file system. For example: \verb!$HOME/okse/! on UNIX-based systems, and \verb!C:\Program Files\okse\! on Windows.
 
-\subsection{Running software}
+\subsection{Running the software}
 
-On Windows the broker can be started by double-clicking on the .jar-file. On UNIX-based systems and Windows alike, the broker could be started by running the command: \verb!java -jar <PATH-TO-JAR-FILE>/<JAR-FILE>.jar!
+On Windows, the broker can be started by double-clicking on the .jar-file. On UNIX-based systems and Windows alike, the broker could be started by running the command: \verb!java -jar <PATH-TO-JAR-FILE>/<JAR-FILE>.jar! from the command line or terminal.
 
-See section \ref{sec:inital-login} for more information regarding how to access the administration panel.
+See section \ref{sec:inital-login} for information about accessing the administration panel.
 
 \section{Configuration}
 
-After the initial start up of OKSE Message Broker, there is created a folder named \verb!config! in the same location as the .jar-file. This folder contains three configuration files with the default config: 
+After the initial start up of OKSE Message Broker, there is created a folder named \verb!config! in the same location as the .jar-file. This folder contains three configuration files with the default configuration:
 
 \begin{itemize}
 \setlength{\itemsep}{0cm}%
@@ -45,7 +45,7 @@ After the initial start up of OKSE Message Broker, there is created a folder nam
 \item topicmapping.properties
 \end{itemize}
 
-\noindent See section \ref{sec:configuration-files} for detailed information about all possible settings.
+\noindent See section \ref{sec:configuration-files} for detailed information about all the possible settings.
 
 \section{Inital login}
 \label{sec:inital-login}
@@ -59,33 +59,85 @@ After installation and the first launch, the OKSE Admin Console can be accessed 
 \end{itemize}
 
 \section{Admin Console}
-The OKSE Admin Console (hereby denoted as OAC) provides you information about OKSE and it's operation enviroment. It also give you access to configure OKSE. The OAC have information sorted in six panes, the Main pane, the Topic pane, the Subscribers pane and the Configuration pane.
+The OKSE Admin Console provides information about OKSE and it's operation enviroment. It also gives access to configure OKSE. The interface have information sorted in six panes, the Main pane, the Topic pane, the Subscribers pane and the Configuration pane.
 
 \subsection{The Main pane}
 The Main pane is an overview of the status of the broker, system, the operating environment, and the interfaces the different protocol servers are bound to. It is also possible to start and stop the protocol servers from the interface section.
 
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oac/mainpane.png}}
+    \caption{The OKSE Admin Console - Main pane} 
+    \label{fig:OKSE Admin Console - Main pane}
+  \end{figure}
+\end{center}
+
 \subsection{The Topics pane}
 The Topics pane contains all the registered topics in OKSE. For each topic it is possible to see how many clients are subscribing to the topic (---comment about xpath not being subscribers??---). It is also possible to delete all topics or a specific topic. The 'Stop refresh'-button stops the automatic refreshing of the topic list. (-- noe om hvilke situasjoner stop knappen er tenkt til
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oac/topicspane.png}}
+    \caption{The OKSE Admin Console - Topics pane} 
+    \label{fig:OKSE Admin Console - Topics pane}
+  \end{figure}
+\end{center}
 
 \subsection{The Subscribers pane}
 The subscribers pane shows all the subscribers (hosts). It also lists which protocol the subscriber are using, on which port, and if any filters are specified. One or all users can be deleted, denoted as unsubscribe in WSN and disconnect in AMQP. The 'Stop refresh'-button stops the automatic refreshing of the subscription list.
 
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oac/subscriptionspane.png}}
+    \caption{The OKSE Admin Console - Subscriptions pane} 
+    \label{fig:OKSE Admin Console - Subscriptions pane}
+  \end{figure}
+\end{center}
+
 \subsection{The Statistics pane}
 The Statistics pane prvides a list of protocol servers with statistics per protocol and total usage. "Sent" denotes the amount of messages sent on the different protocols. "Received" denotes messages received on current protocol. "Requests" are the total amount of requests on the protocol. (--skriv om hvordan det fungerer for både WSN og AMQP--). Bad request (---her---). Errors (---Her---). In the usage panel you get the total stats for all protocols.
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oac/statisticspane.png}}
+    \caption{The OKSE Admin Console - Statistics pane} 
+    \label{fig:OKSE Admin Console - Statistics pane}
+  \end{figure}
+\end{center}
 
 \subsection{The Configuration pane}
 The Configuration pane have three sections; options, topic mapping and relays. In the option section you can change the auto update interval for refreshing the web page. The "Use AMQP queues instead of pub/sub topics" changes the queue semantic.
 
 In the topic mapping section one can manually map from one topic to another one. The mapping is an asynchronous action. If a mapping is made between topic A and B, messages sent to A will also be forwarded to topic B. Messages sent to topic B will not be forwarded to topic A.
 
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oac/configurationpane.png}}
+    \caption{The OKSE Admin Console - Configurations pane} 
+    \label{fig:OKSE Admin Console - Configurations pane}
+  \end{figure}
+\end{center}
+
 \subsection{The Logs pane}
 The main feature of the "Logs" pane is the large text area, providing all of the information printed from the application. Logging is separated into 4 levels, "ERROR", "WARN", "INFO" and "DEBUG". The "DEBUG" level shows the full set of messages printed during system runtime. "INFO" prints messages that are meant to show the progress and events happening in the application. The "WARN" level prints messages that might potentially lead to system failure. Finally, "ERROR" shows events which has caused a failure in the system. There are one button for each of the message types, allowing the user to filter out information. The "Lines" area, lets the user decide how many lines of information that are displayed. Lastly, the "Stop refresh" buttons stops new messages from showing up in the text-area.
 
-\section{Sending messages}
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oac/logpane.png}}
+    \caption{The OKSE Admin Console - Logs pane} 
+    \label{fig:OKSE Admin Console - Logs pane}
+  \end{figure}
+\end{center}
+
+\section{Sending and receiving messages}
+
+If you want to send a WSNotification message to OKSE you just send a valid WSNotification messages on a topic of your choice. OKSE will then distribute the message to all subscribers on the topic. If the topic does not exists OKSE will create it. To receive a WSNotification message you have to subscribe on a topic. You will then get all messages sent to the broker on the topic you subscribe on, regardless of witch protocol i originated from. For AMQP you have to connect to OKSE before you can send a AMQP message. The same applies to receive a message. To receive you also have to subscribe to a topic. 
+
+The OKSE project does not contain any clients for sending and receiving messages, as the broker itself is the scope. Thus, additional software is required, in order to use the functionality of the broker itself. For testing purposeses a python script is included(bullrider.py) meant for sending valid WSNotification messages, and a java client to receive AMQP messages(AMQPreceive.jar).
 
 \section{Configuration files}
 \label{sec:configuration-files}
-OKSE has 3 configurations files. The main configuration file is the okse.properties file. You also got log4j.properties, and topicmapping.properties.
+OKSE has three configurations files. The main configuration file is the okse.properties file. You also got log4j.properties, and topicmapping.properties. This chapter describe the default configuration.
 
 \subsection{okse.properties}
 \label{subsec:okse.properties}
@@ -137,7 +189,7 @@ OKSE has 3 configurations files. The main configuration file is the okse.propert
   \item[AMQP\_PORT] \hfill \\
   Tells OKSE what port AMQPProtocolServer should listen to \hfill \\ Default: \verb!5672!
   \item[AMQP\_USE\_QUEUE] \hfill \\
-  Tells OKSE if AMQP should use the non-standard topic implementation \hfill \\ Default: \verb!true!
+  Tells OKSE if AMQP should use the standard queue or the non-standard topic implementation \hfill \\ Default: \verb!false!
   \item[AMQP\_USE\_SASL] \hfill \\
   Tells OKSE if AMQP should use SASL \hfill \\ Default: \verb!true!
   \item[spring.resources.cache-period] \hfill \\
@@ -243,8 +295,9 @@ This is the configuration file for all the log files available for the system. S
  \subsection{topicmapping.properties}
  \label{subsec:topicmapping.properties}
  
- This is a configuration file for adding predefined topic mappings to be available when the broker boots. By default, there are no topic mapping listed. To add predefined topic mappings, use the following format: \verb!from=to!. An example mapping is: \verb!no/ffi = nato/hq/info!.
-
+ This is a configuration file for adding predefined topic mappings to be available when the broker boots. The mapping is asyncron. This means that the broker forward messages from one topic to another one, but not back again (TopicA forward to TopicB, but not visa versa). If you want syncron forwarding (A to B, and B to A), you have to add two mappings, A=B and B=A. By default, there are no topic mapping listed. To add predefined topic mappings, use the following format: \verb!from=to!. An example mapping is: \verb!no/ffi=nato/hq/info!.
+This will forward all messages recevived on no/ffi to nato/hq/info
+ 
 \section{Troubleshooting}
 
 If you encounter any problems with the software, check the following points before you contact the development team: 

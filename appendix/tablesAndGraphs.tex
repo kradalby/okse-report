@@ -730,13 +730,19 @@ IT5.24 & ConfigController & getAllInfo & Enter a mapping the the topicmapping.pr
 \begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
-\multicolumn{5}{|c|}{\textbf{FR1-10, WSN}} \\ \hline
+\multicolumn{5}{|c|}{\textbf{FR1.1-1.10, WSN}} \\ \hline
 \multicolumn{5}{|c|}{{Test general functionality regarding the WSN protocol implementation}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
 ST1.1 & Send and receive message (FR1.1) & Create a subscriber on a topic, send valid notify to that topic & Message sent and received correctly & Success \\ \hline
 ST1.2 & Subscribe & Send a valid subscription request (FR1.2) & Subscriber successfully added, topic created and admin panel showing subscriber with correct host, port and topic & Success \\ \hline
-ST1.3 & Register Publisher (FR1.3) & Send a valid publisher registration request & The publisher is successfully registered, topic created and total amount of publishers increased by ONE in admin panel & Success \\ \hline
-ST1.4 & & & & \\ \hline
+ST1.3 & Register Publisher (FR1.3) & Send a valid publisher registration request & The publisher is successfully registered. & Success \\ \hline
+ST1.4 & Unsubscribe (FR1.4) & Perform ST1.2, then perform an unsubscribe request. & Subscriber successfully removed. Topic still exists. & Success \\ \hline
+ST1.5 & Unregister (FR1.5) & Perform ST1.3, then perform a destroy publisher registration request using the returned publisherregistration endpoint reference. & Publisher successfully removed, total count decreased by ONE in admin panel & Success \\ \hline
+ST1.6 & GetCurrent Message (FR1.6) & Send a message to a topic. Send a getCurrentMessage request with the specified topic. & Last message sent correctly returned. & Success \\ \hline
+ST1.7 & Renew (FR1.7) & Perform ST1.2. Then send a valid Renew request. & Subscription correctly renewed. & Success \\ \hline
+ST1.8 & Pause (FR1.8) & Perform ST1.2. Then send a valid Pause request. & Subscription correctly paused. & Success \\ \hline
+ST1.9 & Resume (FR1.9) & Perform ST1.2. Then perform ST1.8. Then send a valid Resume request. & Subscription correctly resumed. & Success \\ \hline
+ST1.10 & Multiple Messages (FR1.10) & Perform ST1.2. Then send a Notify with TWO NotificationMessages. & System accepts the Notify and delivers to subscriber. & Success \\ \hline
 \end{tabular}
 \caption{System Testing - Test Cases - FR1}
 \label{table:system-testing-cases-fr1}
@@ -841,13 +847,13 @@ ST6.2 & Log in with wrong information & Attempt to log in with username=somethin
 \hline
 \rowcolor{lightgray}
 \textbf{ID} & \textbf{Area} & \textbf{Category} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
-STA.1 & WSN & Subscribe & Send a valid subscription using SimpleTopic, and an incorrect subscription using child topics & The system accepts the valid SimpleTopic, and rejects the child topic request & ? \\ \hline
-STA.2 & WSN & Subscribe & Send a valid subscription using ConcreteTopic, and an incorrect subscription using XPATH values & The system accepts the valid ConcreteTopic and rejects the one containing XPATH & ? \\ \hline
-STA.3 & WSN & Subscribe & Send a valid subscription using FullTopic, and an incorrect subscription using invalid format & The system accepts the valid FullTopic, and rejects the invalid one & ? \\ \hline
-STA.4 & WSN & Subscribe & Send a valid subscription using FullTopic with wildcards, and an invalid subscription using FullTopic with wildcards & The system accepts the valid FullTopic, and rejects the invalid one & ? \\ \hline
-STA.5 & WSN & Subscribe & Send a valid subscription using XPATH message content filter, and an invalid subscription with an invalid XPATH expression & The system accepts the valid subscription, and rejects the invalid one & ? \\ \hline
+STA.1 & WSN & Subscribe & Send a valid subscription using SimpleTopic, and an incorrect subscription using child topics & The system accepts the valid SimpleTopic, and rejects the child topic request & Success \\ \hline
+STA.2 & WSN & Subscribe & Send a valid subscription using ConcreteTopic, and an incorrect subscription using XPATH values & The system accepts the valid ConcreteTopic and rejects the one containing XPATH & Success \\ \hline
+STA.3 & WSN & Subscribe & Send a valid subscription using FullTopic, and an incorrect subscription using invalid format & The system accepts the valid FullTopic, and rejects the invalid one & Success \\ \hline
+STA.4 & WSN & Subscribe & Send a valid subscription using FullTopic with wildcards, and an invalid subscription using FullTopic with wildcards & The system accepts the valid FullTopic, and rejects the invalid one & Success \\ \hline
+STA.5 & WSN & Subscribe & Send a valid subscription using XPATH message content filter, and an invalid subscription with an invalid XPATH expression & The system accepts the valid subscription, and rejects the invalid one ? Success \\ \hline
 STA.6 & WSN & Subscribe & Send a valid subscription using XPATH topic expression, and an invalid subscription using incorrect XPATH expression & The system accepts the valid XPATH subscription, and rejects the invalid one & ? \\ \hline
-STA.7 & WSN & Subscribe & Send a valid subscription using the UseRaw element & The system accepts the subscription and messages sent to that Subscriber are not wrapped in a Notify element & ? \\ \hline
+STA.7 & WSN & Subscribe & Send a valid subscription using the UseRaw element & The system accepts the subscription and messages sent to that Subscriber are not wrapped in a Notify element & Success \\ \hline
 STA.7 & WSN & Subscribe & Send a valid subscription using namespace prefixed SimpleTopic, and an invalid subscription using namespace prefixed SimpleTopic & The system accepts the valid subscription and rejects the invalid one & ? \\ \hline
 STA.8 & WSN & Subscribe & Send a valid subscription using namespace prefixed ConcreteTopic, and an invalid subscription using namespace prefixed ConcreteTopic & The system accepts the valid subscription and rejects the invalid one & ? \\ \hline
 STA.9 & WSN & Subscribe & Send a valid subscription using namespace prefixed XPATH topic, and an invalid subscription using namespace prefixed XPATH topic & The system accepts the valid subscription and rejects the invalid one & ? \\ \hline
