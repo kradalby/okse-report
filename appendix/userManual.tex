@@ -2,7 +2,7 @@
 
 \section{About}
 
-This chapter contains instructions for installing and using the OKSE Message Broker. The intended users are primarily researchers working with collaborative networking and network based defence. 
+This chapter contains instructions for installing and using the OKSE Message Broker. The intended users are primarily researchers working with collaborative networking (and network based defence) (gir egentlig ikke mening å nevne). 
 
 \section{Software Requirements}
 
@@ -69,12 +69,13 @@ After installation and the first launch, the OKSE Admin Console can be accessed 
 \end{itemize}
 
 \section{Admin Console}
+The OKSE Admin Console (hereby denoted as OAC) provides you information about OKSE and it's operation enviroment. It also give you access to configure OKSE. The OAC have information sorted in 6 panes, the Main pane, the Topic pane, the Subscribers pane and the Configuration pane.
 
 \subsection{The Main pane}
 The Main pane is an overview of the status of the broker, system, the operating environment, and the interfaces the different protocol-servers are bound to. It is also possible to start and stop the protocol-servers from the interface section.
 
 \subsection{The Topics pane}
-The Topics pane contains all the registered topics in OKSE. For each topic it is possible to see how many clients are subscribing to the topic (---comment about xpath not being subscribers??---). It is also possible to delete all topics or a specific topic. The "stop refresh" button stops the automatic refreshing of the topic list. (-- noe om hvilke situasjoner stop knapen er tengt til
+The Topics pane contains all the registered topics in OKSE. For each topic it is possible to see how many clients are subscribing to the topic (---comment about xpath not being subscribers??---). It is also possible to delete all topics or a specific topic. The "stop refresh" button stops the automatic refreshing of the topic list. (-- noe om hvilke situasjoner stop knappen er tenkt til
 
 \subsection{The Subscribers pane}
 The subscribers pane shows all the subscribers (hosts). It also lists which protocol the subscriber are using, on which port, and if any filters are specified. One or all users can be deleted, denoted as unsubscribe in WSN and disconnect in AMQP. The "stop refresh" button stops the automatic refreshing of the subscription list.
@@ -85,26 +86,16 @@ The Statistics pane prvides a list of protocol-servers with statistics per proto
 \subsection{The Configuration pane}
 The Configuration pane have three sections, options, topic mapping and relays. In the option section you can change the auto update interval for refreshing the webpage. The "Use AMQP queues instead of pub/sub topics" changes the queue semantic.
 
-In the topic mapping section one can manually map from one topic to another one. The mapping is an asynchronous action. If a mapping is made between topic A and B, messages sent to A will also be forwarded to topic B. Messages sent to topic B will not be sent to topic A.
+In the topic mapping section one can manually map from one topic to another one. The mapping is an asynchronous action. If a mapping is made between topic A and B, messages sent to A will also be forwarded to topic B. Messages sent to topic B will not be forwarded to topic A.
 
 \subsection{The Logs pane}
+The main feature of the "Logs" pane is the large text area, providing all of the information printed from the application. Logging is separated into 4 levels, "ERROR", "WARN", "INFO" and "DEBUG". The "DEBUG" level shows the full set of messages printed during system runtime. "INFO" prints messages that are meant to show the progress and events happening in the application. The "WARN" level prints messages that might potentially lead to system failure. Finally, "ERROR" shows events which has caused a failure in the system. There are one button for each of the message types, allowing the user to filter out information. The "Lines" area, lets the user decide how many lines of information that are displayed. Lastly, the "Stop refresh" buttons stops new messages from showing up in the text-area.
 
-The main feature of the "Logs" pane is the large text area, providing all of the information printed from the application. Logging is separated into 4 categories, "ERROR", "WARN", "INFO" and "DEBUG". The "DEBUG" level shows the full set of messages printed during system runtime. "INFO" prints messages that are meant to show the progress and events happening in the application. The "WARN" level prints messages that might potentially lead to system failure. Finally, "ERROR" shows events which has caused a failure in the system. There are one button for each of the message types, allowing the user to filter out information. The "Lines" area, lets the user decide how many lines of information that are displayed. Lastly, the "Stop refresh" buttons stops new messages from showing up in the text-area.
-
-\subsection{Subscribing and publishing}
-
-\section{Troubleshooting}
-
-If you encounter any problems with the software, check the following points before you contact the development team: 
-
-\begin{itemize}
-\setlength{\itemsep}{0cm}%
-\item Do you have the correct JRE? For OKSE Message Broker to run properly, you need version 8 or newer. Other versions than this may cause problems, or not work at all.
-\item Network connectivity. Verify that your Internet connection is working and that the ports are open. Also ensure that you use port forwarding if you don't have a public IP.
-\end{itemize}
+\section{Sending messages}
 
 \section{Configuration files}
 \label{sec:configuration-files}
+OKSE has 3 configurations files. The main configuration file is the okse.properties file. You also got log4j.properties, and topicmapping.properties.
 
 \subsection{okse.properties}
 \label{subsec:okse.properties}
@@ -272,5 +263,15 @@ This is the configuration file for all the log files available for the system. S
 \end{lstlisting}
 \end{tabular}
 \end{center}
+
+\section{Troubleshooting}
+
+If you encounter any problems with the software, check the following points before you contact the development team: 
+
+\begin{itemize}
+\setlength{\itemsep}{0cm}%
+\item Do you have the correct JRE? For OKSE Message Broker to run properly, you need version 8 or newer. Other versions than this may cause problems, or not work at all.
+\item Network connectivity. Verify that your Internet connection is working and that the ports are open. Also ensure that you use port forwarding if you don't have a public IP.
+\end{itemize}
 
 \clearpage

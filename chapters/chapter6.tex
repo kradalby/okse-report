@@ -81,12 +81,12 @@ This resulted in tables \ref{table:integration-testing-cases} to \ref{table:inte
 \subsection{System testing}
 \label{subsec:testing-test_execution-system_testing}
 
-System testing was performed based on the requirements for the system. Each of the functional requirements were tested in a procedural manner. Additionally, although no clear requirement were set for performance, it was tested to make sure there were no bottlenecks, and the system was performing fairly well. A table was made for each of the requirements.
+System testing was performed based on the requirements for the system. Each of the functional requirements were tested in a procedural manner. A table was made for each of the requirements. Additionally, an extensive table was made, describing other test cases. These cases are related to the system, although not directly connected to them. The list includes edge cases of the protocol standards, as well as some of the core functionality within the broker. The full set of test cases can be found in Appendix \ref{appendix-c:system_test_cases}.
 
 \subsection{Acceptance test}
 \label{subsec:testing-test_execution-acceptance_test}
 
-A final demonstration of the system was performed at a customer meeting the 8th of May at NTNU. As previously stated, the customer did not have a strictly defined set of requirements for the product. This meant that the demonstration acted as our acceptance test. The group demonstrated the implementation of the customers requirements, as well as additional features and internal requirements from the requirements elicitation process. Due to time limitations, it was not possible to demonstrate all the different permutations of functionality acting together, as the customer had a second group meeting later that day. Nonetheless, the feedback given from the customer was very positive. There was some discussion regarding limitations of the WS-Nu library, as well as compatibility issues regarding translating messages between WSN and other non-XML protocols. Apart from one minor request for supporting topic based relaying between instances of the product, the product as a whole was accepted by the customer. Documentation of the limitations of WS-Nu and the challenges regarding message translation were also requested. A summary of the feedback is presented below:
+A final demonstration of the system was performed at a customer meeting the 8th of May at NTNU. As previously stated, the customer did not have a strictly defined set of requirements for the product. This meant that the demonstration acted as our acceptance test. The group demonstrated the implementation of the customers requirements, as well as additional features and internal requirements from the requirements elicitation process. Due to time limitations, it was not possible to demonstrate all the different permutations of functionality acting together, as the customer had a second group meeting later that day. Nonetheless, the feedback given from the customer was very positive. There was some discussion regarding limitations of the WS-Nu library, as well as compatibility issues regarding translating messages between WSN and other non-XML protocols. Apart from one minor request for supporting topic based relaying between different instances of the product, the product as a whole was accepted by the customer. Documentation of the limitations of WS-Nu and the challenges regarding message translation were also requested. A summary of the feedback is presented below:
 
 \begin{itemize}
 \item Having a relay function that can forward messages of certain topics to other instances of the system.
@@ -97,7 +97,5 @@ A final demonstration of the system was performed at a customer meeting the 8th 
 \end{itemize}
 
 These factors were taken into consideration, and the few issues were assessed towards the end.
-
-
 
 \clearpage

@@ -542,6 +542,8 @@ Use case showing the steps involvedin subscribing to a topic using the AMQP prot
 \begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
 \hline
 \rowcolor{lightgray}
+\multicolumn{6}{|c|}{\textbf{Core Service}} \\ \hline
+\rowcolor{lightgray}
 \textbf{ID} & \textbf{Service/Protocol} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
 IT1.1 & CoreService & boot & Start the Application & Thread running and all registered services alive & Success \\ \hline
 IT1.2 & CoreService & stop & Stop the Application & All registered services shut down and threads killed. Invoked flags set to false. CoreService thread removed and invoked flag set to false. & Success \\ \hline
@@ -572,6 +574,8 @@ IT1.18 & CoreService & registerListenerSupport ForAllCoreServices & Perform IT1.
 \tiny
 \begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
 \hline
+\rowcolor{lightgray}
+\multicolumn{6}{|c|}{\textbf{Subscription service}} \\ \hline
 \rowcolor{lightgray}
 \textbf{ID} & \textbf{Service/Protocol} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
 IT2.1 & SubscriptionService & boot & Start the SubscriptionService & Thread running and awaiting new tasks. Listenersupport registered & Success \\ \hline
@@ -605,6 +609,8 @@ IT2.19 & SubscriptionService & firePublisher ChangeEvent & Start the Subscriptio
 \begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
 \hline
 \rowcolor{lightgray}
+\multicolumn{6}{|c|}{\textbf{Topic service}} \\ \hline
+\rowcolor{lightgray}
 \textbf{ID} & \textbf{Service/Protocol} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
 IT3.1 & TopicService & boot & Start the TopicService & Thread running and awaiting new tasks. Listenersupport registered & Success \\ \hline
 IT3.2 & TopicService & stop & Start the TopicService, then stop it. & Topics purged, thread stopped, invoked flag set to false  & Success \\ \hline
@@ -629,6 +635,8 @@ IT3.13 & TopicService & fireTopic ChangeEvent & Start the TopicService and regis
 \begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
 \hline
 \rowcolor{lightgray}
+\multicolumn{6}{|c|}{\textbf{Message Service}} \\ \hline
+\rowcolor{lightgray}
 \textbf{ID} & \textbf{Service/Protocol} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result}\\ \hline
 IT4.1 & MessageService & boot & Start the MessageService & Thread running and awaiting new tasks. & Success \\ \hline
 IT4.2 & MessageService & stop & Start the MessageService and then stop it. Start it again, set broadcast system messages to true and stop it again. & First run, thread stopped and removed, invoked flag set to false, no messages broadcasted. Second run, same state, but a shutdown message is broadcasted to all subscribers before shutdown. & Success \\ \hline
@@ -647,6 +655,8 @@ IT4.7 & MessageService & distributeMessage (with topic mapping) & Start the Mess
 \tiny
 \begin{tabular}{|m{0.5cm}|m{1.5cm}|m{1.5cm}|m{3cm}|m{3cm}|m{1.5cm}|}
 \hline
+\rowcolor{lightgray}
+\multicolumn{6}{|c|}{\textbf{Web controllers}} \\ \hline
 \rowcolor{lightgray}
 \textbf{ID} & \textbf{Controller} & \textbf{Method} & \textbf{Procedure} & \textbf{Expected} & \textbf{Result} \\ \hline
 IT5.1 & IndexViewController & index & Start the Spring server and access route "/", then log in & Front page loaded successfully with correct information  & Success \\ \hline
@@ -681,6 +691,7 @@ IT5.24 & ConfigController & getAllInfo & Enter a mapping the the topicmapping.pr
 \clearpage
 
 \section{System testing test cases}
+\label{appendix-c:system_test_cases}
 
 \begin{table}[ht!]
 \begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
@@ -785,14 +796,9 @@ and does NOT relay back to topic A from B & Success \\ \hline
 \multicolumn{5}{|c|}{\textbf{FR6, Log in}} \\ \hline
 \multicolumn{5}{|c|}{{Test the log in functionality}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
-6.1 && & x & y \\ \hline
-6.2 &&&z&y \\ \hline
-6.3 &&&y&z \\ \hline
-6.4 &&&y& \\ \hline
-6.5 &&&y& \\ \hline
-6.6 &&&z& \\ \hline
-6.7 &&&y& \\ \hline
-6.8 &&&y&z \\ \hline
+6.1 & Log in with correct information. & Start an instance of the system. Attempt to log in with username=admin, password=password & Access granted, and redirected to "Main" pane. & Success \\ \hline
+6.2 & Log in with wrong information & Attempt to log in with username=something, password=something & Access denied, error message should appear & Success \\ \hline
+
 \end{tabular}
 \caption{System Testing - Test Cases - FR6}
 \label{table:system-testing-cases-fr6}

@@ -104,7 +104,7 @@ The package was not considered for further development, due to its incompletenes
 \section{Overall evaluation}
 \label{sec:prestudies-overall_evaluation}
 
-The main outcome of the prestudy phase, was the discovery of Apollo. It proved to be a solution it was possible to expand upon. One issue with Apollo, proved to be the massive code base. It was clear that it would be difficult to grasp, given the complexity and sheer size. A lot of the code was hard to understand, and lacked thorough documentation and community usage. Additionally, the web interface and a few core system components were built using Scala. Regardless, Apollo provided what seemed a very dynamic and robust implementation of both the AMQP and MQTT protocols, which were requirements of the customer. Expanding Apollo with WSN would be the best solution, as it would possibly open up time for adding other protocols the customer might want.
+The main outcome of the prestudies phase, was the discovery of Apollo. It proved to be a solution it was possible to expand upon. One issue with Apollo, proved to be the massive code base. It was clear that it would be difficult to grasp, given the complexity and sheer size. A lot of the code was hard to understand, and lacked thorough documentation and community usage. Additionally, the web interface and a few core system components were built using Scala. Regardless, Apollo provided what seemed a very dynamic and robust implementation of both the AMQP and MQTT protocols, which were requirements of the customer. Expanding Apollo with WSN would be the best solution, as it would possibly open up time for adding other protocols the customer might want.
 
 The group chose to introduce an extended research phase, in order to make a final decision regarding Apollo. This was based on an initial risk analysis of what would become a research project. These risks would lay the foundation of the research process, and define the different areas of focus. The risk analysis is shown below, and a more detailed description of the methodology is explained in section \ref{subsec:process_and_methodology-process-methodology-research}.
 
@@ -130,8 +130,8 @@ Apollo being incompatible with a protocol such as WSN  & 4                & 10  
 \label{tab:risk_analysis_apollo}
 \end{table}
 
-\section{Alternate solution}
-\label{sec:prestudies-alternate_solution}
+\subsection{Alternate solution}
+\label{subsec:prestudies-alternate_solution}
 
 If the outcome of the research phase would result in discarding of Apollo as a foundation for the new system, a plan B was outlined. Plan B was to develop a completely new protocol brokering solution. WS-Nu would then be used as the WSN library of the product. 
 
@@ -144,6 +144,10 @@ The two major development tasks, were to create a web interface and the brokerin
     \label{fig:arch_proposal}
   \end{figure}
 \end{center}
+
+\subsection{Final decision}
+
+After thorough research and consideration, the final choice fell on developing a new protocol brokering solution. Having no restrictions on namepolicy defined beforehand, the group eventually decided to name it OKSE(Overordnet kommunikasjonssystem for etterretning). The research work is more thoroughly documented in chapter \ref{subsec:process_and_methodology-process-methodology-research}, and the deciding factors are considered in chapter \ref{subsec:project_lifecycle-planning_and_research-research_phase-discussion}.
 
 \section{Tools}
 \label{sec:prestudies-tools}
@@ -172,6 +176,8 @@ Spring Framework\footnote{\url{http://projects.spring.io/spring-boot/}} is a mod
 
 \subsection{Bootstrap}
 \label{subsec:prestudies-tools-bootstrap}
+
+Bootstrap\footnote{\url{http://getbootstrap.com/}} was chosen as a suitable framework for the visual aspects of the web application. The framework provided a large set of tools for page layout and elements, such as buttons, text and textfields. Designing it from scratch would have taken a lot of time, and was less important than the broker solution and the functionality of the web application. Thus, the framework seemed like an appropriate tool for its purpose.
 
 \subsection{JavaDoc}
 \label{subsec:prestudies-tools-javadoc}

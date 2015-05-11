@@ -1,22 +1,45 @@
 \chapter{Developer Manual}
+This manual will go through the needed steps to get started on extending and further developing on OKSE. The first sections will go through how to set up the development environment. The rest of the sections will go through the different parts of the system and how you can extend them.
 
-\section{Setup and installation}
+\section{Requirements and Setup}
+The recommended setup, as noted below, is using IntelliJ IDEA\footnote{\url{https://www.jetbrains.com/idea/}} as the Java IDE. However, other IDEs that meet the requirements listed below, or a combination should suffice. 
 
 \subsection{Requirements and dependencies}
 
-\begin{itemize}
-\item Java 8 Target and minimum version
-\item Maven project \begin{itemize}
-    \item spring-boot 
-    \item TestNG
-    \item WS-Nu base
-    \item WS-Nu services
-\end{itemize}
-\end{itemize}
+\subsubsection{Java}
+The minimum required major version of Java is 8, and we do recommend to use the latest minor release. As of the writing of this guide, update 45 is the latest, and the version which is used to compile the packaged version of OKSE that is bundled.
+
+\subsubsection{Apache Maven}
+The project source code, tests and dependency management is structured with Apache Maven\footnote{\url{https://maven.apache.org}}. Maven is used to fetch dependencies, run the tests and to build the final jar files. The minimum major version of Maven is 3 and any minor version from 3.0.5 and up can be used. However, the development team recommends the latest version. As of the time of this writing, the latest version is 3.3.3.
+
+It is worth mentioning, that many of the popular IDE software for Java bundles Maven support and does not require it to be installed separately on the system.
 
 \subsection{Recommended IDE}
+The development team strongly recommends IntelliJ IDEA Ultimate\footnote{\url{https://www.jetbrains.com/idea/}} as the Integrated Development Environment. Note that the free Community edition should suffice, but its worth mentioning that the Ultimate edition has better support for frameworks like Spring and TestNG (test framework of choice), which is used for the web administration interface. Both Community and Ultimate edition comes bundled with Maven.
 
-IntelliJ IDEA 14 (See section \ref{subsec:prestudies-tools-intellij_idea} )
+\subsection{Test Framework: TestNG}
+The system has a lot of unit tests, and the test framework of choice is TestNG\footnote{\url{http://testng.org/doc/index.html}}. Any new features and expansions of the system should be accompanied by unit tests. Please refer to the TestNG documentation\footnote{\url{http://testng.org/doc/documentation-main.html}} on how to write tests that suits the expansions needs.
+
+\subsection{IntelliJ setup}
+As the user stands free to choose the IDE, the setup documentation will be fairly basic and it will be based on IntelliJ.
+
+Prerequisites: IntelliJ is installed, an Internet connection and the source code is stored locally.
+
+\begin{enumerate}
+    \item Open IntelliJ
+    \item Click "Import Project" or File -> "Import Project"
+    \item Browse the file system and select the source code folder
+    \item Choose "Import project from external model"
+    \item Choose "Maven"
+    \item Check "Import Maven projects automatically"
+    \item Click Next
+    \item no.ntnu.okse... should be selected, click Next
+    \item Select 1.8 (if it is not available, click "+" and add it)
+    \item Click Next
+    \item Click Finish
+\end{enumerate}
+
+After the IntelliJ window is opened with the project, all the needed dependencies will be downloaded. After this is complete, the project setup is complete.
 
 \section{Overview of components}
 
