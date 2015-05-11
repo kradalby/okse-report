@@ -753,16 +753,16 @@ ST1.10 & Multiple Messages (FR1.10) & Perform ST1.2. Then send a Notify with TWO
 \hline
 \rowcolor{lightgray}
 \multicolumn{5}{|c|}{\textbf{FR2, AMQP}} \\ \hline
-\multicolumn{5}{|c|}{{Test to see if an AMQP message can be sent, and received on all protocols}} \\ \hline
+\multicolumn{5}{|c|}{{Test to see if an AMQP message can be sent, and received on all protocols}} \\ \hline 
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
-ST2.1 &&Send "Hello World" to other AMQP client & x & y \\ \hline
-ST2.2 &&Send "Hello World" to other protocols &z&y \\ \hline
-ST2.3 &&Receive AMQP message from AMQP &y&z \\ \hline
-ST2.4 &&Receive AMQP message from other protocol &y& \\ \hline
-ST2.5 &&Send "Hello World" via a mapped topic &y& \\ \hline
-ST2.6 &&Subscribe to AMQP and update admin interface &z& \\ \hline
-ST2.7 &&Remove AMQP subscriber from the admin interface &y& \\ \hline
-ST2.8 &&Check AMQP statistics &y&z \\ \hline
+ST2.1 &Send message&Send "Hello World" to other AMQP client & Message sent and received correctly & Success \\ \hline
+ST2.2 &Send message&Send "Hello World" to other protocols & Message sent and received&Success \\ \hline
+ST2.3 &Receive message&Receive AMQP message from AMQP &Message received&Success \\ \hline
+ST2.4 &Receive message&Receive AMQP message from other protocol &Message received&Success \\ \hline
+ST2.5 &Mapped topic&Send "Hello World" via a mapped topic &Message sent on a topic will be received on mapped topic&Success \\ \hline
+ST2.6 &Subscribe AMQP&Subscribe to AMQP and update admin interface &Client is subscribed to topic and admin interface is updated&Success \\ \hline
+ST2.7 &Unsubscribe&Remove AMQP subscriber from the admin interface &When subscriber is removed from admin interface client is unsubscribed and will no longer receive messages on that topic&Success \\ \hline
+ST2.8 &AMQP protocol stats&Check AMQP statistics &Stats for AMQP is updated according to activity&Success \\ \hline
 \end{tabular}
 \caption{System Testing - Test Cases - FR2}
 \label{table:system-testing-cases-fr2}
@@ -871,9 +871,7 @@ STA.20 & WSN & Notify & Send a valid Notify using namespace prefixed ConcreteTop
 STA.21 & WSN & Notify & Send a valid Notify using namespace prefixed FullTopic and an invalid one & The system accepts the valid request and rejects the invalid one. WS-Nu filters message correctly based on namespace prefix & Unstable, wildcards do not seem to work. WS-Nu filtering malfunctioning. \\ \hline
 STA.22 & WSN & Notify & Send a valid Notify to a subscriber with the UseRaw flag & The system correctly extracts the message content and sends the notify without Notify wrapper & Success \\ \hline
 STA.23 & WSN & Notify & Send one Notify using the WSNotification BaseNotification namespace, and another using the WSNotification BrokeredNotification namespace. & The system correctly accepts and distributes both notifications & Success on BaseNotification. Fail on BrokeredNotification. Standard declares that BrokeredNotification imports interface from predefined Notify in BaseNotification, thus it is implied that BaseNotification should be used as namespace regardless. \\ \hline
-STA.24 & WSN & Notify & Send a valid Notify containing two bundled NotificationMessage elements & The system correctly delivers the Notify to WSN subscibers, and distributes TWO Okse internal Message objects to other protocol subscribers & ? \\ \hline
-STA.25 & WSN & Notify & Send a valid Notify containing two bundled NotificationMessage elements to a subscriber with the UseRaw flag & The system correctly extracts the message contents and sends both messages without Notify wrapper as a single SOAP body & ? \\ \hline
-STA.26 & OKSE & Relay & Set up two OKSE instances, and set up a relay without explicit topic declaration from one instance to the other. Send a message to the PRODUCING instance. & The relay RECEIVING instance correctly consumes the message and starts internal distribution. & ? \\ \hline
+
 \end{tabular}
 \caption{System Testing - Additional Test Cases}
 \label{table:system_testing-additional_test_cases}
@@ -883,14 +881,17 @@ STA.26 & OKSE & Relay & Set up two OKSE instances, and set up a relay without ex
 \tiny
 \begin{tabular}{|m{0.5cm}|m{1.2cm}|m{1.2cm}|m{3.3cm}|m{3.3cm}|m{1.5cm}|}
 \hline
-
-STA.27 & OKSE & Profiling & Set up 3 WSN subscribers on a topic. Set up 10 AMQP subscribers on the same topic. Use a non-sleeping AMQP send script to produce 1000 messages to the topic. Time the transmissions and note statistics & All messages are successfully distributed without errors. & ? \\ \hline
-STA.28 & OKSE & Profiling & Set up 3 WSN subscribers on a topic. Set up 10 AMQP subscribers on the same topic. Use a non-sleeping AMQP send script to produce 15000 messages to the topic. Time the transmissions and note statistics & All messages are successfully distributed without errors. & ? \\ \hline
+STA.24 & WSN & Notify & Send a valid Notify containing two bundled NotificationMessage elements & The system correctly delivers the Notify to WSN subscibers, and distributes TWO Okse internal Message objects to other protocol subscribers & Success \\ \hline
+STA.25 & WSN & Notify & Send a valid Notify containing two bundled NotificationMessage elements to a subscriber with the UseRaw flag & The system correctly extracts the message contents and sends as TWO separate messages, each containing their respective message counterparts. & Success internally in OKSE, but the MicroWSN test client cant seem to recieve the two concurrent messages simultaniously. \\ \hline
+STA.26 & OKSE & Relay & Set up two OKSE instances, and set up a relay WITHOUT explicit topic declaration from one instance to the other. Send a message to the PRODUCING instance. & The relay RECEIVING instance correctly consumes the message and starts internal distribution. & Success \\ \hline
+STA.26 & OKSE & Relay & Set up two OKSE instances, and set up a relay WITH explicit topic declaration from one instance to the other. Send a message to the PRODUCING instance. & The relay RECEIVING instance correctly consumes the message and starts internal distribution. & Success \\ \hline
+STA.27 & OKSE & Profiling & Set up 3 WSN subscribers on a topic. Set up 10 AMQP subscribers on the same topic. Use a non-sleeping AMQP send script to produce 1000 messages to the topic. & All messages are successfully distributed without errors. & Success \\ \hline
+STA.28 & OKSE & Profiling & Set up 3 WSN subscribers on a topic. Set up 10 AMQP subscribers on the same topic. Use a non-sleeping AMQP send script to produce 15000 messages to the topic. & All messages are successfully distributed without errors. & Success \\ \hline
 STA.29 & OKSE & Core system & Delete the config folder. Start the application. & Config directory successfully created, all config files created with defaults from internal classpath. & Success \\ \hline
 STA.30 & OKSE & Core system & Delete the logs folder. Start the application. & Log directory successfully created, Log files created and written to. & Success \\ \hline
 STA.31 & OKSE & Core system & Use the administration interface to stop the protocol servers. Then start them again. & The protocol servers are properly shut down. Subscribers removed. Topics persist. Protocol servers are successfully started again, accepting connections. & Success \\ \hline
 STA.32 & OKSE & Core system & Use the administration interface to stop the protocol servers. Edit the host and port of one of the protocol servers. Then start them again. & The protocol servers are properly shut down. Subscribers removed. Topics persist. Protocol servers are successfully started again, accepting connections. The modified server now listens on a different host and port. & Success \\ \hline
-STA.33 & OKSE & Core system & Use the administration interface to check the "Use AMQP queues" checkbox. Subscribe two AMQP clients on the same topic/queue. Send a message to that queue. Then uncheck the checkbox and send another message to the queue. & Only one of the subscribers receives the message when checkbox is ON, both subscribers receives message when checkbox is OFF. & ? \\ \hline
+STA.33 & OKSE & Core system & Use the administration interface to check the "Use AMQP queues" checkbox. Subscribe two AMQP clients on the same topic/queue. Send a message to that queue. Then uncheck the checkbox and send another message to the queue. & Only one of the subscribers receives the message when checkbox is ON, both subscribers receives message when checkbox is OFF. & Success \\ \hline
 \end{tabular}
 \end{table}
 

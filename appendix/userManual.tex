@@ -1,4 +1,13 @@
 \chapter{User Manual}
+\label{appendix-user-manual}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oac/oac.png}}
+    \caption{The OKSE Admin Console login page} 
+    \label{fig:OKSE Admin Console login page}
+  \end{figure}
+\end{center}
 
 \section{About}
 
@@ -45,12 +54,12 @@ After the initial start up of OKSE Message Broker, there is created a folder nam
 \item topicmapping.properties
 \end{itemize}
 
-\noindent See section \ref{sec:configuration-files} for detailed information about all the possible settings.
+\noindent See section \ref{sec:configuration_files} for detailed information about all the possible settings.
 
 \section{Inital login}
 \label{sec:inital-login}
 
-After installation and the first launch, the OKSE Admin Console can be accessed using a web-browser. By default, the admin console is accessible from \verb!localhost:8080!. Both the host and port can be changed in the okse.properties (see section \ref{sec:configuration_okse.properties}). To log in for the first time, use \verb!admin! and \verb!password! as respectively username and password. To increase the security, it is recommended that this is changed immediately after the inital login. 
+After installation and the first launch, the OKSE Admin Console can be accessed using a web-browser. By default, the admin console is accessible from \verb!localhost:8080!. Both the host and port can be changed in the okse.properties (see section \ref{subsec:configuration_files-okse.properties}). To log in for the first time, use \verb!admin! and \verb!password! as respectively username and password. To increase the security, it is recommended that this is changed immediately after the inital login. 
 
 \begin{itemize}
 \setlength{\itemsep}{0cm}%
@@ -73,7 +82,7 @@ The Main pane is an overview of the broker's status, system, the operating envir
 \end{center}
 
 \subsection{The Topics pane}
-The Topics pane contains all the registered topics in OKSE. For each topic it is possible to see how many clients are subscribing to the topic (---comment about xpath not being subscribers??---). It is also possible to delete all topics or a specific topic. The 'Stop refresh'-button stops the automatic refreshing of the topic list. This can be use full when there are many new topic are generated, and you do not want the list to update (ex: you want to search in the list)
+The Topics pane contains all the registered topics in OKSE. For each topic it is possible to see how many clients are subscribing to the topic (---comment about xpath not being subscribers??---). It is also possible to delete all topics or a specific topic. The 'Stop refresh'-button stops the automatic refreshing of the topic list. This can be usefull when there are many new topic are generated, and you do not want the list to update (ex: you want to search in the list)
 
 \begin{center}
   \begin{figure}[ht!]
@@ -95,7 +104,7 @@ The subscribers pane shows all the subscribers (hosts). It also lists which prot
 \end{center}
 
 \subsection{The Statistics pane}
-The Statistics pane prvides a list of protocol servers with statistics per protocol and total usage. "Sent" denotes the amount of messages sent on the different protocols. "Received" denotes messages received on current protocol. "Requests" are the total amount of requests on the protocol. The WSNotification protocol server "Requests" are subscribe request, message sendt to the broker, publisher registration, and trying to acccess an endpoint address. For AMQP a request are countet when the broker got a socket connection, and when a message is sendt to the broker. "Bad request" on the WSNotification protocol server can be trying to access an WSNotification endpoint. (---her---). Errors (---Her---). In the usage panel you get the total stats for all protocols.
+The Statistics pane prvides a list of protocol servers with statistics per protocol and total usage. "Sent" denotes the amount of messages sent on the different protocols. "Received" denotes messages received on current protocol. "Requests" are the total amount of requests on the protocol. The WSNotification protocol server "Requests" are subscribe request, message sendt to the broker, publisher registration, and trying to acccess an endpoint address. For AMQP a request are countet when the broker got a socket connection, and when a message is sendt to the broker. "Bad request" on the WSNotification protocol server can be trying to access an WSNotification endpoint. AMQP does not count "Bad requests". Errors are counted on WSNotification when OKSE try to send a message, but can not reach the subscriber. For AMQP errors are counted when some one try to connect to OKSE on AMQP's port, but the connection is not accepted. In the usage panel you get the total stats for all protocols.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -106,9 +115,11 @@ The Statistics pane prvides a list of protocol servers with statistics per proto
 \end{center}
 
 \subsection{The Configuration pane}
-The Configuration pane have three sections; options, topic mapping and relays. In the option section you can change the auto update interval for refreshing the web page. The "Use AMQP queues instead of pub/sub topics" changes the queue semantic.
+The Configuration pane has three sections; options, topic mapping and relays. In the option section you can change the auto update interval for refreshing the web page. The "Use AMQP queues instead of pub/sub topics" changes the queue semantic.
 
-In the topic mapping section one can manually map from one topic to another one. The mapping is an asynchronous action. If a mapping is made between topic A and B, messages sent to A will also be forwarded to topic B. Messages sent to topic B will not be forwarded to topic A.
+In the topic mapping section one can manually map from one topic to another one. The mapping is an simplex action. If a mapping is made between topic A and B, messages sent to A will also be forwarded to topic B. Messages sent to topic B will not be forwarded to topic A.
+
+The Relays section enables you to add this OKSE as a relay node (child relay) to another OKSE or WSNotification broker. You have to type in the address and the port the other broker is running on. The topic input is optional. If you want to relay a specific topic, type in the topic in the topic field. If you leave the topic field empty it relays everything. When adding a relay, you actually create a WSNotification subscription. There are some bounds to the relay so the messages don't go into a loop. There are restrictions on localhost, 127.0.0.1, 0.0.0.0 and interfaces on the running instance of OKSE.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -129,18 +140,12 @@ The main feature of the "Logs" pane is the large text area, providing all of the
   \end{figure}
 \end{center}
 
-\section{Sending and receiving messages}
-
-If you want to send a WSNotification message to OKSE you just send a valid WSNotification messages on a topic of your choice. OKSE will then distribute the message to all subscribers on the topic. If the topic does not exists OKSE will create it. To receive a WSNotification message you have to subscribe on a topic. You will then get all messages sent to the broker on the topic you subscribe on, regardless of witch protocol i originated from. For AMQP you have to connect to OKSE before you can send a AMQP message. The same applies to receive a message. To receive you also have to subscribe to a topic. 
-
-The OKSE project does not contain any clients for sending and receiving messages, as the broker itself is the scope. Thus, additional software is required, in order to use the functionality of the broker itself. For testing purposeses a python script is included(bullrider.py) meant for sending valid WSNotification messages, and a java client to receive AMQP messages(AMQPreceive.jar).
-
 \section{Configuration files}
-\label{sec:configuration-files}
+\label{sec:configuration_files}
 OKSE has three configurations files. The main configuration file is the okse.properties file. You also got log4j.properties, and topicmapping.properties. This chapter describe the default configuration.
 
 \subsection{okse.properties}
-\label{subsec:okse.properties}
+\label{subsec:configuration_files-okse.properties}
  
  This is the main configuration file within the system. See below for a detailed list of all possible settings, and their description.
 
@@ -296,8 +301,34 @@ This is the configuration file for all the log files available for the system. S
  \label{subsec:topicmapping.properties}
  
  This is a configuration file for adding predefined topic mappings to be available when the broker boots. The mapping is asyncron. This means that the broker forward messages from one topic to another one, but not back again (TopicA forward to TopicB, but not visa versa). If you want syncron forwarding (A to B, and B to A), you have to add two mappings, A=B and B=A. By default, there are no topic mapping listed. To add predefined topic mappings, use the following format: \verb!from=to!. An example mapping is: \verb!no/ffi=nato/hq/info!.
-This will forward all messages recevived on no/ffi to nato/hq/info
+This will forward all messages received on no/ffi to nato/hq/info
  
+\section{Test clients}
+As none of the protocols has any useful clients for testing, we have provided a JAR file for AMQP send  and one for AMQP receive. Keep in mind that the time spent on these clients are very small, and that they are only suitable for minor testing. As the groups task was not to implement clients, they do only run from command line with the arguments given below.
+
+\subsection{AMQP send}
+Provided in the project delivery there is a folder named misc-jars, within this folder, the file amqpsend.jar is located. The file takes three arguments.
+
+\begin{description}
+    \item[-a amqp://localhost:5672/topic] \hfill \\
+  Address argument, needed to tell what server to send the message to \hfill \\ Default: \verb!amqp://localhost:5672/example!
+    \item[-s "subject"] \hfill \\
+  Subject argument, not needed. \hfill \\ Default: \verb!example!
+    \item[message] \hfill \\
+  The last argument will be sent as the message \hfill \\ Default: \verb!example!
+\end{description}
+Below an example of a valid command is shown, the message in the example is sent to the localhost:
+\verb!java -jar amqpsend.jar -a amqp://localhost/test -s "test" test!
+
+\subsection{AMQP receive}
+Provided in the project delivery there is a folder named misc-jars, within this folder, the file amqprecv.jar is located. The file takes one argument.
+ 
+\begin{description}
+    \item[-a amqp://localhost:5672/topic] \hfill \\
+  Address argument, tells the receiver where to subscribe \hfill \\ Default: \verb!amqp://localhost:5672/example!
+\end{description}
+Below an example of a valid command is shown, the receiver will subscribe to localhost:
+\verb!java -jar amqprecv.jar -a amqp://localhost/test!
 \section{Troubleshooting}
 
 If you encounter any problems with the software, check the following points before you contact the development team: 

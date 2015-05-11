@@ -23,12 +23,12 @@ As each of the protocol implementations and core services of the system are stan
 \subsection{Profiling}
 \label{subsec:testing-test_description-profiling}
 
-Profiling is a way to dynamically analyze the program while it is running. This is done to get an overview of where the resources are used. The method is useful to find bottlenecks and inefficient methods in the program. The software was run as a server instance, and had a possibility for high load on a wide variety of hardware. Profiling was useful to find the parts of the system that had performance issues. It was performed each time some part of the system was completed.
+Profiling is a way to dynamically analyze the program while it is running. This is done to get an overview of where the resources are used. The method is useful to find bottlenecks and inefficient methods in the program. The software was run as a server instance, and had a possibility for high load on a wide variety of hardware. Profiling was useful to find the parts of the system that had performance issues. The system profiling was performed towards the end of the development period, as a part of the execution of system tests.
 
 \subsection{System testing}
 \label{subsec:testing-test_description-system_testing}
 
-System testing is performed to ensure that the product meets its requirements. It is a black-box test, often performed upon completion of the product. The goal is to go through all the requirements, and ensure that they are met and working as intended. System testing was performed prior to the acceptance test with the customer.
+System testing is performed to ensure that the product meets its requirements. It is a black-box test, often performed upon completion of the product. The goal is to go through all the requirements, and ensure that they are met and working as intended. As a basis for the system testing, the group used several elements of the IEEE829 Test Plan Outline\footnote{\url{http://www.computing.dcu.ie/~davids/courses/CA267/ieee829mtp.pdf}} as a template.
 
 \subsection{Acceptance Testing}
 \label{subsec:testing-test_description-acceptance_testing}
@@ -81,7 +81,43 @@ This resulted in tables \ref{table:integration-testing-cases} to \ref{table:inte
 \subsection{System testing}
 \label{subsec:testing-test_execution-system_testing}
 
-System testing was performed based on the requirements for the system. Each of the functional requirements were tested in a procedural manner. A table was made for each of the requirements. Additionally, an extensive table was made, describing other test cases. These cases are related to the system, although not directly connected to them. The list includes edge cases of the protocol standards, as well as some of the core functionality within the broker. The full set of test cases can be found in Appendix \ref{appendix-c:system_test_cases}.
+The group assembled a system test plan based on the IEEE829 Test Plan outline, although excluding several sections. The below sections form the scope of the final system test plan as it was executed.
+
+\subsubsection{Introduction}
+
+This was the main system test plan. The plan covers the system test for all the main requirements, core services, protocol servers and support features of the OKSE Message Broker. It contains one level of testing, namely system testing.
+
+\subsubsection{Test items}
+
+The group assessed the functional requirements and the non-functional requirement of the system. A complete list of higher level test cases that were not directly covered by integration tests was devised. Additionally, an exhaustive list of test cases covering special cases, support features and profiling was created. The test cases for the defined requirements are found in tables \ref{table:system-testing-cases-fr1} through \ref{table:system-testing-cases-fr6} listed in Appendix \ref{ch:tables_and_graphs}. The additional system test cases are listed in table \ref{table:system_testing-additional_test_cases} in Appendix \ref{ch:tables_and_graphs}.
+
+\subsubsection{Software risk issues}
+
+There are several parts of the OKSE Message Broker that are not directly in control of the development team. It is therefore important that edge cases involving support features from the 3rd party libraries used are assessed as well.
+
+The following risks affected the choice of test cases for the system test:
+
+\begin{enumerate}[A.]
+\item \textbf{WS-Nu and WSN standard compliance:} WSN support was the main concern of the customer, and as the protocol is the NATO standard, it holds the highest level of impact if defects are uncovered. Full standard support is desired.
+\item \textbf{Qpid Proton:} The encoding of messages to be sent across the AMQP protocol needs preestimation of byte array size and enumeration until actual size is matched. This could cause a major performance hit on the AMQP protocol, and needs profiling tests.
+\item \textbf{Customer operational needs:} As the finished product will be used during military operational testing, support features like topic mapping and relay functionality is important to increase the value of the product. Additionally, working initialization and setup of configuration directories and files are paramount to the effectiveness and features of the product.
+\item \textbf{Core broker functionality.} The main task of the OKSE Message Broker is to act as a relay and translator for messages. Failure of the system to perform these core tasks would have devastating impact on the effectiveness of the product.
+\end{enumerate}
+
+\subsubsection{Components and features not to be tested}
+
+To reduce the amount of resources needed to perform the testing, some components and features were not tested during the system test. Partly because they are covered by unit or integration tests, or that they have too small related risk to the effectiveness and operation of the product.
+Components and features that were not tested in the system test:
+
+\begin{enumerate}[A.]
+\item The Log View pane in the administration interface, and its related controllers.
+\item Support classes and components covered by unit tests and integration tests
+\item Hierarchy based topic messaging. The OKSE Message Broker fully supports topic hierarchy aware messaging. Simply put, this means that subscribers to a root topic receives all messages from all children. However, none of the implemented protocols use this semantic. Additionally, the core methods of this functionality are well covered by unit tests, and was therefore deemed negligible for the system test.
+\end{enumerate}
+
+\subsubsection{Approach}
+
+[HERE BE STRATEGY, TOOLS, ETC]
 
 \subsection{Acceptance test}
 \label{subsec:testing-test_execution-acceptance_test}
@@ -94,6 +130,7 @@ A final demonstration of the system was performed at a customer meeting the 8th 
 \item Document the research done on MQTT and MQTT libraries for further development.
 \item The general functionality and purpose of the system were met.
 \item The interface was intuitive, and the functionality was sufficient and good.
+\item The name was approved, and kept for release.
 \end{itemize}
 
 These factors were taken into consideration, and the few issues were assessed towards the end.

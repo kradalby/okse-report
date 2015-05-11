@@ -1,4 +1,5 @@
 \chapter{Developer Manual}
+\label{appendix-developer-manual}
 This manual will go through the needed steps to get started on extending and further developing on OKSE. The first sections will go through how to set up the development environment. The rest of the sections will go through the different parts of the system and how you can extend them.
 
 \section{Requirements and Setup}
@@ -120,7 +121,60 @@ Something about AbstractProtocolServer class and ProtocolServer interface
 
 Something about AbstractCoreService, Singleton pattern and the needed methods to accomplish this, and the abstract methods needed from the superclass
 
-\section{Adding new panes}
+\section{Extending the administration interface}
 \label{sec:adding-new-panes}
+
+This section describes how to create or extend the web interface with new content and functionality. The modularity of the administration interface makes this easy. Figure \ref{fig:oac-request-flow}) visualises how the OKSE system handles events and exposes information to the users. The key concepts to notice here is the AJAX-request and the controllers. On an event, wether it is a page auto update or a button-click, the request URL is accessed by the AJAX-request. The Spring dispatcher maps the URL and forwards it to the correct controller. This controller interacts with OKSE's services and returns a response. 
+
+[ADDING JS/TAB TO MAIN.JS]
+
+\subsubsection{New controller}
+
+Below is a skeleton for adding a new REST controller. The same applies for normal controllers, but then the \verb!@Controller! annotation is used in stead of the \verb!@RestController! annotation. 
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Skeleton for a REST-controller, frame=bt]
+@RestController
+@RequestMapping(value = "/url/to/controller") // Base URL
+public class TestController() {
+    
+    private static final String TEST_URL = "/test";
+    
+    @RequestMapping(value = TEST_URL, method = RequestMethod.GET)
+    public @ResponseBody void getAllInfo() {
+        return "This is a test";
+    }
+    
+}
+\end{lstlisting}
+
+\subsubsection{New JavaScript module}
+
+Below is a skeleton for adding a new JavaScript module on the web page for displaying information from a controller. 
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Skeleton for a JavaScript module, frame=bt]
+var module = (function($) { 
+
+    var initateModule = function() {
+    
+    }
+
+    return {
+        init = intiateModule
+    }
+
+})(jQuery)
+
+
+\end{lstlisting}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oacRequestFlow.png}}
+    \caption{Request flow for the administration panel}
+    \label{fig:oac-request-flow}
+  \end{figure}
+\end{center}
+
+\section{AMQP Send and Receive}
 
 \clearpage
