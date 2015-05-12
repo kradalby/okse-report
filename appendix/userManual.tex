@@ -75,7 +75,7 @@ The main pane is an overview of the broker's status, system, the operating envir
   \end{figure}
 \end{center}
 
-\subsection{The Topics pane}
+\subsection{The topics pane}
 The "Topics" pane contains all the registered topics in OKSE. For each topic it is possible to see how many clients are subscribing to the topic (---comment about xpath not being subscribers??---). It is also possible to delete all topics or a specific topic. The 'Stop refresh'-button stops the automatic refreshing of the topic list. This might be useful when a lot of new topics are generated, to avoid the list updating constantly.
 
 \begin{center}
@@ -111,7 +111,7 @@ The Statistics pane provides a list of protocol servers with statistics per prot
 \subsection{The Configuration pane}
 The Configuration pane has three sections; options, topic mapping and relays. The option section allows changing the update interval for automatic refresh of the web page. It is not recommended that this is set lower than 0.5 seconds. The "Use AMQP queues instead of pub/sub topics" changes the queue semantics of AMQP.
 
-In the topic mapping section one can manually map from one topic to another one. If a mapping is made between topic A and B, messages sent to A will also be forwarded to topic B. Messages sent to topic B will not be forwarded to topic A. Mapping from and to unregistered topics are allowed, and causes the topics to be generated.
+In the topic mapping section one can manually map from one topic to another one. The mapping of topics is a simplex action, that is, an action that is one-way. If a mapping is made between topic A and B, messages sent to A will also be forwarded to topic B. Messages sent to topic B will not be forwarded to topic A. Mapping from and to unregistered topics are allowed, and causes the topics to be generated.
 
 The relays section enables the addition of an instance of the system as a relay node (child relay) to another instance or WSN broker. The function is enabled by entering the address and the port the other broker is running on. The topic input is optional, and provides the opportunity to relay a specific topic by typing in the name of it. If the field is left empty, everything is relayed. When adding a relay, a WSNotification subscription is created. There are some bounds to the relay, to avoid infinite looping of messages. There are restrictions on localhost, 127.0.0.1, 0.0.0.0 and interfaces on the running instance of OKSE.
 
@@ -298,9 +298,11 @@ This is a configuration file for adding predefined topic mappings upon system in
 This will forward all messages received on no/ffi to nato/hq/info
  
 \section{Test clients}
-As none of the protocols had any useful clients for testing, a JAR file is included for AMQP send and one for AMQP receive. Keep in mind that little time has been spent on these files, and that they are only suitable for minor testing. The files can only be run from the command line with the arguments given below.
+\label{sec:test_clients}
+As none of the protocols had any useful clients for testing, a JAR file is included for AMQP send and one for AMQP receive. Keep in mind that little time has been spent on these programs, and that they are only suitable for minor testing. The files can only be run from the command line with the arguments given below. Other tools where used in the testing of WSN, but the tools are owned by FFI and cannot be distributed any further, more information about this in \ref{}.
 
 \subsection{AMQP send}
+\label{subsec:test_clients-amqp_send}
 Provided in the project delivery there is a folder named misc-jars, within this folder, the file amqpsend.jar is located. The file takes three arguments.
 
 \begin{description}
@@ -315,6 +317,7 @@ Below an example of a valid command is shown, the message in the example is sent
 \verb!java -jar amqpsend.jar -a amqp://localhost/test -s "test" test!
 
 \subsection{AMQP receive}
+\label{subsec:test_clients-amqp_receive}
 Provided in the project delivery there is a folder named misc-jars, within this folder, the file amqprecv.jar is located. The file takes one argument.
  
 \begin{description}

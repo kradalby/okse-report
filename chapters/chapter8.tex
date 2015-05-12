@@ -81,16 +81,17 @@ The group also occasionally talked with other groups. The discussions were mainl
 
 The group were satisfied with how the system turned out. It does what it was supposed to do and performs well, with no bottlenecks. The code is structured and documented in a good way, and modularized to make it as simple as possible to extend the system. There are still some small issues with the broker, but the main functionality is in place. 
 
-\subsection{Tools}
+\subsection{Web technologies}
+\label{subsec:Web_technologies}
 
 Several development tools and libraries were used in the Java implementation. Bootstrap and jQuery generally made it simpler and less time-consuming to build the web application. Bootstrap also made it simple to give the site a clean and intuitive design. 
 
-In retrospect, the group learned that the use of WebSockets\footnote{\url{https://www.websocket.org/quantum.html}} would have been a better approach for the administration interface. The system is now designed with AJAX for realtime update of content. This is not true realtime. Furthermore, it's not very scalable, and may result in high server load. Using WebSockets for this purpose would have proven much more efficient. Similar to the publish/subscribe pattern, WebSockets notify clients on a state change, instead of the clients constantly asking the server for the newest state. WebSockets wouldn't make AJAX obsolete but it would have been a better solution for serving true realtime update of content. AJAX would still have been used for making short-lived web service calls (e.g. HTTP DELETE requests).
+In retrospect, the group learned that the use of WebSockets\footnote{\url{https://www.websocket.org/quantum.html}} would have been a better approach for the administration interface. The system is now designed with AJAX for realtime update of content. This is not true realtime. Furthermore, it's not very scalable, and may result in high server load. Using WebSockets for this purpose would have proven much more efficient. Similar to the publish/subscribe pattern, WebSockets notify clients on a state change, instead of the clients constantly asking the server for the newest state. WebSockets wouldn't make AJAX obsolete but it would have been a better solution for serving true realtime update of content. AJAX would still have been used for making short-lived web service calls (e.g. HTTP DELETE requests). \\
 
 
-(--Skriv noe om nytten av ajax-kall osv osv her kanskje --)
-
-(--Skriv om brokerting, wsnu osv. Hva var bra, hva manglet? --)
+\subsection{Broker}
+\label{subsec:Implementation_broker}
+[(--Skriv om brokerting, wsnu osv. Hva var bra, hva manglet? --)]
 
 \subsection{AMQP}
 \label{subsec:Implementation_AMQP}

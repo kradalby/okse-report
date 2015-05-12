@@ -11,3 +11,9 @@ During the research phase, when the group did research on different libraries fo
 
 \subsection{ZeroMQ}
 The next protocol that should be looked into is ZeroMQ\footnote{\url{http://zeromq.org}}, it was also on the wish list from FFI, but had a lower priority. ZeroMQ is by some considered to be the biggest competitor to AMQP. It was developed by iMatix Corporation\footnote{\url{http://www.imatix.com}}, one of the original authors of AMQP. If ZeroMQ is considered to be implemented, the AMQP implementation should be analyzed thoroughly and many of the same concepts should apply. There is also worth nothing that there should be done some research on the benefits of using JeroMQ\footnote{\url{https://github.com/zeromq/jeromq}}, a pure java implementation, instead of using the C implementation with Java bindings. Both versions is developed by the ZeroMQ team and is considered a "drop-in" replacement of each other.
+
+\section{Web Technologies}
+Even though the administration interface proved to be stable during testing some aspects of the architecture may be subject to change in the future. This section is meant to explain what parts of the administration interface that can or should be improved first. 
+
+\subsection{WebSockets}
+As of the time of this writing, the administration panel is not tested with more than six simultaneous users. This were no problem, and the server load were minimal. But for future reference it would make sense to replace the auto update AJAX with WebSockets to reduce the server load. It would also guarantee that the users see the most up to date information. See section \ref{subsec:Web_technologies} for more detailed information regarding the use of WebSockets contra AJAX. 
