@@ -9,14 +9,14 @@ The customer also indicated that they where very interested in all the research 
 This appendix can be used as a standalone document, and may therefore repeat some information included in the main report for OKSE message broker.
 
 \section{About Apollo}
-Apache Apollo is a message broker system developed by the Apache foundation. Apollo is considered a "sub" project of Apache ActiveMQ\footnote{\url{http://activemq.apache.org}} and is by the developers own words, the next generation of ActiveMQ. Apollo is, as ActiveMQ a protocol agnostic broker what can freely translate between the supported protocols. As of this writing, the supported protocol is MQTT, AMQP, STOMP, OpenWire and WebSockets. 
+Apache Apollo is a message broker system developed by the Apache foundation. Apollo is considered a subproject of Apache ActiveMQ\footnote{\url{http://activemq.apache.org}} and is by the developers own words, the next generation of ActiveMQ. Apollo is, as ActiveMQ a protocol agnostic broker that can freely translate between the supported protocols. As of this writing, the supported protocol is MQTT, AMQP, STOMP, OpenWire and WebSockets. 
 
-Apollo is developed by the Apache software foundation. Under the research phase, it was observed that most of the commits to the project was done by software developers from Red Hat\footnote{\url{http://www.redhat.com/en}}. The development team of OKSE considered this a positive thing, as they are probably committing to the project, in favor of their customers. 
+Apollo is developed by the Apache software foundation. Under the research phase, it was observed that most of the commits to the project was done by software developers from Red Hat\footnote{\url{http://www.redhat.com/en}}. This was considered to be positive because of the commitment to the project and continues updates from the Red Hat developers. 
 
 \section{Key features}
 
 \subsection{Architecture}
-The Apollo architecture is built around the idea of having a multi-threaded non-blocking implementation using the Reactor pattern\footnote{\url{http://en.wikipedia.org/wiki/Reactor_pattern}}. The non-blocking approach in a single thread is not a new approach to achieve a high amount of connections and high throughput. It is a well known pattern, used in high performance implementations like the server-side JavaScript implementation NodeJS and the popular web server Nginx. Applying this concept to multiple threads that handles jobs non-blocking gives the application the possibility of scaling very well with todays computers with a high core count. 
+The Apollo architecture is built around the idea of having a multi-threaded non-blocking implementation using the Reactor pattern\footnote{\url{http://en.wikipedia.org/wiki/Reactor_pattern}}. The non-blocking approach in a single thread is not a new approach to achieve a high amount of connections and high throughput. It is a well known pattern, used in high performance implementations like the server-side JavaScript implementation NodeJS and the popular web server Nginx. Applying this concept to multiple threads that handles jobs non-blocking gives the application the possibility of scaling very well on computers with a high core count. 
 
 
 \subsection{Scala}
@@ -38,12 +38,11 @@ Apollo is written to be very modular. Every single component and protocol is imp
 \subsection{WSN support}
 
 \section{Evaluation for the project}
-The first thing that the research time spent on Apollo yielded, is the impression that it is a well written, and very scalable broker.
-It definitively had a lot of desired features and would easily be a good foundation to build the product for the customer. The main problem with using Apollo is the complexity. The non-blocking asynchronous approach puts a lot of constraints on the developer and if the developer has not been working with this kinds of pattern earlier, then it is quite hard to wrap around. In addition to the new pattern, the development requires the knowledge of Scala, and some experience with functional programming. 
+Apollo is a well written and very scalable broker with many of the features the customer wanted. Apollo would be a good foundation to build on. The main concern with building upon Apollo is the complexity of the broker. The non-blocking asynchronous approach puts a lot of constraints on the developer and if the developer has not been working with this kind of pattern before, then it is quite hard to get a grasp on. In addition to the pattern, knowledge of Scala and functional programming is needed. 
 
-As the group had a limited amount of time available, and not knowledge to any particular extent on the used programming pattern and language. There was made a decision that the risk of failure was to high to go with Apollo. The possibility of not getting through even the source code and obtaining the knowledge needed was to great with our time frame. 
+As the group had limited amount of time available, little knowledge about Scala and no experience with the used programming pattern, the decision was made. The risk of failure was too high. Apollo would take to much time to get a grasp on and the possibility of not getting through the source code and obtain the knowledge needed was an issue. 
 
 \section{Evaluation for later use}
-Given that the customer has enough time and resources, the group would recommend to evaluate Apollo, and the possibility of extending it too fit the needs of a given project. If scalability and performance is an important part of the feature set, then Apollo or the ideas and patterns Apollo uses should be considered to build the foundation.
+Given that the customer has enough time and resources, the group would recommend to evaluate Apollo, and the possibility of extending it to fit the needs of a given project. If scalability and performance is an important part of the feature set, then Apollo or the ideas and patterns Apollo uses should be considered as a foundation to build upon. 
 
 \clearpage

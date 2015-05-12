@@ -114,7 +114,7 @@ Usage dependency could however, not be reduced to a level lower than what was ne
 
 After much thought was put into these challenges, a component dependency diagram (fig \ref{fig:architecture_dependency}) was created to illustrate how the administration interface, services and protocols should depend on each other. As with the high-level architecture, core services are denoted with yellow and protocols with gray.
 
-Dependencies between components that are annotated with $<< Use >>$ represents situations where a component depends on the other to offer its full set of features. In practice, a complete implementation of the brokering system would rely on all these dependencies to meet the specified requirements. But they should not be required for a component to perform its own internal responsibilities. Hence, a single instance of the WSN protocol should be able to run without connectivity to the rest of the system, and fully function in its local environment. This would however, mean that the rest of the system would be unaware of the subscribers, topics and messages handled by the local instance.
+Dependencies between components that are annotated with \verb!!<< Use >>!! represents situations where a component depends on the other to offer its full set of features. In practice, a complete implementation of the brokering system would rely on all these dependencies to meet the specified requirements. But they should not be required for a component to perform its own internal responsibilities. Hence, a single instance of the WSN protocol should be able to run without connectivity to the rest of the system, and fully function in its local environment. This would however, mean that the rest of the system would be unaware of the subscribers, topics and messages handled by the local instance.
 
 \clearpage
 
@@ -181,7 +181,7 @@ Simultaneously as the event queue gets new events, the event loop is continuousl
   \begin{figure}[ht!]
     \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/amqp_recv.png}}
     \caption{AMQP Receive implementation overview}
-    \label{fig:abstract_architecture}
+    \label{fig:amqp_recv}
   \end{figure}
 \end{center}
 
@@ -201,7 +201,7 @@ The Handshaker handles all of the open and close events of a connection. It make
   \begin{figure}[ht!]
     \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/amqp_send.png}}
     \caption{AMQP Send implementation overview}
-    \label{fig:abstract_architecture}
+    \label{fig:amqp_send}
   \end{figure}
 \end{center}
 

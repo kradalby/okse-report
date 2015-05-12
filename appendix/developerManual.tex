@@ -27,6 +27,7 @@ As the user stands free to choose the IDE, the setup documentation will be fairl
 Prerequisites: IntelliJ is installed, an Internet connection and the source code is stored locally.
 
 \begin{enumerate}
+\setlength{\itemsep}{0cm}%
     \item Open IntelliJ
     \item Click "Import Project" or File -> "Import Project"
     \item Browse the file system and select the source code folder
@@ -54,15 +55,15 @@ Extending the application with additional protocol support is done through use o
 
 \subsection{Web Admin}
 
-The OKSE administration console is run using the Spring framework, more exact the spring-boot\footnote{\url{https://spring.io/guides/gs/rest-service/}} package, using Thymeleaf-templates\footnote{\url{http://www.thymeleaf.org}}. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript. The web administration interface of OKSE is built in a modular way, to achieve loose coupling. Each pane of the interface has its own controller and front-end JavaScript.  With this approach it should be easy to extend and bugfix the interface.
+The OKSE administration console is run using the Spring framework, more exact the spring-boot package\footnote{\url{https://spring.io/guides/gs/rest-service/}}, using Thymeleaf-templates\footnote{\url{http://www.thymeleaf.org}}. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript. The administration interface of OKSE is built in a modular way, to achieve loose coupling. Each pane of the interface has its own controller and respectively a front-end JavaScript.  With this approach it's easy to extend the web interface.
 
-\subsubsection{Backend}
+\subsubsection{Back-end}
 
-The backend of OKSE works as a RESTful Web Service. It is responsible for acting as a link between the administration panel and all the different registered services in OKSE. Since the backend uses Spring framework, the main architectural approach for the backend is based upon Spring’s approach to building RESTful web services. All HTTP requests are handled by a dedicated controller. These controllers are easily identified by the \verb!@RestController! annotation. Each controller are responsible for handling all HTTP-requests defined by \verb!@RequestMapping! annotations.  
+The back-end of OKSE works as a RESTful Web Service. It's responsible for working as a link between the administration interface and all the different registered services in OKSE. Since the back-end uses the Spring framework, the main architectural approach for the back-end is based upon Spring’s approach for building RESTful web services. All HTTP-requests are handled by a dedicated controller. These controllers are easily identified by the \verb!@RestController! annotation. Each controller are responsible for handling all HTTP-requests defined by \verb!@RequestMapping! annotations.  
 
-\subsubsection{Frontend}
+\subsubsection{Front-end}
 
-The front-end of OKSE is the only component of the system accessible for user interaction. It is responsible for making HTTP-requests to the backend to manipulate and present the state of OKSE. To ensure that the probability for cross-browser incompatibilities is as low as possible, the front-end is implemented using jQuery. Each pane of the administration pane has its own module implemented in jQuery. Each of this modules are responsible for event-handling, AJAX-requests and DOM-manipulation for its own pane. 
+The front-end of OKSE is the only component of the system directly accessible for user interaction. It's responsible for making HTTP-requests to the back-end for manipulation and presentation of the state OKSE is in. To ensure and minimize the probability for cross-browser incompatibilities, the front-end is implemented using jQuery. Each pane of the administration interface has its own module implemented with jQuery. Each of this modules are responsible for event-handling, AJAX-requests and DOM-manipulation in its own pane.
 
 \subsection{CoreService}
 
@@ -119,18 +120,57 @@ Something about AbstractProtocolServer class and ProtocolServer interface
 \section{Adding new core services}
 \label{sec:adding-new-core-services}
 
-Something about AbstractCoreService, Singleton pattern and the needed methods to accomplish this, and the abstract methods needed from the superclass
+Something about AbstractCoreService, Singleton pattern and the needed methods to accomplish this, and the abstract methods needed from the super class
 
 \section{Extending the administration interface}
 \label{sec:adding-new-panes}
 
-This section describes how to create or extend the web interface with new content and functionality. The modularity of the administration interface makes this easy. Figure \ref{fig:oac-request-flow}) visualises how the OKSE system handles events and exposes information to the users. The key concepts to notice here is the AJAX-request and the controllers. On an event, wether it is a page auto update or a button-click, the request URL is accessed by the AJAX-request. The Spring dispatcher maps the URL and forwards it to the correct controller. This controller interacts with OKSE's services and returns a response. 
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oacRequestFlow.png}}
+    \caption{Request flow for the administration panel}
+    \label{fig:oac-request-flow}
+  \end{figure}
+\end{center}
 
-[ADDING JS/TAB TO MAIN.JS]
+This section describes how to create or extend the administration interface with new content and functionality. The modularity of the administration interface makes this easy. Figure \ref{fig:oac-request-flow} visualises how the OKSE system handles events and exposes information to the users. The key concepts to notice here is the AJAX-requests and the controllers. On an event, whether it is a page auto update or a button-click, the request URL is accessed by the AJAX-request. Spring's dispatcher maps the URL and forwards it to the correct controller. This controller interacts with OKSE's services and returns a response.
+
+As of the time of this writing, OKSE contains of seven JavaScript modules: 
+
+\begin{description}
+    \item[main.js] \hfill \\ Responsible for the "Main"-pane. This module also contains all logic for setting the update interval for all the other panes. Also this is the location of the AJAX-module. 
+    \item[topics.js] \hfill \\ Responsible for the "Topics"-pane. This module contains all logic regarding topics, which includes, but are not limited to, refreshing the table containing all topics. 
+    \item[subscribers.js] \hfill \\ Responsible for the "Subscribers"-pane. This module contains all logic regarding subscribers, which includes, but are not limited to, refreshing the table containing all subscribers. 
+    \item[stats.js] \hfill \\ Responsible for the "Statistics"-pane. This module contains all logic for refreshing the statistics from OKSE.
+    \item[logs.js] \hfill \\ Responsible for the "Logs"-pane. This module requests the given log from OKSE and visualizes it.
+    \item[config.js] \hfill \\ Responsible for the "Configuration"-pane. This module is responsible for configuration OKSE. This includes for instance the possibility to add topic mappings. 
+    \item[paginator.js] \hfill \\ This module controls all logic regarding the paginator that appear when the topic/subscriber tables exceed 25 elements. 
+    \item[okseDebug.js] \hfill \\ This is a jQuery-plugin that appends a logger to the document.
+\end{description}
+
+Hopefully, after reading this introduction you have gotten a fair understanding of how the administration interface is structured. The following steps will explain how to actually extend the application. In addtition, if you are completely new to Thymeleaf-templates, Spring framework or jQuery/Javascript, it would be a good idea to check out the following resources: 
+
+\begin{itemize}
+\setlength{\itemsep}{0cm}%
+\item Thymeleaf - see \url{http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html}
+\item Spring framework - see \url{https://spring.io/guides/gs/rest-service/}
+\item jQuery - see \url{http://jqfundamentals.com}
+\item JavaScript - see \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript}
+\end{itemize}
+
+\subsection{Administration interface structure}
+
+\begin{center}
+  \begin{figure}[ht!]
+    \makebox[\textwidth]{\includegraphics[scale=0.4]{fig/oacFolders.png}}
+    \caption{Folder hierarchy for the administration interface}
+    \label{fig:oac-folder-hierarchy}
+  \end{figure}
+\end{center}
 
 \subsubsection{New controller}
 
-Below is a skeleton for adding a new REST controller. The same applies for normal controllers, but then the \verb!@Controller! annotation is used in stead of the \verb!@RestController! annotation. 
+Below is a skeleton for adding a new REST controller. The same applies for normal controllers, but then the \verb!@Controller! annotation is used in stead of the \verb!@RestController! annotation. When using this annotation, Spring will automatically find the controller on boot, and add the mapping to the dispatcher. 
 
 \begin{lstlisting}[language=Java, captionpos=b, caption=Skeleton for a REST-controller, frame=bt]
 @RestController
@@ -149,7 +189,8 @@ public class TestController() {
 
 \subsubsection{New JavaScript module}
 
-Below is a skeleton for adding a new JavaScript module on the web page for displaying information from a controller. 
+Below is a skeleton for adding a new JavaScript module on the web page for displaying information from a controller. This only shows briefly how one would start to create new modules. To add the JS-file to the administration interface on rendering, append \verb!<script th:src="/js/<MODULE>.js"></script>! to the \verb!th:block! called scripts in the \verb!indexLoggedIn.html! template. 
+
 
 \begin{lstlisting}[language=Java, captionpos=b, caption=Skeleton for a JavaScript module, frame=bt]
 var module = (function($) { 
@@ -163,17 +204,9 @@ var module = (function($) {
     }
 
 })(jQuery)
-
-
 \end{lstlisting}
 
-\begin{center}
-  \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oacRequestFlow.png}}
-    \caption{Request flow for the administration panel}
-    \label{fig:oac-request-flow}
-  \end{figure}
-\end{center}
+\subsubsection{New pane}
 
 \section{AMQP Send and Receive}
 

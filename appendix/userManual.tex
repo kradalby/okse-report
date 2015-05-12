@@ -11,26 +11,20 @@
 
 \section{About}
 
-This chapter contains instructions for installing and using the OKSE Message Broker. The intended users are primarily researchers working with collaborative networking.
+This chapter contains instructions for installing and using the OKSE Message Broker. The intended users are primarily researchers working with collaborative networking. OKSE is open source, and licensed under the MIT license.
 
 \section{Requirements}
 
-OKSE Message Broker requires a Java Runtime Environment (hereby denoted as JRE) version 8 update 31 or newer, to be able to run. The latest available update is always recommended. 
+OKSE Message Broker requires a Java Runtime Environment (hereby denoted as JRE) version 8 update 31 or newer, to be able to run. The broker is developed and tested exclusively with this version. The software is available for free from Oracle.com\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}}.
 
-The system was developed and tested on Windows, Debian Linux and OS X. It should be possible to run on all platforms with JRE installed. 
+For the JRE to function properly, it must be added to the path variable. On UNIX-based systems, like Linux or OS X, it is done by entering the following command in the terminal: \verb!export JAVA_HOME=<PATH-TO-JRE>!. On windows, open up a command line window(cmd.exe) and type in  \verb!path %path%;<PATH-TO-JRE>!.
+The variable can also be accessed and modified through the "Environmental variables" tab in the advanced system settings. The system should be possible to run on all platforms with JRE installed. 
 
-In addition to JRE, OKSE requires a network connection to be able to send and receive messages. It does not require Internet on the connection. 
+In addition to JRE, OKSE requires a network connection to be able to send and receive messages. It does not however, require Internet on the connection. 
 
 \section{Installation}
 
 The following sections describes how to download and run OKSE. Apart from JRE, no other additional configuration should be necessary.
-
-\subsection{Java Runtime Environment}
-
-As previously stated, OKSE Message Broker requires a JRE 8. The broker is developed and tested exclusively with this version. The software is available for free from Oracle.com\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}}.
-
-If you are using a UNIX-based system like Linux or OS X, you must remember to add Java to your path variable. Entering the following commands in a terminal should most likely work: \verb!export JAVA_HOME=<PATH-TO-JRE>! If you have to add Java to the path in Windows, open up a command line window(cmd.exe). type in  \verb!path %path%;<PATH-TO-JRE>!.
-The variable can also be accessed and modified through the "Environmental variables" tab in the advanced system settings.
 
 \subsection{Download software}
 
@@ -39,7 +33,7 @@ The file can placed in an appropriate place in the file system. For example: \ve
 
 \subsection{Running the software}
 
-On Windows, the broker can be started by double-clicking on the .jar-file. On UNIX-based systems and Windows alike, the broker could be started by running the command: \verb!java -jar <PATH-TO-JAR-FILE>/<JAR-FILE>.jar! from the command line or terminal.
+On Windows, the broker can be started by double-clicking on the .jar-file. On UNIX-based systems and Windows alike, the broker is started by running the command: \\ \verb!java -jar <PATH-TO-JAR-FILE>/<JAR-FILE>.jar! from the command line or terminal.
 
 See section \ref{sec:inital-login} for information about accessing the administration panel.
 
@@ -59,7 +53,7 @@ After the initial start up of OKSE Message Broker, there is created a folder nam
 \section{Inital login}
 \label{sec:inital-login}
 
-After installation and the first launch, the OKSE Admin Console can be accessed using a web-browser. By default, the admin console is accessible from \verb!localhost:8080!. Both the host and port can be changed in the okse.properties (see section \ref{subsec:configuration_files-okse.properties}). To log in for the first time, use \verb!admin! and \verb!password! as respectively username and password. To increase the security, it is recommended that this is changed immediately after the inital login. 
+After launching the application, the administrator interface should be reachable from any web browser. By default, the admin console is accessible from \verb!localhost:8080!. Both the host and port can be changed in the okse.properties (see section \ref{subsec:configuration_files-okse.properties}). To log in the first time, use \verb!admin! and \verb!password! as respectively username and password. To increase the security, it is recommended that this is changed immediately after the initial login. 
 
 \begin{itemize}
 \setlength{\itemsep}{0cm}%
@@ -71,7 +65,7 @@ After installation and the first launch, the OKSE Admin Console can be accessed 
 The OKSE Admin Console provides information about OKSE and it's operation enviroment. It also gives access to configure OKSE. The interface have information sorted in six panes, the Main pane, the Topic pane, the Subscribers pane and the Configuration pane.
 
 \subsection{The Main pane}
-The Main pane is an overview of the broker's status, system, the operating environment, and the interfaces the different protocol servers are bound to. It is also possible to stop and start the protocol servers from the interface section.
+The Main pane is an overview of the broker's status, system, the operating environment, interfaces and ports the different protocol servers are bound to. It's worth mentioning that the RAM reported is RAM available in Java Virtaual Machine. It is also possible to stop and start the protocol servers from the interface section. When you stop and start the protocol servers again, the statistics are reset to zero.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -329,6 +323,79 @@ Provided in the project delivery there is a folder named misc-jars, within this 
 \end{description}
 Below an example of a valid command is shown, the receiver will subscribe to localhost:
 \verb!java -jar amqprecv.jar -a amqp://localhost/test!
+
+\subsection{WSN Test script}
+Under the development of the application, there was a need for a test script to generate valid WSN messages to test different aspects of the validator. The script can be used to send different kind of messages over WSN, but \textit{cannot} receive messages.
+
+The script is written in Python 2.7 and uses a third party plugin called requests\footnote{\url{http://docs.python-requests.org/en/latest/}}. This script should run on any platform as long as Python and requests is available. Below, an installation guide for Windows, Linux and OS X.
+
+\subsubsection{Windows}
+To install Python and requests on a Windows machine, you will need to go through the following steps:
+
+\begin{enumerate}
+\setlength{\itemsep}{0cm}%
+    \item Download and install the latest version of Python 2.7 from python.org
+    \item Open cmd.exe
+    \item Change directory to python27 by entering: cd C:/Python27
+    \item Install requests by running the command: python -m pip install requests
+\end{enumerate}
+
+After the installation, change directory of the cmd session to the location of bullrider.py. To run python in the shell in any directory, the Python2.7 directory should be added to the path. This can be done for the current session by entering the command: \verb!path %path%;C:\Python27!.
+Note that this will have to be done for every new cmd.exe window you open.
+
+Now that Python and requests is installed, move on to the Usage section (\ref{}).
+
+\subsubsection{Linux/OS X}
+Mac OS X and most Linux distributions comes with Python 2.7 installed. To verify that you have Python 2.7 installed, open a terminal and write "python". You should see something like:
+\begin{verbatim}
+$ python
+Python 2.7.9 (default, Mar  1 2015, 12:57:24)
+[GCC 4.9.2] on linux2
+\end{verbatim}
+
+If you get command not found, consult your package manager on how to install Python 2.7 or go to python.org and download the installer from there.
+
+When Python 2.7 is installed, we need to install requests. In the terminal, the command pip, or easy\_install will be available. If the pip command is available, install requests using the following command:
+
+\begin{verbatim}
+    pip install requests
+\end{verbatim}
+
+If pip is not available use easy\_install in the following way:
+
+\begin{verbatim}
+    easy_install requests
+\end{verbatim}
+
+After the installation, change directory in the terminal to the location of bullrider.py.
+
+Now that Python and requests is installed, move on to the Usage section (\ref{}).
+
+
+\subsubsection{Usage}
+To use the bullrider.py script, you need a terminal/cmd.exe window that is changed to the directory of bullrider.py. If you are using Windows, remember to repeat the path step if Python is not permanently added to your path. 
+
+Bellow is a description on what the different arguments do, and the available options that can be used. Note that the arguments need to be given in the listed order.
+
+The format of the arguments is as follows:
+
+\verb!python bullrider.py [request type] [hostname/ip] [port] [topic]!
+
+
+\begin{description}
+    \item[request type] \hfill \\
+  Type of request to send, available: all, notify, massnotify, multinotify, subscribe, unsubscribe \hfill \\ Default: \verb!None!
+    \item[hostname/ip] \hfill \\
+  Hostname or IP address of the OKSE instance \hfill \\ Default: \verb!None!
+    \item[port] \hfill \\
+  Port of the OKSE instance \hfill \\ Default: \verb!None!
+    \item[topic] \hfill \\
+  The topic to send the given request to. \hfill \\ Default: \verb!None!
+\end{description}
+Below an example of a valid command is shown, this will send a notify to a OKSE hosted on localhost at port 61000:
+
+\verb!python bullrider.py notify localhost 61000 example!
+
 \section{Troubleshooting}
 
 If you encounter any problems with the software, check the following points before you contact the development team: 
