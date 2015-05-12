@@ -48,7 +48,7 @@ Initially, it was decided to use test-driven development. This worked out well o
 
 Scrum worked out well. The most important part of it was the meetings, as they helped in keeping track of progress at all times. Communication was key to assess the different development issues faced. Additionally, any problems regarding development were discussed, and assessed by the group as a whole. 
 
-A backlog chart(task list) and burndown chart were created each sprint. The templates were initialized at the start of each sprint, and the workload were decided and distributed amongst the group. This worked out very well, as each member had clearly defined tasks for each sprints. Additionally, it was helpful to keep track of the time usage, when evaluating each sprint. The evaluation of the previous sprint were taken into consideration when defining the next. This were a helpful to assign an appropriate workload for each sprint.
+A backlog chart (task list) and burndown chart were created each sprint. The templates were initialized at the start of each sprint, and the workload were decided and distributed amongst the group. This worked out very well, as each member had clearly defined tasks for each sprints. Additionally, it was helpful to keep track of the time usage, when evaluating each sprint. The evaluation of the previous sprint were taken into consideration when defining the next. This were a helpful to assign an appropriate workload for each sprint.
 
 Having sprints lasting two weeks were appropriate. As the group had to consider other courses and tasks, the work load varied from week to week. Thus, it was nice to have two weeks to complete the tasks assigned. Additionally, shorter sprint intervals would have led to more time being used on management of tasks and time, as it would have to be done each week. Having longer sprints could have affected the communication with the customer in a negative way. If something were implemented in a way that weren't satisfiable, it would have led to more time being used before the proper feedback were acquired. One example is the initial research made on MQTT, after it was decided that only two protocols would be implemented. At that time, it was important to know that AMQP was more important, to avoid too much time loss.
 
@@ -83,7 +83,12 @@ The group were satisfied with how the system turned out. It does what it was sup
 
 \subsection{Tools}
 
-Several development tools and libraries were used in the Java implementation. Bootstrap and jQuery generally made it simpler and less time-consuming to build the web application. Bootstrap also made it simple to give the site a clean and intuitive design. (--Skriv noe om nytten av ajax-kall osv osv her kanskje --)
+Several development tools and libraries were used in the Java implementation. Bootstrap and jQuery generally made it simpler and less time-consuming to build the web application. Bootstrap also made it simple to give the site a clean and intuitive design. 
+
+In retrospect, the group learned that the use of WebSockets\footnote{\url{https://www.websocket.org/quantum.html}} would have been a better approach for the administration interface. The system is now designed with AJAX for realtime update of content. This is not true realtime. Furthermore, it's not very scalable, and may result in high server load. Using WebSockets for this purpose would have proven much more efficient. Similar to the publish/subscribe pattern, WebSockets notify clients on a state change, instead of the clients constantly asking the server for the newest state. WebSockets wouldn't make AJAX obsolete but it would have been a better solution for serving true realtime update of content. AJAX would still have been used for making short-lived web service calls (e.g. HTTP DELETE requests).
+
+
+(--Skriv noe om nytten av ajax-kall osv osv her kanskje --)
 
 (--Skriv om brokerting, wsnu osv. Hva var bra, hva manglet? --)
 
@@ -92,7 +97,7 @@ Several development tools and libraries were used in the Java implementation. Bo
 
 During the first iteration of AMQP implementation, some challenges were uncovered. The largest one was the handling of topic and queues. As a queue is a different concept compared to a topic, the implemented solution gave the user an option to choose which solution to use. Implementing Simple Authentication and Security Layer (SASL) support for authentication was another issue that proved difficult. The solution was to let the user choose whether or not to use it.
 
-Another challenge regarding the construction of outgoing AMQP messages, was to convert a Java object to a fixed size byte array. As AMQP is a byte level protocol, this had to be resolved. The solution was to as accurately as possible calculate the objects byte size. This was done using qualified guessing by looking at the different parts of the object. After a lot of testing, the final guess only missed with between 6-12 bytes. The final size of an object was found by trial and failure.
+Another challenge regarding the construction of outgoing AMQP messages, was to convert a Java object to a fixed size byte array. As AMQP is a byte level protocol, this had to be resolved. The solution was to as accurately as possible calculate the objects byte size. This was done using qualified guessing by looking at the different parts of the object. After a lot of testing, the final guess only missed with between 6-12 bytes. The final size of an object was found by trial and error.
 
 After the finalization of AMQP, the testing of the protocol implementation revealed to be more difficult than first thought. Finding applications that implements the 1.0 standard was difficult. FFI provided a version of NFFIPlayer (see section \ref{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer}) with AMQP which implemented the 0.9.1 standard. However, due to the significant changes in the standard, it could not be used to any extent.
 

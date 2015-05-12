@@ -62,10 +62,10 @@ After launching the application, the administrator interface should be reachable
 \end{itemize}
 
 \section{Admin Console}
-The OKSE Admin Console provides information about OKSE and it's operation enviroment. It also gives access to configure OKSE. The interface have information sorted in six panes, the Main pane, the Topic pane, the Subscribers pane and the Configuration pane.
+The OKSE Admin Console provides information about OKSE and it's operation enviroment. It also gives access to configure OKSE. The interface have information sorted in six panes, Main", "Topics", "Subscribers" and "Configuration.
 
-\subsection{The Main pane}
-The Main pane is an overview of the broker's status, system, the operating environment, interfaces and ports the different protocol servers are bound to. It's worth mentioning that the RAM reported is RAM available in Java Virtaual Machine. It is also possible to stop and start the protocol servers from the interface section. When you stop and start the protocol servers again, the statistics are reset to zero.
+\subsection{The main pane}
+The main pane is an overview of the broker's status, system, the operating environment as well as interfaces and ports that the different protocol servers are bound to. It's worth mentioning that the RAM reported is the memory available in the Java virtual machine. It is also possible to stop and start the protocol servers from the interface section. When the protocol servers are restarted, the statistics are reset.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -76,7 +76,7 @@ The Main pane is an overview of the broker's status, system, the operating envir
 \end{center}
 
 \subsection{The Topics pane}
-The Topics pane contains all the registered topics in OKSE. For each topic it is possible to see how many clients are subscribing to the topic (---comment about xpath not being subscribers??---). It is also possible to delete all topics or a specific topic. The 'Stop refresh'-button stops the automatic refreshing of the topic list. This can be usefull when there are many new topic are generated, and you do not want the list to update (ex: you want to search in the list)
+The "Topics" pane contains all the registered topics in OKSE. For each topic it is possible to see how many clients are subscribing to the topic (---comment about xpath not being subscribers??---). It is also possible to delete all topics or a specific topic. The 'Stop refresh'-button stops the automatic refreshing of the topic list. This might be useful when a lot of new topics are generated, to avoid the list updating constantly.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -86,8 +86,8 @@ The Topics pane contains all the registered topics in OKSE. For each topic it is
   \end{figure}
 \end{center}
 
-\subsection{The Subscribers pane}
-The subscribers pane shows all the subscribers (hosts). It also lists which protocol the subscriber are using, on which port, and if any filters are specified. One or all users can be deleted, denoted as unsubscribe in WSN and disconnect in AMQP. The 'Stop refresh'-button stops the automatic refreshing of the subscription list. This can be use full when there are many clients subscribing and/or unsubscribing, and you do not want the list to update (ex: you want to search in the list)
+\subsection{The subscribers pane}
+The subscribers pane lists all the subscribers (hosts). It also lists which protocol the different subscribers are using, on which port, and if any filters are specified. One or all of the users can be deleted, denoted as unsubscribe in WSN and disconnect in AMQP. The 'Stop refresh'-button stops the automatic refreshing of the subscription list. This might be useful when there are many clients subscribing and/or unsubscribing, to avoid the list updating constantly.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -98,7 +98,7 @@ The subscribers pane shows all the subscribers (hosts). It also lists which prot
 \end{center}
 
 \subsection{The Statistics pane}
-The Statistics pane prvides a list of protocol servers with statistics per protocol and total usage. "Sent" denotes the amount of messages sent on the different protocols. "Received" denotes messages received on current protocol. "Requests" are the total amount of requests on the protocol. The WSNotification protocol server "Requests" are subscribe request, message sendt to the broker, publisher registration, and trying to acccess an endpoint address. For AMQP a request are countet when the broker got a socket connection, and when a message is sendt to the broker. "Bad request" on the WSNotification protocol server can be trying to access an WSNotification endpoint. AMQP does not count "Bad requests". Errors are counted on WSNotification when OKSE try to send a message, but can not reach the subscriber. For AMQP errors are counted when some one try to connect to OKSE on AMQP's port, but the connection is not accepted. In the usage panel you get the total stats for all protocols.
+The Statistics pane provides a list of protocol servers with statistics per protocol and total usage. "Sent" denotes the amount of messages sent on the different protocols. "Received" denotes the amount of messages received on the current protocol. "Requests" are the total amount of requests on the protocol. The WSN protocol server requests are subscribe requests, messages sent to the broker, publisher registration, and attempts to access an endpoint address. AMQP requests are socket connections to the broker and messages sent to the broker. Bad requests on WSN happens whenever any requests fail to complete correctly. AMQP does not count "Bad requests". Errors are counted on WSN when OKSE attempts to send a message, but are unable to reach the subscriber. In AMQP, errors are noted when someone tries to connect to OKSE on AMQP's port, but the connection is not accepted. The usage panel shows the total statistics over all the protocols.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -109,11 +109,11 @@ The Statistics pane prvides a list of protocol servers with statistics per proto
 \end{center}
 
 \subsection{The Configuration pane}
-The Configuration pane has three sections; options, topic mapping and relays. In the option section you can change the auto update interval for refreshing the web page. The "Use AMQP queues instead of pub/sub topics" changes the queue semantic.
+The Configuration pane has three sections; options, topic mapping and relays. The option section allows changing the update interval for automatic refresh of the web page. It is not recommended that this is set lower than 0.5 seconds. The "Use AMQP queues instead of pub/sub topics" changes the queue semantics of AMQP.
 
-In the topic mapping section one can manually map from one topic to another one. The mapping is an simplex action. If a mapping is made between topic A and B, messages sent to A will also be forwarded to topic B. Messages sent to topic B will not be forwarded to topic A.
+In the topic mapping section one can manually map from one topic to another one. If a mapping is made between topic A and B, messages sent to A will also be forwarded to topic B. Messages sent to topic B will not be forwarded to topic A. Mapping from and to unregistered topics are allowed, and causes the topics to be generated.
 
-The Relays section enables you to add this OKSE as a relay node (child relay) to another OKSE or WSNotification broker. You have to type in the address and the port the other broker is running on. The topic input is optional. If you want to relay a specific topic, type in the topic in the topic field. If you leave the topic field empty it relays everything. When adding a relay, you actually create a WSNotification subscription. There are some bounds to the relay so the messages don't go into a loop. There are restrictions on localhost, 127.0.0.1, 0.0.0.0 and interfaces on the running instance of OKSE.
+The relays section enables the addition of an instance of the system as a relay node (child relay) to another instance or WSN broker. The function is enabled by entering the address and the port the other broker is running on. The topic input is optional, and provides the opportunity to relay a specific topic by typing in the name of it. If the field is left empty, everything is relayed. When adding a relay, a WSNotification subscription is created. There are some bounds to the relay, to avoid infinite looping of messages. There are restrictions on localhost, 127.0.0.1, 0.0.0.0 and interfaces on the running instance of OKSE.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -136,12 +136,12 @@ The main feature of the "Logs" pane is the large text area, providing all of the
 
 \section{Configuration files}
 \label{sec:configuration_files}
-OKSE has three configurations files. The main configuration file is the okse.properties file. You also got log4j.properties, and topicmapping.properties. This chapter describe the default configuration.
+OKSE has three configurations files. The main configuration file is the okse.properties file. The two other files are log4j.properties, and topicmapping.properties for log- and topic mapping configuration. The following sections describe the default behaviour, defined by each of the files.
 
 \subsection{okse.properties}
 \label{subsec:configuration_files-okse.properties}
  
- This is the main configuration file within the system. See below for a detailed list of all possible settings, and their description.
+This is the main configuration file of the system. Below is a list of the possible settings, and a description.
 
 \begin{description}
 \setlength{\itemsep}{0cm}%
@@ -294,11 +294,11 @@ This is the configuration file for all the log files available for the system. S
  \subsection{topicmapping.properties}
  \label{subsec:topicmapping.properties}
  
- This is a configuration file for adding predefined topic mappings to be available when the broker boots. The mapping is asyncron. This means that the broker forward messages from one topic to another one, but not back again (TopicA forward to TopicB, but not visa versa). If you want syncron forwarding (A to B, and B to A), you have to add two mappings, A=B and B=A. By default, there are no topic mapping listed. To add predefined topic mappings, use the following format: \verb!from=to!. An example mapping is: \verb!no/ffi=nato/hq/info!.
+This is a configuration file for adding predefined topic mappings upon system initialization. To add predefined topic mappings, use the following format: \verb!from=to!. An example mapping is: \verb!no/ffi=nato/hq/info!.
 This will forward all messages received on no/ffi to nato/hq/info
  
 \section{Test clients}
-As none of the protocols has any useful clients for testing, we have provided a JAR file for AMQP send  and one for AMQP receive. Keep in mind that the time spent on these clients are very small, and that they are only suitable for minor testing. As the groups task was not to implement clients, they do only run from command line with the arguments given below.
+As none of the protocols had any useful clients for testing, a JAR file is included for AMQP send and one for AMQP receive. Keep in mind that little time has been spent on these files, and that they are only suitable for minor testing. The files can only be run from the command line with the arguments given below.
 
 \subsection{AMQP send}
 Provided in the project delivery there is a folder named misc-jars, within this folder, the file amqpsend.jar is located. The file takes three arguments.
@@ -325,25 +325,23 @@ Below an example of a valid command is shown, the receiver will subscribe to loc
 \verb!java -jar amqprecv.jar -a amqp://localhost/test!
 
 \subsection{WSN Test script}
-Under the development of the application, there was a need for a test script to generate valid WSN messages to test different aspects of the validator. The script can be used to send different kind of messages over WSN, but \textit{cannot} receive messages.
-
-The script is written in Python 2.7 and uses a third party plugin called requests\footnote{\url{http://docs.python-requests.org/en/latest/}}. This script should run on any platform as long as Python and requests is available. Below, an installation guide for Windows, Linux and OS X.
+This script can be used to send different kind of messages over WSN, but \textit{cannot} receive messages. The script is written in Python 2.7 and uses a third party plugin called Requests\footnote{\url{http://docs.python-requests.org/en/latest/}}. This script should run on any platform as long as both Python and Requests are available. Below, an installation guide for Windows, Linux and OS X is included.
 
 \subsubsection{Windows}
-To install Python and requests on a Windows machine, you will need to go through the following steps:
+To install Python and Requests on a Windows machine, you will need to go through the following steps:
 
 \begin{enumerate}
 \setlength{\itemsep}{0cm}%
-    \item Download and install the latest version of Python 2.7 from python.org
-    \item Open cmd.exe
-    \item Change directory to python27 by entering: cd C:/Python27
-    \item Install requests by running the command: python -m pip install requests
+    \item Download and install the latest version of Python 2.7 from python.org.
+    \item Open cmd.exe,
+    \item Change directory to the python27 folder. 
+    \item Install Requests by running the command: python -m pip install requests.
 \end{enumerate}
 
 After the installation, change directory of the cmd session to the location of bullrider.py. To run python in the shell in any directory, the Python2.7 directory should be added to the path. This can be done for the current session by entering the command: \verb!path %path%;C:\Python27!.
 Note that this will have to be done for every new cmd.exe window you open.
 
-Now that Python and requests is installed, move on to the Usage section (\ref{}).
+Now that Python and Requests are installed, move on to the Usage section (\ref{}).
 
 \subsubsection{Linux/OS X}
 Mac OS X and most Linux distributions comes with Python 2.7 installed. To verify that you have Python 2.7 installed, open a terminal and write "python". You should see something like:
@@ -369,13 +367,14 @@ If pip is not available use easy\_install in the following way:
 
 After the installation, change directory in the terminal to the location of bullrider.py.
 
-Now that Python and requests is installed, move on to the Usage section (\ref{}).
+Now that Python and requests is installed, move on to the Usage section (\ref{subsubsec:usermanual_Testscripts_usage}).
 
 
 \subsubsection{Usage}
+\label{subsubsec:usermanual_Testscripts_usage}
 To use the bullrider.py script, you need a terminal/cmd.exe window that is changed to the directory of bullrider.py. If you are using Windows, remember to repeat the path step if Python is not permanently added to your path. 
 
-Bellow is a description on what the different arguments do, and the available options that can be used. Note that the arguments need to be given in the listed order.
+Below is a description on what the different arguments do, and the available options that can be used. Note that the arguments need to be given in the listed order.
 
 The format of the arguments is as follows:
 
@@ -396,14 +395,14 @@ Below an example of a valid command is shown, this will send a notify to a OKSE 
 
 \verb!python bullrider.py notify localhost 61000 example!
 
-\section{Troubleshooting}
+%\section{Troubleshooting}
 
-If you encounter any problems with the software, check the following points before you contact the development team: 
+%If you encounter any problems with the software, check the following points before you %contact the development team: 
 
-\begin{itemize}
-\setlength{\itemsep}{0cm}%
-\item Do you have the correct JRE? For OKSE Message Broker to run properly, you need version 8 or newer. Other versions than this may cause problems, or not work at all.
-\item Network connectivity. Verify that your network connection is working and that the ports are open. Also ensure that you use port forwarding if you don't have a public IP. 
-\end{itemize}
+%\begin{itemize}
+%\setlength{\itemsep}{0cm}%
+%\item Do you have the correct JRE? For OKSE Message Broker to run properly, you need version %8 or newer. Other versions than this may cause problems, or not work at all.
+%\item Network connectivity. Verify that your network connection is working and that the %ports are open. Also ensure that you use port forwarding if you don't have a public IP. 
+%\end{itemize}
 
 \clearpage

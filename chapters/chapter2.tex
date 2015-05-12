@@ -15,7 +15,7 @@ The application was meant to be used internally by the Norwegian Armed Forces. D
 
 The implementation of the product had to be structured in a publish-subscribe messaging pattern. In standard messaging protocols, users send messages directly to other users or groups of users. Publish-subscribe is based on categories, and each message sent is placed in a specific category. Whenever a message is put in a category and sent, every subscriber on the category will receive the message. Publishers and subscribers are separated, as subscribers do not know which publishers, if any, exists. In the same manner, publishers have no insight into which, if any subscribers exists to the category. A user can be both a subscriber and publisher at the same time, depending on the category in question.
 
-There are two main types of patterns used by the different protocols. The most popular one is using topics or queues. This method allows a subscriber to subscribe to a certain topic. Whenever someone posts a message in that topic, all subscribers on that topic receive the same message. Using queues, the idea is load balancing. The function of a topic queue is to allow for load balancing and to ensure that at least one subscriber gets the message. If no one subscribes to the topic a message is sent to, the message will be queued until someone does. Only one of the subscribers will get the message when queues are used. The other type of message subscription is using content filtering. Using this method, a subscriber will only receive a message if its contents match some given filtering criteria requested by the subscriber.
+In the publish-subscribe pattern, the category is commonly known as a topic. The concept of topics is a close sibling to other messaging paradigms, like queue. A description of the difference between queue and topic is described in the next section. 
 
 The general publish-subscribe pattern is visualized in this figure.
 
@@ -26,6 +26,16 @@ The general publish-subscribe pattern is visualized in this figure.
     \label{fig:publish-subscribe}
   \end{figure}
 \end{center}
+
+\subsection{Topic and Queue difference}
+\label{subsec:architecture_and_implementation-topic_and_queue_differecnce}
+While the publish/subscriber pattern and WSN uses the concept topic to describe where a message is suppose to be routed, AMQP uses the concept of queues. As there is quite a big fundamental difference between them, a description of each can be found below. Both description is of the basic idea for the concepts.
+
+\subsubsection{Topic}
+When a system is implemented with the behaviour of topics, a incoming message will be distributed to every subscriber on the given topic. This means that if the topic "example" has three subscribers, and a message is sent to this topic, the message will be sent to all the subscribers.
+
+\subsubsection{Queue}
+When a system is implemented with the behaviour of a queue, a incoming message will be distributed to \textit{one} of the subscribers on the given queue. This means that if the queue has three subscribers, and message is sent to this queue, the message will be sent to \textit{one} of the subscriber. The way the subscriber is chosen can be implemented in a number of ways, two examples is at random, and using a round-robin algorithm\footnote{\url{http://en.wikipedia.org/wiki/Round-robin}}. A typical usage for queue based messaging  protocols is load balancing, which works out of the box when using queues. Another feature worth mentioning is in a queue implementation, messages sent to a queue without subscribers will be stored until someone subscribes, and offloaded on that subscriber.
 
 \section{Protocols}
 \label{prestudies-protocols}
@@ -96,7 +106,7 @@ WS-Nu is a well written piece of software, which accomplishes many of the tasks 
 \subsection{MicroWSN and NFFIPlayer}
 \label{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer}
 
-MicroWSN and NFFIplayer are both software developed and provided by FFI. MicroWSN is an implementation of a WSN broker. NFFIPlayer is a graphical interface for testing MicroWSN. The package was created by FFI for testing in the field. However, the implementation is incomplete, and lacks several features that a complete implementation should have.
+MicroWSN and NFFIplayer are both software developed and provided by FFI. MicroWSN is an implementation of a WSN broker. NFFIPlayer is a graphical interface for testing MicroWSN. The package was created by FFI for testing in the field. However, the implementation is incomplete, and lacks several features that a complete implementation should have. A prerequisite for gaining access to these programs were not redistributed them.
 
 \subsubsection{Evaluation}
 \label{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer-evaluation}

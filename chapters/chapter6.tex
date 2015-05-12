@@ -1,6 +1,6 @@
 %===================================== CHAP 6 =================================
 
-\chapter{Testing, Not finished}
+\chapter{Testing}
 \label{ch:testing}
 
 \section{Test description}
@@ -117,7 +117,21 @@ Components and features that were not tested in the system test:
 
 \subsubsection{Approach}
 
-[HERE BE STRATEGY, TOOLS, ETC]
+The execution of the system test would be managed by the group member responsible for testing and configuration management, with support from the lead developer and involved team members. All the test were to be performed during normal system operation. Deliverables after execution were the test results, which would be included in the complete system test case table in Appendix \ref{ch:tables_and_graphs}. \\
+\\
+\textit{Configuration management}
+\\
+\\
+The following configurations of the system were to be tested:
+\begin{enumerate}[A.]
+\item A clean installation with default configuration
+\item An installation with custom hosts and ports set for the protocol servers, as well as the \begin{verbatim}WSN_USE_WAN\end{verbatim} flag set to true.
+\item An installation with the \begin{verbatim}AMQP_USE_QUEUE\end{verbatim} flag set to true.
+\end{enumerate}
+
+\subsubsection{Pass criteria and results}
+
+The complete listings of pass criteria for each test case and their respective results are presented in tables \ref{table:system-testing-cases-fr1} through \ref{table:system_testing-additional_test_cases} in Appendix \ref{ch:tables_and_graphs}.
 
 \subsection{Acceptance test}
 \label{subsec:testing-test_execution-acceptance_test}

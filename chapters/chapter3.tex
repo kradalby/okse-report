@@ -44,6 +44,13 @@ Elements from Test Driven Development were planned to be used for suitable parts
 
 The advantage of this was simple adaption to changes. Whenever new code is written, it is simpler and less time-consuming to find potential errors in existing code. Thus, less consideration had to be made with regards to breaking the application when developing. Additionally, the process of writing tests provides clear definition of what individual components or units are supposed to do.
 
+\subsubsection{Supporting development with tools}
+Many of the tools listed in section \ref{sec:prestudies-tools} where chosen explicitly for their great fits with our development methodology. To provide better efficiency with the Scrum process and the continuous release of new versions of the software, Jenkins(\ref{subsec:prestudies-tools-jenkins}) was integrated in the development cycle. Jenkins was used to automatically build and test the code every time a "pull-request" was created on our GitHub repository. A pull-request can be explained as a action that is done by a developer to signal that their branch of code is ready for integration with the main branch. 
+
+The integration with GitHub and Jenkins was rather useful as every developer got very fast feedback telling them if their code did compile with the upstream code or if it did fail any tests. In addition, the group used a strict scheme on how branches should be merged together and the correct order this should happen before new code was to be added to the master branch. The pattern was based on the idea of having a branch called develop, where the latest development code was added. In addition to the develop branch, a branch with the latest code that was considered stable was created, this branch was named master. If a developer wanted to get the code into the master branch, it had to go through develop. The develop branch was only merged into the master branch when it was approved by more than two members of the development team. Another important rule was that a pull-request could not be merged by the creator, even if the code was building fine or all the tests did succeed. 
+
+In addition to the pull-request building from Jenkins, another job was created to build and deploy the master branch every time it was updated. When a new stable release was merged into the master branch, the code was built and deployed on the groups test server, publicly available to the group and the customer. This was typically done by the end of each sprint.
+
 \subsection{Report}
 \label{subsec:process_and_methodology-process_methodology-report}
 
@@ -101,8 +108,6 @@ Due to the nature of the project description, the group's choice of architecture
 \label{subsec:process_and_methodology-project_organization-design_user_experience_and_functional_analysis}
 
 One of the main features of the system was the administration interface, with the ability to perform topic mapping and administer configurations. To ensure that this part of the system was informative and intuitive, Tørnvall was given the responsibility to oversee this part of the system, with emphasis on interface design and user experience. Additionally, he was responsible for expanding on the overall requirements given by the customer, refining them and exploring functional dependencies. This was done to ensure that the requirements were as precise, clear and complete as possible, reducing the risk of neglecting potential aspects of the system functionality. The role was given to him based on his wish to work with the design part of the system.
-
-\clearpage
 
 \section{Resource management}
 \label{sec:process_and_methodology-resource_management}

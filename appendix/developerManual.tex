@@ -152,13 +152,21 @@ Hopefully, after reading this introduction you have gotten a fair understanding 
 
 \begin{itemize}
 \setlength{\itemsep}{0cm}%
-\item Thymeleaf - see \url{http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html}
+\item Thymeleaf - see \url{http://www.thymeleaf.org/documentation.html}
 \item Spring framework - see \url{https://spring.io/guides/gs/rest-service/}
 \item jQuery - see \url{http://jqfundamentals.com}
 \item JavaScript - see \url{https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript}
 \end{itemize}
 
 \subsection{Administration interface structure}
+
+All files for the administration interface are located in three main folders, \verb!static/js!, \verb!templates! and \verb!web!. See figure \ref{fig:oac-folder-hierarchy} for a detailed overview. To extend the application you can just copy and modify existing files, or create new ones based on the skeleton provided in section \ref{subsubsec:skeletons}. The files needed to be modified of created are:
+
+\begin{itemize}
+\item HTML template files in \verb!src/resources/templates/!
+\item JavaScript files in \verb!src/resources/static/js/!
+\item Spring controllers in \verb!src/no/ntnu/okse/web/controller/! 
+\end{itemize}
 
 \begin{center}
   \begin{figure}[ht!]
@@ -168,16 +176,19 @@ Hopefully, after reading this introduction you have gotten a fair understanding 
   \end{figure}
 \end{center}
 
-\subsubsection{New controller}
+
+
+\subsubsection{Skeletons}
+\label{subsubsec:skeletons}
 
 Below is a skeleton for adding a new REST controller. The same applies for normal controllers, but then the \verb!@Controller! annotation is used in stead of the \verb!@RestController! annotation. When using this annotation, Spring will automatically find the controller on boot, and add the mapping to the dispatcher. 
 
-\begin{lstlisting}[language=Java, captionpos=b, caption=Skeleton for a REST-controller, frame=bt]
+\begin{lstlisting}[language=Java, captionpos=b, caption=Skeleton for a REST-controller, frame=bt, showstringspaces=false]
 @RestController
-@RequestMapping(value = "/url/to/controller") // Base URL
+@RequestMapping(value = "/api/MYPANE") // Base URL
 public class TestController() {
     
-    private static final String TEST_URL = "/test";
+    private static final String TEST_URL = "/get/all";
     
     @RequestMapping(value = TEST_URL, method = RequestMethod.GET)
     public @ResponseBody void getAllInfo() {
@@ -187,13 +198,10 @@ public class TestController() {
 }
 \end{lstlisting}
 
-\subsubsection{New JavaScript module}
+Below is a skeleton for adding a new JavaScript module on the web page for displaying information from a controller. This only shows briefly how one would start to create new modules. To add the JS-file to the administration interface on rendering, append \verb!<script th:src="/js/<MODULE>.js"></script>! to the \verb!th:block! identified with "scripts" in the \verb!indexLoggedIn.html! template. \\ 
 
-Below is a skeleton for adding a new JavaScript module on the web page for displaying information from a controller. This only shows briefly how one would start to create new modules. To add the JS-file to the administration interface on rendering, append \verb!<script th:src="/js/<MODULE>.js"></script>! to the \verb!th:block! called scripts in the \verb!indexLoggedIn.html! template. 
-
-
-\begin{lstlisting}[language=Java, captionpos=b, caption=Skeleton for a JavaScript module, frame=bt]
-var module = (function($) { 
+\begin{lstlisting}[language=Java, captionpos=b, caption=Skeleton for a JavaScript module, frame=bt, showstringspaces=false]
+var MYPANE = (function($) { 
 
     var initateModule = function() {
     
@@ -206,7 +214,26 @@ var module = (function($) {
 })(jQuery)
 \end{lstlisting}
 
-\subsubsection{New pane}
+\begin{lstlisting}[language=HTML, captionpos=b, caption=Skeleton for a Thymeleaf-template, frame=bt, showstringspaces=false]
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/
+      layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras
+      -springsecurity3"
+      layout:decorator="layout">
+<head>
+</head>
+<body>
+<th:block layout:fragment="MYPANE">
+<div class="tab-pane" id="MYPANE">
+...
+</div>
+</th:block>
+</body>
+</html>
+\end{lstlisting}
+
+If you choose to add a new pane it's important to register the panes JavaScript module in the \verb!main.js! file. This is done by appending a \verb!switch-case! for your pane. Also remember to register the panes template in \verb!indexLoggedIn.html!
 
 \section{AMQP Send and Receive}
 
