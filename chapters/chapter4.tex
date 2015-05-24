@@ -3,20 +3,22 @@
 \chapter{Requirements engineering}
 \label{ch:requirements_engineering}
 
-The requirements engineering process was a continuous negotiation between the customer and the development team. Although the customer had a solid understanding of what they wanted, this process went on throughout the duration of the project. This was done to make sure that the requirements were realistic, given the time available. The requirements lists reflect the final result of process.
+The requirements engineering process was a continuous negotiation between the customer and the development team. Although the customer had a solid understanding of what the system was supposed to do, this process went on throughout the duration of the project. This was done to make sure that the requirements were realistic, given the time available. The requirements lists reflect the final result of process.
 
 Requirements are separated into two categories. A functional requirement describes a function of the system or one of it's components. A non-functional requirement can be viewed with regards to the operation of the system. Rather than listing specific functions of the system, it describes the performance or operation of the system as a whole. In this project, strict requirements and narrow requirement scope was not provided by the customer. The requirements given were general, and listed some features the system would have to provide, but not an extensive list. This led to the group having to create a more comprehensive set of requirements as a basis for development.
 
 \section{Requirements elicitation}
 \label{sec:requirements_engineering-requirements_elicitation}
 
-The functional requirements were elicited as a result of discussion both within the group and with the customer. Additional requirements were taken into consideration from the results of the research phase, as well as from the standards of WSN, AMQP and MQTT. Use cases and user stories were used as support tools for the group to define the exact requirements and formulations of them. This was due to the lack of strictly defined requirements from the customer. The use cases describe the steps that needed to be performed in order to accomplish a certain task. The result of the process was a list, describing the requirements and the prioritization of them.
+The functional requirements were elicited as a result of discussion both within the group and with the customer. Additional requirements were taken into consideration from the results of the research phase, as well as from the standards of WSN, AMQP and MQTT. Use cases and user stories were used as support tools for the group to define the exact requirements and formulations of them. This was due to the lack of strictly defined requirements from the customer. The use cases describe the steps that are needed to be performed in order to accomplish a certain task. The result of the process was a list, describing the requirements and the prioritization of them.
 
-The non-functional requirements were purely a result of discussion with the customer. After identifying the properties of the system, they were classified and rated in order of importance.
+The non-functional requirements elicitation were purely a result of discussion with the customer. After identifying the properties of the system, they were classified and rated in order of importance.
 
 Two issues arose when requirements for the different protocols were to be defined. First of all, the customer wanted as many protocols to be implemented as possible. After considering the time available, the three most important protocols were listed as requirements. The decision was subject to change however, depending on how much time it would take to implement each protocol.
 
-The other issue was defining the protocols as requirements. On the one hand, they could be seen as functional requirements. "As a user, one must be able to send a message using protocol A". This would be regarded as a functional requirement. On the other hand, protocol support could be viewed as a property of the system. The protocol would then be considered a set of standards the system has to conform to, and fall under the compatibility category of non-functional requirements. The functional requirements would then only be described as "a user being able to send a message", regardless of protocol. The decision would not make any profound difference to the product. Thus, extensive research into this definition was not pursued. Note that software for sending valid messages to the system was not a part of the task.
+The other issue was defining the protocols as requirements. On the one hand, they could be seen as functional requirements. "As a user, one must be able to send a message using protocol A". This would be regarded as a functional requirement. On the other hand, protocol support could be viewed as a property of the system. The protocol would then be considered a set of standards the system has to conform to, and fall under the compatibility category of non-functional requirements. The functional requirements would then only be described as "a user being able to send a message", regardless of protocol. The decision would not make any profound difference to the product. Thus, extensive research into this definition was not pursued.
+
+For the remainder of this chapter, a client is defined as any application that implements the protocol in question as its means of communication. Implementing a general purpose client was not a part of the product description. To the best of the groups knowledge, no general purpose clients exist for the protocol versions implemented. As such, libraries and scripts were used internally as client representations. These are covered in appendix \ref{sec:test_clients}.
 
 \section{Functional requirements}
 \label{sec:requirements_engineering-functional_requirements}
@@ -28,37 +30,37 @@ After a brief evaluation, the aspects around different protocols were defined as
 \rowcolor{lightgray}
 \multicolumn{4}{|c|}{\textbf{Functional requirements}}  \\ \hline
 \multicolumn{1}{|c|}{\textbf{$\#$}} & \textbf{Use Case} & \textbf{Description}    & \textbf{Priority} \\ \hline
-\multicolumn{1}{|c|}{FR1.1} & \multicolumn{1}{c|}{U5, U6} & A user must be able to send and receive messages over the WSN protocol. & 
+\multicolumn{1}{|c|}{FR1} & \multicolumn{1}{c|}{U5, U6} & A user must be able to send and receive messages over the WSN protocol, with a client of his choice. & 
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.2} & \multicolumn{1}{c|}{U7} & A user must be able to subscribe to a topic using the WSN protocol &
+\multicolumn{1}{|c|}{FR2} & \multicolumn{1}{c|}{U7} & A user must be able to subscribe to a topic using the WSN protocol, with a client of his choice. &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.3} & \multicolumn{1}{c|}{U8} & A user must be able to register as a publisher on a topic using the WSN protocol &
+\multicolumn{1}{|c|}{FR3} & \multicolumn{1}{c|}{U8} & A user must be able to register as a publisher on a topic using the WSN protocol, with a client of his choice. &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.4} & \multicolumn{1}{c|}{U9} & A user must be able to unsubscribe from a topic using the WSN protocol &
+\multicolumn{1}{|c|}{FR4} & \multicolumn{1}{c|}{U9} & A user must be able to unsubscribe from a topic using the WSN protocol, with a client of his choice. &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.5} & \multicolumn{1}{c|}{U10} & A user must be able to unregister as a publisher on a topic using the WSN protocol &
+\multicolumn{1}{|c|}{FR5} & \multicolumn{1}{c|}{U10} & A user must be able to unregister as a publisher on a topic using the WSN protocol, with a client of his choice &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.6} & \multicolumn{1}{c|}{U11} & A must be able to retrieve the latest message on a topic using the GetCurrentMessage function using the WSN protocol &
+\multicolumn{1}{|c|}{FR6} & \multicolumn{1}{c|}{U11} & A must be able to retrieve the latest message on a topic using the GetCurrentMessage function using the WSN protocol, with a client of his choice. &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.7} & \multicolumn{1}{c|}{U12} & A user must be able to renew his/her subscription using the WSN protocol &
+\multicolumn{1}{|c|}{FR7} & \multicolumn{1}{c|}{U12} & A user must be able to renew his/her subscription using the WSN protocol, with a client of his choice. &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.8} & \multicolumn{1}{c|}{U13} & A user must be able to pause his/her subscription using the WSN protocol &
+\multicolumn{1}{|c|}{FR8} & \multicolumn{1}{c|}{U13} & A user must be able to pause his/her subscription using the WSN protocol, with a client of his choice. &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.9} & \multicolumn{1}{c|}{U14} & A user must be able to resume his/her subscription using the WSN protocol &
+\multicolumn{1}{|c|}{FR9} & \multicolumn{1}{c|}{U14} & A user must be able to resume his/her subscription using the WSN protocol, with a client of his choice &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR1.10} & \multicolumn{1}{c|}{U15} & A user must be able to send multiple notification messages in a single Notify using the WSN protocol &
+\multicolumn{1}{|c|}{FR10} & \multicolumn{1}{c|}{U15} & A user must be able to send multiple notification messages in a single Notify using the WSN protocol, with a client of his choice. &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR2.1} & \multicolumn{1}{c|}{U5 \& U6} & A user must be able to send and receive messages using the AMQP protocol &
+\multicolumn{1}{|c|}{FR11} & \multicolumn{1}{c|}{U5 \& U6} & A user must be able to send and receive messages using the AMQP protocol, with a client of his choice. &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR2.2} & \multicolumn{1}{c|}{U16} & A user must be able to subscribe to a topic using the AMQP protocol &
+\multicolumn{1}{|c|}{FR12} & \multicolumn{1}{c|}{U16} & A user must be able to subscribe to a topic using the AMQP protocol, with a client of his choice. &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR2.3} & \multicolumn{1}{c|}{U17} & A user must be able to unsubscribe using the AMQP protocol &
+\multicolumn{1}{|c|}{FR13} & \multicolumn{1}{c|}{U17} & A user must be able to unsubscribe using the AMQP protocol, with a client of his choice. &
 \multicolumn{1}{c|}{1} \\ \hline
-\multicolumn{1}{|c|}{FR3} & \multicolumn{1}{c|}{U1} & The admin must be able to map topics/dialects with other topics. &
+\multicolumn{1}{|c|}{FR14} & \multicolumn{1}{c|}{U1} & The admin must be able to map topics/dialects with other topics. &
 \multicolumn{1}{c|}{2} \\ \hline
-\multicolumn{1}{|c|}{FR4} & \multicolumn{1}{c|}{U2} & The admin must be able to edit the different subscriptions. That means delete one or all subscriptions on a given topic. This also includes deleting all topics. & \multicolumn{1}{c|}{3} \\ \hline
-\multicolumn{1}{|c|}{FR5} & \multicolumn{1}{c|}{U3} & The admin should be able to get information in the administrator interface about the server. &  \multicolumn{1}{c|}{4} \\ \hline
-\multicolumn{1}{|c|}{FR6} & \multicolumn{1}{c|}{U4} & The admin must be able to log in with a user name and password to get access to core functions. & \multicolumn{1}{c|}{5} \\ \hline
+\multicolumn{1}{|c|}{FR15} & \multicolumn{1}{c|}{U2} & The admin must be able to edit the different subscriptions. That means delete one or all subscriptions on a given topic. This also includes deleting all topics. & \multicolumn{1}{c|}{3} \\ \hline
+\multicolumn{1}{|c|}{FR16} & \multicolumn{1}{c|}{U3} & The admin should be able to get information in the administrator interface about the server. &  \multicolumn{1}{c|}{4} \\ \hline
+\multicolumn{1}{|c|}{FR17} & \multicolumn{1}{c|}{U4} & The admin must be able to log in with a user name and password to get access to core functions. & \multicolumn{1}{c|}{5} \\ \hline
 \caption{Functional requirements}
 \label{tab:func-requirements}
 \end{longtable}
@@ -91,7 +93,7 @@ All parts of the application must be documented according to the language specif
 \subsection{NFR3 - Open Source}
 \label{subsec:requirements_engineering-non_functional_requirements-open_source}
 
-The software shall be open source. The software shall be available for use, change and distribution by anyone. It will be licenced under the MIT licence\footnote{\url{http://en.wikipedia.org/wiki/MIT_License}}. The code will remain available on Github after completion.
+The software shall be open source. The software shall be available for use, change and distribution by anyone. It will be licenced under the MIT licence \cite{mit-license}. The code will remain available on Github after completion.
 
 \section{User stories}
 \label{sec:requirements_engineering-user_stories}
@@ -114,10 +116,6 @@ Admin & Get resource overview. & See load and balance of the server. \\ \hline
 Admin & Edit topics/dialects. & Map topics/dialects. \\ \hline
 Admin & Edit subscriptions. & Unsubscribe users on topics. \\ \hline
 Admin & Edit topics. & Delete a topic. \\ \hline
-User & Send a message over WSN. & Publish information. \\ \hline
-User & Send a message over AMQP. & Publish information. \\ \hline
-User & Receive a message over WSN. & Receive information from other units. \\ \hline
-User & Receive a message over AMQP. & Receive information from other units. \\ \hline
 \caption{User stories}
 \label{tab:user-stories}
 \end{longtable}
@@ -132,7 +130,7 @@ The use-cases were mainly used for internal communication within the group, as a
 \subsection{Use case 1 - Topic mapping}
 \label{subsec:requirements_engineering-use_cases-topic_mapping}
 
-Below is the use case for the topic mapping part of the interface. The main goal is to administer the topics. After (and/or before) a publisher has added a topic, it must be able to map this topic to another topic. The topic mapping interface must also provide a way of creating relay from messages received on one topic, to a new different topic. For WSN, it must also be able to flag a topic to only allow messages using a particular WSN topic expression (dialect).
+Below is the use case for the topic mapping part of the interface. The main goal is to administer the topics. After (and/or before) a publisher has added a topic, it must be able to map this topic to another topic. The topic mapping interface must also provide a way of creating a relay from messages received on one topic, to a different topic. For WSN, it must also be able to flag a topic to only allow messages using a particular WSN topic expression (dialect).
 
 \begin{table}[ht!]
 \begin{minipage}{.5\textwidth}

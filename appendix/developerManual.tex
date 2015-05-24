@@ -95,42 +95,9 @@ The back-end of OKSE works as a RESTful Web Service. It's responsible for workin
 
 The front-end of OKSE is the only component of the system directly accessible for user interaction. It's responsible for making HTTP-requests to the back-end for manipulation and presentation of the state OKSE is currently in. To ensure and minimize the probability for cross-browser incompatibilities, the front-end is implemented using jQuery. Each pane of the administration interface has its own module implemented with jQuery. Each of this modules are responsible for event-handling, AJAX-requests and DOM-manipulation in its own pane.
 
-\subsection{CoreService}
-
-The CoreService is the main part of the OKSE message translation and brokering system. It is responsible for booting and stopping the registered core services, such as those described in subsequent sections of this manual.
-
-Additionally, the CoreService boots up registered ProtocolServers, which are described in their own section below. The CoreService is also responsible for gracefully shutting down registered ProtocolServers.
-
-As with all the OKSE core services, the main CoreService extends the AbstractCoreService class. This class holds some common attributes that are needed, as well as definitions of the abstract methods for \verb!init()!, \verb!boot()!, \verb!run()! and \verb!stop()! actions.
-
-All the services are intended to follow the singleton pattern, which in our implementation uses static references. Thus, the remaining needed methods and fields for initialization and instantiation are not provided by the abstract super class. They have to be implemented using a similar approach as described in the \ref{sec:common-patterns-used} and \ref{sec:adding-new-core-services} chapters.
-
-An overview of the boot sequence of the main OKSE components is described in figure \ref{fig:boot-sequence}.
-
-
-\begin{center}
-  \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/bootSequence.png}}
-    \caption{Boot sequence main components of OKSE}
-    \label{fig:boot-sequence}
-  \end{figure}
-\end{center}
-
-The details of the \verb!init()!, \verb!boot()! and \verb!run()! methods will vary from service to service, and protocol server to protocol server.
-
-After the boot sequence has completed, all of the instances of either core services or protocol servers have their own dedicated thread that awaits the next task or event to execute.
-
-\subsection{TopicService}
-
-\subsection{SubscriptionService}
-
-\subsection{MessageService}
-
 \subsection{ProtocolServer}
- 
-\subsubsection{WSNotificationServer}
 
-\subsubsection{AMQPServer}
+The \verb!ProtocolServer! interface contains the common methods required in the general life cycle of a \verb!ProtocolServer!.\\This interface is implemented in the \verb!AbstractProtocolServer! class, which in turn provides some template functionality that is common to all protocol servers. A practical explanation of how to extend this class is provided in section \ref{sec:adding-new-protocols}.
 
 \section{Common Patterns Used}
 \label{sec:common-patterns-used}
@@ -144,6 +111,7 @@ After the boot sequence has completed, all of the instances of either core servi
 \end{itemize}
 
 \section{Adding new protocols}
+\label{sec:adding-new-protocols}
 
 Something about AbstractProtocolServer class and ProtocolServer interface
 
