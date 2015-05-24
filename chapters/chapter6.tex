@@ -33,7 +33,7 @@ System testing is performed to ensure that the product meets its requirements. I
 \subsection{Acceptance Testing}
 \label{subsec:testing-test_description-acceptance_testing}
 Acceptance testing is generally concerned with whether or not the requirements of the system are met in a satisfiable way. Since the system has a lot of functionality that is not visible, the acceptance tests focused on testing the administration interface and to send and receive messages with the implemented applications.
-As parts of the acceptance testing, the group performed internal smoke tests of the system after every medium to big component was implemented. General aspects that were tested were requirements compliance, look and feel of the related user interface components, and double checking our interpretation of the customers stated wishes. The reasoning for the smoke tests was to be able to find errors that could impact the result of the final acceptance test.
+As parts of the acceptance testing, the group performed internal smoke tests \cite{smoke-test} of the system after every medium to big component was implemented. General aspects that were tested were requirements compliance, look and feel of the related user interface components, and double checking the interpretation of the customers stated wishes. The reasoning for the smoke tests was to be able to find errors that could impact the result of the final acceptance test.
 
 \section{Test Execution}
 \label{subsec:testing-test_execution}
@@ -43,27 +43,43 @@ The following sections discusses how tests were planned and executed for each pa
 \subsection{Unit testing}
 \label{subsec:testing-test_execution-unit_testing}
 
-Initially, the plan was to use test-driven development as often as possible given it was a component we were going to write unit tests for. This proved somewhat difficult. In a lot of cases it was hard to know exactly which units were needed, and as the group learned and evolved, the units changed in scope and behaviour. Thus, tests that initially were written to verify units, were changed later on. This was something the group was well aware of, and intentionally opted to discard TDD where the scope and behaviour of a unit was developed with a trial and error approach. However, that didn't mean that unit tests were discarded as a whole. After these kind of components were finished, unit tests were added to verify their validity, as well as provide a safeguard for errors caused by future alterations.
+Initially, the plan was to use test-driven development as often as possible, on the components that had unit test coverage. This proved somewhat difficult. In a lot of cases it was hard to know exactly which units were needed, and as the system evolved, the units changed in scope and behaviour. Thus, tests that were initially written to verify units, were changed later on. This was something the group was well aware of, and intentionally opted to discard TDD where the scope and behaviour of a unit was developed with a trial and error approach. However, that didn't mean that unit tests were discarded as a whole. After those kind of components were finished, unit tests were added to verify their validity, as well as provide a safeguard for errors caused by future alterations.
 
-Units of the system responsible for inter-thread communication, multi-thread task processing and queuing were excluded from unit tests. It proved difficult to write tests for these scenarios, as the group lacked the necessary time and experience to write unit tests for these conditions. The testing of these types of units and components were performed during integration testing, which incorporated direct usage of these components.
+Units of the system responsible for inter-thread communication, multi-thread task processing and queuing were excluded from unit tests. It proved difficult to write tests for these scenarios, as the group lacked the necessary time and experience to write unit tests for these conditions. The testing of those types of units and components were performed during integration testing, which incorporated direct usage of these components.
 
-The metric chosen to represent unit testing was test coverage. Test coverage is the percentage of code blocks covered by corresponding tests. All the unit tests passed validation, hence it was somewhat irrelevant to include a per-unit table of tests in this section. It was more descriptive to see how much of the code base is covered by unit tests. The actual execution of the unit tests were automated using Jenkins(\ref{subsec:prestudies-tools-jenkins}), in combination with its TestNG plugin(\ref{subsec:prestudies-tools-testng}).
+The metric chosen to represent unit testing was test coverage. Test coverage is the percentage of code blocks covered by corresponding tests. All the unit tests passed validation, hence it was somewhat irrelevant to include a per-unit table of tests in this section. It was more descriptive to see how much of the code base was covered by unit tests. The actual execution of the unit tests were automated using Jenkins(\ref{subsec:prestudies-tools-jenkins}), in combination with its TestNG plugin(\ref{subsec:prestudies-tools-testng}).
 
 The following list provides an overview of the different packages in the product and their test coverage.
 
-\begin{enumerate}
-\item core - ??\%
-\item core.event - ??\%
-\item core.messaging - ??\%
-\item core.subscription - ??\%
-\item core.topic - ??\%
-\item db - ??\%
-\item examples - ??\%
-\item exceptions - ??\%
-\item protocol.wsn - ??\%
-\item protocol.amqp - ??\%
-\item web - ??\%
-\end{enumerate}
+
+\begin{center}
+\begin{table}[ht!]
+\small
+\centering
+\begin{tabular}{|p{5cm}|p{2cm}|}
+\hline
+\rowcolor{lightgray}
+\textbf{Name} & \textbf{Status} \\
+\hline
+ core & 60\%  \\
+ core.event & 85\% \\ 
+ core.messaging & 57\% \\ 
+ core.subscription & 40\% \\ 
+ core.topic & 74\% \\
+ db & 56\% \\
+ protocol.wsn & 37\% \\
+ protocol.amqp & 78\% \\
+ web & 0\% \\
+\hline
+\end{tabular}
+\caption{Test coverage}
+\label{tab:test coverage}
+\end{table}
+\end{center}
+
+
+
+
 
 The source code, including all the test methods can be found in the "test" package of the application.
 
@@ -100,24 +116,24 @@ The following risks affected the choice of test cases for the system test:
 \begin{enumerate}[A.]
 \item \textbf{WS-Nu and WSN standard compliance:} WSN support was the main concern of the customer, and as the protocol is the NATO standard, it holds the highest level of impact if defects are uncovered. Full standard support is desired.
 \item \textbf{Qpid Proton:} The encoding of messages to be sent across the AMQP protocol needs preestimation of byte array size and enumeration until actual size is matched. This could cause a major performance hit on the AMQP protocol, and needs profiling tests.
-\item \textbf{Customer operational needs:} As the finished product will be used during military operational testing, support features like topic mapping and relay functionality is important to increase the value of the product. Additionally, working initialization and setup of configuration directories and files are paramount to the effectiveness and features of the product.
+\item \textbf{Customer operational needs:} As the finished product will be used during military operational testing, support features like topic mapping and relay functionality is important for the the product. Additionally, working initialization and setup of configuration directories and files are paramount to the effectiveness and features of the product.
 \item \textbf{Core broker functionality.} The main task of the OKSE Message Broker is to act as a relay and translator for messages. Failure of the system to perform these core tasks would have devastating impact on the effectiveness of the product.
 \end{enumerate}
 
 \subsubsection{Components and features not to be tested}
 
-To reduce the amount of resources needed to perform the testing, some components and features were not tested during the system test. Partly because they are covered by unit or integration tests, or that they have too small related risk to the effectiveness and operation of the product.
+To reduce the amount of resources needed to perform the testing, some components and features were not tested during the system test. Partially because they are covered by unit or integration tests, or that they have too small related risk to the effectiveness and operation of the product.
 Components and features that were not tested in the system test:
 
 \begin{enumerate}[A.]
 \item The Log View pane in the administration interface, and its related controllers.
 \item Support classes and components covered by unit tests and integration tests
-\item Hierarchy based topic messaging. The OKSE Message Broker fully supports topic hierarchy aware messaging. Simply put, this means that subscribers to a root topic receives all messages from all children. However, none of the implemented protocols use this semantic. Additionally, the core methods of this functionality are well covered by unit tests, and was therefore deemed negligible for the system test.
+\item Hierarchy based topic messaging. The OKSE Message Broker fully supports topic hierarchy aware messaging. Simply put, it means that subscribers to a root topic receives all messages from all children. However, none of the implemented protocols use this semantic. Additionally, the core methods of this functionality are well covered by unit tests, and was therefore deemed negligible for the system test.
 \end{enumerate}
 
 \subsubsection{Approach}
 
-The execution of the system test would be managed by the group member responsible for testing and configuration management, with support from the lead developer and involved team members. All the test were to be performed during normal system operation. Deliverables after execution were the test results, which would be included in the complete system test case table in Appendix \ref{ch:tables_and_graphs}. \\
+The execution of the system test would be managed by the group member responsible for testing and configuration management, with support from the lead developer and involved team members. All the test were to be performed during normal system operation. Deliverables after execution were the test results, which is included in the complete system test case table in Appendix \ref{ch:tables_and_graphs}. \\
 \\
 \textit{Configuration management}
 \\
@@ -136,7 +152,7 @@ The complete listings of pass criteria for each test case and their respective r
 \subsection{Acceptance test}
 \label{subsec:testing-test_execution-acceptance_test}
 
-A final demonstration of the system was performed at a customer meeting the 8th of May at NTNU. As previously stated, the customer did not have a strictly defined set of requirements for the product. This meant that the demonstration acted as our acceptance test. The group demonstrated the implementation of the customers requirements, as well as additional features and internal requirements from the requirements elicitation process. Due to time limitations, it was not possible to demonstrate all the different permutations of functionality acting together, as the customer had a second group meeting later that day. Nonetheless, the feedback given from the customer was very positive. There was some discussion regarding limitations of the WS-Nu library, as well as compatibility issues regarding translating messages between WSN and other non-XML protocols. Apart from one minor request for supporting topic based relaying between different instances of the product, the product as a whole was accepted by the customer. Documentation of the limitations of WS-Nu and the challenges regarding message translation were also requested. A summary of the feedback is presented below:
+A final demonstration of the system was performed at a customer meeting the 8th of May at NTNU. As previously stated, the customer did not have a strictly defined set of requirements for the product. This meant that the demonstration acted as our acceptance test. The group demonstrated the implementation of the customers requirements, as well as additional features and internal requirements from the requirements elicitation process. Due to time limitations, it was not possible to demonstrate all the different permutations of functionality acting together, as the customer had another meeting later that day. Nonetheless, the feedback given from the customer was very positive. There was some discussion regarding limitations of the WS-Nu library, as well as compatibility issues regarding translating messages between WSN and other non-XML protocols. Apart from one minor request for supporting topic based relaying between different instances of the product, the product as a whole was accepted by the customer. Documentation of the limitations of WS-Nu and the challenges regarding message translation were also requested. A summary of the feedback is presented below:
 
 \begin{itemize}
 \item Having a relay function that can forward messages of certain topics to other instances of the system.

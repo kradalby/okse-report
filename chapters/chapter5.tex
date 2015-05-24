@@ -155,9 +155,12 @@ This chapter provides a brief outline of some of the implementation specific det
 \subsection{Core}
 \label{subsec:architecture_and_implementation-implementation-core}
 
-\subsection{CoreService}
+As outlined in the architecture design goals, the core components of the system were implemented as standalone services, using the singleton pattern \cite{singleton}. To provide a thread safe execution environment, all services were implemented with an internal task queue. This reactor thread pattern \cite{reactor-pattern} acts as a demultiplexer, collecting requests for service methods from other threads and executes them synchronously by order of arrival.
 
-The CoreService is the main part of the OKSE message translation and brokering system. It is responsible for booting and stopping the registered core services, such as those described in subsequent sections of this manual.
+\subsubsection{CoreService}
+\label{subsec:architecture_and_implementation-implementation-core-coreservice}
+
+The CoreService is the main part of the OKSE message translation and brokering system. It is responsible for booting and stopping the registered core services, such as those described in subsequent sections of this chapter.
 
 Additionally, the CoreService boots up registered ProtocolServers, which are described in their own section below. The CoreService is also responsible for gracefully shutting down registered ProtocolServers.
 
@@ -180,29 +183,32 @@ The details of the \verb!init()!, \verb!boot()! and \verb!run()! methods will va
 
 After the boot sequence has completed, all of the instances of either core services or protocol servers have their own dedicated thread that awaits the next task or event to execute.
 
-\subsection{TopicService}
+\subsubsection{TopicService}
+\label{subsec:architecture_and_implementation-implementation-core-topicservice}
 
-The \verb!TopicService! is responsible for creating, updating and  deleting of topics, as well as event propagation for topic related events. It runs, as with all other core services, as a single threaded reactor that consumes tasks from a blocking queue, securing thread safety. It is also supported by the \verb!TopicTools! class, which provides helper methods for topic tree traversal. It is worthwhile to mention that all topics that have subpaths will be linked together into a tree, regardless of the fact that none of the implemented protocols use this feature. It was designed this way to account for future protocols that does support hierarchy based message distribution.
+The \verb!TopicService! is responsible for creating, updating and  deleting of topics, as well as event propagation for topic related events. It runs, as a single threaded reactor that consumes tasks from a blocking queue, securing thread safety. It is also supported by the \verb!TopicTools! class, which provides helper methods for topic tree traversal. It is worthwhile to mention that all topics that have subpaths will be linked together into a tree, regardless of the fact that none of the implemented protocols use this feature. It was implemented this way to account for future protocols that does support hierarchy based message distribution.
 
 The \verb!Topic! class itself will then have two ways of retrieving its name. A \verb!getName()! which returns the name of that particular node, and a \verb!getFullRawTopicString()! which traverses the tree until a root node is found. The latter will return a concatenation of the topic nodes found on the path to the root node.
 
-The \verb!TopicService! implements listener support, which should be used by other services that need to know when topics are created or deleted. This is done by implementing \verb!TopicChangeListener! on the respective service's class, and registering it to the \verb!TopicService! using the \verb!addTopicChangeListener()! method.
+The \verb!TopicService! implements listener support, which is used by other services that need to know when topics are created or deleted. This is done by implementing \verb!TopicChangeListener! on the respective service's class, and registering it to the \verb!TopicService! using the \verb!addTopicChangeListener()! method.
 
-As topics may be deleted from the administration panel, or new topics could be created through the topic mapping feature, some protocol servers might need to update their local representations. In situations like the this, listener support is the preferred way of accomplishing these needs. The reason being that they will be performed as synchronized jobs that secure thread safety.
+As topics may be deleted from the administration panel, or new topics could be created through the topic mapping feature, some protocol servers might need to update their local representations. Listener support was used as the preferred way of accomplishing these needs. The reason being that they will be performed as synchronized jobs that secure thread safety.
 
-\subsection{SubscriptionService}
+\subsubsection{SubscriptionService}
+\label{subsec:architecture_and_implementation-implementation-core-subscriptionservice}
 
-The \verb!SubscriptionService! is responsible for creating, updating and deleting of subscribers and publishers, as well as event propagation for these types of events. It runs, as with all other core services, as a single threaded reactor that consumes tasks from a blocking queue, securing thread safety.
+The \verb!SubscriptionService! is responsible for creating, updating and deleting of subscribers and publishers, as well as event propagation for these types of events. It runs as a single threaded reactor that consumes tasks from a blocking queue, securing thread safety.
 
-The \verb!SubscriptionService! implements listener support, which should be used by other services that need to know when subscribers or publishers are created, updated or deleted. This is done by implementing \verb!SubscriptionChangeListener! and \verb!PublisherChangeListener! respectively, and registering the class in question to the \verb!SubscriptionService! using the \verb!addSubscriptionChangeListener()! and \verb!addPublisherChangeListener()! methods.
+The \verb!SubscriptionService! implements listener support, which is used by other services that need to know when subscribers or publishers are created, updated or deleted. This is done by implementing \verb!SubscriptionChangeListener! and \verb!PublisherChangeListener! respectively, and registering the class in question to the \verb!SubscriptionService! using the \verb!addSubscriptionChangeListener()! and \verb!addPublisherChangeListener()! methods.
 
-As subscribers and publishers may be deleted from the administration panel, some services or protocol servers may need to update their local representations. In situations like this, listener support is the preferred way of accomplishing these needs. The reason being that they will be performed as synchronized jobs that secure thread safety.
+As subscribers and publishers may be deleted from the administration panel, some services or protocol servers may need to update their local representations. Listener support was used as the preferred way of accomplishing these needs.
 
 \subsection{MessageService}
+\label{subsec:architecture_and_implementation-implementation-core-messageservice}
 
 The \verb!MessageService! is responsible for distribution of messages, as well as duplicating messages if topic mappings are present. The \verb!MessageService! delegates much of the actual work to the \verb!CoreService!'s thread pool, which in turn schedules the messages to be sent.
 
-It runs, as with all other core services, as a single threaded reactor that consumes message distribution requests from a blocking queue, securing thread safety.
+It runs as a single threaded reactor that consumes message distribution requests from a blocking queue, securing thread safety.
 
 When a message is received for distribution, it is added into the \verb!MessageService!'s message queue, and consumed in order of arrival. In turn, the \verb!MessageService! iterates through all registered protocol servers, and calls the \verb!sendMessage()! method on each. Each of these calls are executed as a runnable job which is dispatched to the \verb!CoreService!'s central thread pool.
 
@@ -212,12 +218,17 @@ Additionally, the \verb!MessageService! keeps the latest messages sent on a topi
 
 In order to update the local latest message cache, the \verb!MessageService! is registered as a listener to \verb!TopicChangeEvent!s, to respond appropriately if topics are deleted from the administration panel.
 
+\subsubsection{ProtocolServer}
+\label{subsec:architecture_and_implementation-implementation-core-protocolserver}
+
+The \verb!ProtocolServer! interface contains the common methods required in the general life cycle of a \verb!ProtocolServer!.\\This interface is implemented in the \verb!AbstractProtocolServer! class, which in turn provides some template functionality that is common to all protocol servers.
+
 \subsection{WSN}
 \label{subsec:architecture_and_implementation-implementation-wsn}
 
 In order to intercept messages and actions in the WS-Nu library, several of the main WS-Nu components had to be overridden and reimplemented. This led to a structure of components described in figure \ref{fig:wsnotification-server-structure}.
 
-The main constituents of the OKSE WSN implementation are the \verb!WSNotification! \verb!Server!, which is runs the actual web server sending and receiving requests. \\The \verb!WSNRequestParser!, which is responsible for parsing the incoming XML message and invoking the corresponding method on the appropriate component. \\The \verb!WSNCommandProxy!, which implements most of the methods defined in the WSN standards document, and is the parent component of the \verb!WSNSubscriptionManager! and \verb!WSNRegistrationManager!. The latter two components are responsible for the local state and mapping between subscriber objects and publisher objects respectively.
+The main constituents of the OKSE WSN implementation are the \verb!WSNotification! \verb!Server!, which runs the actual web server sending and receiving requests. \\The \verb!WSNRequestParser!, which is responsible for parsing the incoming XML message and invoking the corresponding method on the appropriate component. \\The \verb!WSNCommandProxy!, which implements most of the methods defined in the WSN standards document, and is the parent component of the \verb!WSNSubscriptionManager! and \verb!WSNRegistrationManager!. The latter two components are responsible for the local state and mapping between subscriber objects and publisher objects respectively.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -244,7 +255,7 @@ Here be information about how WSN was implemented, as well as how it works
 \label{subsec:architecture_and_implementation-implementation-amqp}
 The implementation of AMQP consists of mainly two parts. The first part is the handling of AMQP decoding and encoding of messages and the handling of the AMQP data in the network requests and responses. The second part is the handling of broker behaviour and the integration with the rest of the system. 
 
-As every protocol server is implemented to run on a single thread, there was a need to handle the incoming and outgoing requests/messages in a clever way. After some consideration, the AMQP protocol server was implemented using the reactor event loop pattern \cite{reactor-pattern}, \cite{event-loop}. 
+As every protocol server is implemented to run on a single thread, there was a need to handle the incoming and outgoing requests/messages in a clever way. After some consideration, the AMQP protocol server was implemented using the reactor event loop pattern \cite{event-loop}. 
 The AMQP network socket was implemented using the Java non-blocking I/O library. The benefits of using a non-blocking socket is that instead of creating one socket per client, it will instead open multiple channels on one socket by using multiplexing. This is ideal for the single thread approach, as it runs in non-blocking mode, and will run in the main thread without stopping the entire program. The reactor pattern works well in combination with a multiplexed socket, as one of the key features of the pattern is the handling of incoming data from multiple sources. After the input is received and has been demultiplexed, Qpid will convert the incoming data to an event, which is then added to the event queue.
 
 Simultaneously as the event queue gets new events, the event loop is continuously dispatching the events to the correct methods on different handlers. A handler is a class that extends the \verb!BaseHandler! class from Qpid. The handler can override event methods invoked by the event queue. The AMQP implementation has the following handlers; \verb!AMQPServer!, \verb!Driver!, \verb!Handshaker! and \verb!SubscriptionHandler!, with their own specific task.
@@ -278,9 +289,9 @@ The Handshaker handles all of the open and close events of a connection. It make
 \end{center}
 
 \subsubsection{Queue vs Topic behavior}
-WSN and AMQP use different behaviours for handling topics/queues. As WSN is a pure publish/subscribe protocol, it is only concerned with topics. A description of the difference between topics and queues can be found in \ref{subsec:architecture_and_implementation-topic_and_queue_differecnce}.
+WSN and AMQP use different behaviour for handling topics/queues. As WSN is a pure publish/subscribe protocol, it is only concerned with topics. A description of the difference between topics and queues can be found in chapter \ref{subsec:architecture_and_implementation-topic_and_queue_differecnce}.
 
-In the initial implementation, the system only complied with the given standards for each protocol. To cope with the differences, the group implemented logic to handle the conversion between the two behaviours. In addition, the group consulted the customer with the idea of implementing a non-standard topic implementation of AMQP. This meant that they could use AMQP with the same behaviour as WSN, and that all AMQP subscribers on one topic/queue would get the message. The customer liked the idea of this feature as they thought this would fit nicely with their use pattern. In OKSE, when AMQP is configured to use queue, the recipient will be chosen by random.
+In the initial implementation, the system only complied with the given standards for each protocol. To cope with the differences, the group implemented logic to handle the conversion between the two behaviours. In addition, the group consulted the customer with the idea of implementing a non-standard topic implementation of AMQP. This meant that AMQP could be used with the same behaviour as WSN, and that all AMQP subscribers on one topic/queue would receive the message. The customer liked the idea, as it would fit nicely with their usage pattern. 
 
 A configuration switch was implemented to select which mode to use. The switch is available through the configuration file and the web administration interface. The logic for this feature is implemented in AMQPServer, which as previously stated is responsible for the outgoing message logic.
 
