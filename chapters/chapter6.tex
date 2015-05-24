@@ -47,7 +47,7 @@ Initially, the plan was to use test-driven development as often as possible, on 
 
 Units of the system responsible for inter-thread communication, multi-thread task processing and queuing were excluded from unit tests. It proved difficult to write tests for these scenarios, as the group lacked the necessary time and experience to write unit tests for these conditions. The testing of those types of units and components were performed during integration testing, which incorporated direct usage of these components.
 
-The metric chosen to represent unit testing was test coverage. Test coverage is the percentage of code blocks covered by corresponding tests. All the unit tests passed validation, hence it was somewhat irrelevant to include a per-unit table of tests in this section. It was more descriptive to see how much of the code base was covered by unit tests. The actual execution of the unit tests were automated using Jenkins(\ref{subsec:prestudies-tools-jenkins}), in combination with its TestNG plugin(\ref{subsec:prestudies-tools-testng}).
+The metric chosen to represent unit testing was test coverage. Test coverage is the percentage of code blocks covered by corresponding tests. All the unit tests passed validation, hence it was somewhat irrelevant to include a per-unit table of tests in this section. It was more descriptive to see how much of the code base was covered by unit tests. The actual execution of the unit tests were automated using Jenkins (see section \ref{subsec:prestudies-tools-jenkins}), in combination with its TestNG plugin (see section \ref{subsec:prestudies-tools-testng}).
 
 The following list provides an overview of the different packages in the product and their test coverage.
 
@@ -76,9 +76,6 @@ The following list provides an overview of the different packages in the product
 \label{tab:test coverage}
 \end{table}
 \end{center}
-
-
-
 
 
 The source code, including all the test methods can be found in the "test" package of the application.

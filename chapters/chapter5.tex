@@ -188,7 +188,7 @@ After the boot sequence has completed, all of the instances of either core servi
 
 The \verb!TopicService! is responsible for creating, updating and  deleting of topics, as well as event propagation for topic related events. It runs, as a single threaded reactor that consumes tasks from a blocking queue, securing thread safety. It is also supported by the \verb!TopicTools! class, which provides helper methods for topic tree traversal. It is worthwhile to mention that all topics that have subpaths will be linked together into a tree, regardless of the fact that none of the implemented protocols use this feature. It was implemented this way to account for future protocols that does support hierarchy based message distribution.
 
-The \verb!Topic! class itself will then have two ways of retrieving its name. A \verb!getName()! which returns the name of that particular node, and a \verb!getFullRawTopicString()! which traverses the tree until a root node is found. The latter will return a concatenation of the topic nodes found on the path to the root node.
+The \verb!Topic! object itself has two ways of retrieving its name. A \verb!getName()! which returns the name of that particular node, and a \verb!getFullRawTopicString()! which traverses the tree until a root topic node is found. The latter will return a concatenation of the topic node names found on the path to the root node. A concatenated string of topic names is the default identifier of topics throughout the system.
 
 The \verb!TopicService! implements listener support, which is used by other services that need to know when topics are created or deleted. This is done by implementing \verb!TopicChangeListener! on the respective service's class, and registering it to the \verb!TopicService! using the \verb!addTopicChangeListener()! method.
 
@@ -199,7 +199,7 @@ As topics may be deleted from the administration panel, or new topics could be c
 
 The \verb!SubscriptionService! is responsible for creating, updating and deleting of subscribers and publishers, as well as event propagation for these types of events. It runs as a single threaded reactor that consumes tasks from a blocking queue, securing thread safety.
 
-The \verb!SubscriptionService! implements listener support, which is used by other services that need to know when subscribers or publishers are created, updated or deleted. This is done by implementing \verb!SubscriptionChangeListener! and \verb!PublisherChangeListener! respectively, and registering the class in question to the \verb!SubscriptionService! using the \verb!addSubscriptionChangeListener()! and \verb!addPublisherChangeListener()! methods.
+The \verb!SubscriptionService! implements listener support, which is used by other services that need to know when subscribers or publishers are created, updated or deleted. This is done by implementing \verb!SubscriptionChangeListener! and \\ \verb!PublisherChangeListener! respectively, and registering the class in question to the \verb!SubscriptionService! using the \verb!addSubscriptionChangeListener()! and  \verb!addPublisherChangeListener()! methods.
 
 As subscribers and publishers may be deleted from the administration panel, some services or protocol servers may need to update their local representations. Listener support was used as the preferred way of accomplishing these needs.
 
@@ -225,7 +225,7 @@ The \verb!ProtocolServer! interface contains the common methods required in the 
 
 \subsection{WSN}
 \label{subsec:architecture_and_implementation-implementation-wsn}
-
+WS-Nu was chosen as the implementation library for the WSN protocol.
 In order to intercept messages and actions in the WS-Nu library, several of the main WS-Nu components had to be overridden and reimplemented. This led to a structure of components described in figure \ref{fig:wsnotification-server-structure}.
 
 The main constituents of the OKSE WSN implementation are the \verb!WSNotification! \verb!Server!, which runs the actual web server sending and receiving requests. \\The \verb!WSNRequestParser!, which is responsible for parsing the incoming XML message and invoking the corresponding method on the appropriate component. \\The \verb!WSNCommandProxy!, which implements most of the methods defined in the WSN standards document, and is the parent component of the \verb!WSNSubscriptionManager! and \verb!WSNRegistrationManager!. The latter two components are responsible for the local state and mapping between subscriber objects and publisher objects respectively.
@@ -238,8 +238,15 @@ The main constituents of the OKSE WSN implementation are the \verb!WSNotificatio
   \end{figure}
 \end{center}
 
+\subsubsection{WSNotificationServer}
+At the base of the WSN implementation lies the \verb!WSNotificationServer! class. Like the core services, the server runs as a singleton. The component is responsible for managing an instance of the Jetty Web server, which is connected to a \verb!Handler! class that processes incoming requests. The component also handles outgoing connections using a Jetty Web Client instance.
+
+When a request is received, it is processed through the \verb!Handler!, and if no errors have occurred during initial handling, it is passed on to the \verb!WSNRequestParser!. Based on the results from the request parser call, an appropriate response message is generated and returned to the requesting client.
+
+In the event of an outgoing message being sent, the \verb!sendMessage()! method of the \verb!WSNotification!\verb!Server! is invoked, and a connection is made by the Jetty Client instance to the subscribers destination address, and the message is delivered. Depending on wether the message originated from WSN or was translated from another protocol, additional steps are included. In the latter case, a WS-Nu message object is first created containing the relevant information, before dispatching it to the \verb!WSNRequest!\verb!Parser! like any other WSN message.
+
 \subsubsection{WSNRequestParser}
-The WSNRequestParser works as a hub in WS-Nu.
+The \verb!WSNRequestParser! is the OKSE implementation of what is considered a \verb!Hub! in WS-Nu. All WSN requests to the OKSE 
 
 \subsubsection{WSNCommandProxy}
 
