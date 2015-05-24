@@ -5,6 +5,14 @@
 \section{Protocols}
 A variety of proposals for other protocols that may be implemented are listed below. Most of them are based on the original wishes from FFI. This chapter is meant to explain the parts of the system that can or should be improved. 
 
+\subsection{AMQP changes and more versions}
+The current implementation of AMQP will, while queue behaviour is configured, send the message to a random recipient. This functionality could possibly be extended to supporting multiple algorithms for choosing. An example of this kind of algorithm can be Round-robin\footnote{\url{http://en.wikipedia.org/wiki/Round-robin}}.
+
+It can also be useful, should the need arise, to implement older version of the AMQP protocol. As mentioned in \ref{subsec:prestudies-amqp-amqp_version}, the older versions of the AMQP protocol are radically different, but still widely implemented.
+
+\subsubsection{Authentication}
+OKSE has currently support for SASL\footnote{\url{http://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer}}, but the implementation will only accept ANONYMOUS as the authentication criteria. Further development should implement a solution with actual user access. 
+
 \subsection{MQTT}
 As MQTT was one of the original planned protocols, it makes sense to view this as the next step when it comes to extending OKSE with new functionality. MQTT is a pure publish/subscribe pattern and the integration with OKSE should be fairly compatible. 
 During the research phase, when the group did research on different libraries for each protocol, the most promising Java implementation discovered was Moquette MQTT\footnote{\url{https://projects.eclipse.org/proposals/moquette-mqtt}}. There was not done any deep research into the project, but the fact that it had a lot of traction and that it was backed by the Eclipsed foundation gave the impression that it was a good bet.
@@ -16,4 +24,6 @@ The next protocol that should be looked into is ZeroMQ\footnote{\url{http://zero
 Even though the administration interface proved to be stable during testing some aspects of the architecture may be subject to change in the future. This section is meant to explain what parts of the administration interface that can or should be improved first. 
 
 \subsection{WebSockets}
-As of the time of this writing, the administration panel is not tested with more than six simultaneous users. This were no problem, and the server load were minimal. But for future reference it would make sense to replace the auto update AJAX with WebSockets to reduce the server load. It would also guarantee that the users see the most up to date information. See section \ref{subsec:Web_technologies} for more detailed information regarding the use of WebSockets contra AJAX. 
+As of the time of this writing, the administration panel is not tested with more than six simultaneous users. This were no problem, and the server load were minimal. But for future reference it would make sense to replace the auto update AJAX with WebSockets to reduce the server load. It would also guarantee that the users see the most up to date information. See section \ref{subsec:Web_technologies} for more detailed information regarding the use of WebSockets contra AJAX.
+
+\section{Implementation shortcomings}

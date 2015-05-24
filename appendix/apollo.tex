@@ -1,48 +1,51 @@
 \chapter{Apache Apollo}
+\settocdepth{chapter}
 \label{appendix:apache-apollo}
 
+
 \section{Introduction}
-In this section the collected information and impressions of Apache Apollo is listed and analysed. As the research phase was a considerable large part of the project and was in a great degree focused on Apache Apollo, it is considered important.
 
-The customer also indicated that they where very interested in all the research done on message brokers and existing solutions.
+This appendix focuses on documenting the collected information and impressions of Apache Apollo. As the research phase was a considerable large part of the project and was in a great degree focused on Apache Apollo, it is considered important. The groups customer were also interested in a thorough documentation of the research done. This document is meant to assess that, and is mainly targeted towards them.
 
-This appendix can be used as a standalone document, and may therefore repeat some information included in the main report for OKSE message broker.
+This appendix can be used as a standalone document, and will repeat some of the information in the main report.
 
 \section{About Apollo}
-Apache Apollo is a message broker system developed by the Apache foundation. Apollo is considered a subproject of Apache ActiveMQ\footnote{\url{http://activemq.apache.org}} and is by the developers own words, the next generation of ActiveMQ. Apollo is, as ActiveMQ a protocol agnostic broker that can freely translate between the supported protocols. As of this writing, the supported protocol is MQTT, AMQP, STOMP, OpenWire and WebSockets. 
+Apache Apollo is a message broker system developed by the Apache foundation. Apollo is considered a subproject of Apache ActiveMQ\footnote{\url{http://activemq.apache.org}} and is considered the next generation of ActiveMQ. Apollo is a protocol agnostic broker that can freely translate between the supported protocols. As of right now, the supported protocols are MQTT, AMQP, STOMP, OpenWire and WebSockets. 
 
-Apollo is developed by the Apache software foundation. Under the research phase, it was observed that most of the commits to the project was done by software developers from Red Hat\footnote{\url{http://www.redhat.com/en}}. This was considered to be positive because of the commitment to the project and continues updates from the Red Hat developers. 
+Apollo is developed by the Apache software foundation. Most of the development of the project has been done by software developers from Red Hat\footnote{\url{http://www.redhat.com/en}}. As of now, the software is still under continuous development.
 
 \section{Key features}
 
-\subsection{Architecture}
-The Apollo architecture is built around the idea of having a multi-threaded non-blocking implementation using the Reactor pattern\footnote{\url{http://en.wikipedia.org/wiki/Reactor_pattern}}. The non-blocking approach in a single thread is not a new approach to achieve a high amount of connections and high throughput. It is a well known pattern, used in high performance implementations like the server-side JavaScript implementation NodeJS and the popular web server Nginx. Applying this concept to multiple threads that handles jobs non-blocking gives the application the possibility of scaling very well on computers with a high core count. 
+The following are some of the key features that were emphasis during research on the product. 
 
+\subsection{Architecture}
+The Apollo architecture is built around the idea of having a multi-threaded, non-blocking implementation using the reactor pattern\footnote{\url{http://en.wikipedia.org/wiki/Reactor_pattern}}. The non-blocking approach in a single thread is an approach used to achieve a high amount of connections and throughput. Applying this concept to multiple threads that handles jobs non-blocking gives the application the possibility of scaling very well on computers with several CPU cores.
+
+The code is organized in modules, that are as small and specific as possible. For example, the handler for each protocol is its own module, and can be taken out or added to provide the given functionality. The core functionality like the Web administration interface and the command line interface is also an example of functionality that has been implemented in its own modules.
 
 \subsection{Scala}
-As stated by the developers of Apollo, they needed to think differently since all tasks that needs to be executed needs to be non-blocking, and should be lock and wait free. Changes in the network IO handling were also needed. To achieve this goal, the object-functional language Scala\footnote{\url{http://www.scala-lang.org}} was chosen. Scala has many features from functional programming\footnote{\url{http://en.wikipedia.org/wiki/Functional_programming}} and has a good way to express callbacks when writing asynchronous code.
+As stated by the developers of Apollo, they needed to think differently when designing the application. All tasks that were to be executed needed to be non-blocking, and should be lock and wait free. Changes in the network I/O handling were also needed. To achieve this goal, the object-functional language Scala\footnote{\url{http://www.scala-lang.org}} was chosen by the developers. Scala supports many features from functional programming, and has a good way to express callbacks when writing asynchronous code.
 
 \subsection{Protocol Agnostic}
-Apollo has support for the same protocols as ActiveMQ, but the way that it handles conversion between them is rewritten. First because of the need to have all the tasks running asynchronously and the fact that the way ActiveMQ handles this was quite inefficient. 
-In ActiveMQ when a message needed to be converted to another protocol other than its origin, the protocol will first be converted to the OpenWire format (can be looked as ActiveMQs internal format), and then to the protocol it will be sent. 
-In Apollo the handling of protocol conversation was reimplemented. It now saves a message in its native format until it actually has to convert it to the other protocols. When the conversion is done, it converts directly between the protocols. This is to make sure that no unnecessary computing power is used.
+Apollo supports the same protocols as ActiveMQ, but the way that it handles conversion between them is rewritten. There was a need to have all the tasks running asynchronously, and the way ActiveMQ handles this was quite inefficient. A message sent on a protocol would initially be converted to the OpenWire format (ActiveMQs internal format), and then to the correct protocol.
+
+In Apollo, the handling of protocol conversation is different. It saves a message in its native format until it actually has to convert it to the other protocols. When the conversion is done, it converts directly between the protocols. The way this is done, is quite a bit more efficient.
 
 \subsection{Message Swapping}
-When running Java application, the Java Virtual Machine is usually configured with a fixed amount of memory. Since a high traffic message service, can end up having millions of messages, smart memory and message queue handling needs to be written. 
-In Apollo, message queues that are not going to be needed for a while will be taken out of memory and put in a message store. When the time to use the queue is approaching, the queue will be put back into memory. This gives Apollo the possibility to handle a lot of messages with a limited amount of memory.
+When running Java applications, the Java Virtual Machine is usually configured with a fixed amount of memory. Since a high traffic message service can end up having millions of messages, smart memory and message queue handling had to be written. In Apollo, message queues that are not going to be needed for a while will be taken out of memory and put in a message store. When it is time to use the queue, it will be put back into memory. This gives Apollo the possibility to handle a lot of messages with a limited amount of memory.
 
 \subsection{Modules}
-Apollo is written to be very modular. Every single component and protocol is implemented as its own protocol. This is a great feature when considering extendability. 
-
+Apollo is written as a modular application. Every single component and protocol is implemented as its own module. This is a great feature when considering extendability. 
 
 \subsection{WSN support}
 
 \section{Evaluation for the project}
-Apollo is a well written and very scalable broker with many of the features the customer wanted. Apollo would be a good foundation to build on. The main concern with building upon Apollo is the complexity of the broker. The non-blocking asynchronous approach puts a lot of constraints on the developer and if the developer has not been working with this kind of pattern before, then it is quite hard to get a grasp on. In addition to the pattern, knowledge of Scala and functional programming is needed. 
+Apollo is a well written and very scalable broker with many of the features the customer wanted. Apollo would be a good foundation to build on. The main concern with building upon Apollo is the complexity of the broker. The non-blocking asynchronous approach puts a lot of constraints on the developer. Using this pattern, the code becomes quite complex and is difficult to get a grasp on. In addition to the pattern, knowledge of Scala and functional programming is needed. 
 
-As the group had limited amount of time available, little knowledge about Scala and no experience with the used programming pattern, the decision was made. The risk of failure was too high. Apollo would take to much time to get a grasp on and the possibility of not getting through the source code and obtain the knowledge needed was an issue. 
+As the group had limited amount of time available, little knowledge about Scala and no experience with the used programming pattern, the risk of failure was too high. Apollo would take to much time to get a grasp on, and the possibility of not properly understanding the source code and obtain the knowledge needed was an issue.
 
 \section{Evaluation for later use}
-Given that the customer has enough time and resources, the group would recommend to evaluate Apollo, and the possibility of extending it to fit the needs of a given project. If scalability and performance is an important part of the feature set, then Apollo or the ideas and patterns Apollo uses should be considered as a foundation to build upon. 
+
+Apollo is a good product, and recommended for further research and use. It is possible to extend, by adding new modules to the source code. If scalability and performance is an important part of the feature set, then Apollo or the ideas and patterns Apollo uses should be considered as a foundation to build upon.
 
 \clearpage

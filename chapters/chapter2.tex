@@ -29,13 +29,13 @@ The general publish-subscribe pattern is visualized in this figure.
 
 \subsection{Topic and Queue difference}
 \label{subsec:architecture_and_implementation-topic_and_queue_differecnce}
-While the publish/subscriber pattern and WSN uses the concept topic to describe where a message is suppose to be routed, AMQP uses the concept of queues. As there is quite a big fundamental difference between them, a description of each can be found below. Both description is of the basic idea for the concepts.
+While the publish/subscriber pattern and WSN uses the concept topic to describe where a message is suppose to be routed, AMQP uses the concept of queues. As there is quite a big fundamental difference between them, a description of each can be found below. 
 
 \subsubsection{Topic}
 When a system is implemented with the behaviour of topics, a incoming message will be distributed to every subscriber on the given topic. This means that if the topic "example" has three subscribers, and a message is sent to this topic, the message will be sent to all the subscribers.
 
 \subsubsection{Queue}
-When a system is implemented with the behaviour of a queue, a incoming message will be distributed to \textit{one} of the subscribers on the given queue. This means that if the queue has three subscribers, and message is sent to this queue, the message will be sent to \textit{one} of the subscriber. The way the subscriber is chosen can be implemented in a number of ways, two examples is at random, and using a round-robin algorithm\footnote{\url{http://en.wikipedia.org/wiki/Round-robin}}. A typical usage for queue based messaging  protocols is load balancing, which works out of the box when using queues. Another feature worth mentioning is in a queue implementation, messages sent to a queue without subscribers will be stored until someone subscribes, and offloaded on that subscriber.
+When a system is implemented with the behaviour of a queue, a incoming message will be distributed to \textit{one} of the subscribers on the given queue. This means that if the queue has three subscribers, and message is sent to this queue, the message will be sent to \textit{one} of the subscribers. The way the subscriber is chosen can be implemented in a number of ways, two examples is at random, and using a round-robin algorithm\footnote{\url{http://en.wikipedia.org/wiki/Round-robin}}. A typical usage for queue based messaging  protocols is load balancing, which works out of the box when using queues. Another feature worth mentioning is in a queue implementation, messages sent to a queue without subscribers will be stored until someone subscribes, and offloaded on that subscriber.
 
 \section{Protocols}
 \label{prestudies-protocols}
@@ -45,7 +45,7 @@ The following sections describe the protocols the system were to support. The pr
 \subsection{Web Services Notification}
 \label{subsec:prestudies-wsnotification}
 
-WSN\footnote{\url{https://www.oasis-open.org/committees/wsn/}} is a messaging protocol developed by OASIS.\footnote{\url{https://www.oasis-open.org/}} It is a protocol that implements the publish-subscribe pattern over HTTP. The protocol uses SOAP to send XML messages over the network. The complete standard can be found here. \footnote{\url{http://docs.oasis-open.org/wsn/wsn-ws_base_notification-1.3-spec-os.htm}}
+WSN\footnote{\url{https://www.oasis-open.org/committees/wsn/}} is a messaging protocol developed by OASIS.\footnote{\url{https://www.oasis-open.org/}} It is a protocol that implements the publish-subscribe pattern over HTTP. The protocol uses SOAP to send XML messages over the network. The complete standard can be found at \url{http://docs.oasis-open.org} \footnote{\url{http://docs.oasis-open.org/wsn/wsn-ws_base_notification-1.3-spec-os.htm}}
 
 \subsection{Advanced Message Queing Protocol}
 \label{subsec:prestudies-amqp}
@@ -74,7 +74,7 @@ Apache Apollo\footnote{\url{http://activemq.apache.org/apollo/}} is an open sour
 
 Apache Apollo can be considered the next generation of the older Apache ActiveMQ broker\footnote{\url{http://activemq.apache.org}}. It is a complete reimplementation of the old broker built on more modern programming concepts and has a more efficient message handler.
 
-A more comprehensive description and analysis of Apollo can be found in \ref{appendix:apache-apollo}.
+A more comprehensive description and analysis of Apollo can be found in appendix \ref{appendix:apache-apollo}.
 
 \subsubsection{Evaluation}
 \label{subsec:prestudies-existing_solutions-apache_apollo-evaluation}

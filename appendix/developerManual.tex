@@ -1,6 +1,37 @@
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
 \chapter{Developer Manual}
+\settocdepth{chapter}
 \label{appendix-developer-manual}
-This manual will go through the needed steps to get started on extending and further developing on OKSE. The first sections will go through how to set up the development environment. The rest of the sections will go through the different parts of the system and how you can extend them.
+
+\section{Introduction}
+
+This manual will go through the needed steps to get started on extending and further developing OKSE. The first sections will go through how to set up the development environment. The rest of the sections will go through the different parts of the system and how they may be extended. The system is open source, and licenced under the MIT licence\footnote{\url{http://opensource.org/licenses/MIT}}.
 
 \section{Requirements and Setup}
 The recommended setup, as noted below, is using IntelliJ IDEA\footnote{\url{https://www.jetbrains.com/idea/}} as the Java IDE. However, other IDEs that meet the requirements listed below, or a combination should suffice. 
@@ -11,7 +42,7 @@ The minimum required major version of Java is 8, and we do recommend to use the 
 \subsection{Apache Maven}
 The project source code, tests and dependency management is structured with Apache Maven\footnote{\url{https://maven.apache.org}}. Maven is used to fetch dependencies, run the tests and to build the final jar files. The minimum major version of Maven is 3 and any minor version from 3.0.5 and up can be used. However, the development team recommends the latest version. As of the time of this writing, the latest version is 3.3.3.
 
-It is worth mentioning, that many of the popular IDE software for Java bundles Maven support and does not require it to be installed separately on the system.
+It is worth mentioning, that many of the popular IDE softwares for Java bundles Maven support and does not require it to be installed separately on the system.
 
 \subsection{Recommended IDE}
 The development team strongly recommends IntelliJ IDEA Ultimate\footnote{\url{https://www.jetbrains.com/idea/}} as the Integrated Development Environment. Note that the free Community edition should suffice, but its worth mentioning that the Ultimate edition has better support for frameworks like Spring and TestNG (test framework of choice), which is used for the web administration interface. Both Community and Ultimate edition comes bundled with Maven.
@@ -24,7 +55,7 @@ Prerequisites: IntelliJ is installed, an Internet connection and the source code
 \begin{enumerate}
 \setlength{\itemsep}{0cm}%
     \item Open IntelliJ
-    \item Click "Import Project" or File -> "Import Project"
+    \item Click "Import Project" or File $\rightarrow$ "Import Project"
     \item Browse the file system and select the source code folder
     \item Choose "Import project from external model"
     \item Choose "Maven"
@@ -42,12 +73,13 @@ After the IntelliJ window is opened with the project, all the needed dependencie
 The system has a lot of unit tests, and the test framework of choice is TestNG\footnote{\url{http://testng.org/doc/index.html}}. Any new features and expansions of the system should be accompanied by unit tests. Please refer to the TestNG documentation\footnote{\url{http://testng.org/doc/documentation-main.html}} on how to write tests that suits the expansions needs.
 
 \section{Overview of components}
+In this section, the a overview of the main components of the system is available.
 
 \subsection{Application}
 
 The \verb!Application.java! file that resides in the root of the project is the main invocation point when starting the OKSE application. The main operations performed in this class are initializing the web admin console, and the CoreService instance, which in turn boot up more services.
 
-The most important thing to note regarding this main class, is that it is also the class in which further extensions should be registered. Extending the application with additional core services is done through registering them to the CoreService via the \verb!registerCoreService()! method.
+The most important thing to note regarding this main class, is that it is also the class in which further extensions should be registered. Extending the application with additional core services is done through registering them to the CoreService via the \\\verb!registerCoreService()! method.
 
 Extending the application with additional protocol support is done through use of the \verb!addProtocolServers()! method of the CoreService instance.
 
@@ -57,11 +89,11 @@ The OKSE administration console is run using the Spring framework, more exact th
 
 \subsubsection{Back-end}
 
-The back-end of OKSE works as a RESTful Web Service. It's responsible for working as a link between the administration interface and all the different registered services in OKSE. Since the back-end uses the Spring framework, the main architectural approach for the back-end is based upon Spring’s approach for building RESTful web services. All HTTP-requests are handled by a dedicated controller. These controllers are easily identified by the \verb!@RestController! annotation. Each controller are responsible for handling all HTTP-requests defined by \verb!@RequestMapping! annotations.  
+The back-end of OKSE works as a RESTful Web Service. It's responsible for working as a link between the administration interface and all the different registered services in OKSE. Since the back-end uses the Spring framework, the main architectural approach for the back-end is based upon Spring’s approach for building RESTful web services. All HTTP-requests are handled by a dedicated controller. These controllers are easily identified by the \verb!@RestController! annotation. Each controller are responsible for handling all HTTP-requests on given routes defined by \verb!@RequestMapping! annotations.  
 
 \subsubsection{Front-end}
 
-The front-end of OKSE is the only component of the system directly accessible for user interaction. It's responsible for making HTTP-requests to the back-end for manipulation and presentation of the state OKSE is in. To ensure and minimize the probability for cross-browser incompatibilities, the front-end is implemented using jQuery. Each pane of the administration interface has its own module implemented with jQuery. Each of this modules are responsible for event-handling, AJAX-requests and DOM-manipulation in its own pane.
+The front-end of OKSE is the only component of the system directly accessible for user interaction. It's responsible for making HTTP-requests to the back-end for manipulation and presentation of the state OKSE is currently in. To ensure and minimize the probability for cross-browser incompatibilities, the front-end is implemented using jQuery. Each pane of the administration interface has its own module implemented with jQuery. Each of this modules are responsible for event-handling, AJAX-requests and DOM-manipulation in its own pane.
 
 \subsection{CoreService}
 
@@ -141,7 +173,7 @@ As of the time of this writing, OKSE contains of seven JavaScript modules:
     \item[subscribers.js] \hfill \\ Responsible for the "Subscribers"-pane. This module contains all logic regarding subscribers, which includes, but are not limited to, refreshing the table containing all subscribers. 
     \item[stats.js] \hfill \\ Responsible for the "Statistics"-pane. This module contains all logic for refreshing the statistics from OKSE.
     \item[logs.js] \hfill \\ Responsible for the "Logs"-pane. This module requests the given log from OKSE and visualizes it.
-    \item[config.js] \hfill \\ Responsible for the "Configuration"-pane. This module is responsible for configuration OKSE. This includes for instance the possibility to add topic mappings. 
+    \item[config.js] \hfill \\ Responsible for the "Configuration"-pane. This module is responsible for configuration of OKSE. This includes for instance the possibility to add topic mappings. 
     \item[paginator.js] \hfill \\ This module controls all logic regarding the paginator that appear when the topic/subscriber tables exceed 25 elements. 
     \item[okseDebug.js] \hfill \\ This is a jQuery-plugin that appends a logger to the document.
 \end{description}
@@ -234,10 +266,84 @@ var MYPANE = (function($) {
 If you choose to add a new pane it's important to register the panes JavaScript module in the \verb!main.js! file. This is done by appending a \verb!switch-case! for your pane. Also remember to register the panes template in \verb!indexLoggedIn.html!
 
 \section{AMQP Send and Receive}
-With the OKSE source code, two simple test classes for AMQP is bundled. One that implements a receiver and one that implements a sender. The classes are used for amqprecv.jar and amqpsender.jar files that can be used to test the broker as mentioned in \ref{subsec:test_clients-amqp_receive} and \ref{subsec:test_clients-amqp_send}.
+With the OKSE source code, two simple test classes for AMQP is bundled. One that implements a receiver and one that implements a sender. The classes are used for amqprecv.jar and amqpsender.jar files that can be used to test the broker as mentioned in \ref{subsec:test_clients-amqp_receive} and \ref{subsec:test_clients-amqp_send}. The example classes is located in the folder \verb!src/main/java/no/ntnu/okse/examples/amqp! starting at the root of the project.
 
 Both classes has Apache Qpid Proton as a dependency and we would recommend that they are used together with Maven to fetch the needed dependencies.
 
-\subsection{}
+In the following sections a walkthrough of the most important parts of the implementation will be given. To get a deep understanding of the implementation, the Qpid documentation\footnote{\url{http://qpid.apache.org/releases/qpid-proton-0.9.1/proton/java/api/index.html}} should be consulted.
+
+\subsection{AMQPSender}
+The example found below implements the needed code to send a message on a topic to an existing AMQP 1.0 server.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Example use of Messenger to subscribe, frame=bt, showstringspaces=false,label={lst:AMQPSender}]
+// variables
+String address = "amqp://localhost:5672/example"
+String body = "exampleMessage";
+String subject = "exampleSubject";
+
+Messenger mng = Messenger.Factory.create();
+mng.start();
+Message msg = Message.Factory.create();
+msg.setAddress(address);
+
+if (subject != null) msg.setSubject(subject);
+msg.setBody(new AmqpValue(body));
+mng.put(msg);
+mng.send();
+mng.stop();
+\end{lstlisting}
+
+\noindent Lets go through listing \ref{lst:AMQPSender} line by line;
+
+\begin{description}
+\item[1-3] \hfill \\ The first three lines declares variables, the first one is the server, port and topic. The second and third declares the message and the subject.
+\item[6-7] \hfill \\ Line 6 and 7 creates an message and starts it. The messenger is the client software that actually connects to the server.
+\item[8-9] \hfill \\ Line 8 and 9 creates an empty message and sets the address.
+\item[12-13] \hfill \\ Line 12 and 13 finishes the message and gives it to the manager.
+\item[14] \hfill \\ Finally, line 14 will send the message to the given address.
+\end{description}
+
+\subsection{AMQPReceiver}
+The example found below implements the needed code to subscribe to an existing AMQP 1.0 server.
+
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Example use of Messenger to subscribe, frame=bt, showstringspaces=false,label={lst:AMQPReceiver}]
+// variables
+String address = "amqp://localhost:5672/example"
+int maxMessages = 200;
+
+Messenger mng = Messenger.Factory.create();
+mng.start();
+mng.subscribe(address);
+
+int messages = 0;
+boolean done = false;
+while (!done) {
+    mng.recv();
+    while (mng.incoming() > 0) {
+        Message msg = mng.get();
+        ++ct;
+        System.out.println(msg);
+        if (maxMessages > 0 && messages >= maxMessages) {
+            done = true;
+            break;
+        }
+    }
+}
+mng.stop();
+\end{lstlisting}
+
+\noindent Lets go through listing \ref{lst:AMQPReceiver} line by line;
+
+\begin{description}
+\item[1-2] \hfill \\ The first two lines are just for declaring some variables, the first one is the AMQP server we want to subscribe, the next is the amount of messages this particular implementation should accept before stopping.
+
+\item[5-7] \hfill \\ Line 5-7 creates an instance of the messenger, starts it and subscribes to the address we defined earlier. Except for receiving the actual messages, this is basically what you need to implement to actually connect to a server.
+
+\item[12] \hfill \\ Line 12 will tell the messenger to start receiving from the server. 
+\item[13-14] \hfill \\ Then line 13-14 will receive messages and create messages as long as there are any to receive.
+
+\item[15-] \hfill The last lines will just check if the receive limit is met and stop the program if it is.
+\end{description}
 
 \clearpage

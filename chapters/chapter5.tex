@@ -150,11 +150,26 @@ Figure \ref{fig:architecture_data_flow} illustrates an expanded version of what 
 \section{Implementation}
 \label{sec:architecture_and_implementation-implementation}
 
+This chapter provides a brief outline of some of the implementation specific details in the OKSE message brokering system. It lists some common patterns used, choices that were made and the reasoning behind these. The main system components referenced in this section are illustrated in figure \ref{fig:abstract_architecture}.
+
 \subsection{Core}
 \label{subsec:architecture_and_implementation-implementation-core}
 
+
+
 \subsection{WSN}
 \label{subsec:architecture_and_implementation-implementation-wsn}
+
+\subsubsection{WSNRequestParser}
+The WSNRequestParser works as a hub in WS-Nu.
+
+\subsubsection{WSNCommandProxy}
+
+\subsubsection{WSNSubscriptionManager}
+
+\subsubsection{WSNRegistrationManager}
+
+\subsubsection{WSNTools}
 
 Here be information about how WSN was implemented, as well as how it works
 
@@ -198,7 +213,7 @@ The Handshaker handles all of the open and close events of a connection. It make
 \subsubsection{Queue vs Topic behavior}
 WSN and AMQP use different behaviours for handling topics/queues. As WSN is a pure publish/subscribe protocol, it is only concerned with topics. A description of the difference between topics and queues can be found in \ref{subsec:architecture_and_implementation-topic_and_queue_differecnce}.
 
-In the initial implementation, the system only complied with the given standards for each protocol. To cope with the differences, the group implemented logic to handle the conversion between the two behaviours. In addition, the group consulted the customer with the idea of implementing a non-standard topic implementation of AMQP. This meant that they could use AMQP with the same behaviour as WSN, and that all AMQP subscribers on one topic/queue would get the message. The customer liked the idea of this feature as they thought this would fit nicely with their use pattern.
+In the initial implementation, the system only complied with the given standards for each protocol. To cope with the differences, the group implemented logic to handle the conversion between the two behaviours. In addition, the group consulted the customer with the idea of implementing a non-standard topic implementation of AMQP. This meant that they could use AMQP with the same behaviour as WSN, and that all AMQP subscribers on one topic/queue would get the message. The customer liked the idea of this feature as they thought this would fit nicely with their use pattern. In OKSE, when AMQP is configured to use queue, the recipient will be chosen by random.
 
 A configuration switch was implemented to select which mode to use. The switch is available through the configuration file and the web administration interface. The logic for this feature is implemented in AMQPServer, which as previously stated is responsible for the outgoing message logic.
 
