@@ -254,7 +254,7 @@ The \verb!WSNCommandProxy! is the main WSN brokering implementation. It contains
 
 Since the command proxy is an extension of the WS-Nu abstract notification broker class, it interacts seamlessly with the rest of the WS-Nu components.
 
-The command proxy also holds an instance of the \verb!WSNSubscriptionManager! and \verb!WSNRegistrationManager! classes, and delegates some of its responsibilities to these instances. 
+The command proxy also holds an instance of the \verb!WSNSubscriptionManager! and \verb!WSNRegistrationManager! classes, and delegates some of its responsibilities to these instances. This module assesses most of the requirements related to the structure of WSN, specifically FR1 to FR6 and FR10(See section \ref{sec:requirements_engineering-functional_requirements}).
 
 \subsubsection{WSNSubscriptionManager}
 
@@ -267,6 +267,8 @@ As an example, requests to subscribe or unsubscribe is relayed through the \\\ve
 In the event of an unsubscribe request, a \verb!removeSubscriber()! call is performed directly to the OKSE \verb!SubscriptionService!. The manager then awaits a callback through its listener support, as a confirmation that it is okay to finally remove the local WS-Nu subscription representation.
 
 This kind of control flow allows the manager to automatically update itself. In the event of a subscriber being forcefully removed from the administration interface, or its subscription having expired in the OKSE \verb!SubscriptionService!, the manager will be updated through this event callback mechanism.
+
+The subscription manager assesses the functional requirements related to the subscribe mechanisms of WSN. Specifically FR7, 8 and 9(See section \ref{sec:requirements_engineering-functional_requirements}).
 
 \subsubsection{WSNRegistrationManager}
 
@@ -300,7 +302,7 @@ The AMQPServer handler is responsible for the incoming and outgoing messages. It
 The event loop and the socket logic is implemented in the Driver class. This class is responsible for accepting incoming connections, and handle the incoming requests. After a connection is opened with a client, every request received is passed to Qpid, which decodes the instruction and adds it back to the Driver in the form of an event. The event is added straight to a collector, which is used as the event queue. The event loop that is running continuously, will dispatch events as long as there are any in the queue. If there are no events, it will enter a wait state.
 
 \subsubsection{SubscriptionHandler}
-In the SubscriptionHandler class, the handling of subscribers and their routes/topics is handled. Additionally, it handles the basic information about a sender/producer and the integration with the systems centralized subscriber system. The functionality in this handler is based on addition and removal of subscribers. When a subscribe request occurs, the handler will add the user to the internal subscriber map, the system wide subscriber database and update the administration interface accordingly. When a subscriber disconnects, it removes the disconnected subscriber in the same manner.
+In the SubscriptionHandler class, the handling of subscribers and their routes/topics is handled. Additionally, it handles the basic information about a sender/producer and the integration with the systems centralized subscriber system. The functionality in this handler is based on addition and removal of subscribers. When a subscribe request occurs, the handler will add the user to the internal subscriber map, the system wide subscriber database and update the administration interface accordingly. When a subscriber disconnects, it removes the disconnected subscriber in the same manner. This class assesses the the requirements FR12 and FR13(See section \ref{sec:requirements_engineering-functional_requirements}), about subscribing using AMQP.
 
 \subsubsection{Handshaker}
 The Handshaker handles all of the open and close events of a connection. It makes sure that the initiation of the connection, session and link is done properly. It also ensures that it is closed properly when the link is broken or disconnected.

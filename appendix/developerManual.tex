@@ -103,11 +103,33 @@ The front-end of OKSE is the only component of the system that is directly acces
 
 \subsection{Service oriented architecture}
 
+Although there exists no formal definition or agreement upon what constitutes a service oriented architecture, some main principles are common. The OKSE message brokering system is implemented with some of these principles in mind. They include, but are not limited to:
+
+\begin{itemize}
+\item Service loose coupling: Minimize dependencies
+\item Service abstraction: Hide logic from the outside world
+\item Service re-usability: The DRY (Don't repeat yourself) principle
+\item Service autonomy: Services have complete control over their own logic
+\item Service encapsulation: Services incorporate other sub-components that were not service oriented, but serve as a part of the larger entity.
+\end{itemize}
+
 \subsection{Module pattern}
+
+Software module pattern is a design pattern that emphasizes on organizing software components into modules. Some languages have this built into the language, but similar results can be accomplished through patterns. One way of creating modules is through the singleton pattern, described in the next section. OKSE implements several "tools" or "library" classes, which are considered software modules through their static references, and their manipulation of data from other sources.
 
 \subsection{Singleton pattern}
 
+The singleton pattern is a specialization of the module pattern. It is used to guarantee that an object cannot be instantiated more than once. Any further invocation would return the already instantiated object. This secures a single state for that particular component or module. In the case of the OKSE message brokering system, all services and protocol servers adhere to this pattern. This ensures that all references to a service point to the same instance.
+
+This also makes it easier to reference the different services, as they are all referenced statically from their class. This means that it is not necessary to keep a local reference to the service in another class, or pass it as an argument to a certain method.
+
+A practical example of how the singleton pattern is implemented in the OKSE core services and protocol servers, see sections \ref{sec:adding-new-protocols} and \ref{sec:adding-new-core-services}
+
 \subsection{Reactor pattern}
+
+In the OKSE system, all services and protocol servers are run in their own personal thread. To ensure a thread safe execution environment, inspiration was gathered from the reactor pattern. The reactor pattern generally receives events concurrently, and demultiplexes them synchronously, before dispatching to event handlers.
+
+Although the OKSE system does not strictly implement separate dispatchers and event handlers, the basic idea stays the same. All singletons block on an internal task queue, awaiting new tasks (events) to be performed. The exact structure of these events and how they are consumed vary from service to service. 
 
 \subsection{Observer pattern}
 
@@ -129,7 +151,7 @@ This section describes how the administration interface might be extended with n
 \begin{itemize}
     \item\textbf{Dispatcher} -  This is the class that is exposed to the user. It forwards request URL's to the mapping handler to reach the correct controller. It then calls the controller responsible for the request. Finally it returns the response to the user. 
     \item\textbf{Mapping handler} - This class maps the request URL to the controller responsible for the request, and returns it to the dispatcher. 
-    \item\textbf{Controller} - This is the class responsible for executing tasks and getting information from the message broker. It returns a JSON response \cite{json} string to the dispatcher.  
+    \item\textbf{Controller} - This is the class responsible for executing tasks and getting information from the message broker. It returns a JSON response \footnote{\url{http://json.org}} string to the dispatcher.  
 \end{itemize}
 
 \clearpage

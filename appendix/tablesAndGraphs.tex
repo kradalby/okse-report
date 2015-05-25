@@ -481,7 +481,7 @@ Use case showing the steps involved in sending a Notify to subscribers containin
 \textbf{Description} & The user must be able to send multiple notification messages in a single Notify using WSN\\ \hline
 \textbf{Pre conditions} & OKSE is up and running. Subscribers on the topic which the Notify is sent to. \\ \hline
 \textbf{Standard flow} & \begin{enumerate}
-\item Send one Notify containing multipe notifications
+\item Send one Notify containing multiple notifications
 \end{enumerate} \\ \hline
 \textbf{Alternative flow} & \\ \hline
 \textbf{Post conditions} & Subscribers receive more than one Notify on the topic which the notification was sent on\\ \hline
@@ -757,13 +757,12 @@ ST1.10 & Multiple Messages (FR10) & Perform ST1.2. Then send a Notify with TWO N
 \multicolumn{5}{|c|}{{Test to see if an AMQP message can be sent, and received on all protocols}} \\ \hline 
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
 ST2.1 &Send message&Create a subscriber on a topic, send valid message to that topic& Message sent and received correctly & Success \\ \hline
-ST2.2 &Send message&Create a subscriber on a topic, send valid message to that topic& Message sent and received&Success \\ \hline
-ST2.3 &Receive message&Receive AMQP message from AMQP &Message received&Success \\ \hline
-ST2.4 &Receive message&Receive AMQP message from other protocol &Message received&Success \\ \hline
-ST2.5 &Mapped topic&Send "Hello World" via a mapped topic &Message sent on a topic will be received on mapped topic&Success \\ \hline
-ST2.6 &Subscribe AMQP&Subscribe to AMQP and update admin interface &Client is subscribed to topic and admin interface is updated&Success \\ \hline
-ST2.7 &Unsubscribe&Remove AMQP subscriber from the admin interface &When subscriber is removed from admin interface client is unsubscribed and will no longer receive messages on that topic&Success \\ \hline
-ST2.8 &AMQP protocol stats&Check AMQP statistics &Stats for AMQP is updated according to activity&Success \\ \hline
+ST2.2 &Receive message&Receive AMQP message from AMQP &Message received&Success \\ \hline
+ST2.3 &Receive message&Receive AMQP message from other protocol &Message received&Success \\ \hline
+ST2.4 &Mapped topic&Send "Hello World" via a mapped topic &Message sent on a topic will be received on mapped topic&Success \\ \hline
+ST2.5 &Subscribe AMQP&Subscribe to AMQP and update admin interface &Client is subscribed to topic and admin interface is updated&Success \\ \hline
+ST2.6 &Unsubscribe&Remove AMQP subscriber from the admin interface &When subscriber is removed from admin interface client is unsubscribed and will no longer receive messages on that topic&Success \\ \hline
+ST2.7 &AMQP protocol stats&Check AMQP statistics &Stats for AMQP is updated according to activity&Success \\ \hline
 \end{tabular}
 \caption{System Testing - Test Cases - FR11-13}
 \label{table:system-testing-cases-fr2}

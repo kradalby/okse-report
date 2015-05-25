@@ -42,7 +42,7 @@ Download the latest version of OKSE Message Broker from http://okse.fap.no/ or u
 \subsection{Running the software}
 
 \subsubsection{Using the start script}
-Within the main folder of the software package, there are two scripts, \verb!start.bat! and \verb!start.sh!. This script will automatically try to detect where Java is installed and start the application.\\\\On Windows the application can be started by double clicking \verb!start.bat!. This will bring up a console window with the application. To close the application, simply close the window.\\\\On Unix/Linux/OS X, the script should be run with a terminal. As there is a lot of different versions of Linux/Unix, consulting the documentation on how to do this.\\\\On OS X, the script can be started by following these steps:
+Within the main folder of the software package, there are two scripts, \verb!start.bat! and \verb!start.sh!. The scripts will automatically try to detect where Java is installed and start the application.\\\\With Windows, the application can be started by double clicking \verb!start.bat!. This will bring up a console window with the application. To close the application, simply close the window.\\\\With Unix/Linux/OS X, the script should be run with a terminal. As there is a lot of different versions of Linux/Unix, consult the documentation of the distribution on how to do this.\\\\With OS X, the script can be started by following these steps:
 
 \begin{enumerate}
 \item Right click \verb!start.sh!
@@ -52,14 +52,17 @@ Within the main folder of the software package, there are two scripts, \verb!sta
 \end{enumerate}
 
 \subsubsection{Using command line}
-Be sure to 
-On UNIX-based systems and using cmd.exe on Windows, the broker is started by running the commands: 
+
+On UNIX-based systems and using cmd.exe on Windows, the broker is started by running these commands from the command line or terminal: 
 \begin{verbatim}
-cd <PATH>
+cd <PATH-TO-OKSE>
 java -jar okse.jar
 \end{verbatim}
 
-\noindent from the command line or terminal. If the broker is going to be used for bigger files or a very high amount of messages, a higher memory limit should be set for Java, this can be done by using the following command, remember, it is not possible to set the memory limit higher than the amount of memory that is available: 
+\noindent If the broker is going to be used for bigger files or a very high amount of messages, a higher memory limit should be set for Java. Note that it is not possible to set the memory limit higher than the amount of memory that is available: 
+
+The following command changes the memory limit:
+
 \begin{verbatim}
 java -jar -Xms2048m -Xmx4096m okse.jar
 \end{verbatim}
