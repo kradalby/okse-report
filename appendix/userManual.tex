@@ -16,44 +16,58 @@ This chapter contains instructions for installing and using the OKSE Message Bro
 
 \section{Requirements}
 
-OKSE Message Broker requires Java Runtime Environment (JRE) version 8 update 31 or newer. The broker is developed and tested exclusively with this version. The software is available for free from Oracle.com\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}}.
+OKSE Message Broker requires Java Runtime Environment (JRE) version 8 update 31 or newer. The broker is developed and tested exclusively with this version. The software is available for free from http://java.com\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}}.
 
-For the JRE to function properly, it must be added to the path variable. On UNIX-based systems, like Linux or OS X, it is done by entering the following command in the terminal: 
-\begin{verbatim}
-export JAVA_HOME=<PATH-TO-JRE>
-\end{verbatim}
-On windows, open up a command line window (cmd.exe) and type in:
+For the JRE to function properly, it must be added to the path variable. On UNIX-based systems, like Linux or OS X, it is done by the Java installer. On windows, open up a command line window (cmd.exe) and type in:
 \begin{verbatim}
 path %path%;<PATH-TO-JRE>
+\end{verbatim}
+Usually this can by done on Windows by entering:
+\begin{verbatim}
+path %path%;C:\ProgramData\Oracle\Java\javapath
 \end{verbatim}
 The variable can also be accessed and modified through the "Environmental variables" tab in the advanced system settings. The system should be possible to run on all platforms with JRE installed. 
 
 In addition to JRE, OKSE requires a network connection to be able to send and receive messages. It does not however, require Internet on the connection. 
 
 \section{Installation}
+\label{Installation_okse}
 
 The following sections describes how to download and run OKSE. Apart from JRE, no other additional configuration should be necessary.
 
 \subsection{Download software}
 
-Download the latest version of OKSE Message Broker from http://okse.fap.no/ or use the version provided with this document. The files can be placed at any location within the filesystem, as long as the user has write permission in the target folder. The developers recommends to add all the files in a folder called OKSE, within the users home folder.
+Download the latest version of OKSE Message Broker from http://okse.fap.no/ or use the version provided with this document. The files can be placed at any location within the filesystem, as long as the user has write permission in the target folder. It's recommended that all files are placed in the same folder.
 
 \subsection{Running the software}
 
-On Windows, the broker can be started by double-clicking on the .jar-file. On UNIX-based systems and Windows alike, the broker is started by running the command: 
+\subsubsection{Using the start script}
+Within the main folder of the software package, there are two scripts, \verb!start.bat! and \verb!start.sh!. This script will automatically try to detect where Java is installed and start the application.\\\\On Windows the application can be started by double clicking \verb!start.bat!. This will bring up a console window with the application. To close the application, simply close the window.\\\\On Unix/Linux/OS X, the script should be run with a terminal. As there is a lot of different versions of Linux/Unix, consulting the documentation on how to do this.\\\\On OS X, the script can be started by following these steps:
+
+\begin{enumerate}
+\item Right click \verb!start.sh!
+\item Select Open With $\rightarrow$ Other...
+\item Go to utilities
+\item Select Terminal.app (Select Enable: All Applications)
+\end{enumerate}
+
+\subsubsection{Using command line}
+Be sure to 
+On UNIX-based systems and using cmd.exe on Windows, the broker is started by running the commands: 
 \begin{verbatim}
-java -jar <PATH>/<JAR-FILE>.jar
+cd <PATH>
+java -jar okse.jar
 \end{verbatim}
 
-\noindent from the command line or terminal. If the broker is going to be used for bigger files or a very high amount of messages, a higher memory limit should be set for Java, this can be done by using the following command: 
+\noindent from the command line or terminal. If the broker is going to be used for bigger files or a very high amount of messages, a higher memory limit should be set for Java, this can be done by using the following command, remember, it is not possible to set the memory limit higher than the amount of memory that is available: 
 \begin{verbatim}
-java -jar -Xms2048m -Xmx4096m <PATH>/<JAR-FILE>.jar
+java -jar -Xms2048m -Xmx4096m okse.jar
 \end{verbatim}
 See section \ref{sec:inital-login} for information about accessing the administration panel.
 
 \section{Configuration}
 
-After the initial start up of OKSE Message Broker, there is created a folder named \verb!config! in the same location as the .jar-file. This folder contains three configuration files with the default configuration:
+After the initial start up of OKSE Message Broker, a folder named \verb!config! is created in the same location as the .jar-file. This folder contains three configuration files with default configuration:
 
 \begin{itemize}
 \setlength{\itemsep}{0cm}%
@@ -67,7 +81,7 @@ After the initial start up of OKSE Message Broker, there is created a folder nam
 \section{Inital login}
 \label{sec:inital-login}
 
-After launching the application, the administrator interface will be reachable from any web browser. By default, the admin console is accessible from \verb!localhost:8080!. Both the host and port can be changed in the okse.properties (see section \ref{subsec:configuration_files-okse.properties}). To log in the first time, use \verb!admin! and \verb!password! as respectively username and password. To increase the security, it is recommended that this is changed immediately after the initial login. 
+After launching the application, the administrator interface will be reachable from the web browser. The default hostname, port and login information can be found below. If OKSE is hosted on a server, not that the host will be the domain/IP of the server.
 
 \begin{itemize}
 \setlength{\itemsep}{0cm}%
@@ -76,7 +90,7 @@ After launching the application, the administrator interface will be reachable f
 \end{itemize}
 
 \section{Admin Console}
-The OKSE Admin Console provides information about OKSE and it's operation environment. It also gives access to configure OKSE. The interface have information sorted in six panes, "Main", "Topics", "Subscribers", "Statistics", "Configuration" and "Logs".
+The OKSE Admin Console provides information about OKSE and it is operation environment. It also gives access to configure OKSE. The interface have information sorted in six panes, "Main", "Topics", "Subscribers", "Statistics", "Configuration" and "Logs".
 
 \clearpage
 
@@ -407,21 +421,21 @@ com/test=no/test
  
 \section{Test clients}
 \label{sec:test_clients}
-As none of the protocols has any useful clients for testing, a JAR file is included for AMQP send and one for AMQP receive. Keep in mind that little time has been spent on these programs, and that they are only suitable for minor testing. The files can only be run from the command line with the arguments given below. Other tools where used in the testing of WSN, but the tools are owned by FFI and cannot be distributed any further, more information about this in \ref{}.
+As none of the protocols had any useful clients for testing, a JAR file is included for AMQP send and one for AMQP receive. Keep in mind that little time has been spent on these programs, and that they are only suitable for minor testing. The files can only be run from the command line with the arguments given below. Other tools where used in the testing of WSN, but the tools are owned by FFI and cannot be distributed any further, more information about this in appendix \ref{appendix-eula}. Note that these test clients do not reflect proper usage of the software, but are meant for test purposes.
 
 \subsection{AMQP send}
 \label{subsec:test_clients-amqp_send}
-Provided in the project delivery there is a folder named misc-jars, within this folder, the file amqpsend.jar is located. The file takes three arguments.
+Provided in the project delivery is a folder named test-clients, within this folder, the file amqpsend.jar is located. The file takes three arguments.
 
 \begin{description}
     \item[-a amqp://localhost:5672/topic] \hfill \\
-  Address argument, needed to tell what server to send the message to \hfill \\ Default: \verb!amqp://localhost:5672/example!
+  Address argument, needed to tell what server to send the message to(AMQP is hosted at port 5672 by default). \hfill \\ Default: \verb!amqp://localhost:5672/example!
     \item[-s "subject"] \hfill \\
   Subject argument, not needed. \hfill \\ Default: \verb!example!
     \item[message] \hfill \\
   The last argument will be sent as the message \hfill \\ Default: \verb!example!
 \end{description}
-Below an example of a valid command is shown, the message in the example is sent to the localhost:
+Below an example of a valid command is shown, the message in the example is sent to the localhost. The results should be reflected in the administration console under the "Statistics" tab.
 
 \begin{verbatim}
 java -jar amqpsend.jar -a amqp://localhost/test -s "test" test
@@ -429,7 +443,7 @@ java -jar amqpsend.jar -a amqp://localhost/test -s "test" test
 
 \subsection{AMQP receive}
 \label{subsec:test_clients-amqp_receive}
-Provided in the project delivery there is a folder named misc-jars, within this folder, the file amqprecv.jar is located. The file takes one argument.
+Provided in the project delivery there is a folder named test-clients, within this folder, the file amqprecv.jar is located. The file takes one argument.
  
 \begin{description}
     \item[-a amqp://localhost:5672/topic] \hfill \\
@@ -442,17 +456,19 @@ java -jar amqprecv.jar -a amqp://localhost/test
 \end{verbatim}
 
 \subsection{WSN Test script}
-This script can be used to send different kind of messages over WSN, but \textit{cannot} receive messages. The script is written in Python 2.7 and uses a third party plugin called Requests\footnote{\url{http://docs.python-requests.org/en/latest/}}. This script should run on any platform as long as both Python and Requests are available. Below, an installation guide for Windows, Linux and OS X is included.
+\label{WSN_Test_Script}
+A script is included that can be used to send different messages over WSN, but \textit{cannot} receive messages. The script is called bullrider.py and is located in the test-clients folder. The script is written in Python 2.7 and uses a third party plugin called Requests\footnote{\url{http://docs.python-requests.org/en/latest/}}. This script should run on any platform as long as both Python and Requests are available. Below, an installation guide for Windows, Linux and OS X is included.
 
 \subsubsection{Windows}
-To install Python and Requests on a Windows machine, you will need to go through the following steps:
+\label{windows_install_wsn}
+To install Python and Requests on a Windows machine, the following steps are required:
 
 \begin{enumerate}
 \setlength{\itemsep}{0cm}%
-    \item Download and install the latest version of Python 2.7 from python.org.
+    \item Download and install the latest version of Python 2.7 from \url{https://www.python.org/downloads/}.
     \item Open cmd.exe,
-    \item Change directory to the C:/Python27 folder. 
-    \item Install Requests by running the command: python -m pip install requests.
+    \item Change directory to the location of the python installation. 
+    \item Install Requests by running the command: \begin{verbatim}python -m pip install requests \end{verbatim}
 \end{enumerate}
 
 After the installation, change directory of the cmd session to the location of bullrider.py. To run python in the shell in any directory, the Python2.7 directory should be added to the path. This can be done for the current session by entering the command: 
@@ -461,7 +477,7 @@ path %path%;C:\Python27
 \end{verbatim}
 Note that this will have to be done for every new cmd.exe window you open.
 
-Now that Python and Requests are installed, move on to the Usage section (\ref{}).
+Now that Python and Requests are installed, move on to the Usage section (\ref{subsubsec:usermanual_Testscripts_usage}).
 
 \subsubsection{Linux/OS X}
 Mac OS X and most Linux distributions comes with Python 2.7 installed. To verify that you have Python 2.7 installed, open a terminal and write "python". You should see something like:
@@ -471,27 +487,33 @@ Python 2.7.9 (default, Mar  1 2015, 12:57:24)
 [GCC 4.9.2] on linux2
 \end{verbatim}
 
-\noindent If you get command not found, consult your package manager on how to install Python 2.7 or go to python.org and download the installer from there.
+\noindent If "command not found" appears, check the package manager of the distribution for instructions on installing Python 2.7, or go to python.org and download the installer from there.
 
-When Python 2.7 is installed, Requests needs to be installed. In the terminal, the command pip, or easy\_install will be available. If the pip command is available, install requests by using the following command:
+When Python 2.7 is installed, Requests needs to be installed. In the terminal, install the software by typing the following command.
 
 \begin{verbatim}
 pip install requests
 \end{verbatim}
 
-\noindent If pip is not available use easy\_install in the following way:
+\noindent If pip is not available, use easy\_install in the following way:
 
 \begin{verbatim}
 easy_install requests
 \end{verbatim}
 
-\noindent After the installation, change directory in the terminal to the location of bullrider.py.
-Now that Python and requests is installed, move on to the Usage section (\ref{subsubsec:usermanual_Testscripts_usage}).
+\noindent Note that sudo access might be required to run pip or easy\_install. In that case, run 
+\begin{verbatim} 
+sudo pip install requests
+or
+sudo easy_install requests 
+\end{verbatim}.
+
+\noindent After the installation, change directory in the terminal to the location of bullrider.py. Now that Python and requests are installed, move on to the Usage section (\ref{subsubsec:usermanual_Testscripts_usage}).
 
 
 \subsubsection{Usage}
 \label{subsubsec:usermanual_Testscripts_usage}
-To use the bullrider.py script, you need a terminal/cmd.exe window that is changed to the directory of bullrider.py. If you are using Windows, remember to repeat the path step if Python is not permanently added to your path. 
+To use the bullrider.py script, open a terminal/cmd.exe window and change the directory to where bullrider.py is located. If Windows is being used, remember to repeat the path step (\ref{windows_install_wsn}) if Python is not permanently added to your path. 
 
 Below is a description on what the different arguments do, and the available options that can be used. Note that the arguments need to be given in the listed order.
 The format of the arguments is as follows:
@@ -503,19 +525,32 @@ python bullrider.py [request type] [hostname/ip] [port] [topic]
 
 \begin{description}
     \item[request type] \hfill \\
-  Type of request to send, available: all, notify, massnotify, multinotify, subscribe, unsubscribe \hfill \\ Default: \verb!None!
+  Type of request to send, available: all, notify, massnotify, multinotify, subscribe, unsubscribe \hfill 
     \item[hostname/ip] \hfill \\
-  Hostname or IP address of the OKSE instance \hfill \\ Default: \verb!None!
+  Hostname or IP address of the OKSE instance \hfill 
     \item[port] \hfill \\
-  Port of the OKSE instance \hfill \\ Default: \verb!None!
+  Port of the OKSE instance \hfill 
     \item[topic] \hfill \\
-  The topic to send the given request to. \hfill \\ Default: \verb!None!
+  The topic to send the given request to. \hfill 
 \end{description}
 Below an example of a valid command is shown, this will send a notify to a OKSE hosted on localhost at port 61000:
 
 \begin{verbatim}
-python bullrider.py notify localhost 61000 example
+python bullrider.py notify localhost 61000 test
 \end{verbatim}
+Click enter as a response to the message asking which ip:port should be used.
+
+\subsection{Example test case}
+
+An example test case for the application, can be performed by running the AMQP receiver and the bullrider.py script to send a WSN message. By doing this, the tester can verify that the message is converted and forwarded correctly.
+
+\subsubsection{Steps}
+\begin{enumerate}
+\item First, setup an OKSE instance as explained in section  \ref{Installation_okse}. 
+\item Launch AMQP receive (\ref{subsec:test_clients-amqp_receive}) and subscribe on topic "test". 
+\item Launch bullrider.py (\ref{WSN_Test_Script}) and send a message with "notify" to the "test" topic. 
+\item Check the AMQP receive instance.
+\end{enumerate}
 
 %\section{Troubleshooting}
 

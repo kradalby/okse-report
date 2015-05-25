@@ -30,7 +30,7 @@ A user manual, including a visual guide to the interface, can be found in append
 \subsection{Implementation}
 \label{subsec:architecture_and_implementation-implementation}
 
-The front-end was designed in a modularized way, where one controller class was responsible for one pane. The advantage of this approach was having the administration panel designed as a single page web application. The page uses AJAX-requests to reach a representational state transfer (hereby denoted as REST) API. By using the Spring Framework, the system exposes API-endpoints which can be used to access and/or modify data. This is used as the main data source for the front-end and is a critical part of the single page design. Translated to the MVC-pattern, the Spring Framework works as a controller through REST-controllers, and the different panes works as views. Each AJAX-request to the API-endpoints will reach the controllers and modify the models and/or message broker. Structuring the system this way gave some advantages: 
+The OKSE administration interface was designed in a modularized way, to achieve loose coupling as defined by the modularization requirement(\ref{subsec:requirements_engineering-non_functional_requirements-modularization}). Each pane of the interface would have it's own controller and a respective front-end JavaScript file. The advantage of this approach was having the administration panel designed as a single page web application. The page uses AJAX-requests to reach a representational state transfer (hereby denoted as REST) API. By using the Spring Framework, the system exposes API-endpoints which can be used to access and/or modify data. This is the main data source for the front-end and is a critical part of the single page design. Translated to the MVC-pattern, the Spring Framework works as a controller through REST-controllers, and the different panes works as views. Each AJAX-request to the API-endpoints will reach the controllers and modify the models and/or message broker. Structuring the system this way gave some advantages: 
 
 \begin{itemize}
     \item No need to refresh the entire administration panel.
@@ -39,30 +39,28 @@ The front-end was designed in a modularized way, where one controller class was 
     \item Easy to extend the application further.
 \end{itemize}
 
-\subsubsection{Architecture}
-
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[scale=0.5]{fig/spring.png}}
-    \caption{REST-API architecture}
-    \label{fig:spring}
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oacRequestFlow.png}}
+    \caption{Request flow for the administration interface}
+    \label{fig:oac-request-flow}
   \end{figure}
 \end{center}
 
-Figure \ref{fig:spring} shows an overview of how a request is handled by the server. The main workflow is as follows:
+\subsubsection{Back-end}
 
-\clearpage
+The back-end of OKSE works as a RESTful Web Service. It works as a link between the administration interface and all different registered services in OKSE. Figure \ref{fig:oac-request-flow} shows an overview of how a request is handled by the server. The key concepts to notice here are the AJAX-requests and the controllers. On an event, whether it is a page auto update or a button-click, the request URL is accessed by an AJAX-request. Spring's dispatcher maps the URL and forwards it to the correct controller. This controller interacts with OKSE's services and returns a response. 
 
-\begin{itemize}
-    \item\textbf{Dispatcher} -  This is the class that is exposed to the user. It forwards request URL's to the mapping handler to reach the correct controller. It then calls the controller responsible for the request. Finally it returns the response to the user. 
-    \item\textbf{Mapping handler} - This class maps the request URL to the controller responsible for the request, and returns it to the dispatcher. 
-    \item\textbf{Controller} - This is the class responsible for executing tasks and getting information from the message broker. It returns a JSON response \cite{json} string to the dispatcher.  
-\end{itemize}
+\subsubsection{Front-end}
+
+The front-end of OKSE is the only component of the system that is directly accessible for graphical user interaction. It's responsible for making HTTP-requests to the back-end for manipulation and presentation of the state the system is currently in. To ensure and minimize the probability for cross-browser incompatibilities, the front-end is implemented using jQuery. Each pane of the administration interface has it's own module implemented with jQuery. Each of the modules are responsible for event-handling, AJAX-requests and DOM-manipulation in its own pane.  
+
+For a more detailed description about the user interface architecture, see appendix \ref{appendix-developer-manual}.
 
 \section{Broker architecture}
 \label{sec:architecture_and_implementation-broker_architecture}
 
-This section discusses the high-level aspects of the broker architecture. Some parts of the system are explained in greater detail to provide clear purpose or intent. Additionally, a developer manual can be found in Appendix \ref{appendix-developer-manual}.
+This section discusses the high-level aspects of the broker architecture. Some parts of the system are explained in greater detail to provide clear purpose or intent. Additionally, a developer manual can be found in appendix \ref{appendix-developer-manual}.
 
 \subsection{Goals and strategy}
 \label{subsec:architecture_and_implementation-broker_architecture-goals_and_strategy}
@@ -80,7 +78,7 @@ Based on these thoughts and ideas, a list of goals were created:
 \item Extending the system with new functionality should be as easy as possible.
 \item Extending the system with new protocols should be as easy as possible.
 \item Extending the system should require as little alteration to existing code as possible.
-\item Core functionality should be adhering to the principle of "Separation of concerns".
+\item Core functionality should be adhering to the principle of "Separation of concerns" \cite{soc}.
 \item Core services should be standalone entities that other components can utilize.
 \item The system should have a core service responsible for the entire life cycle of other registered components.
 \end{itemize}
@@ -95,7 +93,7 @@ Based on these thoughts and ideas, a list of goals were created:
 
 With these goals settled, it was apparent that the design outline had properties of a Service Oriented Architecture (hereby denoted SOA) \cite{soa}, as well as the Module Pattern \cite{module-pattern}. This prompted the actual implementation of the system to adhere to these principles and patterns as much as possible, for consistency and future familiarity.
 
-Putting all this together, a high-level system architecture was created (fig \ref{fig:abstract_architecture}). It illustrates the main entities that were to become the brokering system. Lines between entities illustrate their connection to the core service, which is responsible for all other entity life cycles. Yellow entities are core services in the brokering system, while gray are protocol components.
+Putting all this together, a high-level system architecture was created (see figure \ref{fig:abstract_architecture}). It illustrates the main entities that were to become the brokering system. Lines between entities illustrate their connection to the core service, which is responsible for all other entity life cycles. Yellow entities are core services in the brokering system, while gray are protocol components.
 
 \subsection{Component dependency}
 \label{subsec:architecture_and_implementation-broker_architecture-component_dependency}
@@ -112,7 +110,7 @@ Usage dependency could however, not be reduced to a level lower than what was ne
   \end{figure}
 \end{center}
 
-After much thought was put into these challenges, a component dependency diagram (fig \ref{fig:architecture_dependency}) was created to illustrate how the administration interface, services and protocols should depend on each other. As with the high-level architecture, core services are denoted with yellow and protocols with gray.
+After much thought was put into these challenges, a component dependency diagram (see figure \ref{fig:architecture_dependency}) was created to illustrate how the administration interface, services and protocols should depend on each other. As with the high-level architecture, core services are denoted with yellow and protocols with gray.
 
 Dependencies between components that are annotated with $<< Use >>$ represent situations where a component depends on the other to offer its full set of features. In practice, a complete implementation of the brokering system would rely on all these dependencies to meet the specified requirements. But they should not be required for a component to perform its own internal responsibilities. Hence, a single instance of the WSN protocol should be able to run without connectivity to the rest of the system, and fully function in its local environment. This would however, mean that the rest of the system would be unaware of the subscribers, topics and messages handled by the local instance.
 
@@ -139,7 +137,7 @@ These simplified sequences were expanded later on, to provide a more realistic d
 
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[scale=0.45]{fig/architecture_data_flow.png}}
+    \makebox[\textwidth]{\includegraphics[scale=0.41]{fig/architecture_data_flow.png}}
     \caption{Detailed sequence diagram of possible data flow when sending a notification message using WS-Nu as the protocol library.}
     \label{fig:architecture_data_flow}
   \end{figure}
@@ -147,10 +145,10 @@ These simplified sequences were expanded later on, to provide a more realistic d
 Figure \ref{fig:architecture_data_flow} illustrates an expanded version of what the potential data flow might look like for a send notification message request using WSN. The expanded data flows show occurrences of loops, as well as some of the ideas for inner workings of the components. In this example, the send message call performed in the task runner would invoke a large branch of actions itself. To reduce complexity, the analysis of potential data flows were divided into different segments of the proposed system architecture.
 
 
-\section{Implementation}
+\section{Broker implementation}
 \label{sec:architecture_and_implementation-implementation}
 
-This chapter provides a brief outline of some of the implementation specific details in the OKSE message brokering system. It lists some common patterns used, choices that were made and the reasoning behind these. The main system components referenced in this section are illustrated in figure \ref{fig:abstract_architecture}.
+This chapter provides a brief outline of implementation specific details in the OKSE message brokering system. It lists some common patterns used, choices that were made and the reasoning behind these. The main system components referenced in this section are illustrated in figure \ref{fig:abstract_architecture}. The following sections assume a higher level of technical knowledge, and does not elaborate on every technical term used to describe the implementation. The scope of these terms fall into what can be described as general programming domain knowledge.
 
 \subsection{Core}
 \label{subsec:architecture_and_implementation-implementation-core}
@@ -228,7 +226,7 @@ The \verb!ProtocolServer! interface contains the common methods required in the 
 WS-Nu was chosen as the implementation library for the WSN protocol.
 In order to intercept messages and actions in the WS-Nu library, several of the main WS-Nu components had to be overridden and reimplemented. This led to a structure of components described in figure \ref{fig:wsnotification-server-structure}.
 
-The main constituents of the OKSE WSN implementation are the \verb!WSNotification! \verb!Server!, which runs the actual web server sending and receiving requests. \\The \verb!WSNRequestParser!, which is responsible for parsing the incoming XML message and invoking the corresponding method on the appropriate component. \\The \verb!WSNCommandProxy!, which implements most of the methods defined in the WSN standards document, and is the parent component of the \verb!WSNSubscriptionManager! and \verb!WSNRegistrationManager!. The latter two components are responsible for the local state and mapping between subscriber objects and publisher objects respectively.
+The main constituents of the OKSE WSN implementation are the \verb!WSNotification! \verb!Server!, which runs the actual web server sending and receiving requests. \\The \verb!WSNRequestParser!, which is responsible for parsing incoming messages and invoking corresponding methods on the appropriate component. \\The \verb!WSNCommandProxy!, which implements most of the methods defined in the WSN standards document, and is the parent component of the \verb!WSNSubscriptionManager! and \verb!WSNRegistrationManager!. The two latter components are responsible for the local state and mapping between subscriber objects and publisher objects respectively.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -238,25 +236,45 @@ The main constituents of the OKSE WSN implementation are the \verb!WSNotificatio
   \end{figure}
 \end{center}
 
+It is important to note that there are shortcomings in the implementation of the WSN protocol. Some are based on fundamental challenges related to message translation to and from XML-based protocols, and others are errors in the WS-Nu library. These shortcomings are not listed in this chapter, but are described in detail in chapter \ref{subsec:evaluation-implementation-wsn}.
+
 \subsubsection{WSNotificationServer}
 At the base of the WSN implementation lies the \verb!WSNotificationServer! class. Like the core services, the server runs as a singleton. The component is responsible for managing an instance of the Jetty Web server, which is connected to a \verb!Handler! class that processes incoming requests. The component also handles outgoing connections using a Jetty Web Client instance.
 
-When a request is received, it is processed through the \verb!Handler!, and if no errors have occurred during initial handling, it is passed on to the \verb!WSNRequestParser!. Based on the results from the request parser call, an appropriate response message is generated and returned to the requesting client.
+When a request is received, it is processed through the \verb!Handler!. If no errors have occurred during initial handling, it is passed on to the \verb!WSNRequestParser!. Based on the results from the request parser call, an appropriate response message is generated and returned to the requesting client.
 
-In the event of an outgoing message being sent, the \verb!sendMessage()! method of the \verb!WSNotification!\verb!Server! is invoked, and a connection is made by the Jetty Client instance to the subscribers destination address, and the message is delivered. Depending on wether the message originated from WSN or was translated from another protocol, additional steps are included. In the latter case, a WS-Nu message object is first created containing the relevant information, before dispatching it to the \verb!WSNRequest!\verb!Parser! like any other WSN message.
+In the event of an outgoing message being sent, the \verb!sendMessage()! method of the \verb!WSNotification!\verb!Server! is invoked, and a connection is made by the Jetty Client instance to the subscribers destination address, and the message is delivered. Depending on whether the message originated from WSN or was translated from another protocol, additional steps are included. In the latter case, a WS-Nu message object is first created containing the relevant information, before dispatching it to the \verb!WSNRequest!\verb!Parser! like any other WSN message.
 
 \subsubsection{WSNRequestParser}
-The \verb!WSNRequestParser! is the OKSE implementation of what is considered a \verb!Hub! in WS-Nu. All WSN requests to the OKSE 
+The \verb!WSNRequestParser! is the OKSE implementation of what is considered a \verb!Hub! in WS-Nu. All WSN requests to the OKSE message broker will pass through the request parser. The main tasks of the \verb!WSNRequestParser! is to analyze requests and deliver them to the appropriate services, to generate valid outgoing message structures, and accept WS-Nu internal messages for distribution. It also acts as a service registry, which holds the \verb!WSNCommandProxy!, \verb!WSNSubscription!\verb!Manager! and \verb!WSNRegistration! \verb!Manager! as potential recipient services. When accepting an internal message, the request parser will attempt to identify which of the registered services that are eligible to process the request message. If none are eligible, a standard "not found" response message is delivered to the \verb!WSNotification!\verb!Server! and relayed back to the requesting client.
 
 \subsubsection{WSNCommandProxy}
 
+The \verb!WSNCommandProxy! is the main WSN brokering implementation. It contains most of the required methods defined in the WSNotification standard, and expose methods for processing these different types of actions. It is implemented as a web service that is registered to the \verb!WSNRequestParser!, and accepts requests for the service methods it exposes.
+
+Since the command proxy is an extension of the WS-Nu abstract notification broker class, it interacts seamlessly with the rest of the WS-Nu components.
+
+The command proxy also holds an instance of the \verb!WSNSubscriptionManager! and \verb!WSNRegistrationManager! classes, and delegates some of its responsibilities to these instances. 
+
 \subsubsection{WSNSubscriptionManager}
+
+The \verb!WSNSubscriptionManager! is responsible for keeping track of the local subscriber representations in WS-Nu and their relations to the OKSE subscriber representation. It is implemented as a web service that is registered to the \verb!WSNRequestParser!, and accepts requests for the service methods it exposes.
+
+Since the subscription manager is an extension of the WS-Nu abstract subscription manager, it interacts seamlessly with the rest of the WS-Nu components.
+
+As an example, requests to subscribe or unsubscribe is relayed through the \\\verb!WSNSubscriptionManager!, which in turn calls the OKSE \verb!SubscriptionService!. Since this is merely an intermediate manager to translate from WS-Nu to OKSE behaviour, the \verb!WSNSubscriptionManager! is registered as a listener to the OKSE \\ \verb!SubscriptionService!. In the event of a new subscriber, the local WS-Nu subscription representation is stored in the manager, and a \verb!addSubscriber()! call is made to the OKSE \verb!SubscriptionService!.
+
+In the event of an unsubscribe request, a \verb!removeSubscriber()! call is performed directly to the OKSE \verb!SubscriptionService!. The manager then awaits a callback through its listener support, as a confirmation that it is okay to finally remove the local WS-Nu subscription representation.
+
+This kind of control flow allows the manager to automatically update itself. In the event of a subscriber being forcefully removed from the administration interface, or its subscription having expired in the OKSE \verb!SubscriptionService!, the manager will be updated through this event callback mechanism.
 
 \subsubsection{WSNRegistrationManager}
 
-\subsubsection{WSNTools}
+The \verb!WSNRegistrationManager! is responsible for keeping track of the local publisher representations in WS-Nu and their relations to the OKSE publisher representation. It is implemented as a web service that is registered to the \verb!WSNRequestParser!, and accepts requests for the service methods it exposes.
 
-Here be information about how WSN was implemented, as well as how it works
+Since the registration manager is an extension of the WS-Nu abstract publisher-registration manager, it interacts seamlessly with the rest of the WS-Nu components.
+
+Similar to the \verb!WSNSubscriptionManager!, the \verb!WSNRegistrationManager! handles a local representation of registered publishers. It creates a local entry when a register-publisher request arrives, and delegates unregister requests directly to the OKSE \verb!SubscriptionService!. This in turn allows the \verb!WSNRegistrationManager! to automatically update itself based on the events it listens to, in the same manner as the \verb!WSNSubscriptionManager!.
 
 \subsection{AMQP}
 \label{subsec:architecture_and_implementation-implementation-amqp}

@@ -731,21 +731,21 @@ IT5.24 & ConfigController & getAllInfo & Perform the first step of IT5.17 and IT
 \begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
-\multicolumn{5}{|c|}{\textbf{FR1.1-1.10, WSN}} \\ \hline
+\multicolumn{5}{|c|}{\textbf{FR1-10, WSN}} \\ \hline
 \multicolumn{5}{|c|}{{Test general functionality regarding the WSN protocol implementation}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
-ST1.1 & Send and receive message (FR1.1) & Create a subscriber on a topic, send valid notify to that topic & Message sent and received correctly & Success \\ \hline
-ST1.2 & Subscribe & Send a valid subscription request (FR1.2) & Subscriber successfully added, topic created and admin panel showing subscriber with correct host, port and topic & Success \\ \hline
-ST1.3 & Register Publisher (FR1.3) & Send a valid publisher registration request & The publisher is successfully registered. & Success \\ \hline
-ST1.4 & Unsubscribe (FR1.4) & Perform ST1.2, then perform an unsubscribe request. & Subscriber successfully removed. Topic still exists. & Success \\ \hline
-ST1.5 & Unregister (FR1.5) & Perform ST1.3, then perform a destroy publisher registration request using the returned publisherregistration endpoint reference. & Publisher successfully removed, total count decreased by ONE in admin panel & Success \\ \hline
-ST1.6 & GetCurrent Message (FR1.6) & Send a message to a topic. Send a getCurrentMessage request with the specified topic. & Last message sent correctly returned. & Success \\ \hline
-ST1.7 & Renew (FR1.7) & Perform ST1.2. Then send a valid Renew request. & Subscription correctly renewed. & Success \\ \hline
-ST1.8 & Pause (FR1.8) & Perform ST1.2. Then send a valid Pause request. & Subscription correctly paused. & Success \\ \hline
-ST1.9 & Resume (FR1.9) & Perform ST1.2. Then perform ST1.8. Then send a valid Resume request. & Subscription correctly resumed. & Success \\ \hline
-ST1.10 & Multiple Messages (FR1.10) & Perform ST1.2. Then send a Notify with TWO NotificationMessages. & System accepts the Notify and delivers to subscriber. & Success \\ \hline
+ST1.1 & Send and receive message (FR1) & Create a subscriber on a topic, send valid notify to that topic & Message sent and received correctly & Success \\ \hline
+ST1.2 & Subscribe & Send a valid subscription request (FR2) & Subscriber successfully added, topic created and admin panel showing subscriber with correct host, port and topic & Success \\ \hline
+ST1.3 & Register Publisher (FR3) & Send a valid publisher registration request & The publisher is successfully registered. & Success \\ \hline
+ST1.4 & Unsubscribe (FR4) & Perform ST1.2, then perform an unsubscribe request. & Subscriber successfully removed. Topic still exists. & Success \\ \hline
+ST1.5 & Unregister (FR5) & Perform ST1.3, then perform a destroy publisher registration request using the returned publisherregistration endpoint reference. & Publisher successfully removed, total count decreased by ONE in admin panel & Success \\ \hline
+ST1.6 & GetCurrent Message (FR6) & Send a message to a topic. Send a getCurrentMessage request with the specified topic. & Last message sent correctly returned. & Success \\ \hline
+ST1.7 & Renew (FR7) & Perform ST1.2. Then send a valid Renew request. & Subscription correctly renewed. & Success \\ \hline
+ST1.8 & Pause (FR8) & Perform ST1.2. Then send a valid Pause request. & Subscription correctly paused. & Success \\ \hline
+ST1.9 & Resume (FR9) & Perform ST1.2. Then perform ST1.8. Then send a valid Resume request. & Subscription correctly resumed. & Success \\ \hline
+ST1.10 & Multiple Messages (FR10) & Perform ST1.2. Then send a Notify with TWO NotificationMessages. & System accepts the Notify and delivers to subscriber. & Success \\ \hline
 \end{tabular}
-\caption{System Testing - Test Cases - FR1}
+\caption{System Testing - Test Cases - FR1-10}
 \label{table:system-testing-cases-fr1}
 \end{table}
 
@@ -753,11 +753,11 @@ ST1.10 & Multiple Messages (FR1.10) & Perform ST1.2. Then send a Notify with TWO
 \begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
-\multicolumn{5}{|c|}{\textbf{FR2, AMQP}} \\ \hline
+\multicolumn{5}{|c|}{\textbf{FR11-13, AMQP}} \\ \hline
 \multicolumn{5}{|c|}{{Test to see if an AMQP message can be sent, and received on all protocols}} \\ \hline 
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
-ST2.1 &Send message&Send "Hello World" to other AMQP client & Message sent and received correctly & Success \\ \hline
-ST2.2 &Send message&Send "Hello World" to other protocols & Message sent and received&Success \\ \hline
+ST2.1 &Send message&Create a subscriber on a topic, send valid message to that topic& Message sent and received correctly & Success \\ \hline
+ST2.2 &Send message&Create a subscriber on a topic, send valid message to that topic& Message sent and received&Success \\ \hline
 ST2.3 &Receive message&Receive AMQP message from AMQP &Message received&Success \\ \hline
 ST2.4 &Receive message&Receive AMQP message from other protocol &Message received&Success \\ \hline
 ST2.5 &Mapped topic&Send "Hello World" via a mapped topic &Message sent on a topic will be received on mapped topic&Success \\ \hline
@@ -765,7 +765,7 @@ ST2.6 &Subscribe AMQP&Subscribe to AMQP and update admin interface &Client is su
 ST2.7 &Unsubscribe&Remove AMQP subscriber from the admin interface &When subscriber is removed from admin interface client is unsubscribed and will no longer receive messages on that topic&Success \\ \hline
 ST2.8 &AMQP protocol stats&Check AMQP statistics &Stats for AMQP is updated according to activity&Success \\ \hline
 \end{tabular}
-\caption{System Testing - Test Cases - FR2}
+\caption{System Testing - Test Cases - FR11-13}
 \label{table:system-testing-cases-fr2}
 \end{table}
 
@@ -773,7 +773,7 @@ ST2.8 &AMQP protocol stats&Check AMQP statistics &Stats for AMQP is updated acco
 \begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
-\multicolumn{5}{|c|}{\textbf{FR3, Topic mapping}} \\ \hline
+\multicolumn{5}{|c|}{\textbf{FR14, Topic mapping}} \\ \hline
 \multicolumn{5}{|c|}{{Test to see if an topics can be mapped to each other properly}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
 ST3.1 & Map topic & Set up a topic mapping from topic A to topic B.
@@ -788,7 +788,7 @@ rectly identifies the originating topic mapping
 and does NOT relay back to topic A from B & Success \\ \hline
 
 \end{tabular}
-\caption{System Testing - Test Cases - FR3}
+\caption{System Testing - Test Cases - FR14}
 \label{table:system-testing-cases-fr3}
 \end{table}
 
@@ -797,7 +797,7 @@ and does NOT relay back to topic A from B & Success \\ \hline
 \begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
-\multicolumn{5}{|c|}{\textbf{FR3, Edit subscription}} \\ \hline
+\multicolumn{5}{|c|}{\textbf{FR15, Edit subscription}} \\ \hline
 \multicolumn{5}{|c|}{{Test to see if subscribers and topics can be deleted}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
 ST4.1 & Delete subscription on a topic & Create a topic "test", and subscribe on the topic. Delete the subscription. & The subscription no longer exists on the topic. & Success \\ \hline
@@ -805,7 +805,7 @@ ST4.2 & Delete all subscribers & Create topic "test" and "test2", then subscribe
 ST4.3 & Delete all topics & Create two topics "test" and "test2". Click "Delete all topics". & Both topics are deleted & Success \\ \hline
 
 \end{tabular}
-\caption{System Testing - Test Cases - FR4}
+\caption{System Testing - Test Cases - FR15}
 \label{table:system-testing-cases-fr4}
 \end{table}
 
@@ -813,7 +813,7 @@ ST4.3 & Delete all topics & Create two topics "test" and "test2". Click "Delete 
 \begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
-\multicolumn{5}{|c|}{\textbf{FR5, Information}} \\ \hline
+\multicolumn{5}{|c|}{\textbf{FR16, Information}} \\ \hline
 \multicolumn{5}{|c|}{{Test whether or not correct information is displayed}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
 ST5.1 & Debian linux & Launch the application on a public server using Linux Debian. Verify validity of information & Server information corresponds to the actual server specification & Success  \\ \hline
@@ -822,7 +822,7 @@ ST5.3 & Mac OSX 10.9 & Launch a local version of the application on Mac OSX 10.9
 ST5.4 & Mac OSX 10.10 & Launch a local version of the application on Mac OSX 10.10 & Server information corresponds to the actual information & Success \\ \hline
 
 \end{tabular}
-\caption{System Testing - Test Cases - FR5}
+\caption{System Testing - Test Cases - FR16}
 \label{table:system-testing-cases-fr5}
 \end{table}
 
@@ -830,14 +830,14 @@ ST5.4 & Mac OSX 10.10 & Launch a local version of the application on Mac OSX 10.
 \begin{tabular}{|m{1cm}|m{2cm}|m{4cm}|m{3cm}|m{1cm}|}
 \hline
 \rowcolor{lightgray}
-\multicolumn{5}{|c|}{\textbf{FR6, Log in}} \\ \hline
+\multicolumn{5}{|c|}{\textbf{FR17, Log in}} \\ \hline
 \multicolumn{5}{|c|}{{Test the log in functionality}} \\ \hline
 \textbf{Id} & \textbf{Test case} & \textbf{Procedure} & \textbf{Expected result} & \textbf{Result} \\ \hline
 ST6.1 & Log in with correct information. & Start an instance of the system. Attempt to log in with username=admin, password=password & Access granted, and redirected to "Main" pane. & Success \\ \hline
 ST6.2 & Log in with wrong information & Attempt to log in with username=something, password=something & Access denied, error message should appear & Success \\ \hline
 
 \end{tabular}
-\caption{System Testing - Test Cases - FR6}
+\caption{System Testing - Test Cases - FR17}
 \label{table:system-testing-cases-fr6}
 \end{table}
 

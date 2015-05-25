@@ -14,7 +14,7 @@ After the initial evaluation of the product description and its requirements, it
 
 Two full weeks were dedicated to research Apollo. As the total time of the project was less than one semester, that was a fairly large portion of it. The positive aspect of it, was that a lot was learned from this work, and some of the aspects and good practices were carried over to the implementation.
 
-The decision to abandon Apollo was not made until the very end. It was only then that the components of the Apollo system proved to be so complex that it failed the gate criteria. After further discussion, additional issues appeared which led to the final decision. Had the research phase been shortened, it might have resulted in the decision to further develop Apollo, possibly resulting in a failure to deliver a working product. Thus, abandoning Apollo was probably the best choice.
+The decision to abandon Apollo was not made until the very end. It was only then that the components of the Apollo system proved to be so complex that it failed the gate criteria in the phase-gate model. After further discussion, additional issues appeared which led to the final decision. Had the research phase been shortened, it might have resulted in the decision to further develop Apollo, possibly resulting in a failure to deliver a working product. Thus, abandoning Apollo was probably the best choice.
 
 \subsection{Process Model}
 \label{subsec:project_evaluation-research_phase-process_model}
@@ -44,7 +44,7 @@ Initially, it was decided to use test-driven development. This worked out well o
 
 Scrum worked out well. The most important part of it was the meetings, as they helped in keeping track of progress at all times. Communication was key to assess the different development issues faced. Additionally, any problems regarding development were discussed, and assessed by the group as a whole. 
 
-A backlog chart (task list) and burndown chart were created each sprint. The templates were initialized at the start of each sprint, and the workload were decided and distributed amongst the group. This worked out very well, as each member had clearly defined tasks for each sprints. Additionally, it was helpful to keep track of the time usage, when evaluating each sprint. The evaluation of the previous sprint were taken into consideration when defining the next. This were a helpful to assign an appropriate workload for each sprint.
+A backlog chart (task list) and burndown chart were created each sprint. The templates were initialized at the start of each sprint, and the workload were decided and distributed amongst the group. This worked out well, as each member had clearly defined tasks for each sprints. There were some issues with assigning the different tasks, but this got easier with time. Additionally, it was helpful to keep track of the time usage, when evaluating each sprint. The evaluation of the previous sprint were taken into consideration when defining the next. This was helpful to assign an appropriate workload for each sprint.
 
 Having sprints lasting two weeks were appropriate. As the group had to consider other courses and tasks, the work load varied from week to week. Thus, it was nice to have two weeks to complete the tasks assigned. Additionally, shorter sprint intervals would have led to more time being used on management of tasks and time, as it would have to be done each week. Having longer sprints could have affected the communication with the customer in a negative way. If something were implemented in a way that weren't satisfiable, it would have led to more time being used before the proper feedback were acquired. One example is the initial research made on MQTT, after it was decided that only two protocols would be implemented. At that time, it was important to know that AMQP was more important, to avoid too much time loss.
 
@@ -81,7 +81,7 @@ Overall, the development period worked out fairly well. The main issues were wit
 \section{Social and cooperation aspects}
 \label{sec:Social_and_cooperation_aspects}
 
-The dynamic of the group were well. No social issues arose, and a nice work environment were upheld throughout the project. Eating lunch together, and taking breaks to talk about other things than the project made the days enjoyable. The social aspect helped throughout the project, as it kept the moral of the group high. There were some minor arguments during the development phase. These were mainly due to different opinions on code principles, report structure etc. None of these arguments led to any anger or issues between anyone in the group however.
+Group dynamic was rarely an issue. No social issues arose, and a nice work environment were upheld throughout the project. Eating lunch together, and taking breaks to talk about other things than the project made the days enjoyable. The social aspect helped throughout the project. It kept the moral of the group high, and promoted creativity. There were some minor arguments during the development phase. These were mainly due to different opinions on code principles, report structure etc. None of these arguments led to any anger or issues between anyone in the group, and were handled in a proper manner.
 
 Cooperation worked out well throughout the project, both within the group, and with the customer and supervisor. It was easy to ask questions to other members, which was helpful if someone was stuck on a specific task or problem. Additionally, group meetings functioned as an arena were more complex tasks could be assessed by the whole group. All this made development more efficient, as it often prevented long periods of time being used on a specific problem. Meeting agendas were key when communicating with the customer and supervisor. Having them provided a simple way of structuring each meeting, which made sure nothing was forgotten or neglected.
 
@@ -90,31 +90,31 @@ The group also occasionally talked with other groups. The discussions were mainl
 \section{Implementation}
 \label{sec:Implementation}
 
-The group were satisfied with how the system turned out. It does what it was supposed to do and performs well, with no bottlenecks. The code is structured and documented in a good way, and modularized to make it as simple as possible to extend the system. There are still some small issues with the broker, but the main functionality is in place. 
+[HUSK Å REFERER TIL TESTER SAMT SYSTEM REQUIREMENTS HER]
+
+The group were satisfied with how the system turned out. It does what it was supposed to do and performs well, with no bottlenecks. The code is structured and documented in a good way, and modularized to make it as simple as possible to extend the system. There are still some small issues with the broker, but the main functionality is in place. The system as a whole lacks unit tests for most of the services. This was mainly due to time concerns, and the wish to focus on finishing the product towards the end. Thus, unit tests had a lower priority as the system was coming together.
 
 \subsection{Web technologies}
 \label{subsec:Web_technologies}
 
-Several development tools and libraries were used in the Java implementation. Bootstrap and jQuery generally made it simpler and less time-consuming to build the web application. Bootstrap also made it simple to give the site a clean and intuitive design. 
+Several development tools and libraries were used in the Java implementation. Bootstrap and jQuery generally made it simpler and less time-consuming to build the web application. Bootstrap also made it simple to give the site a clean and intuitive design. All the requirements\ref{sec:requirements_engineering-functional_requirements} related to the user interface were tested and met.
 
-In retrospect, the group learned that the use of WebSockets \cite{web-sockets} would have been a better approach for the administration interface. The system is now designed with AJAX for real-time update of content. It's not very scalable, and may result in high server load. Using WebSockets for this purpose would have proven much more efficient. Similar to the publish/subscribe pattern, WebSockets notify clients on a state change, instead of the clients constantly asking the server for the newest state. WebSockets wouldn't make AJAX obsolete but it would have been a better solution for serving true real-time update of content. AJAX would still have been used for making short-lived web service calls (e.g. HTTP DELETE requests). \\
+In retrospect, the group learned that the use of WebSockets \cite{web-sockets} would have been a better approach for the administration interface. The system is now designed with AJAX for real-time update of content. It's not very scalable, and may result in high server load. Using WebSockets for this purpose would have proven much more efficient. Similar to the publish/subscribe pattern, WebSockets notify clients on a state change, instead of the clients constantly asking the server for the newest state. WebSockets wouldn't make AJAX obsolete, but it would have been a better solution for serving true real-time update of content. AJAX would still have been used for making short-lived web service calls (e.g. HTTP DELETE requests). \\
 
 
 \subsection{Broker}
 \label{subsec:Implementation_broker}
-[(--Skriv om brokerting, wsnu osv. Hva var bra, hva manglet? --)]
+SKRIV GENERELT OM HVORDAN BROKEREN FUNGERER HER, HVA VAR BRA, HVA KUNNE VÆRT BEDRE, HVA LÆRTE VI MENS VI STYRA MED DENNE SKITEN HER
+
+\subsection{WSN}
+\label{subsec:evaluation-implementation-wsn}
+WS-Nu, hva var bra, hva er fucked osv.
 
 \subsection{AMQP}
 \label{subsec:Implementation_AMQP}
 
 [!!!!VET IKKE HVA VI SKAL GJØRE MED DET SOM STÅR HER!!!!!!!!!!!]
 
-During the first iteration of AMQP implementation, some challenges were uncovered. The largest one was the handling of topic and queues. As a queue is a different concept compared to a topic, the implemented solution gave the user an option to choose which solution to use. Implementing Simple Authentication and Security Layer (SASL) support for authentication was another issue that proved difficult. The solution was to let the user choose whether or not to use it.
+During the first iteration of AMQP implementation, some challenges were uncovered. The largest one was the handling of topic and queues. As a queue is a different concept compared to a topic, the implemented solution gave the user an option to choose which solution to use. Implementing Simple Authentication and Security Layer (SASL) support for authentication was another issue that proved difficult. The solution was to let the user choose whether or not to use it. The solution wasn't optimal, but works as expected.
 
-Another challenge regarding the construction of outgoing AMQP messages, was to convert a Java object to a fixed size byte array. As AMQP is a byte level protocol, this had to be resolved. The solution was to as accurately as possible calculate the objects byte size. This was done using qualified guessing by looking at the different parts of the object. After a lot of testing, the final guess only missed with between 6-12 bytes. The final size of an object was found by trial and error.
-
-After the finalization of AMQP, the testing of the protocol implementation revealed to be more difficult than first thought. Finding applications that implements the 1.0 standard was difficult. FFI provided a version of NFFIPlayer (see section \ref{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer}) with AMQP which implemented the 0.9.1 standard. However, due to the significant changes in the standard, it could not be used to any extent.
-
-To be able to test the implementation properly, a functioning implementation was required. Two AMQP 1.0 Java implementations were found, and simple scripts were written to test both send and receive functionality. As there was a limited amount of free/open implementations, the group ended up using one open source solution from Apache Qpid (not proton) \cite{apache-qpid} and one commercial from SwiftMQ \cite{swift-mq}. By using these implementations, the basis for stating the correctness of the implementation and the quality of the product was solid.
-
-\clearpage
+Another challenge regarding the construction of outgoing AMQP messages, was to convert a Java object to a fixed size byte array. As AMQP is a byte level protocol, this had to be resolved. The solution was to as accurately as possible calculate the objects byte size. This was done using qualified guessing by looking at the different parts of the object. After a lot of testing, the final guess only missed with between 6-12 bytes. The final size of an object was found by trial and error. 

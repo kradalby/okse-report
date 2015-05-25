@@ -31,30 +31,30 @@
 
 \section{Introduction}
 
-This manual will go through the needed steps to get started on extending and further developing OKSE. The first sections will go through how to set up the development environment. The rest of the sections will go through the different parts of the system and how they may be extended. The system is open source, and licenced under the MIT licence\footnote{\url{http://opensource.org/licenses/MIT}}.
+This manual provides an overview of the initial steps needed to extend and further develop OKSE. The first sections are concerned with the set up of the development environment. The rest of explains the different parts of the system and how they may be extended. The system is open source, and licenced under the MIT licence\footnote{\url{http://opensource.org/licenses/MIT}}.
 
 \section{Requirements and Setup}
 The recommended setup, as noted below, is using IntelliJ IDEA\footnote{\url{https://www.jetbrains.com/idea/}} as the Java IDE. However, other IDEs that meet the requirements listed below, or a combination should suffice. 
 
 \subsection{Java}
-The minimum required major version of Java is 8, and we do recommend to use the latest minor release. As of the writing of this guide, update 31 is the latest, and the version which is used to compile the packaged version of OKSE that is bundled.
+The minimum required major version of Java is 8, and it's recommend to use the latest minor release. Currently, Java 8 version 31 is the version used to compile the packaged version of OKSE.
 
 \subsection{Apache Maven}
-The project source code, tests and dependency management is structured with Apache Maven\footnote{\url{https://maven.apache.org}}. Maven is used to fetch dependencies, run the tests and to build the final jar files. The minimum major version of Maven is 3 and any minor version from 3.0.5 and up can be used. However, the development team recommends the latest version. As of the time of this writing, the latest version is 3.3.3.
+The project source code, tests and dependency management is structured with Apache Maven\footnote{\url{https://maven.apache.org}}. Maven is used to fetch dependencies, run tests and build the final jar files. The minimum major version of Maven is 3, and any minor version from 3.0.5 and up can be used. The version used for the current version of the system is 3.3.3.
 
-It is worth mentioning, that many of the popular IDE softwares for Java bundles Maven support and does not require it to be installed separately on the system.
+It is worth mentioning that many of the popular Java IDE's has Maven support. Thus, its not required to install it separately.
 
 \subsection{Recommended IDE}
-The development team strongly recommends IntelliJ IDEA Ultimate\footnote{\url{https://www.jetbrains.com/idea/}} as the Integrated Development Environment. Note that the free Community edition should suffice, but its worth mentioning that the Ultimate edition has better support for frameworks like Spring and TestNG (test framework of choice), which is used for the web administration interface. Both Community and Ultimate edition comes bundled with Maven.
+The development team strongly recommends IntelliJ IDEA Ultimate\footnote{\url{https://www.jetbrains.com/idea/}} as the Integrated Development Environment. Note that the free Community edition should suffice, although the Ultimate edition has better support for frameworks like Spring and TestNG (test framework of choice), which is used for the web administration interface. Both Community and Ultimate edition comes bundled with Maven.
 
-\subsubsection{IntelliJ setup}
-As the user stands free to choose the IDE, the setup documentation will be fairly basic and it will be based on IntelliJ.
+\subsubsection{IntelliJ IDEA setup}
+As the user stands free to choose the IDE, the setup documentation will be fairly basic and based on IntelliJ IDEA.
 
-Prerequisites: IntelliJ is installed, an Internet connection and the source code is stored locally.
+Prerequisites: IntelliJ IDEA is installed, an Internet connection and the source code is stored locally.
 
 \begin{enumerate}
 \setlength{\itemsep}{0cm}%
-    \item Open IntelliJ
+    \item Open IntelliJ IDEA
     \item Click "Import Project" or File $\rightarrow$ "Import Project"
     \item Browse the file system and select the source code folder
     \item Choose "Import project from external model"
@@ -67,44 +67,49 @@ Prerequisites: IntelliJ is installed, an Internet connection and the source code
     \item Click Finish
 \end{enumerate}
 
-After the IntelliJ window is opened with the project, all the needed dependencies will be downloaded. After this is complete, the project setup is complete.
+After the IntelliJ IDEA window is opened with the project, all the needed dependencies will be downloaded. After this is complete, the project setup is complete.
 
 \subsection{Test Framework: TestNG}
-The system has a lot of unit tests, and the test framework of choice is TestNG\footnote{\url{http://testng.org/doc/index.html}}. Any new features and expansions of the system should be accompanied by unit tests. Please refer to the TestNG documentation\footnote{\url{http://testng.org/doc/documentation-main.html}} on how to write tests that suits the expansions needs.
+The system has a lot of unit tests, written with the test framework TestNG\footnote{\url{http://testng.org/doc/index.html}}. Any new features and expansions of the system should be accompanied by unit tests. Please refer to the TestNG documentation\footnote{\url{http://testng.org/doc/documentation-main.html}} for information and documentation.
 
 \section{Components}
-In this section, an overview of how to expand the system with additional components is provided.
+\label{sec:developer_manual-components}
+This section provides an overview of which steps are needed to extend the system with new services and protocols. For general system reference and the interaction of existing components, see chapter \ref{sec:architecture_and_implementation-implementation}.
 
 \subsection{Application}
+\label{subsec:developer_manual-components-application}
 
-The \verb!Application.java! file that resides in the root of the project is the main invocation point when starting the OKSE application. The main operations performed in this class are initializing the web admin console, and the CoreService instance, which in turn boot up more services.
+The \verb!Application.java! file that resides in the root of the project is the main invocation point when starting the OKSE application. The operations performed in this class are initializing the web admin console and the CoreService instance, which in turn boots up more services.
 
 The most important thing to note regarding this main class, is that it is also the class in which further extensions should be registered. Extending the application with additional core services is done through registering them to the CoreService via the \\\verb!registerCoreService()! method.
 
 Extending the application with additional protocol support is done through use of the \verb!addProtocolServers()! method of the CoreService instance.
 
-\subsection{Web Admin}
+\subsection{Administration interface}
+\label{subsec:administration_interface}
 
-The OKSE administration console is run using the Spring framework, more exact the spring-boot package\footnote{\url{https://spring.io/guides/gs/rest-service/}}, using Thymeleaf-templates\footnote{\url{http://www.thymeleaf.org}}. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript. The administration interface of OKSE is built in a modular way, to achieve loose coupling. Each pane of the interface has its own controller and respectively a front-end JavaScript.  With this approach it's easy to extend the web interface.
+The OKSE administration console is built on the Spring framework, more exactly the spring-boot package\footnote{\url{https://spring.io/guides/gs/rest-service/}} with Thymeleaf-templates\footnote{\url{http://www.thymeleaf.org}}. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript. The administration interface is built in a modular way, to achieve loose coupling of modules. Each pane of the interface has its own controller and respective front-end JavaScript.  With this approach it's easy to extend the web interface.
 
 \subsubsection{Back-end}
 
-The back-end of OKSE works as a RESTful Web Service. It is responsible for working as a link between the administration interface and all the different registered services in OKSE. Since the back-end uses the Spring framework, the main architectural approach for the back-end is based upon Spring’s approach for building RESTful web services. All HTTP-requests are handled by a dedicated controller. These controllers are easily identified by the \verb!@RestController! annotation. Each controller are responsible for handling all HTTP-requests on given routes defined by \verb!@RequestMapping! annotations.  
+The back-end of OKSE works as a RESTful Web Service. As the back-end uses the Spring framework, the main architectural approach for the back-end is based on Spring’s approach for building RESTful web services. All HTTP-requests are handled by a dedicated controller. These controllers are easily identified by the \verb!@RestController! annotation. Each controller is responsible for handling all HTTP-requests on given routes defined by \verb!@RequestMapping! annotations.  
 
 \subsubsection{Front-end}
 
-The front-end of OKSE is the only component of the system directly accessible for user interaction. It's responsible for making HTTP-requests to the back-end for manipulation and presentation of the state OKSE is currently in. To ensure and minimize the probability for cross-browser incompatibilities, the front-end is implemented using jQuery. Each pane of the administration interface has its own module implemented with jQuery. Each of this modules are responsible for event-handling, AJAX-requests and DOM-manipulation in its own pane.
+The front-end of OKSE is the only component of the system that is directly accessible for graphical user interaction. It's responsible for making HTTP-requests to the back-end for manipulation and presentation of the state OKSE is currently in. See chapter \ref{subsec:architecture_and_implementation-implementation} for a more detailed description of the front-end architecture.
 
 \section{Common Patterns Used}
 \label{sec:common-patterns-used}
 
-\begin{itemize}
-\item Singelton
-\item ObserverPattern
-\item Other: \begin{itemize}
-\item Event Driven Single Service Single Thread
-\end{itemize}
-\end{itemize}
+\subsection{Service oriented architecture}
+
+\subsection{Module pattern}
+
+\subsection{Singleton pattern}
+
+\subsection{Reactor pattern}
+
+\subsection{Observer pattern}
 
 \section{Adding new protocols}
 \label{sec:adding-new-protocols}
@@ -119,30 +124,25 @@ Something about AbstractCoreService, Singleton pattern and the needed methods to
 \section{Extending the administration interface}
 \label{sec:adding-new-panes}
 
+This section describes how the administration interface might be extended with new content and functionality. Figure \ref{fig:spring} visualizes how the system handles events and exposes information to the users. The key concepts to notice here are the AJAX-requests and the controllers. On an event, whether it is a page auto update or a button-click, the request URL is accessed by the AJAX-request. Springs dispatcher maps the URL and forwards it to the correct controller. This controller interacts with OKSE's services and returns a response.
+
+\begin{itemize}
+    \item\textbf{Dispatcher} -  This is the class that is exposed to the user. It forwards request URL's to the mapping handler to reach the correct controller. It then calls the controller responsible for the request. Finally it returns the response to the user. 
+    \item\textbf{Mapping handler} - This class maps the request URL to the controller responsible for the request, and returns it to the dispatcher. 
+    \item\textbf{Controller} - This is the class responsible for executing tasks and getting information from the message broker. It returns a JSON response \cite{json} string to the dispatcher.  
+\end{itemize}
+
+\clearpage
+
 \begin{center}
   \begin{figure}[ht!]
-    \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oacRequestFlow.png}}
-    \caption{Request flow for the administration panel}
-    \label{fig:oac-request-flow}
+    \makebox[\textwidth]{\includegraphics[width=0.8\textwidth]{fig/spring.png}}
+    \caption{REST-API structure}
+    \label{fig:spring}
   \end{figure}
 \end{center}
 
-This section describes how to create or extend the administration interface with new content and functionality. The modularity of the administration interface makes this easy. Figure \ref{fig:oac-request-flow} visualises how the OKSE system handles events and exposes information to the users. The key concepts to notice here is the AJAX-requests and the controllers. On an event, whether it is a page auto update or a button-click, the request URL is accessed by the AJAX-request. Spring's dispatcher maps the URL and forwards it to the correct controller. This controller interacts with OKSE's services and returns a response.
-
-As of the time of this writing, OKSE contains of seven JavaScript modules: 
-
-\begin{description}
-    \item[main.js] \hfill \\ Responsible for the "Main"-pane. This module also contains all logic for setting the update interval for all the other panes. Also this is the location of the AJAX-module. 
-    \item[topics.js] \hfill \\ Responsible for the "Topics"-pane. This module contains all logic regarding topics, which includes, but are not limited to, refreshing the table containing all topics. 
-    \item[subscribers.js] \hfill \\ Responsible for the "Subscribers"-pane. This module contains all logic regarding subscribers, which includes, but are not limited to, refreshing the table containing all subscribers. 
-    \item[stats.js] \hfill \\ Responsible for the "Statistics"-pane. This module contains all logic for refreshing the statistics from OKSE.
-    \item[logs.js] \hfill \\ Responsible for the "Logs"-pane. This module requests the given log from OKSE and visualizes it.
-    \item[config.js] \hfill \\ Responsible for the "Configuration"-pane. This module is responsible for configuration of OKSE. This includes for instance the possibility to add topic mappings. 
-    \item[paginator.js] \hfill \\ This module controls all logic regarding the paginator that appear when the topic/subscriber tables exceed 25 elements. 
-    \item[okseDebug.js] \hfill \\ This is a jQuery-plugin that appends a logger to the document.
-\end{description}
-
-Hopefully, after reading this introduction you have gotten a fair understanding of how the administration interface is structured. The following steps will explain how to actually extend the application. In addition, if you are completely new to Thymeleaf-templates, Spring framework or jQuery/Javascript, it would be a good idea to check out the following resources: 
+The following steps explains how to actually extend the application. In addition, the following steps provides a guide to Thymeleaf templates, Spring, JavaScript and jQuery. 
 
 \begin{itemize}
 \setlength{\itemsep}{0cm}%
@@ -154,7 +154,7 @@ Hopefully, after reading this introduction you have gotten a fair understanding 
 
 \subsection{Administration interface structure}
 
-All files for the administration interface are located in three main folders, \verb!static/js!, \verb!templates! and \verb!web!. See figure \ref{fig:oac-folder-hierarchy} for a detailed overview. To extend the application you can just copy and modify existing files, or create new ones based on the skeleton provided in section \ref{subsubsec:skeletons}. The files needed to be modified of created are:
+All files for the administration interface are located in three main folders, \verb!static/js!, \verb!templates! and \verb!web!. See figure \ref{fig:oac-folder-hierarchy} for a detailed overview. To extend the application, the existing files can be copied or new ones created based on the skeleton provided in section \ref{subsubsec:skeletons}. The files that needs to be copied or created are:
 
 \begin{itemize}
 \item HTML template files in \verb!src/resources/templates/!
@@ -170,12 +170,25 @@ All files for the administration interface are located in three main folders, \v
   \end{figure}
 \end{center}
 
+\noindent OKSE contains of seven JavaScript modules: 
+
+\begin{description}
+    \item[main.js] \hfill \\ Responsible for the "Main"-pane. This module also contains all logic for setting the update interval all panes. Additionally, this is the location of the AJAX-module. 
+    \item[topics.js] \hfill \\ Responsible for the "Topics"-pane. This module contains all logic regarding topics, and includes refreshing the table containing all topics. 
+    \item[subscribers.js] \hfill \\ Responsible for the "Subscribers"-pane. This module contains all logic regarding subscribers. which includes, but are not limited to, refreshing the table containing all subscribers. 
+    \item[stats.js] \hfill \\ Responsible for the "Statistics"-pane. This module contains all logic for refreshing the statistics from OKSE.
+    \item[logs.js] \hfill \\ Responsible for the "Logs"-pane. This module requests the given log from OKSE and visualizes it.
+    \item[config.js] \hfill \\ Responsible for the "Configuration"-pane. This module is responsible for the configuration of OKSE. This includes the possibility to add topic mappings. 
+    \item[paginator.js] \hfill \\ This module controls all logic regarding the paginator that appears when the topic/subscriber tables exceed 25 elements. 
+    \item[okseDebug.js] \hfill \\ This is a jQuery-plugin that appends a logger to the document.
+\end{description}
+
 
 
 \subsubsection{Skeletons}
 \label{subsubsec:skeletons}
 
-Below is a skeleton for adding a new REST controller. The same applies for normal controllers, but then the \verb!@Controller! annotation is used in stead of the \verb!@RestController! annotation. When using this annotation, Spring will automatically find the controller on boot, and add the mapping to the dispatcher. 
+Below is a skeleton for adding a new REST controller. The same applies for normal controllers, with the \verb!@RestController! annotation changed to \verb!@Controller!. When using this annotation, Spring will automatically find the controller on boot, and add the mapping to the dispatcher. 
 
 \begin{lstlisting}[language=Java, captionpos=b, caption=Skeleton for a REST-controller, frame=bt, showstringspaces=false]
 @RestController
@@ -192,7 +205,7 @@ public class TestController() {
 }
 \end{lstlisting}
 
-Below is a skeleton for adding a new JavaScript module on the web page for displaying information from a controller. This only shows briefly how one would start to create new modules. To add the JS-file to the administration interface on rendering, append \verb!<script th:src="/js/<MODULE>.js"></script>! to the \verb!th:block! identified with "scripts" in the \verb!indexLoggedIn.html! template. \\ 
+Below is a skeleton for adding a new JavaScript module to the web page for displaying information from a controller. This only shows briefly how one would start to create new modules. To add the JS-file to the administration interface on rendering, append \verb!<script th:src="/js/<MODULE>.js"></script>! to the \verb!th:block! identified with "scripts" in the \verb!indexLoggedIn.html! template. \\ 
 
 \begin{lstlisting}[language=Java, captionpos=b, caption=Skeleton for a JavaScript module, frame=bt, showstringspaces=false]
 var MYPANE = (function($) { 
@@ -227,17 +240,17 @@ var MYPANE = (function($) {
 </html>
 \end{lstlisting}
 
-If you choose to add a new pane it's important to register the panes JavaScript module in the \verb!main.js! file. This is done by appending a \verb!switch-case! for your pane. Also remember to register the panes template in \verb!indexLoggedIn.html!
+When adding a new pane it's important to register the panes corresponding JavaScript module in the \verb!main.js! file. This is done by appending a \verb!switch-case! for your pane. It is also important to register the panes template in \verb!indexLoggedIn.html!
 
 \section{AMQP Send and Receive}
-With the OKSE source code, two simple test classes for AMQP is bundled. One that implements a receiver and one that implements a sender. The classes are used for amqprecv.jar and amqpsender.jar files that can be used to test the broker as mentioned in \ref{subsec:test_clients-amqp_receive} and \ref{subsec:test_clients-amqp_send}. The example classes is located in the folder \verb!src/main/java/no/ntnu/okse/examples/amqp! starting at the root of the project.
+Along with the source code, two simple test classes for AMQP are bundled. One that implements a receiver and one that implements a sender. The classes are used for amqprecv.jar and amqpsender.jar files that can be used to test the broker as mentioned in \ref{subsec:test_clients-amqp_receive} and \ref{subsec:test_clients-amqp_send}. The example classes are located in the folder \verb!src/main/java/no/ntnu/okse/examples/amqp! starting at the root of the project.
 
-Both classes has Apache Qpid Proton as a dependency and we would recommend that they are used together with Maven to fetch the needed dependencies.
+Both classes has Apache Qpid Proton as a dependency and it's recommended that they are used together with Maven to fetch the needed dependencies.
 
-In the following sections a walkthrough of the most important parts of the implementation will be given. To get a deep understanding of the implementation, the Qpid documentation\footnote{\url{http://qpid.apache.org/releases/qpid-proton-0.9.1/proton/java/api/index.html}} should be consulted.
+In the following sections, a walk-through of the most important parts of the implementation are provided. To get a deeper understanding of the implementation, the Qpid documentation\footnote{\url{http://qpid.apache.org/releases/qpid-proton-0.9.1/proton/java/api/index.html}} should be consulted.
 
 \subsection{AMQPSender}
-The example found below implements the needed code to send a message on a topic to an existing AMQP 1.0 server.
+The example below implements the needed code to send a message on a topic to an existing AMQP 1.0 server.
 
 \begin{lstlisting}[language=Java, captionpos=b, caption=Example use of Messenger to subscribe, frame=bt, showstringspaces=false,label={lst:AMQPSender}]
 // variables
@@ -257,13 +270,11 @@ mng.send();
 mng.stop();
 \end{lstlisting}
 
-\noindent Lets go through listing \ref{lst:AMQPSender} line by line;
-
 \begin{description}
-\item[1-3] \hfill \\ The first three lines declares variables, the first one is the server, port and topic. The second and third declares the message and the subject.
-\item[6-7] \hfill \\ Line 6 and 7 creates an message and starts it. The messenger is the client software that actually connects to the server.
-\item[8-9] \hfill \\ Line 8 and 9 creates an empty message and sets the address.
-\item[12-13] \hfill \\ Line 12 and 13 finishes the message and gives it to the manager.
+\item[1-3] \hfill \\ The first three lines declare variables, the server, port and topic. The second and third declares the message and the subject.
+\item[6-7] \hfill \\ Lines 6 and 7 creates a message and starts it. The messenger is the client software that actually connects to the server.
+\item[8-9] \hfill \\ Lines 8 and 9 creates an empty message and sets the address.
+\item[12-13] \hfill \\ Lines 12 and 13 finishes the message and gives it to the manager.
 \item[14] \hfill \\ Finally, line 14 will send the message to the given address.
 \end{description}
 
@@ -297,17 +308,15 @@ while (!done) {
 mng.stop();
 \end{lstlisting}
 
-\noindent Lets go through listing \ref{lst:AMQPReceiver} line by line;
-
 \begin{description}
-\item[1-2] \hfill \\ The first two lines are just for declaring some variables, the first one is the AMQP server we want to subscribe, the next is the amount of messages this particular implementation should accept before stopping.
+\item[1-2] \hfill \\ The first two lines describe the declaration of variables. The first one is the AMQP server, the next is the amount of messages this particular implementation should accept before stopping.
 
-\item[5-7] \hfill \\ Line 5-7 creates an instance of the messenger, starts it and subscribes to the address we defined earlier. Except for receiving the actual messages, this is basically what you need to implement to actually connect to a server.
+\item[5-7] \hfill \\ Lines 5 to 7 creates an instance of the messenger, starts it and subscribes to the address defined earlier. Except for receiving the actual messages, this is basically what must be implemented to actually connect to a server.
 
-\item[12] \hfill \\ Line 12 will tell the messenger to start receiving from the server. 
-\item[13-14] \hfill \\ Then line 13-14 will receive messages and create messages as long as there are any to receive.
+\item[12] \hfill \\ Line 12 tells the messenger to start receiving from the server. 
+\item[13-14] \hfill \\ Line 13 to 14 receive messages and creates messages as long as there are any to receive.
 
-\item[15] \hfill The last lines will just check if the receive limit is met and stop the program if it is.
+\item[15] \hfill The last lines check if the receive limit is met and stops the program if it is.
 \end{description}
 
 \clearpage

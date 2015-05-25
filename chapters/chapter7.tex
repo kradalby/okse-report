@@ -27,17 +27,17 @@ The planning phase of this project consisted mainly of defining the outer scope 
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-planning_and_research-planning_phase-discussion}
 
-All of the goals were achieved in this iteration. The work required during this phase was somewhat overestimated. This was mainly due to reaching agreement with the customer quickly, and the group working well together from the beginning. In total, 180 hours were spent on the planning phase, out of the 240 hours initially planned. The remaining 60 hours could have been used more efficiently. A portion of this time was used to construct the outlines of the report, but the remainder should have been allocated to the research phase. 
+All of the goals were achieved in this phase. The work required during this phase was somewhat overestimated. This was mainly due to reaching agreement with the customer quickly, and the group working well together from the beginning. In total, 180 hours were spent on the planning phase, out of the 240 hours initially planned. The remaining 60 hours could have been used more efficiently. A portion of this time was used to construct the outlines of the report, but the remainder should have been allocated to the research phase. 
 
 \subsection{Research phase}
 \label{subsec:project_lifecycle-planning_and_research-research_phase}
 
-The research phase of this project was initially introduced due to the option of using Apollo (section \ref{subsec:prestudies-existing_solutions-apache_apollo}) as the core of the system. Thus, the only goal of this phase was to do extensive research, and find out whether to expand Apollo or develop a new system. The research work was split into different focal points, in order to assess all the major points of uncertainty (table \ref{tab:risk_analysis_apollo}). At the end of this phase, a decision had to be made. This was anchored in the risk analysis, and could trigger the group to fall back to the alternative solution.
+The research phase of this project was initially introduced due to the option of using Apollo (see section \ref{subsec:prestudies-existing_solutions-apache_apollo}) as the core of the system. Thus, the only goal of this phase was to do extensive research, and find out whether to expand Apollo or develop a new system. The research work was split into different focal points, in order to assess all the major points of uncertainty (see table \ref{tab:risk_analysis_apollo}). At the end of this phase, a decision had to be made. This was anchored in the risk analysis, and could trigger the group to fall back to the alternative solution.
 
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-planning_and_research-research_phase-discussion}
 
-The group were able to reach a decision regarding the system. The choice was a result of the repeated evaluation of the focal points in the associated risk analysis (table \ref{tab:risk_analysis_apollo}). Two of the members were able to get a fairly good overview of the Scala programming language. However, problems arose when the code base was thoroughly inspected. It proved to be massive, and it required a lot more research to get a good enough understanding of. That also affected the time it would take to implement additional protocol modules. After hours of discussion, Apollo was ultimately discarded. The following arguments made the basis for the final decision:
+The group were able to reach a decision regarding the system. The choice was a result of the repeated evaluation of the focal points in the associated risk analysis (see table \ref{tab:risk_analysis_apollo}). Two of the members were able to get a fairly good overview of the Scala programming language. However, problems arose when the code base was thoroughly inspected. It proved to be massive, and it required a lot more research to get a good enough understanding of. That also affected the time it would take to implement additional protocol modules. After hours of discussion, Apollo was ultimately discarded. The following arguments made the basis for the final decision:
 
 \begin{itemize}
 \item The group did not have sufficient understanding of the asynchronous workings of the embedded Scala classes
@@ -51,7 +51,7 @@ A large amount of time had been invested in this research phase, and one might a
 \section{Development}
 \label{subsec:project_lifecycle-development}
 
-This section describes the iterations devoted to development and testing of the software. The following sections includes a general explanation of each sprint, as well as issues the group faced. With the development phase of the project, burndown charts were introduced. This was made in combination with a list of the tasks to be executed for each sprint, as well as the time usage on each task. Tasks that were not completed in a sprint were transferred to the next sprint. The tasks functioned as an interpretation of sprint backlogs. They do not directly consider the requirements or user stories, but rather work packages from the development part of the WBS (see section \ref{subsec:process_and_methodology-resource_management-work_breakdown}),  The charts does not consider time used on the report, peer evaluation and meetings with the customer.
+This section describes the iterations devoted to development and testing of the software. The following sections includes a general explanation of each sprint, as well as issues the group faced. With the development phase of the project, burndown charts were introduced. This was made in combination with a list of the tasks to be executed for each sprint, as well as the time usage on each task. Tasks that were not completed in a sprint were transferred to the next sprint. The tasks functioned as an interpretation of sprint backlogs. They do not directly consider the requirements or user stories, but rather work packages from the development part of the WBS (see section \ref{subsec:process_and_methodology-resource_management-work_breakdown}).  The charts do not consider time used on the report, peer evaluation and meetings.
 
 \subsection{Sprint 1}
 \label{subsec:project_lifecycle-development-sprint_1}
@@ -156,7 +156,7 @@ Create initial core service architecture & Completed \\
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-development-sprint_2-discussion}
 
-At the start of this sprint, quite a bit of content lacked on the report in order to deliver a satisfying mid term version. That prompted the group to dedicate a lot of time to the report. Some of the work regarding WSN had to pushed to the next sprint, along with other, less important tasks. Obviously, it would have been preferable to finish the work on time. However, quite a lot of time was left before a functional version of the WSN broker were to be completed. Thus, transferring the packages to the next sprint, seemed okay time-wise. Also, the customer seemed happy with the progress, and was satisfied with the topic handling part of the user interface. At this time, there were some minor issues with time and work distribution. It was difficult to assign specific tasks to members, and some time had to be contributed to deciding how to structure this.
+At the start of this sprint, quite a bit of content lacked on the report in order to deliver a satisfying mid term version. That prompted the group to dedicate a lot of time to the report. Some of the work regarding WSN had to pushed to the next sprint, along with other, less important tasks. Obviously, it would have been preferable to finish the work on time. However, quite a lot of time was left before a functional version of the WSN broker were to be completed. Thus, transferring the packages to the next sprint, seemed okay time-wise. Additionally, the customer seemed happy with the progress, and was satisfied with the topic handling part of the user interface. One group member was sick for most of this sprint. This prompted a redistribution of tasks, according to the risk analysis(\ref{sec:prestudies-risk_analysis}).
 
 \subsection{Sprint 3}
 \label{subsec:project_lifecycle-development-sprint_3}
@@ -258,7 +258,7 @@ Start looking into MQTT	& Not completed \\
 \label{subsec:project_lifecycle-development-sprint_4-discussion}
 
 The two main reasons for this sprint not containing the planned workload were major deliveries in other courses, as well as group members being in Oslo for summer job interviews.
-Due to the challenges discussed in the previous sprint, the group had to discuss the priority of requirements with the customer. The solution was to re-prioritize the requirements of MQTT and AMQP support. The result was that AMQP now was the first-in-line protocol to be implemented, bumping MQTT down at a lower priority level. Previously, both AMQP and MQTT had been at the same priority level. That led to a rework of the schedule for the remaining sprints. A lot of time was used for research on the remaining parts of WSN this sprint, along with a lot of report work. WSN proved to be more comprehensive and complex than initially expected, and more code was needed for the implementation than first expected. Even with this in mind, the group still somewhat underperformed. Too little time was dedicated to actual development work. This was an issue, and the solution was to dedicate a lot of time to development the next sprint. A new work plan was made for the remaining sprints.
+Due to the challenges discussed in the previous sprint, the group had to discuss the priority of requirements with the customer. The solution was to re-prioritize the requirements of MQTT and AMQP support. The result was that AMQP now was the first-in-line protocol to be implemented, pushing MQTT down at a lower priority level. Previously, both AMQP and MQTT had been at the same priority level. That led to a rework of the schedule for the remaining sprints. A lot of time was used for research on the remaining parts of WSN this sprint, along with a lot of report work. WSN proved to be more comprehensive and complex than initially expected, and more code was needed for the implementation than first expected. Even with this in mind, the group still somewhat underperformed. Too little time was dedicated to actual development work. This was an issue, and the solution was to dedicate a lot of time to development the next sprint. A new work plan was made for the remaining sprints.
 
 
 \begin{center}
@@ -286,7 +286,7 @@ Due to the challenges discussed in the previous sprint, the group had to discuss
  & Component test & & & & \\
  & Acceptance test & & & & \\
  & System test & & & & \\
- & Delivery & & 30.05 & 30.05 & Delivery day \\
+ & \textbf{Delivery} & & \textbf{30.05} & \textbf{30.05} & \textbf{Delivery day} \\
 \hline
 \end{tabular}
 \caption{Updated work plan}
@@ -336,7 +336,7 @@ Refactorization of JS & Completed \\
 \rowcolor{orange!40}
 AMQP subscribe & Not completed \\
 \rowcolor{green!30}
-AMQO Driver.stop() & Completed \\
+AMQP Driver.stop() & Completed \\
 \hline
 \end{tabular}
 \caption{Goal achievement for sprint 5}
