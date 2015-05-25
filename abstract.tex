@@ -1,0 +1,43 @@
+\clearpage
+\pagenumbering{roman} 				
+\setcounter{page}{1}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\renewcommand{\headrulewidth}{0.1ex}
+\renewcommand{\footrulewidth}{0.1ex}
+\fancyfoot[LE,RO]{\thepage}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[LE,RO]{\thepage}\renewcommand{\headrulewidth}{0ex}}
+
+\def\signature#1{\vbox{\hsize=5.5cm
+    \kern2cm
+    \hrule\kern1ex
+    \hbox to \hsize{\strut\hfil #1 \hfil}
+}}
+
+\section*{\Huge Abstract}
+\addcontentsline{toc}{chapter}{Abstract}	
+$\\[0.5cm]$
+
+\noindent This report describes the work done in the course IT2901 - Informatics Project II. The customer was the Norwegian Defence Research Establishment, which is a governmental organization responsible for research and development for the Norwegian Armed Forces. The assignment was to make an application that translates between different publish/subscribe protocols used in the Norwegian Armed Forces and the North Atlantic Treaty Organisation. The relevant protocols are the Web Services Notification protocol, Advanced Messaging Queuing Protocol, Message Queue Telemetry Transport and ZeroMQ. FFI and The Norwegian Armed Forces needed such a broker in order to participate in federated mission networking. This report mainly focuses on the development process. However, a thorough description of the product is also included. The parts regarding the implementation of the product, are targeted towards persons with technical competence. \\
+
+\begin{center}
+Trondheim, \today
+\end{center}
+
+\vspace*{\fill}
+
+\hbox to \hsize{\signature{Fredrik Christoffer Berg}\hfil
+    \signature{Kristoffer Andreas Breiland Dalby}} 
+
+\hbox to \hsize{\signature{Håkon Ødegård Løvdal}\hfil
+    \signature{Aleksander Skraastad}} 
+
+\hbox to \hsize{\signature{Fredrik Borgen Tørnvall}\hfil
+    \signature{Trond Walleraunet}} 
+
+\vspace*{\fill}
+
+\clearpage

@@ -95,7 +95,7 @@ All parts of the application must be documented according to the language specif
 \subsection{NFR3 - Open Source}
 \label{subsec:requirements_engineering-non_functional_requirements-open_source}
 
-The software shall be open source. The software shall be available for use, change and distribution by anyone. It will be licenced under the MIT licence \cite{mit-license}. The code will remain available on Github after completion.
+The software shall be open source. The software shall be available for use, change and distribution by anyone. It will be licenced under the MIT license \cite{mit-license}. The code will remain available on Github after completion.
 
 \section{User stories}
 \label{sec:requirements_engineering-user_stories}
@@ -134,6 +134,7 @@ The use-cases were mainly used for internal communication within the group, as a
 
 Below is the use case for the topic mapping part of the interface. The main goal is to administer the topics. After (and/or before) a publisher has added a topic, it must be able to map this topic to another topic. The topic mapping interface must also provide a way of creating a relay from messages received on one topic, to a different topic. For WSN, it must also be able to flag a topic to only allow messages using a particular WSN topic expression (dialect).
 
+{\centering
 \begin{table}[ht!]
 \begin{minipage}{.5\textwidth}
 \centering
@@ -169,10 +170,11 @@ Below is the use case for the topic mapping part of the interface. The main goal
 \centering
 \begin{center}
     \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/usecase/usecase_v3_map.png}}
-    \caption{U1 - Topic mapping}
+    \captionof{figure}{U1 - Topic mapping}
     \label{fig:u1}
 \end{center}
 \end{minipage}
 \end{table}
+}
 
 \clearpage

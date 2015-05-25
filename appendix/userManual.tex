@@ -5,7 +5,7 @@
 \begin{center}
   \begin{figure}[ht!]
     \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/oac/oac.png}}
-    \caption{The OKSE Admin Console login page} 
+    \caption{The OKSE Admin Console - Login page} 
     \label{fig:OKSE Admin Console login page}
   \end{figure}
 \end{center}
@@ -16,7 +16,7 @@ This chapter contains instructions for installing and using the OKSE Message Bro
 
 \section{Requirements}
 
-OKSE Message Broker requires Java Runtime Environment (JRE) version 8 update 31 or newer. The broker is developed and tested exclusively with this version. The software is available for free from http://java.com\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}}.
+OKSE Message Broker requires Java Runtime Environment (hereby denoted JRE) version 8 update 31 or newer. The broker is developed and tested exclusively with this version. The software is available for free from \verb!http://java.com!\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}}.
 
 For the JRE to function properly, it must be added to the path variable. On UNIX-based systems, like Linux or OS X, it is done by the Java installer. On windows, open up a command line window (cmd.exe) and type in:
 \begin{verbatim}
@@ -200,7 +200,7 @@ The OKSE Admin Console provides information about OKSE and it is operation envir
 \item Total amount of bad requests received by the system
 \item Total amount of errors received by the system
 \item Total amount of topics currently handled by the system
-\item Total amounf of subscribers currently handled by the system
+\item Total amount of subscribers currently handled by the system
 \item Total amount of publishers currently handled by the system
 \end{enumerate}
 %The Statistics pane provides a list of protocol servers with statistics per protocol and total usage. "Sent" denotes the amount of messages sent on the different protocols. "Received" denotes the amount of messages received on the current protocol. "Requests" are the total amount of requests on the protocol. The WSN protocol server requests are subscribe requests, messages sent to the broker, publisher registration, and attempts to access an endpoint address. AMQP requests are socket connections to the broker and messages sent to the broker. Bad requests on WSN appear whenever a request fails to complete correctly. AMQP does not count "Bad requests". Errors are counted on WSN when OKSE attempts to send a message, but are unable to reach the subscriber. In AMQP, errors are noted whenever someone attempts to connect to OKSE on AMQP's port, but the connection is not accepted. The usage panel shows the total statistics over all the protocols.
@@ -222,7 +222,7 @@ The OKSE Admin Console provides information about OKSE and it is operation envir
 \item Delete all existing topic mappings
 \item Delete the topic mapping on this line
 \item Set up a relay to another WSN compliant broker
-\item Delete all exisiting relays
+\item Delete all existing relays
 \item Delete the relay on this line
 \end{enumerate}
 %The Configuration pane has three sections; options, topic mapping and relays. The option section allows changing the update automatic refresh interval on the site. It is not recommended that this is set lower than 0.5 seconds. The "Use AMQP queues instead of pub/sub topics" changes the queue semantics of AMQP.

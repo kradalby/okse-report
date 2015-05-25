@@ -85,6 +85,8 @@ The most important thing to note regarding this main class, is that it is also t
 
 Extending the application with additional protocol support is done through use of the \verb!addProtocolServers()! method of the CoreService instance.
 
+The \verb!Application! class also exposes a static method for reading in configuration files. This method will also verify that the directory structure and necessary files exist. The \verb!readConfigurationFiles()! method does all this, and returns a \verb!Properties! object, which contains all the key-value pairs of the OKSE configuration file.
+
 \subsection{Administration interface}
 \label{subsec:administration_interface}
 
@@ -92,7 +94,7 @@ The OKSE administration console is built on the Spring framework, more exactly t
 
 \subsubsection{Back-end}
 
-The back-end of OKSE works as a RESTful Web Service. As the back-end uses the Spring framework, the main architectural approach for the back-end is based on Spring’s approach for building RESTful web services. All HTTP-requests are handled by a dedicated controller. These controllers are easily identified by the \verb!@RestController! annotation. Each controller is responsible for handling all HTTP-requests on given routes defined by \verb!@RequestMapping! annotations.  
+The back-end of OKSE works as a RESTful Web Service. As the back-end uses the Spring framework, the main architectural approach for the back-end is based on Spring’s approach for building RESTful web services. All HTTP-requests are handled by a dedicated controller. These controllers are easily identified by the \verb!@RestController! annotation. Each controller is responsible for handling all HTTP-requests on given routes defined by \verb!@RequestMapping! annotations. 
 
 \subsubsection{Front-end}
 
@@ -129,27 +131,254 @@ A practical example of how the singleton pattern is implemented in the OKSE core
 
 In the OKSE system, all services and protocol servers are run in their own personal thread. To ensure a thread safe execution environment, inspiration was gathered from the reactor pattern. The reactor pattern generally receives events concurrently, and demultiplexes them synchronously, before dispatching to event handlers.
 
-Although the OKSE system does not strictly implement separate dispatchers and event handlers, the basic idea stays the same. All singletons block on an internal task queue, awaiting new tasks (events) to be performed. The exact structure of these events and how they are consumed vary from service to service. 
+Although the OKSE system does not strictly implement separate dispatchers and event handlers, the basic idea stays the same. All singletons block on an internal task queue, awaiting new tasks (events) to be performed. The exact structure of these events and how they are consumed vary from service to service.
+
+This approach allows different threads running client requests to concurrently perform tasks on the services without having to worry about concurrent modification errors.
 
 \subsection{Observer pattern}
+
+Due to the asynchronous nature of the services, listener support is implemented in most of them. This allows the service in question to invoke callback methods synchronously after a task has been completed. The more general use of the observer pattern is that all changes in internal state at the core service level, will also update registered listener components. This allows components such as the WSNSubscriptionManager to automatically synchronize its internal state when a change occurs in the OKSE SubscriptionService.
 
 \section{Adding new protocols}
 \label{sec:adding-new-protocols}
 
-Something about AbstractProtocolServer class and ProtocolServer interface
+The OKSE system was designed such that extending the system with additional protocols should be as easy as possible. Some boilerplate code is still needed to have a minimum foundation on which the protocol server is intended to run.
+
+To add a new protocol to the OKSE system, the first step is to extend the \\\verb!AbstractProtocolServer! class. This will prompt the developer to implement a set of methods needed in a protocol server. Additionally, some extra static methods are needed for implementing it as a singleton.
+
+Below is an example of the structure of a class extending from the \\\verb!AbstractProtocolServer! class.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Adding a new protocol, frame=bt, showstringspaces=false]
+public class NewProtocolServer extends AbstractProtocolServer {
+
+    // Generic statics
+    private static Logger log;
+    private static NewProtocolServer _singleton;
+    private static Thread _serverThread;
+    private static boolean _invoked;
+    
+    // Internal defaults
+    private static final String DEFAULT_HOST = "0.0.0.0";
+    private static final Integer DEFAULT_PORT = 1337;
+    
+    // Custom fields
+    
+    // Private constructor
+    private NewProtocolServer(String host, Integer port) {
+        init(host, port);
+    }
+    
+    // Private init method
+    private init(String host, Integer port) {
+        // Host and port
+        if (host == null) this.host = DEFAULT_HOST;
+        else this.host = host;
+        if (port == null) this.port = DEFAULT_PORT;
+        else this.port = port;
+        
+        // Init the logger
+        log = Logger.getLogger(NewProtocolServer.class.getName());
+        
+        // Protocol server type
+        protocolServerType = "NewProtocol";
+        
+        // Update invoke flag
+        _invoked = true;
+    }
+    
+    // Public singleton object factory
+    public static NewProtocolServer getInstance() {
+        if (!_invoked) {
+            String configHost = null;
+            Integer configPort = null;
+            
+            /* Read from config file if exists... */
+            
+            _singleton = new NewProtocolServer(configHost, configPort);
+        }
+        
+        return _singleton;
+    }
+    
+    // Public boot method
+    public void boot() {
+        if (!_running) {
+            _running = true;
+            
+            // Instantiate necessary objects
+            // Start necessary support modules etc
+            
+            // Set up server thread
+            _serverThread = new Thread(() -> this.run());
+            _serverThread.setName(protocolServerType);
+            _serverThread.start();
+        }
+    }
+    
+    // Public run method
+    public void run() {
+        while (_running) {
+            // Main run loop that does what it is supposed to do.
+            // Blocking on a queue, or awaiting connections etc
+        }
+    }
+    
+    // Stop method
+    public void stopServer() {
+        _running = false;
+        _invoked = false;
+        /*
+            Stop server thread in here
+                                        */
+        _serverThread = null;
+        _singleton = null;
+    }
+    
+    // Get protocol type
+    public String getProtocolServerType() {
+        return this.protocolServerType;
+    }
+    
+    // Send message method that is called from MessageService
+    public void sendMessage(Message msg) {
+        // Check that the message came from another protocol
+        if (!msg.getOriginProtocol.equals(protocolServerType) {
+            // Perform needed actions to send msg here
+        }
+    }
+}
+\end{lstlisting}
+
+The only thing needed to include the new protocol in the OKSE system is to add it in the \verb!Application! class, through the \verb!CoreService!.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Registering a new protocol, frame=bt, showstringspaces=false]
+        // Initialize main system components
+        webserver = new Server();
+        cs = CoreService.getInstance();
+
+        /* ... */
+
+        /* REGISTER PROTOCOL SERVERS HERE */
+        cs.addProtocolServer(WSNotificationServer.getInstance());
+        cs.addProtocolServer(AMQProtocolServer.getInstance());
+        cs.addProtocolServer(NewProtocolServer.getInstance());
+\end{lstlisting}
 
 \section{Adding new core services}
 \label{sec:adding-new-core-services}
 
-Something about AbstractCoreService, Singleton pattern and the needed methods to accomplish this, and the abstract methods needed from the super class
+The OKSE system was designed such that extending the system with additional core services should be as easy as possible. Some boilerplate code is still needed to have a minimum foundation on which the core service is intended to run.
+
+To add a new core service to the OKSE system, the first step is to extend the \\\verb!AbstractCoreService! class. This will prompt the developer to implement a set of methods needed in a core service. Additionally, some extra static methods are needed for implementing it as a singleton.
+
+Below is an example implementation of a new core service, which extends the \\\verb!AbstractCoreService! class. No clear purpose is defined for this service other than for the intent of clarifying the structure.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Creating a new core service, frame=bt, showstringspaces=false]
+public class NewService extends AbstractCoreService {
+
+    // Generic statics
+    private static NewService _singleton;
+    private static Thread _serviceThread;
+    private static boolean _invoked;
+    
+    // Event queue
+    private LinkedBlockingQueue<SomeEvent> queue;
+    
+    // Custom fields
+    Properties config;
+    
+    // Protected constructor (for unit test subclassing purposes)
+    protected NewService() {
+        // Pass the classname to super to init the logger
+        super(NewService.class.getName());
+        if (_invoked) throw new IllegalStateException("Already invoked");
+        init();
+    }
+    
+    // Initialization helper method
+    private init() {
+        queue = new LinkedBlockingQueue<>();
+        config = Application.readConfigurationFiles();
+        _invoked = true;
+    }
+    
+    // Static object factory for singleton
+    public static NewService getInstance() {
+        if (!_invoked) _singleton = new NewService();
+        return _singleton;
+    }
+    
+    // Public boot method
+    public void boot() {
+        if (!_running) {
+            log.info("Booting NewService");
+            _serviceThread = new Thread(() -> this.run());
+            _serviceThread.setName("NewService");
+            _serviceThread.start();
+        }
+    }
+    
+    // Public run method
+    public void run() {
+        _running = true;
+        while (_running) {
+            try {
+                Event event = queue.take();
+                /* Handle event here... */
+                
+            } catch (InterruptedException e) {
+                log.error("Interrupted during event queue fetch");
+            }
+        }
+        
+        log.info("NewService stopped");
+    }
+    
+    // Stop method
+    public void stop() {
+        _running = false;
+        /* Stop serviceThread here */
+        
+        /* An example is to send a no-op event to the queue */
+        _serverThread = null;
+        _singleton = null;
+        _invoked = false;
+    }
+    
+    // Register listener support
+    public void registerListenerSupport() {
+        /*  Add all commands to register this new service
+            as a listener to other services here
+            as it will be called after all services
+            are booted.
+        */
+    }
+}
+\end{lstlisting}
+
+The only thing needed to include the service in the OKSE system is to register it in the \verb!Application! class, through the \verb!CoreService!.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Registering a new service, frame=bt, showstringspaces=false]
+        // Initialize main system components
+        webserver = new Server();
+        cs = CoreService.getInstance();
+
+        /* REGISTER CORE SERVICES HERE */
+        cs.registerService(TopicService.getInstance());
+        cs.registerService(MessageService.getInstance());
+        cs.registerService(SubscriptionService.getInstance());
+        cs.registerService(NewService.getInstance());
+
+        /* ... */
+\end{lstlisting}
 
 \section{Extending the administration interface}
 \label{sec:adding-new-panes}
 
-This section describes how the administration interface might be extended with new content and functionality. Figure \ref{fig:spring} visualizes how the system handles events and exposes information to the users. The key concepts to notice here are the AJAX-requests and the controllers. On an event, whether it is a page auto update or a button-click, the request URL is accessed by the AJAX-request. Springs dispatcher maps the URL and forwards it to the correct controller. This controller interacts with OKSE's services and returns a response.
+This section describes how the administration interface might be extended with new content and functionality. Figure \ref{fig:spring} visualizes how the system handles events and exposes information to the users. The key concepts to notice here are the AJAX-requests and the controllers. On an event, whether it is a page auto update or a button-click, the request URL is accessed by the AJAX-request. Springs dispatcher maps the URL and forwards it to the correct controller. This controller interacts with OKSEs services and returns a response.
 
 \begin{itemize}
-    \item\textbf{Dispatcher} -  This is the class that is exposed to the user. It forwards request URL's to the mapping handler to reach the correct controller. It then calls the controller responsible for the request. Finally it returns the response to the user. 
+    \item\textbf{Dispatcher} -  This is the class that is exposed to the user. It forwards request URLs to the mapping handler to reach the correct controller. It then calls the controller responsible for the request. Finally it returns the response to the user. 
     \item\textbf{Mapping handler} - This class maps the request URL to the controller responsible for the request, and returns it to the dispatcher. 
     \item\textbf{Controller} - This is the class responsible for executing tasks and getting information from the message broker. It returns a JSON response \footnote{\url{http://json.org}} string to the dispatcher.  
 \end{itemize}

@@ -60,7 +60,7 @@ Combining report writing and development proved to be an issue. Although all of 
 \subsection{Evaluation}
 \label{subsec:project_evaluation-development-evaluation}
 
-Overall, the development period worked out fairly well. The main issues were with resource and time management. Not enough work was devoted to the project in the early stages of the process. This proved to be an issue later on, especially due to the task being more difficult than the initial assessment. Although this was sub-optimal, the issue was solved by adding more hours towards the end of the project. Less emphasis were put on test-driven development as the project went on, but it didn't affect the product in a considerable way. Apart from that, the process model and methodology worked well. Below is a diagram showing the work distribution among the major tasks.
+Overall, the development period worked out well. The main issues were with resource and time management. Not enough work was devoted to the project in the early stages of the process. This proved to be an issue later on, especially due to the task being more difficult than the initial assessment. Although this was sub-optimal, the issue was solved by adding more hours towards the end of the project. Less emphasis were put on test-driven development as the project went on, but it didn't affect the product in a considerable way. Apart from that, the process model and methodology worked well. Below is a diagram showing the work distribution among the major tasks.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -90,33 +90,42 @@ The group also occasionally talked with other groups. The discussions were mainl
 \section{Implementation}
 \label{sec:Implementation}
 
+Looking back at the groups initial expectations, compared to the challenge and complexity of the task known today, the group is quite pleased with the result. What seemed like a somewhat straight forward implementation using existing libraries, turned into tough challenges and exploration.
+
+It is worthwhile to mention that to the best of our knowledge, no other application exists that does what the group was asked to develop. The group did not manage to find a single brokering application supporting the WSN protocol, that was not embedded into a larger enterprise system. Additionally, general purpose clients were also very hard to find, thus resulting in the use of libraries to implement simple test clients during development.
+
+In depth explanations of the different challenges are described in subsequent sections below.
+
 [HUSK Å REFERER TIL TESTER SAMT SYSTEM REQUIREMENTS HER]
 
-The group were satisfied with how the system turned out. It does what it was supposed to do and performs well, with no bottlenecks. The code is structured and documented in a good way, and modularized to make it as simple as possible to extend the system. There are still some small issues with the broker, but the main functionality is in place. The system as a whole lacks unit tests for most of the services. This was mainly due to time concerns, and the wish to focus on finishing the product towards the end. Thus, unit tests had a lower priority as the system was coming together.
+[Below stuff is not good enough]
+The group were satisfied with how the system turned out. It does what it was supposed to do and performs well. The code is structured and documented in a good way, and modularized to make it as simple as possible to extend the system. There are still some small issues with the broker, but the main functionality is in place. The system as a whole lacks unit tests for most of the services. This was mainly due to time concerns, and the wish to focus on finishing the product towards the end. Thus, unit tests had a lower priority as the system was coming together.
 
 \subsection{Web technologies}
 \label{subsec:Web_technologies}
 
-Several development tools and libraries were used in the Java implementation. Bootstrap and jQuery generally made it simpler and less time-consuming to build the web application. Bootstrap also made it simple to give the site a clean and intuitive design. All the requirements\ref{sec:requirements_engineering-functional_requirements} related to the user interface were tested and met.
+Several development tools and libraries were used in the Java implementation. Bootstrap and jQuery generally made it simpler and less time-consuming to build the web application. Bootstrap also made it simple to give the site a clean and intuitive design. All the requirements (see section \ref{sec:requirements_engineering-functional_requirements}) related to the user interface were tested and met.
 
 In retrospect, the group learned that the use of WebSockets \cite{web-sockets} would have been a better approach for the administration interface. The system is now designed with AJAX for real-time update of content. It's not very scalable, and may result in high server load. Using WebSockets for this purpose would have proven much more efficient. Similar to the publish/subscribe pattern, WebSockets notify clients on a state change, instead of the clients constantly asking the server for the newest state. WebSockets wouldn't make AJAX obsolete, but it would have been a better solution for serving true real-time update of content. AJAX would still have been used for making short-lived web service calls (e.g. HTTP DELETE requests). \\
 
 
 \subsection{Broker}
 \label{subsec:Implementation_broker}
-SKRIV GENERELT OM HVORDAN BROKEREN FUNGERER HER, HVA VAR BRA, HVA KUNNE VÆRT BEDRE, HVA LÆRTE VI MENS VI STYRA MED DENNE SKITEN HER
+
 
 \subsection{WSN}
 \label{subsec:evaluation-implementation-wsn}
 WS-Nu, hva var bra, hva er fucked osv.
 
-Generally, the WSN implementation worked as it was supposed to. All requirements relating to WSN was implemented correctly. However, some deviations in testing occured. There were some issues with duplicate namespace declarations when sending different requests(See Appendix \ref{appendix-c:system_test_cases}). 
+Generally, the WSN implementation worked as it was supposed to. All requirements relating to WSN was implemented correctly. However, some deviations in testing occured. There were some issues with duplicate namespace declarations when sending different requests (see appendix \ref{appendix-c:system_test_cases}). 
 
 \subsection{AMQP}
 \label{subsec:Implementation_AMQP}
 
-[!!!!VET IKKE HVA VI SKAL GJØRE MED DET SOM STÅR HER!!!!!!!!!!!]
-
 During the first iteration of AMQP implementation, some challenges were uncovered. The largest one was the handling of topic and queues. As a queue is a different concept compared to a topic, the implemented solution gave the user an option to choose which solution to use. Implementing Simple Authentication and Security Layer (SASL) support for authentication was another issue that proved difficult. The solution was to let the user choose whether or not to use it. The solution wasn't optimal, but works as expected.
 
 Another challenge regarding the construction of outgoing AMQP messages, was to convert a Java object to a fixed size byte array. As AMQP is a byte level protocol, this had to be resolved. The solution was to as accurately as possible calculate the objects byte size. This was done using qualified guessing by looking at the different parts of the object. After a lot of testing, the final guess only missed with between 6-12 bytes. The final size of an object was found by trial and error. 
+
+After the finalization of AMQP, the testing of the protocol implementation revealed to be more difficult than first thought. Finding applications that implements the 1.0 standard was difficult. FFI provided a version of NFFIPlayer (see section \ref{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer}) with AMQP which implemented the 0.9.1 standard. However, due to the significant changes in the standard, it could not be used to any extent.
+
+To be able to test the implementation properly, a functioning implementation was required. Two AMQP 1.0 Java implementations were found, and simple scripts were written to test both send and receive functionality. As there was a limited amount of free/open implementations, the group ended up using one open source solution from Apache Qpid (not proton) \cite{apache-qpid} and one commercial from SwiftMQ \cite{swift-mq}. By using these implementations, the basis for stating the correctness of the implementation and the quality of the product was solid. The final test results are reflected in table \ref{table:system-testing-cases-fr11-13}. All of the tests regarding AMQP passed. As the AMQP implementation was quite a lot smaller than WSN, it was easier to test.

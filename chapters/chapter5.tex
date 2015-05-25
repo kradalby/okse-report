@@ -30,7 +30,7 @@ A user manual, including a visual guide to the interface, can be found in append
 \subsection{Implementation}
 \label{subsec:architecture_and_implementation-implementation}
 
-The OKSE administration interface was designed in a modularized way, to achieve loose coupling as defined by the modularization requirement(\ref{subsec:requirements_engineering-non_functional_requirements-modularization}). Each pane of the interface would have it's own controller and a respective front-end JavaScript file. The advantage of this approach was having the administration panel designed as a single page web application. The page uses AJAX-requests to reach a representational state transfer (hereby denoted as REST) API. By using the Spring Framework, the system exposes API-endpoints which can be used to access and/or modify data. This is the main data source for the front-end and is a critical part of the single page design. Translated to the MVC-pattern, the Spring Framework works as a controller through REST-controllers, and the different panes works as views. Each AJAX-request to the API-endpoints will reach the controllers and modify the models and/or message broker. Structuring the system this way gave some advantages: 
+The OKSE administration interface was designed in a modularized way, to achieve loose coupling as defined by the modularization requirement (see section  \ref{subsec:requirements_engineering-non_functional_requirements-modularization}). Each pane of the interface would have it's own controller and a respective front-end JavaScript file. The advantage of this approach was having the administration panel designed as a single page web application. The page uses AJAX-requests to reach a representational state transfer (hereby denoted REST) API. By using the Spring Framework, the system exposes API-endpoints which can be used to access and/or modify data. This is the main data source for the front-end and is a critical part of the single page design. Translated to the MVC-pattern, the Spring Framework works as a controller through REST-controllers, and the different panes works as views. Each AJAX-request to the API-endpoints will reach the controllers and modify the models and/or message broker. Structuring the system this way gave some advantages: 
 
 \begin{itemize}
     \item No need to refresh the entire administration panel.
@@ -254,7 +254,7 @@ The \verb!WSNCommandProxy! is the main WSN brokering implementation. It contains
 
 Since the command proxy is an extension of the WS-Nu abstract notification broker class, it interacts seamlessly with the rest of the WS-Nu components.
 
-The command proxy also holds an instance of the \verb!WSNSubscriptionManager! and \verb!WSNRegistrationManager! classes, and delegates some of its responsibilities to these instances. This module assesses most of the requirements related to the structure of WSN, specifically FR1 to FR6 and FR10(See section \ref{sec:requirements_engineering-functional_requirements}).
+The command proxy also holds an instance of the \verb!WSNSubscriptionManager! and \verb!WSNRegistrationManager! classes, and delegates some of its responsibilities to these instances. This module assesses most of the requirements related to the structure of WSN, specifically FR1 to FR6 and FR10 (see section \ref{sec:requirements_engineering-functional_requirements}).
 
 \subsubsection{WSNSubscriptionManager}
 
@@ -268,7 +268,7 @@ In the event of an unsubscribe request, a \verb!removeSubscriber()! call is perf
 
 This kind of control flow allows the manager to automatically update itself. In the event of a subscriber being forcefully removed from the administration interface, or its subscription having expired in the OKSE \verb!SubscriptionService!, the manager will be updated through this event callback mechanism.
 
-The subscription manager assesses the functional requirements related to the subscribe mechanisms of WSN. Specifically FR7, 8 and 9(See section \ref{sec:requirements_engineering-functional_requirements}).
+The subscription manager assesses the functional requirements related to the subscribe mechanisms of WSN. Specifically FR7, 8 and 9 (see section \ref{sec:requirements_engineering-functional_requirements}).
 
 \subsubsection{WSNRegistrationManager}
 
@@ -299,10 +299,10 @@ Simultaneously as the event queue gets new events, the event loop is continuousl
 The AMQPServer handler is responsible for the incoming and outgoing messages. It handles the messages that come from AMQP producers and the internal messages from other protocols. It has an internal message queue where messages are stored until the corresponding event is triggered. It handles conversion of messages from AMQP format to the OKSE internal representation, and dispatching to the message service. It is implemented with optimizations to get AMQP messages out fast, and to prevent loops. When an AMQP message is received, it will automatically dispatch the AMQP message back to AMQP subscribers, and the OKSE message to the WSN subscribers.
 
 \subsubsection{Driver}
-The event loop and the socket logic is implemented in the Driver class. This class is responsible for accepting incoming connections, and handle the incoming requests. After a connection is opened with a client, every request received is passed to Qpid, which decodes the instruction and adds it back to the Driver in the form of an event. The event is added straight to a collector, which is used as the event queue. The event loop that is running continuously, will dispatch events as long as there are any in the queue. If there are no events, it will enter a wait state.
+The event loop and the socket logic is implemented in the Driver class. This class is responsible for accepting incoming connections, and handle the incoming requests. After a connection is opened with a client, every request received is passed to Qpid, which decodes the instruction and adds it back to the Driver in the form of an event. The event is added straight to a collector, which is used as the event queue. The event loop that is running continuously, will dispatch events as long as there are any in the queue. If there are no events, it will enter a wait state. The driver is responsible for the handling of requirement FR11 (see section \ref{sec:requirements_engineering-functional_requirements}).
 
 \subsubsection{SubscriptionHandler}
-In the SubscriptionHandler class, the handling of subscribers and their routes/topics is handled. Additionally, it handles the basic information about a sender/producer and the integration with the systems centralized subscriber system. The functionality in this handler is based on addition and removal of subscribers. When a subscribe request occurs, the handler will add the user to the internal subscriber map, the system wide subscriber database and update the administration interface accordingly. When a subscriber disconnects, it removes the disconnected subscriber in the same manner. This class assesses the the requirements FR12 and FR13(See section \ref{sec:requirements_engineering-functional_requirements}), about subscribing using AMQP.
+In the SubscriptionHandler class, the handling of subscribers and their routes/topics is handled. Additionally, it handles the basic information about a sender/producer and the integration with the systems centralized subscriber system. The functionality in this handler is based on addition and removal of subscribers. When a subscribe request occurs, the handler will add the user to the internal subscriber map, the system wide subscriber database and update the administration interface accordingly. When a subscriber disconnects, it removes the disconnected subscriber in the same manner. This class assesses the the requirements FR12 and FR13 (see section \ref{sec:requirements_engineering-functional_requirements}), about subscribing using AMQP.
 
 \subsubsection{Handshaker}
 The Handshaker handles all of the open and close events of a connection. It makes sure that the initiation of the connection, session and link is done properly. It also ensures that it is closed properly when the link is broken or disconnected.
@@ -321,7 +321,6 @@ WSN and AMQP use different behaviour for handling topics/queues. As WSN is a pur
 In the initial implementation, the system only complied with the given standards for each protocol. To cope with the differences, the group implemented logic to handle the conversion between the two behaviours. In addition, the group consulted the customer with the idea of implementing a non-standard topic implementation of AMQP. This meant that AMQP could be used with the same behaviour as WSN, and that all AMQP subscribers on one topic/queue would receive the message. The customer liked the idea, as it would fit nicely with their usage pattern. 
 
 A configuration switch was implemented to select which mode to use. The switch is available through the configuration file and the web administration interface. The logic for this feature is implemented in AMQPServer, which as previously stated is responsible for the outgoing message logic.
-
 
 
 \clearpage
