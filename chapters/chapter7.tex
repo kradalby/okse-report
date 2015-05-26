@@ -46,12 +46,12 @@ The group was able to reach a decision regarding the system. The choice was a re
 \item The group could not justify proceeding with Apollo, given the time available and the risk of not being able to gain a proper understanding in time to complete a working product.
 \end{itemize}
 
-A large amount of time had been invested in this research phase, and one might argue that it impacted the product development in a negative way. This is mainly due to lost development time. The positive aspect of it was that several good practices and ways to implement a brokering system were learned. Additionally, the group might not have been able to finish a working product in time, had the decision been to proceed with Apollo before understanding the amount of effort required.
+A large amount of time had been invested in this research phase, and one might argue that it impacted the product development in a negative way. This is mainly due to lost development time. The positive aspect of it was that several good practices and ways to implement a brokering system were learned. Additionally, the group might not have been able to finish a working product in time, had the decision been to proceed with Apollo before understanding the amount of knowledge and effort required.
 
 \section{Development}
 \label{subsec:project_lifecycle-development}
 
-This section describes the iterations devoted to development and testing of the software. The following sections includes a general explanation of each sprint, as well as issues the group faced. With the development phase of the project, burndown charts were introduced. The charts reflect the planned and actual time usage for each sprint. This was made in combination with a list of the tasks to be executed for each sprint. Tasks that were not completed in a sprint were transferred to the next sprint. The tasks functioned as an interpretation of sprint backlogs. They do not directly consider the requirements or user stories, but rather work packages from the development part of the WBS (see section \ref{subsec:process_and_methodology-resource_management-work_breakdown}).  The charts do not consider time used on the report, peer evaluation and meetings.
+This section describes the iterations devoted to development and of the software. The following sections includes a general explanation of each sprint, as well as issues the group faced. With the development phase of the project, burndown charts were introduced. The charts reflect the planned and actual time usage for each sprint. This was made in combination with a list of the tasks to be executed for each sprint. Tasks that were not completed in a sprint were transferred to the next sprint. The tasks functioned as an interpretation of sprint backlogs. They do not directly consider the requirements or user stories, but rather work packages from the development part of the WBS (see section \ref{subsec:process_and_methodology-resource_management-work_breakdown}).  The charts do not consider time used on non-development tasks like the report, peer evaluation and meetings.
 
 \subsection{Sprint 1}
 \label{subsec:project_lifecycle-development-sprint_1}
@@ -156,7 +156,7 @@ Create initial core service architecture & Completed \\
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-development-sprint_2-discussion}
 
-At the start of this sprint, quite a bit of content lacked on the report in order to deliver a satisfying mid term version. That prompted the group to dedicate a lot of time to the report. Some of the work regarding WSN had to pushed to the next sprint, along with other, less important tasks. Obviously, it would have been preferable to finish the work on time. However, quite a lot of time was left before a functional version of the WSN broker were to be completed. Thus, transferring the packages to the next sprint, seemed okay time-wise. Additionally, the customer seemed happy with the progress, and was satisfied with the topic handling part of the user interface. One group member was ill throughout much of the sprint. This prompted a redistribution of tasks, according to the risk analysis (see section \ref{sec:prestudies-risk_analysis}).
+At the start of this sprint, quite a bit of content lacked on the report in order to deliver a satisfying mid term version. That prompted the group to dedicate a lot of time to the report. Some of the work regarding WSN had to pushed to the next sprint, along with other, less important tasks. Obviously, it would have been preferable to finish the work on time. However, quite a lot of time was left before a functional version of the WSN broker was to be completed. Thus, transferring the packages to the next sprint did not cause much concern time-wise. Additionally, the customer seemed happy with the progress, and was satisfied with the topic handling part of the user interface. One group member was ill throughout much of the sprint. This prompted a redistribution of tasks, according to the risk analysis (see section \ref{sec:prestudies-risk_analysis}).
 
 \subsection{Sprint 3}
 \label{subsec:project_lifecycle-development-sprint_3}
@@ -257,7 +257,7 @@ Start looking into MQTT	& Not completed \\
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-development-sprint_4-discussion}
 
-The two main reasons for this sprint not containing the planned workload were major deliveries in other courses, as well as group members being in Oslo for summer job interviews. Due to the challenges discussed in the previous sprint, the group had to discuss the priority of requirements with the customer. The solution was to re-prioritize the requirements of MQTT and AMQP support. The result was that AMQP now was the first-in-line protocol to be implemented, pushing MQTT down at a lower priority level. Previously, both AMQP and MQTT had been at the same priority level. That led to a rework of the schedule for the remaining sprints. A lot of time was used for research on the remaining parts of WSN this sprint, along with a lot of report work. WSN proved to be more comprehensive and complex than initially expected, and more code was needed for the implementation than first expected. Even with this in mind, the group still somewhat underperformed. Too little time was dedicated to actual development work. This was an issue, and the solution was to dedicate a lot of time to development the next sprint. A new work plan was made for the remaining sprints.
+The two main reasons for this sprint not containing the planned workload were major deliveries in other courses, as well as group members being in Oslo for summer job interviews. Due to the challenges discussed in the previous sprint, the group had to discuss the priority of requirements with the customer. The solution was to re-prioritize the requirements of MQTT and AMQP support. The result was that AMQP now was the first-in-line protocol to be implemented, pushing MQTT down at a lower priority level. Previously, both AMQP and MQTT had been at the same priority level. That led to a rework of the schedule for the remaining sprints. A lot of time was used for research on the remaining parts of WSN this sprint, along with a lot of report work. WSN proved to be more comprehensive and complex than initially expected, and more code was needed for the implementation than first expected. Even with this in mind, the group still somewhat underperformed. Too little time was dedicated to actual development work. This was an issue, and the solution was to dedicate a lot of time to development the next sprint. A new work plan was made for the remaining sprints (see table \ref{tab:workplan, revised}).
 
 
 \begin{center}
@@ -279,11 +279,10 @@ The two main reasons for this sprint not containing the planned workload were ma
 \hline 
 \textbf{8} & \textbf{Iteration 6} & \textbf{9} & \textbf{04.05} & \textbf{15.05} & \textbf{Ascension day} \\
  & Finalize AMQP & & & & \\
+ & Acceptance test & & & & \\
 \hline
 \textbf{9} & \textbf{End phase} & \textbf{8} & \textbf{22.05} & \textbf{30.05} & \\
  & Documentation & & & & \\
- & Component test & & & & \\
- & Acceptance test & & & & \\
  & System test & & & & \\
  & \textbf{Delivery} & & \textbf{30.05} & \textbf{30.05} & \textbf{Delivery day} \\
 \hline
@@ -325,7 +324,7 @@ Perform component testing of WSNotification	& Not completed \\
 \rowcolor{orange!40}
 Create subscribers-pane	& Not completed \\
 \rowcolor{green!30}
-General fix in UI & Completed \\
+Refactor and improve UI responsiveness & Completed \\
 \rowcolor{green!30}
 Update GUI to new methods in CoreService & Completed \\
 \rowcolor{green!30}
@@ -354,7 +353,7 @@ AMQP Driver.stop() & Completed \\
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-development-sprint_5-discussion}
 
-Almost all resources were assigned to implementation this sprint, and a lot of work was done on the system. Although a fair amount of the packages were not fully completed at the end, WSN only lacked proper testing before completion. A lot of work had also been done on AMQP, and the protocol proved much simpler than WSN. Thus, the project was almost back on schedule, and it seemed likely that the implementation would be completed after the next sprint. It did however, seem unlikely that there were any time to implement MQTT. Thus, MQTT was completely abandoned during the group meeting at the end of the sprint. The customer was notified of this, and was okay with the choice after hearing the reasoning.
+Almost all resources were assigned to implementation this sprint, and a lot of work was done on the system. Although a fair amount of the packages were not fully completed at the end, WSN only lacked proper testing before completion. A lot of work had also been done on AMQP, and the protocol proved much simpler than WSN. Thus, the project was almost back on schedule, and it seemed likely that the implementation would be completed after the next sprint. It did however, seem unlikely that there was sufficient time to implement MQTT. Thus, MQTT was completely abandoned during the group meeting at the end of the sprint, with compliance from the customer. The group noted that research done on the MQTT protocol, and libraries of interest should be documented in the report regardless.
 
 \subsection{Sprint 6}
 \label{subsec:project_lifecycle-development-sprint_6}
