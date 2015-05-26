@@ -37,7 +37,7 @@ This manual provides an overview of the initial steps needed to extend and furth
 The recommended setup, as noted below, is using IntelliJ IDEA\footnote{\url{https://www.jetbrains.com/idea/}} as the Java IDE. However, other IDEs that meet the requirements listed below, or a combination should suffice. 
 
 \subsection{Java}
-The minimum required major version of Java is 8, and it's recommend to use the latest minor release. Currently, Java 8 version 31 is the version used to compile the packaged version of OKSE.
+The minimum required major version of Java is 8, and it is recommend to use the latest minor release. Currently, Java 8 version 31 is the version used to compile the packaged version of OKSE.
 
 \subsection{Apache Maven}
 The project source code, tests and dependency management is structured with Apache Maven\footnote{\url{https://maven.apache.org}}. Maven is used to fetch dependencies, run tests and build the final jar files. The minimum major version of Maven is 3, and any minor version from 3.0.5 and up can be used. The version used for the current version of the system is 3.3.3.
@@ -129,7 +129,7 @@ The \verb!Application! class also exposes a static method for reading in configu
 \subsection{Administration interface}
 \label{subsec:administration_interface}
 
-The OKSE administration console is built on the Spring framework, more exactly the spring-boot package\footnote{\url{https://spring.io/guides/gs/rest-service/}} with Thymeleaf-templates\footnote{\url{http://www.thymeleaf.org}}. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript. The administration interface is built in a modular way, to achieve loose coupling of modules. Each pane of the interface has its own controller and respective front-end JavaScript.  With this approach it's easy to extend the web interface.
+The OKSE administration console is built on the Spring framework, more exactly the spring-boot package\footnote{\url{https://spring.io/guides/gs/rest-service/}} with Thymeleaf-templates\footnote{\url{http://www.thymeleaf.org}}. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript. The administration interface is built in a modular way, to achieve loose coupling of modules. Each pane of the interface has its own controller and respective front-end JavaScript.  With this approach it is easy to extend the web interface.
 
 \subsubsection{Back-end}
 
@@ -137,7 +137,7 @@ The back-end of OKSE works as a RESTful Web Service. As the back-end uses the Sp
 
 \subsubsection{Front-end}
 
-The front-end of OKSE is the only component of the system that is directly accessible for graphical user interaction. It's responsible for making HTTP-requests to the back-end for manipulation and presentation of the state OKSE is currently in. See chapter \ref{subsec:architecture_and_implementation-implementation} for a more detailed description of the front-end architecture.
+The front-end of OKSE is the only component of the system that is directly accessible for graphical user interaction. It is responsible for making HTTP-requests to the back-end for manipulation and presentation of the state OKSE is currently in. See chapter \ref{subsec:architecture_and_implementation-implementation} for a more detailed description of the front-end architecture.
 
 \subsection{Interacting with the MessageService}
 \label{subsec:components-interacting_with_the_messageservice}
@@ -747,12 +747,12 @@ var MYPANE = (function($) {
 </html>
 \end{lstlisting}
 
-When adding a new pane it's important to register the panes corresponding JavaScript module in the \verb!main.js! file. This is done by appending a \verb!switch-case! for your pane. It is also important to register the panes template in \verb!indexLoggedIn.html!
+When adding a new pane it is important to register the panes corresponding JavaScript module in the \verb!main.js! file. This is done by appending a \verb!switch-case! for your pane. It is also important to register the panes template in \verb!indexLoggedIn.html!
 
 \section{AMQP Send and Receive}
 Along with the source code, two simple test classes for AMQP are bundled. One that implements a receiver and one that implements a sender. The classes are used for amqprecv.jar and amqpsender.jar files that can be used to test the broker as mentioned in \ref{subsec:test_clients-amqp_receive} and \ref{subsec:test_clients-amqp_send}. The example classes are located in the folder \verb!src/main/java/no/ntnu/okse/! \verb!examples/amqp! starting at the root of the project.
 
-Both classes has Apache Qpid Proton as a dependency and it's recommended that they are used together with Maven to fetch the needed dependencies.
+Both classes has Apache Qpid Proton as a dependency and it is recommended that they are used together with Maven to fetch the needed dependencies.
 
 In the following sections, a walk-through of the most important parts of the implementation are provided. To get a deeper understanding of the implementation, the Qpid documentation\footnote{\url{http://qpid.apache.org/releases/qpid-proton-0.9.1/proton/java/api/index.html}} should be consulted.
 

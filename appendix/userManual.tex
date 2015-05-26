@@ -37,7 +37,7 @@ The following sections describes how to download and run OKSE. Apart from JRE, n
 
 \subsection{Download software}
 
-Download the latest version of OKSE Message Broker from \url{http://okse.fap.no/} or use the version provided with this document. The files can be placed at any location within the filesystem, as long as the user has write permission in the target folder. It's recommended that all files are placed in the same folder.
+Download the latest version of OKSE Message Broker from \url{http://okse.fap.no/} or use the version provided with this document. The files can be placed at any location within the filesystem, as long as the user has write permission in the target folder. It is recommended that all files are placed in the same folder.
 
 \subsection{Running the software}
 
@@ -131,7 +131,6 @@ The OKSE Admin Console provides information about OKSE and it is operation envir
 \item Address and port information for each protocol
 \end{enumerate}
 
-%The main pane is an overview of the broker's status, system, the operating environment as well as interfaces and ports that the different protocol servers are bound to. It's worth mentioning that the RAM reported is the memory available in the Java virtual machine. It is also possible to stop and start the protocol servers from the interface section. When the protocol servers are restarted, the statistics are reset.
 
 \clearpage
 
@@ -155,7 +154,6 @@ The OKSE Admin Console provides information about OKSE and it is operation envir
 \item Delete the topic on this line
 \end{enumerate}
 
-%The "Topics" pane contains all the registered topics in OKSE. For each topic it is possible to see how many clients are subscribing to the topic (---comment about xpath not being subscribers??---). It is also possible to delete all topics or a specific topic. The 'Stop refresh'-button stops the automatic refreshing of the topic list. This might be useful when a lot of new topics are generated, to avoid the list updating constantly.
 
 \clearpage
 
@@ -176,7 +174,6 @@ The OKSE Admin Console provides information about OKSE and it is operation envir
 \item The port in use by the subscriber
 \item Delete the subscriber on this line
 \end{enumerate}
-%The subscribers pane lists all the subscribers (hosts). It also lists which protocols the different subscribers are using, on which port, and if any filters are specified. One or all of the users can be deleted, denoted as unsubscribe in WSN and disconnect in AMQP. The 'Stop refresh'-button stops the automatic refreshing of the subscription list. This might be useful when there are many clients subscribing and/or unsubscribing, to avoid the list updating constantly.
 
 \clearpage
 
@@ -203,7 +200,6 @@ The OKSE Admin Console provides information about OKSE and it is operation envir
 \item Total amount of subscribers currently handled by the system
 \item Total amount of publishers currently handled by the system
 \end{enumerate}
-%The Statistics pane provides a list of protocol servers with statistics per protocol and total usage. "Sent" denotes the amount of messages sent on the different protocols. "Received" denotes the amount of messages received on the current protocol. "Requests" are the total amount of requests on the protocol. The WSN protocol server requests are subscribe requests, messages sent to the broker, publisher registration, and attempts to access an endpoint address. AMQP requests are socket connections to the broker and messages sent to the broker. Bad requests on WSN appear whenever a request fails to complete correctly. AMQP does not count "Bad requests". Errors are counted on WSN when OKSE attempts to send a message, but are unable to reach the subscriber. In AMQP, errors are noted whenever someone attempts to connect to OKSE on AMQP's port, but the connection is not accepted. The usage panel shows the total statistics over all the protocols.
 
 \clearpage
 
@@ -225,11 +221,6 @@ The OKSE Admin Console provides information about OKSE and it is operation envir
 \item Delete all existing relays
 \item Delete the relay on this line
 \end{enumerate}
-%The Configuration pane has three sections; options, topic mapping and relays. The option section allows changing the update automatic refresh interval on the site. It is not recommended that this is set lower than 0.5 seconds. The "Use AMQP queues instead of pub/sub topics" changes the queue semantics of AMQP.
-
-%In the topic mapping section one can manually map from one topic to another one. The mapping of topics is a simplex action, that is, an action that is one-way. If a mapping is made between topic A and B, messages sent to A will also be forwarded to topic B. Messages sent to topic B will not be forwarded to topic A. Mapping from and to unregistered topics are allowed, and causes the topics to be generated.
-
-%The relays section enables the addition of an instance of the system as a relay node (child relay) to another instance or WSN broker. The function is enabled by entering the address and the port the other broker is running on. The topic input is optional, and provides the opportunity to relay a specific topic by typing in the name of it. If the field is left empty, everything is relayed. When adding a relay, a WSNotification subscription is created. There are some bounds to the relay, to avoid infinite looping of messages. There are restrictions on localhost, 127.0.0.1, 0.0.0.0 and interfaces on the running instance of OKSE.
 
 \clearpage
 
@@ -247,7 +238,6 @@ The OKSE Admin Console provides information about OKSE and it is operation envir
 \item Enter the amount of lines of log
 \item Stop automatic refresh of the webpage
 \end{enumerate}
-%The main feature of the "Logs" pane is the large text area, providing all of the information printed from the application. Logging is separated into 4 levels, "ERROR", "WARN", "INFO" and "DEBUG". The "DEBUG" level shows the full set of messages printed during system runtime. "INFO" prints messages that are meant to show the progress and events happening in the application. The "WARN" level prints messages that might potentially lead to system failure. Finally, "ERROR" shows events which has caused a failure in the system. There are one button for each of the message types, allowing the user to filter out information. The "Lines" area, lets the user decide how many lines of information that are displayed. Finally, the "Stop refresh" buttons stops new messages from showing up in the text-area.
 
 \clearpage
 
@@ -291,11 +281,11 @@ This is the main configuration file of the system. Below is a list of the possib
    \item[WSN\_MESSAGE\_CONTENT\_ELEMENT\_NAME] \hfill \\
   Tells OKSE what name non-XML content should be wrapped in \hfill \\ Default: \verb!Content!
   \item[WSN\_USES\_NAT] \hfill \\
-  Tells OKSE if it's hosted behind NAT/Port forwarded network \hfill \\ Default: \verb!false!
+  Tells OKSE if it is hosted behind NAT/Port forwarded network \hfill \\ Default: \verb!false!
   \item[WSN\_WAN\_HOST] \hfill \\
-  Tells OKSE what host it's behind when using NAT \hfill \\ Default: \verb!test.doman.com!
+  Tells OKSE what host it is behind when using NAT \hfill \\ Default: \verb!test.doman.com!
   \item[WSN\_WAN\_PORT] \hfill \\
-  Tells OKSE what port it's behind when using NAT \hfill \\ Default: \verb!61000!
+  Tells OKSE what port it is behind when using NAT \hfill \\ Default: \verb!61000!
   \item[DUMMYPROTOCOL\_HOST] \hfill \\
   Tells OKSE what host DummyProtocolServer should listen to \hfill \\ Default: \verb!0.0.0.0!
   \item[DUMMYPROTOCOL\_PORT] \hfill \\
