@@ -18,7 +18,7 @@ This chapter contains instructions for installing and using the OKSE Message Bro
 
 OKSE Message Broker requires Java Runtime Environment (hereby denoted JRE) version 8 update 31 or newer. The broker is developed and tested exclusively with this version. The software is available for free from \verb!http://java.com!\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}}.
 
-For the JRE to function properly, it must be added to the path variable. On UNIX-based systems, like Linux or OS X, it is done by the Java installer. On windows, open up a command line window (cmd.exe) and type in:
+For the JRE to function properly, it must be added to the path variable. On UNIX-based systems, like Linux or OS X, it is done by the Java installer. On Windows, open up a command line window (cmd.exe) and type in:
 \begin{verbatim}
 path %path%;<PATH-TO-JRE>
 \end{verbatim}
@@ -37,7 +37,7 @@ The following sections describes how to download and run OKSE. Apart from JRE, n
 
 \subsection{Download software}
 
-Download the latest version of OKSE Message Broker from http://okse.fap.no/ or use the version provided with this document. The files can be placed at any location within the filesystem, as long as the user has write permission in the target folder. It's recommended that all files are placed in the same folder.
+Download the latest version of OKSE Message Broker from \url{http://okse.fap.no/} or use the version provided with this document. The files can be placed at any location within the filesystem, as long as the user has write permission in the target folder. It's recommended that all files are placed in the same folder.
 
 \subsection{Running the software}
 
@@ -47,7 +47,7 @@ Within the main folder of the software package, there are two scripts, \verb!sta
 \begin{enumerate}
 \item Right click \verb!start.sh!
 \item Select Open With $\rightarrow$ Other...
-\item Go to utilities
+\item Go to Utilities
 \item Select Terminal.app (Select Enable: All Applications)
 \end{enumerate}
 
@@ -474,13 +474,13 @@ To install Python and Requests on a Windows machine, the following steps are req
     \item Install Requests by running the command: \begin{verbatim}python -m pip install requests \end{verbatim}
 \end{enumerate}
 
-After the installation, change directory of the cmd session to the location of bullrider.py. To run python in the shell in any directory, the Python2.7 directory should be added to the path. This can be done for the current session by entering the command: 
+After the installation, change directory of the cmd session to the location of bullrider.py. To run python in the shell in any directory, the \verb!Python2.7! directory should be added to the path. This can be done for the current session by entering the command: 
 \begin{verbatim}
 path %path%;C:\Python27
 \end{verbatim}
 Note that this will have to be done for every new cmd.exe window you open.
 
-Now that Python and Requests are installed, move on to the Usage section (\ref{subsubsec:usermanual_Testscripts_usage}).
+Now that Python and Requests are installed, move on to the Usage section.
 
 \subsubsection{Linux/OS X}
 Mac OS X and most Linux distributions comes with Python 2.7 installed. To verify that you have Python 2.7 installed, open a terminal and write "python". You should see something like:
@@ -511,12 +511,12 @@ or
 sudo easy_install requests 
 \end{verbatim}.
 
-\noindent After the installation, change directory in the terminal to the location of bullrider.py. Now that Python and requests are installed, move on to the Usage section (\ref{subsubsec:usermanual_Testscripts_usage}).
+\noindent After the installation, change directory in the terminal to the location of bullrider.py. Now that Python and requests are installed, move on to the Usage section.
 
 
 \subsubsection{Usage}
 \label{subsubsec:usermanual_Testscripts_usage}
-To use the bullrider.py script, open a terminal/cmd.exe window and change the directory to where bullrider.py is located. If Windows is being used, remember to repeat the path step (\ref{windows_install_wsn}) if Python is not permanently added to your path. 
+To use the bullrider.py script, open a terminal/cmd.exe window and change the directory to where bullrider.py is located. If Windows is being used, remember to repeat the path step if Python is not permanently added to your path. 
 
 Below is a description on what the different arguments do, and the available options that can be used. Note that the arguments need to be given in the listed order.
 The format of the arguments is as follows:
@@ -541,7 +541,7 @@ Below an example of a valid command is shown, this will send a notify to a OKSE 
 \begin{verbatim}
 python bullrider.py notify localhost 61000 test
 \end{verbatim}
-Click enter as a response to the message asking which ip:port should be used.
+Click enter as a response to the message asking which IP:PORT should be used.
 
 \subsection{Example test case}
 
@@ -550,8 +550,8 @@ An example test case for the application, can be performed by running the AMQP r
 \subsubsection{Steps}
 \begin{enumerate}
 \item First, setup an OKSE instance as explained in section  \ref{Installation_okse}. 
-\item Launch AMQP receive (\ref{subsec:test_clients-amqp_receive}) and subscribe on topic "test". 
-\item Launch bullrider.py (\ref{WSN_Test_Script}) and send a message with "notify" to the "test" topic. 
+\item Launch AMQP receive (see section \ref{subsec:test_clients-amqp_receive}) and subscribe on topic "test". 
+\item Launch bullrider.py (see section \ref{WSN_Test_Script}) and send a message with "notify" to the "test" topic. 
 \item Check the AMQP receive instance.
 \end{enumerate}
 

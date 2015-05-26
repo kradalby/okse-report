@@ -72,34 +72,6 @@ After the IntelliJ IDEA window is opened with the project, all the needed depend
 \subsection{Test Framework: TestNG}
 The system has a lot of unit tests, written with the test framework TestNG\footnote{\url{http://testng.org/doc/index.html}}. Any new features and expansions of the system should be accompanied by unit tests. Please refer to the TestNG documentation\footnote{\url{http://testng.org/doc/documentation-main.html}} for information and documentation.
 
-\section{Components}
-\label{sec:developer_manual-components}
-This section provides an overview of which steps are needed to extend the system with new services and protocols. For general system reference and the interaction of existing components, see chapter \ref{sec:architecture_and_implementation-implementation}.
-
-\subsection{Application}
-\label{subsec:developer_manual-components-application}
-
-The \verb!Application.java! file that resides in the root of the project is the main invocation point when starting the OKSE application. The operations performed in this class are initializing the web admin console and the CoreService instance, which in turn boots up more services.
-
-The most important thing to note regarding this main class, is that it is also the class in which further extensions should be registered. Extending the application with additional core services is done through registering them to the CoreService via the \\\verb!registerCoreService()! method.
-
-Extending the application with additional protocol support is done through use of the \verb!addProtocolServers()! method of the CoreService instance.
-
-The \verb!Application! class also exposes a static method for reading in configuration files. This method will also verify that the directory structure and necessary files exist. The \verb!readConfigurationFiles()! method does all this, and returns a \verb!Properties! object, which contains all the key-value pairs of the OKSE configuration file.
-
-\subsection{Administration interface}
-\label{subsec:administration_interface}
-
-The OKSE administration console is built on the Spring framework, more exactly the spring-boot package\footnote{\url{https://spring.io/guides/gs/rest-service/}} with Thymeleaf-templates\footnote{\url{http://www.thymeleaf.org}}. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript. The administration interface is built in a modular way, to achieve loose coupling of modules. Each pane of the interface has its own controller and respective front-end JavaScript.  With this approach it's easy to extend the web interface.
-
-\subsubsection{Back-end}
-
-The back-end of OKSE works as a RESTful Web Service. As the back-end uses the Spring framework, the main architectural approach for the back-end is based on Spring’s approach for building RESTful web services. All HTTP-requests are handled by a dedicated controller. These controllers are easily identified by the \verb!@RestController! annotation. Each controller is responsible for handling all HTTP-requests on given routes defined by \verb!@RequestMapping! annotations. 
-
-\subsubsection{Front-end}
-
-The front-end of OKSE is the only component of the system that is directly accessible for graphical user interaction. It's responsible for making HTTP-requests to the back-end for manipulation and presentation of the state OKSE is currently in. See chapter \ref{subsec:architecture_and_implementation-implementation} for a more detailed description of the front-end architecture.
-
 \section{Common Patterns Used}
 \label{sec:common-patterns-used}
 
@@ -138,6 +110,290 @@ This approach allows different threads running client requests to concurrently p
 \subsection{Observer pattern}
 
 Due to the asynchronous nature of the services, listener support is implemented in most of them. This allows the service in question to invoke callback methods synchronously after a task has been completed. The more general use of the observer pattern is that all changes in internal state at the core service level, will also update registered listener components. This allows components such as the WSNSubscriptionManager to automatically synchronize its internal state when a change occurs in the OKSE SubscriptionService.
+
+\section{Components}
+\label{sec:developer_manual-components}
+This section provides an overview of which steps are needed to extend the system with new services and protocols. For general system reference and the interaction of existing components, see chapter \ref{sec:architecture_and_implementation-implementation}.
+
+\subsection{Application}
+\label{subsec:developer_manual-components-application}
+
+The \verb!Application.java! file that resides in the root of the project is the main invocation point when starting the OKSE application. The operations performed in this class are initializing the web admin console and the CoreService instance, which in turn boots up more services.
+
+The most important thing to note regarding this main class, is that it is also the class in which further extensions should be registered. Extending the application with additional core services is done through registering them to the CoreService via the \\\verb!registerCoreService()! method.
+
+Extending the application with additional protocol support is done through use of the \verb!addProtocolServers()! method of the CoreService instance.
+
+The \verb!Application! class also exposes a static method for reading in configuration files. This method will also verify that the directory structure and necessary files exist. The \verb!readConfigurationFiles()! method does all this, and returns a \verb!Properties! object, which contains all the key-value pairs of the OKSE configuration file.
+
+\subsection{Administration interface}
+\label{subsec:administration_interface}
+
+The OKSE administration console is built on the Spring framework, more exactly the spring-boot package\footnote{\url{https://spring.io/guides/gs/rest-service/}} with Thymeleaf-templates\footnote{\url{http://www.thymeleaf.org}}. The main aspects of the Web Admin component are its models, controllers, templates and front-end JavaScript. The administration interface is built in a modular way, to achieve loose coupling of modules. Each pane of the interface has its own controller and respective front-end JavaScript.  With this approach it's easy to extend the web interface.
+
+\subsubsection{Back-end}
+
+The back-end of OKSE works as a RESTful Web Service. As the back-end uses the Spring framework, the main architectural approach for the back-end is based on Spring’s approach for building RESTful web services. All HTTP-requests are handled by a dedicated controller. These controllers are easily identified by the \verb!@RestController! annotation. Each controller is responsible for handling all HTTP-requests on given routes defined by \verb!@RequestMapping! annotations. 
+
+\subsubsection{Front-end}
+
+The front-end of OKSE is the only component of the system that is directly accessible for graphical user interaction. It's responsible for making HTTP-requests to the back-end for manipulation and presentation of the state OKSE is currently in. See chapter \ref{subsec:architecture_and_implementation-implementation} for a more detailed description of the front-end architecture.
+
+\subsection{Interacting with the MessageService}
+\label{subsec:components-interacting_with_the_messageservice}
+
+The MessageService is responsible for distributing messages to all the registered protocol servers. It provides a simple interface to put messages up for processing. The following code snippet shows how messages are created and distributed.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Distributing a message, frame=bt, showstringspaces=false]
+    // Define a topic
+    String topic = "no/ffi";
+    // Create som content
+    String msg = "some data";
+    // Fetch a related publisher, null if none is relevant
+    Publisher p = null;
+    // Set the originating protocol, must be the same as
+    // the protocolServerType field in the ProtocolServer class.
+    String originProtocol = "WSNotification";
+    
+    // Create a Message object
+    Message m = new Message(msg, topic, p, originProtocol);
+    // Distribute the message
+    MessageService.getInstance().distributeMessage(m);
+\end{lstlisting}
+
+The MessageService also allows requestors to retrieve the last message sent on a topic, regardless of originating protocol. This is done in the following fashion.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Retrieving latest message on a topic, frame=bt, showstringspaces=false]
+    // Initialize the message variable
+    Message m;
+    // Fetch the latest message
+    m = MessageService.getInstance().getLatestMessage("topic/subtopic");
+    
+    // Check if there was any message
+    if (m != null) {
+        /* Do something with the message */
+    }
+\end{lstlisting}
+
+Another handy helper method is the ability to take a single message, and duplicate it to all the topics in a provided set of topics. Most of the time, strings are used to represent topics, for ease of use. Still, the actual topics are stored in Topic objects. This helper method uses Topic objects.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Duplicating message to multiple topics, frame=bt, showstringspaces=false]
+    // Create a message
+    Message m = new Message("<data>1</data>", "hq/test", null, "WSNotification");
+
+    // For example, retrieve all Topics that are root nodes
+    HashSet<Topic> topicSet = TopicService.getAllRootTopics();
+    // Fetch an additional topic node
+    Topic extraTopic = TopicService.getTopic("no/ffi");
+    // Add it to the set
+    topicSet.add(extraTopic);
+    
+    // Generate a list of messages destined to each of the
+    // provided topics
+    List<Message> generated = MessageService.getInstance()
+        .generateMessageForAGivenTopicSet(m, topicSet);
+        
+    /* Do some action on the messages, for example... */
+    generated.forEach(m -> MessageService.getInstance().distribute(m));
+\end{lstlisting}
+
+\subsection{Interacting with the TopicService}
+\label{subsec:components-interacting_with_the_topicservice}
+
+The TopicService is responsible for maintaining an overview of all topics that have been referenced at some time. It exposes a general API for adding and removing topics, as well as several methods for retrieving topics.
+
+A Topic in itself is a part of a tree of nodes. It may have a parent, and it may have children. The TopicService keeps track of all these trees. For the implemented protocols in the OKSE system, none use this hierarchical nature. Still, they are represented in this way for future use.
+
+In order to retrieve the canonical name of a topic, one uses the \verb!getFullTopicString()! method on a Topic object. This representation is what is expected in all parts of the OKSE system that accepts topics represented by strings.
+
+The following code shows how to add a new topic to the system.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Adding a new topic, frame=bt, showstringspaces=false]
+    // Add a new topic
+    TopicService.getInstance().addTopic("no");
+    
+    // Add another topic
+    TopicService.getInstance().addTopic("no/ffi/uav");
+\end{lstlisting}
+
+In the second \verb!addTopic! call, the TopicService will identify that the \verb!no! topic already exists. It will only generate the new topic nodes that are needed, link these together, and connect the branch to the already existing \verb!no! topic node. After the second \verb!addTopic! call, the \verb!no! topic node is reachable by traversing the tree from \verb!uav! by using the \verb!getParent()! method of a topic node.
+
+The following code snipped demonstrates how Topics are removed from the system.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Deleting a topic, frame=bt, showstringspaces=false]
+    // Add some topics
+    TopicService.getInstance().addTopic("no/ffi/uav");
+    
+    // Delete the intermediate node
+    TopicService.getInstance().deleteTopic("no/ffi");
+\end{lstlisting}
+
+In this example, three topic nodes are created and linked together in a tree. When the \verb!no/ffi! node is deleted, its child \verb!uav! is also deleted. After the operation, only the \verb!no! topic node remains in the system.
+
+The following examples show a selection of the service methods exposed by the TopicService.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Additional TopicService methods, frame=bt, showstringspaces=false]
+    // Retrieve all leaf topic nodes
+    HashSet<Topic> leafNodes = TopicService.getInstance().getAllLeafTopics();
+    
+    // Retrieve all root topic nodes
+    HashSet<Topic> rootNodes = TopicService.getInstance().getAllRootTopics();
+    
+    // Get all topic nodes
+    HashSet<Topic> allNodes = TopicService.getInstance().getAllTopics();
+    
+    // Check existance
+    if (TopicService.getInstance().topicExists("no/ffi")) {
+        /* Perform some action */
+    }
+\end{lstlisting}
+
+It is worth mentioning that all the returned sets of topics are shallow clones of the originating data structure. This is to ensure that no accidental modification of the internal data structure is made.
+
+\subsection{Interacting with the SubscriptionService}
+\label{subsec:components-interacting_with_the_subscriptionservice}
+
+The SubscriptionService is responsible for maintaining an overview of the currently registered subscribers and publishers. The SubscriptionService also periodically removes entities that have expired. Finally, the SubscriptionService is responsible for modifying the parameters connected to a specific entity.
+
+The Subscriber object itself contains a selection of sets and attributes to service possible future needs. The following code sample illustrates some of these features. Publisher objects contain a subset of these features.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Properties of the Subscriber object, frame=bt, showstringspaces=false]
+    // Host of the subscriber
+    String host = "123.123.123.123";
+    // Port of the subscriber
+    Integer port = "52612";
+    // The topic of the subscriber
+    String topic = "no/ffi";
+    // The originating protocol of the subscription
+    String origProtocol = "AMQP";
+    
+    // Create the subscriber
+    Subscriber sub = new Subscriber(host, port, topic, origProtocol);
+    
+    // Set an expiration time for the subscription
+    // in milliseconds since UNIX epoch.
+    sub.setTimeout(1234567890);
+    
+    // Set an attribute on the subscriber object
+    // for some specific use
+    sub.setAttribute("key", "value");
+    
+    // Get an attribute from the subscriber object
+    String value = sub.getAttribute("key");
+    if (value != null) {
+        /* Perform some action */
+    }
+    
+    // Store some sort of filter expression used by
+    // the subscriber
+    sub.addFilter("regex:^[a-zA-Z]+");
+    sub.addFilter("//rootElement/*");
+    
+    /* These filters do not have any purpose but to 
+    store the information for later retrieval, and
+    list them in the administration interface */
+    
+    // Retrieve some general attributes from the subscriber
+    sub.getHost();
+    sub.getPort();
+    sub.getTimeout();
+    sub.getTopic();
+    sub.getOriginProtocol();
+    if (sub.shouldExpire()) { /* ... */ }
+    if (sub.hasExpired()) { /* ... */ }
+\end{lstlisting}
+
+A subset of these fields and methods are also available for Publisher objects.
+
+The following code sample illustrates how to add, update, and remove subscribers from the SubscriptionService.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Subscriber actions, frame=bt, showstringspaces=false]
+    // Create a subscriber
+    Subscriber sub = new Subscriber("10.0.0.1", "8080", "no/ffi", "AMQP");
+    
+    // Add it to the SubscriptionService
+    SubscriptionService.getInstance().addSubscriber(sub);
+    
+    // Pause the subscription
+    SubscriptionService.getInstance().pauseSubscriber(sub);
+    
+    if (sub.getAttribute("paused").equals("true") {
+        /* true, subscriber is paused */
+    } else {
+        /* subscriber is not paused */
+    }
+    
+    // Resume the subscription
+    SubscriptionService.getInstance().resumeSubscriber(sub);
+    
+    // Renew the subscription
+    Long newTerminationTime = 1234567890;
+    SubscriptionService.getInstance().renewSubscriber(sub, newTerminationTime);
+    
+    // Remove it again
+    SubscriptionService.getInstance().removeSubscriber(sub);
+\end{lstlisting}
+
+It is important to note that these methods only alter the internal state of the OKSE SubscriptionService and its Subscriber objects. It is up to the specific protocol implementations that have need of these features to use them where applicable.
+
+The SubscriptionService also exposes a set of extra service methods that provide aggregation and selection capabilities. Some examples are listed in the code sample below.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Additional SubscriptionService methods, frame=bt, showstringspaces=false]
+    // Cache the SubscriptionService reference for ease of access
+    SubscriptionService ss = SubscriptionService.getInstance();
+    
+    // Get a subscriber by its unique ID
+    Subscriber sub = ss.getSubscriberByID("a517...1c3f");
+    
+    // Get all subscribers or publishers for a topic
+    HashSet<Subscriber> subscribers;
+    HashSet<Publisher> publishers;
+    subscribers = ss.getAllSubscribersForTopic("no/ffi");
+    publishers = ss.getAllPublishersForTopic("no/ffi");
+    
+    // Get all subscribers and publishers
+    HashSet<Subscriber> allSubscribers;
+    HashSet<Publisher> allPublishers;
+    allSubscribers = ss.getAllSubscribers();
+    allPublishers = ss.getAllPublishers();
+\end{lstlisting}
+
+As with most collections returned by the services, sets are shallow copies of the internal structure in the service itself. This is done to prevent accidental modification of the internal structure.
+
+When Subscribers or Publishers are created, modified or deleted, all registered listeners to the SubscriptionService are notified. They will receive either a SubscriptionChangeEvent or a PublisherChangeEvent. The following code sample illustrates how these events might be used.
+
+\begin{lstlisting}[language=Java, captionpos=b, caption=Use of the SubscriptionService listener support, frame=bt, showstringspaces=false]
+public class SomeListener implements SubscriptionChangeListener {
+    public SomeListener() {
+        SubscriptionService.getInstance().addSubscriptionChangeListener(this);
+    }
+    
+    @Override
+    public void subscriptionChanged(SubscriptionChangeEvent e) {
+        SubscriptionChangeEvent.Type type = e.getType();
+        Subscriber sub = e.getData();
+        
+        // If we for example are only interested in AMQP
+        // related subscribers
+        if (!sub.getOriginProtocol().equals("AMQP")) {
+            return;
+        }
+        
+        if (type == SubscriptionChangeEvent.Type.UNSUBSCRIBE) {
+            /* Do some action for unsubscribe events */
+            someLocalMapping.remove(sub);
+        }
+        /* else if (type == ...)
+            Additional types are:
+            
+            SUBSCRIBE,
+            PAUSE,
+            RESUME,
+            RENEW
+        */
+    }
+}
+\end{lstlisting}
 
 \section{Adding new protocols}
 \label{sec:adding-new-protocols}
@@ -494,7 +750,7 @@ var MYPANE = (function($) {
 When adding a new pane it's important to register the panes corresponding JavaScript module in the \verb!main.js! file. This is done by appending a \verb!switch-case! for your pane. It is also important to register the panes template in \verb!indexLoggedIn.html!
 
 \section{AMQP Send and Receive}
-Along with the source code, two simple test classes for AMQP are bundled. One that implements a receiver and one that implements a sender. The classes are used for amqprecv.jar and amqpsender.jar files that can be used to test the broker as mentioned in \ref{subsec:test_clients-amqp_receive} and \ref{subsec:test_clients-amqp_send}. The example classes are located in the folder \verb!src/main/java/no/ntnu/okse/examples/amqp! starting at the root of the project.
+Along with the source code, two simple test classes for AMQP are bundled. One that implements a receiver and one that implements a sender. The classes are used for amqprecv.jar and amqpsender.jar files that can be used to test the broker as mentioned in \ref{subsec:test_clients-amqp_receive} and \ref{subsec:test_clients-amqp_send}. The example classes are located in the folder \verb!src/main/java/no/ntnu/okse/! \verb!examples/amqp! starting at the root of the project.
 
 Both classes has Apache Qpid Proton as a dependency and it's recommended that they are used together with Maven to fetch the needed dependencies.
 

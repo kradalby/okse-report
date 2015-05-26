@@ -35,9 +35,12 @@ In Apollo, the handling of protocol conversation is different. It saves a messag
 When running Java applications, the Java Virtual Machine is usually configured with a fixed amount of memory. Since a high traffic message service can end up having millions of messages, smart memory and message queue handling had to be written. In Apollo, message queues that are not going to be needed for a while will be taken out of memory and put in a message store. When it is time to use the queue, it will be put back into memory. This gives Apollo the possibility to handle a lot of messages with a limited amount of memory.
 
 \subsection{Modules}
-Apollo is written as a modular application. Every single component and protocol is implemented as its own module. This is a great feature when considering extendability. 
+Apollo is written as a modular application. Every single component and protocol is implemented as its own module. This is a great feature when considering extendability. The module dynamic allows a module to be compiled into a separate Java archive file, which is loaded during start-up. This allows modules to be created or modified without having to recompile the entire application.
 
 \subsection{WSN support}
+Apollo is designed to be completely protocol agnostic, using the same port for all connections. Thus it analyzes bit patterns to identify the protocols. The already implemented protocols are all persistent connection protocols, which differ from the open-close behaviour of WSN. It is therefore recommended that any implementation of the WSN protocol use its own dedicated port. This will add some complexity in synchronizing the implementation with the rest of Apollo, but drastically reduce complexity related to connection handling.
+
+The group did not manage to identify any aspect of Apollo which strictly prohibits implementing a protocol such as WSN. Nonetheless, the WSN protocol is a quite different protocol than MQTT, AMQP or STOMP. These inherent differences will make it more difficult to create seamless integration, like the challenges discussed in the Architecture and implementation chapter of this report.
 
 \section{Evaluation for the project}
 Apollo is a well written and very scalable broker with many of the features the customer wanted. Apollo would be a good foundation to build on. The main concern with building upon Apollo is the complexity of the broker. The non-blocking asynchronous approach puts a lot of constraints on the developer. Using this pattern, the code becomes quite complex and is difficult to get a grasp on. In addition to the pattern, knowledge of Scala and functional programming is needed. 

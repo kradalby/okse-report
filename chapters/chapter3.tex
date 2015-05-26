@@ -6,9 +6,9 @@
 \section{Methodology}
 \label{sec:process_and_methodology-process-methodology}
 
-After the initial research on the project and what sort of system to build, the group faced difficulties choosing which process model and development methodology to use. The main reason behind this, was that as a part of the initial prestudy phase, the group also looked at existing solutions similar to what the customer had requested. During this, the group found out that more research was required than initially assumed. It became apparent that an application existed that satisfied two of the requirements specified by the customer, as well as some other supported protocols. The option of expanding this product arose, and the group realized it would have a large impact on the project. Both the quality of the code, and the degree of requirements achieved would be affected in a positive way.
+After the initial research on the project and what sort of system to build, the group faced difficulties choosing which process model and development methodology to use. The main reason behind this, was that as a part of the initial prestudy phase, the group also looked at existing solutions similar to what the customer had requested. During this, the group found that more research was required than initially assumed. It became apparent that an application existed that satisfied two of the requirements specified by the customer, as well as some other supported protocols. The option of expanding this product arose, and the group realized it would have a large impact on the project. Both the quality of the code, and the degree of requirements achieved would be affected in a positive way.
 
-The project was eventually split into two different phases. The first phase, would take shape as a research project, using models and techniques relevant to performing a research project. The second phase would be dependant on the outcome of the research phase. During exploration of the two potential outcomes of the research phase, it became apparent that an iterative, incremental development process was suitable either way. Detailed description of the methodologies, models and techniques used are explained in their respective sections below.
+The project was eventually split into three different phases. The first phase, would take shape as a research project, using models and techniques relevant to performing a research project. The second phase would be dependant on the outcome of the research phase. During exploration of the two potential outcomes of the research phase, it became apparent that an iterative, incremental development process was suitable either way. Detailed description of the methodologies, models and techniques used are explained in their respective sections below. The final phase would incorporate tasks needed to finalize the project report, documentation and other formalities related to the project.
 
 \subsection{Research}
 \label{subsec:process_and_methodology-process-methodology-research}
@@ -17,11 +17,11 @@ The research methodology chosen was a modified version of the phase-gate model \
 
 The model describes a time period as a phase. Furthermore, each phase has a gate, which is a goal or evaluation criteria that has to be met. In this case, each phase was a part of the research required, in order to choose whether or not to further develop Apollo. The traditional model commonly has five such phases. The groups modified version used the discovery, scoping, business plan (analysis part), and testing phases. Other phases and/or aspects of the model were not executed. Individually, each group member used these phases as a research cycle, where new aspects or possible problems were discovered. After evaluating whether or not it would be technically and time-wise achievable, further and deeper research proceeded. If an aspect or problem that would not pass the gate evaluation criteria appeared, further research would be aborted and the alternative development plan executed.
 
-Instead of researching each task in succession, the tasks were done in parallel. This was accomplished by distributing them among the group members. The gate of the research phase, consisted of reaching a decision on whether or not further development on Apollo was doable, given the current understanding. The evaluation criteria had to yield a positive result for the group to proceed.
+In order to cope with the vastness of the application, each group member was assigned a different part of the system to evaluate. Using the modified Phase-Gate model (see figure \ref{fig:phasegate}), each part of the system was researched and evaluated using these stated gate criteria. Additional discoveries during research prompted further analysis following the same cycle. As long as no part of the system failed the criteria, given the current understanding, research could progress.
 
-Additionally, a final deadline had been set. Due to time constraints, no more time could be allocated to research before development had to start. If none of the gate criteria failed, research would go on until the final deadline before a decision was made. The general gate criteria were taken from the research phase risk analysis (see fig \ref{tab:risk_analysis_apollo}), and discussed internally. The group formed what the Phase-Gate model describes as a steering-committee, that would make the final decision on whether or not to proceed. The committee consisted of the whole group, with the lead developer functioning as a leader of the committee. He was responsible for evaluating the arguments in a factual manner. 
+Additionally, a final deadline had been set. Due to time constraints, no more time could be allocated to research before development had to start. If none of the gate criteria failed, research would go on until the final deadline before a decision was made. The general gate criteria were taken from the research phase risk analysis (see table \ref{tab:risk_analysis_apollo}), and discussed internally. The group formed what the Phase-Gate model describes as a steering-committee, that would make the final decision on whether or not to proceed. The committee consisted of the whole group, with the lead developer functioning as a leader of the committee. He was responsible for evaluating the arguments in a factual manner. 
 
-The final decision was to develop a new brokering system. The system would be called "Overordnet kommunikasjonsystem for etterretning" (hereby denoted OKSE). The plan was to use WS-Nu as the main implementation for WSN, and develop a broker based on many of the concepts discovered in Apollo. The name was however, merely a placeholder and subject to change. The technical aspects leading to the decision is more thoroughly discussed in chapter \ref{subsec:project_lifecycle-planning_and_research-research_phase-discussion}.
+The final decision was to develop a new brokering system. The system would be called "Overordnet kommunikasjonsystem for etterretning" (hereby denoted OKSE). The plan was to use WS-Nu as the main implementation for WSN, and develop a broker based on many of the concepts discovered in Apollo. The name was however, merely a placeholder and subject to change. The technical aspects leading to the final decision are more thoroughly discussed in chapter \ref{subsec:project_lifecycle-planning_and_research-research_phase-discussion}.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -34,24 +34,24 @@ The final decision was to develop a new brokering system. The system would be ca
 \subsection{Development}
 \label{subsec:process_and_methodology-process_methodology-development}
 
-The second phase would incorporate an iterative and incremental development methodology, with addition of elements from Test Driven Development (hereby denoted as TDD). In any case, these seemed to be suitable models. Partially because the planning and research were done beforehand, and partially due to the fact that it was a development project.
+The second phase would encompass the actual development of the product. Neither the group nor the customer had a firm picture of what this kind of product would look like, and how it should function. The customer was eager to provide feedback, both in terms of their own needs and requirements, as well as on aspects such as the user interface. Utilizing this dynamic, an iterative and incremental approach seemed reasonable. Both to secure that the product was as close to customer expectations as possible, but also to allow different techniques and approaches to be implemented for demonstration and feedback. Incremental development would allow the group to continuously expand the product and get instant feedback from the customer. An always up-to-date version of the product hosted live on the internet was planned to achieve this dynamic.
 
-Scrum \cite{scrum} was chosen as the agile development method of choice. In contrast to the traditional waterfall model, scrum is a methodology based on incrementally developing a product. It incorporates sprints, which is a set time interval, often lasting one or two weeks. With each sprint, a new increment of the product is delivered. Additionally, the group used scrum meetings, where each member gave a quick summary of the work done and problems encountered. At the end of each sprint, the group had a longer meeting in order to evaluate to which degree the planned tasks were completed. A detailed plan of the next sprint was also formed during the meeting.
+Scrum \cite{scrum} was chosen as the agile development method of choice. In contrast to the traditional waterfall model, Scrum is a methodology based on incrementally developing a product. It incorporates sprints, which is a set time interval, often lasting one or two weeks. With each sprint, a new increment of the product is delivered. Additionally, the group used Scrum meetings, where each member gave a quick summary of the work done and problems encountered. At the end of each sprint, the group had a longer meeting in order to evaluate to which degree the planned tasks were completed. A detailed plan of the next sprint was also formed during the meeting.
 
 All the group members had prior experience with this model from previous school projects. Additionally, Scrum was suited for this project because it encourages frequent updates from everyone. This was important to keep track of progress, as well as planning customer and supervisor meetings. More generally, using Scrum allowed the group to react to changes in the requirements, either due to problems arising, time constraints or alterations made by the customer. 
 
-Elements from Test Driven Development were planned to be used for suitable parts of the development process, mainly models and methods with a high degree of logical operations. When a task had clear testing conditions, the plan was to write tests before the actual program code. Tasks were considered completed once they had passed all the tests. However, due to the complexity of the system, and discovery of new problems and solutions to these problems, behaviour of methods changed. This prompted adjustments to the tests after modifications of the methods were performed.
+Elements from TDD were planned to be used for suitable parts of the development process, mainly models and methods with a high degree of logical operations. When a task had clear testing conditions, the plan was to write tests before the actual program code. Tasks were considered completed once they had passed all the tests. However, due to the complexity of the system, and discovery of new problems and solutions to these problems, behaviour of methods changed. This prompted adjustments to the tests after modifications of the methods were performed.
 
-The advantage of this was simple adaption to changes. Whenever new code is written, it is simpler and less time-consuming to find potential errors in existing code. Thus, less consideration had to be made with regards to breaking the application when developing. Additionally, the process of writing tests provides clear definition of what individual components or units were supposed to do.
+The advantage of this was simple adaption to changes. Whenever new code is written, it is simpler and less time-consuming to find potential errors in existing code. Thus, less consideration had to be made with regards to breaking the application when developing. Additionally, the process of writing tests provides a clear definition of what individual components or units were supposed to do.
 
-Another possibility would have been to use the waterfall model or a variation of it. The model is really simple to use and manage, which would have been the main advantage in this case. However, given that the group had some issues both defining, and understanding what to actually develop, it might have been difficult to define beforehand. The technical knowledge of how a broker solution had to be built, weren't present at an early stage. Secondly, the model does not adapt to change in a good manner, due to the development plan being clearly defined at an early stage. 
+Another possibility would have been to use the waterfall model or a variation of it. The model is really simple to use and manage, which would have been the main advantage in this case. However, given that the group had some issues both defining, and understanding what to actually develop, it might have been difficult to define beforehand. The technical knowledge of how a broker solution had to be built, was not present at an early stage. Secondly, the model does not adapt to change in a good manner, due to the development plan being clearly defined at an early stage. 
 
 \subsubsection{Supporting development with tools}
-Many of the tools listed in section \ref{sec:prestudies-tools} were chosen explicitly because they fit with the development methodology. To provide better efficiency with the Scrum process and the continuous release of new versions of the software, Jenkins(\ref{subsec:prestudies-tools-jenkins}) was integrated in the development cycle. Jenkins was used to automatically build and test the code every time a "pull-request" was created on the GitHub repository. A pull-request can be explained as an action that is done by a developer to signal that their branch of code is ready for integration with the main branch. 
+Many of the tools listed in section \ref{sec:prestudies-tools} were chosen explicitly because they fit with the development methodology. To provide better efficiency with the Scrum process and the continuous release of new versions of the software, Jenkins (see section \ref{subsec:prestudies-tools-jenkins}) was integrated in the development cycle. Jenkins was used to automatically build and test the code every time a "pull-request" was created on the GitHub repository. A pull-request can be explained as an action that is done by a developer to signal that their branch of code is ready for integration with the main branch. 
 
-The integration with GitHub and Jenkins was useful, as it provided fast feedback displaying any exceptions or test failures. In addition, the group used a strict scheme on how branches should be merged together and the correct order this should happen before new code was to be added to the master branch. The pattern was based on the idea of having a branch called "develop", where the latest development code was added. In addition to the develop branch, a branch with the latest code that was considered stable was created, this branch was named "master". If a developer wanted to get the code into the master branch, it had to go through develop. The develop branch was only merged into the master branch when it was approved by more than two members of the development team. Another important rule was that a pull-request could not be merged by the creator, even if the code was building fine or all the tests did succeed. 
+Integration with GitHub and Jenkins provides fast feedback displaying any exceptions or test failures. In addition, the group planned to use a strict scheme on how branches should be merged together. The pattern was based on the idea of having a branch called "develop", where the latest development code was added. In addition to the develop branch, a branch with the latest code that was considered stable was created, this branch was named "master". If a developer wanted to get the code into the master branch, it had to go through develop. The develop branch was only merged into the master branch when it was approved by more than two members of the development team. Another important guideline was that a pull-request could not be merged by the creator, even if the code was building fine or all the tests did succeed. 
 
-In addition to the pull-request building from Jenkins, another job was created to build and deploy the master branch every time it was updated. When a new stable release was merged into the master branch, the code was built and deployed on the test server, publicly available to the group and the customer. This was typically done by the end of each sprint.
+In addition to the pull-request building from Jenkins, another job was created to build and deploy the master branch every time it was updated. When a new stable release was merged into the master branch, the code was built and deployed on the test server, publicly available to the group and the customer. This was done frequently, depending on the situation and the need for customer feedback or testing. As a minimum, deployment of the product to the test server was done before the end of each sprint.
 
 \subsection{Report}
 \label{subsec:process_and_methodology-process_methodology-report}
@@ -60,36 +60,36 @@ The report was one of the aspects of the project that required a lot of resource
 
 Design was also a factor when creating the report. The decision to use Latex was partially made due to this. Additionally, it was important to make figures and tables as understandable as possible. The general strategy used to achieve this was to have group members, as well as the supervisor give feedback.
 
-Before the delivery deadline of each version of the report, the group set time aside for review and discussion. This phase also included consideration of the feedback received from the supervisor and customer. After all input and feedback were considered, a final version was cooperatively written and agreed upon.
+Before the delivery deadline of each version of the report, the group set aside time for review and discussion. This phase also included consideration of the feedback received from the supervisor and customer. After all input and feedback were considered, a final version was cooperatively written and agreed upon.
 
 To ensure the quality of the language and readability, a third party with good English language skills was involved to read and comment the report towards the end of the project.
 
 \section{Project Organization}
 \label{sec:process_and_methodology-project_organization}
 
-After discussing with the customer, the team decided to have iterations lasting two weeks, starting Wednesday 25th of February. The two weeks gave the group room to plan according to mandatory work in other courses. The customer also recommended and preferred having weekly meetings. However, due to the extended research phase, the start of the first development cycle was moved.
+After discussing with the customer, the team decided to have development iterations lasting two weeks, starting Wednesday 25th of February. The two weeks gave the group room to plan according to mandatory work in other courses. The customer also recommended and preferred having weekly meetings. The research phase was the main reason for the late development start.
 
 Furthermore, a distribution of roles was made. This was mainly based on the previous experience of each member. However, it was also important to cover the most common roles in software development teams \cite{software-roles}, and to cover most of the phases in the systems development life cycle (hereby denoted SDLC) \cite{sdlc}. Since the group only consisted of six people, it was important to declare these roles to prevent any aspects of the development life cycle to be neglected.
 
 \subsection{Product owner}
 \label{subsec:process_and_methodology-project_organization-product_owner}
 
-The product owners were Frank Trethan Johnsen and Trude Hafsøe Bloebaum from FFI. Their main task was to oversee the development process, and ensure that the right product was created. Other than providing requirements and defining the scope of the project, the customer did not participate in any development themselves.
+The product owners were Frank Trethan Johnsen and Trude Hafsøe Bloebaum from FFI. Their main task was to oversee the development process, and provide continuous feedback on the product. Other than providing initial requirements and defining the scope of the project, the customer did not participate in any development.
 
 \subsection{Scrum master}
 \label{subsec:process_and_methodology-project_organization-scrum_master}
 
-Walleraunet was given the role of scrum master. This was due to him having prior acquaintance with the customer, as well as prior experience in the role. A scrum master has the main responsibility for monitoring progress and deliverables, as well as being the main communication link between the team and the customer.
+Walleraunet was given the role of scrum master. This was due to him having prior acquaintance with the customer, as well as prior experience in the role. A scrum master has the main responsibility for monitoring progress and deliverables, as well as being the main communication link between the group and the customer.
 
 \subsection{Scrum team}
 \label{subsec:process_and_methodology-project_organization-scrum_team}
 
-The other five members of the group constituted the development team. The team and the scrum master was responsible for developing the product, as well as completing the other deliverables in time. In order to distribute some responsibility away from the Scrum master, the group assigned members to different areas of the project. The group created roles for the remaining five members of the group. The goal was for these roles to cover all the aspects of the project. If any issues arose, one would always have someone to consult. Additionally, roles were distributed to complement the skills of each member (see section \ref{sec:introduction-the_group}).
+The other five members of the group constituted the development team. The team and the scrum master was responsible for developing the product, as well as completing the other deliverables in time. In order to distribute some responsibility away from the scrum master, the group assigned members to different areas of the project. The group created roles for the remaining five members of the group. The goal was for these roles to cover all the aspects of the project. If any issues arose, one would always have someone to consult. Additionally, roles were distributed to complement the skills of each member (see section \ref{sec:introduction-the_group}).
 
 \subsubsection{Lead developer}
 \label{subsec:process_and_methodology-project_organization-lead_developer}
 
-The task of the lead developer was keeping control of progress on the development part of the project. The role was given to Skraastad due to his experience and knowledge of the development tools and environment. Keeping track of inter-sprint progress, version control, development planning and integration were key responsibilities of the lead developer. Additionally, he would be the link between the solutions architecture and the rest of the development team, providing more detailed descriptions and structure of the different system components.
+The task of the lead developer was keeping control of progress on the development part of the project. The role was given to Skraastad due to his experience from other development projects. Keeping track of inter-sprint progress, version control, development planning and integration were key responsibilities of the lead developer. Additionally, he would be the link between the solutions architecture and the rest of the development team, providing more detailed descriptions and structure of the different system components.
 
 \subsubsection{Report and documentation}
 \label{subsec:process_and_methodology-project_organization-report_and_documentation}
@@ -114,12 +114,12 @@ One of the main features of the system was the administration interface, with th
 \section{Resource management}
 \label{sec:process_and_methodology-resource_management}
 
-The following describes plans for distribution of time and manpower. They are meant to provide a simple visualization of the work planned, and function as tools to track progress. The resource distribution work started in the introduction phase of the project, and was completed after deciding on the project methodology. The progress was tracked during the project by noting hours used on different tasks. Note that the figures contain the initial plans, and does not correctly reflect the end result.
+This section describes plans for distribution of time and manpower. They are meant to provide a simple visualization of the work planned, and function as tools to track progress. The resource distribution work started in the introduction phase of the project, and the initial estimation and schedule were completed after deciding on the project methodology. The progress was tracked during the project by noting hours used on different tasks. Note that the figures contain the initial plans, and does not correctly reflect the end result.
 
 \subsection{Work breakdown}
 \label{subsec:process_and_methodology-resource_management-work_breakdown}
 
-The work breakdown structure (hereby denoted WBS) provides an overview of the different work packages the project is divided into. It is designed as an hierarchy, where each package may have several sub-packages. It also provides a plan for time usage on each major package. The WBS was used as a tool to create the gantt diagram, and was used throughout the project to define tasks to do each sprint.
+The work breakdown structure (hereby denoted WBS) provides an overview of the different work packages the project is divided into. It is designed as a hierarchy, where each package may have several sub-packages. It also provides a plan for time usage on each major package. The WBS was used as a tool to create the Gantt diagram, and was used throughout the project to define tasks to do each sprint.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -132,7 +132,7 @@ The work breakdown structure (hereby denoted WBS) provides an overview of the di
 \begin{center}
   \begin{figure}[ht!]
     \makebox[\textwidth]{\includegraphics[width=0.8\textwidth]{fig/kakediagram.png}}
-    \caption{Main package structure in percent}
+    \caption{Time distribution of main WBS packages}
     \label{fig:Main structure diagram}
   \end{figure}
 \end{center}
@@ -140,7 +140,7 @@ The work breakdown structure (hereby denoted WBS) provides an overview of the di
 \subsection{Gantt diagram}
 \label{subsec:process_and_methodology-resource_management-gantt_diagram}
 
-Following is the Gantt diagram for the project. The figure \ref{fig:gantt} provides a simple overview of the planned time-distribution of each task in the project. The chart consists of the work packages from the WBS, which has been distributed over the different sprints. This was done in order to make a schedule. Note that unit testing and meetings with the supervisor and customer are not included. They happened during every sprint, and was incorporated in the schedule.
+The Gantt diagram \ref{fig:gantt} provides a simple overview of the planned time-distribution of each task in the project. The chart consists of the work packages from the WBS, which has been distributed over the different sprints. This was done in order to make a schedule. The Gantt diagram is concerned with major work packages and milestones, and may exclude lesser tasks.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -155,7 +155,7 @@ Following is the Gantt diagram for the project. The figure \ref{fig:gantt} provi
 
 Below is a table showing the time that was available. This was meant as a supplement to the Gantt diagram, providing a simple overview of the planned time usage. It accounts for Easter, as well as other holidays.
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{minipage}{\textwidth}
 \resizebox{\textwidth}{!}{%

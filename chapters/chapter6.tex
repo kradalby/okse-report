@@ -11,7 +11,7 @@ The sections below cover the different test phases. It explains the different te
 \subsection{Unit Testing}
 \label{subsec:testing-test_description-unit_testing}
 
-A unit is a portion of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures. A unit test is a specific test written to testing the validity of said component or components. In Java, a unit is commonly defined as an entire class, but could also be a single object method. A unit test is written to confirm that the methods will always act as intended, even if other parts of the program code is changed. Unit tests were used on the parts of the system containing many logical operations and calculations. Unit tests does not however, exclude the possibility of errors. It only reduces the amount of cases where an error might occur.
+A unit is a portion of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures. A unit test is a specific test written to test the validity of said component or components. In Java, a unit is commonly defined as an entire class, but could also be a single object method. A unit test is written to confirm that the methods will act as intended, even if other parts of the program code is changed. Unit tests were used on the parts of the system containing many logical operations and calculations. Unit tests does not however, exclude the possibility of errors. It only reduces the amount of cases where an error might occur.
 
 \subsection{Integration testing}
 \label{subsec:testing-test_description-integration_testing}
@@ -32,7 +32,7 @@ System testing is performed to ensure that the product meets its requirements. I
 
 \subsection{Acceptance Testing}
 \label{subsec:testing-test_description-acceptance_testing}
-Acceptance testing is generally concerned with whether or not the requirements of the system are met in a satisfiable way. Since the system has a lot of functionality that is not visible, the acceptance tests focused on testing the administration interface and to send and receive messages with the implemented applications.
+Acceptance testing is generally concerned with whether or not the requirements of the system are met in a satisfiable way. Since the system has a lot of functionality that is not visible, the acceptance test focused on testing the administration interface and to send and receive messages with the implemented applications.
 As parts of the acceptance testing, the group performed internal smoke tests \cite{smoke-test} of the system after every medium to big component was implemented. General aspects that were tested were requirements compliance, look and feel of the related user interface components, and double checking the interpretation of the customers stated wishes. The reasoning for the smoke tests was to be able to find errors that could impact the result of the final acceptance test.
 
 \section{Test Execution}
@@ -106,13 +106,13 @@ The group assessed the functional requirements and the non-functional requiremen
 
 \subsubsection{Software risk issues}
 
-There are several parts of the OKSE Message Broker that are not directly in control of the development team. It is therefore important that edge cases involving support features from the 3rd party libraries used are assessed as well.
+There are several parts of the OKSE Message Broker that were not directly in control of the group. It was therefore important that edge cases involving support features from the 3rd party libraries used are assessed as well.
 
 The following risks affected the choice of test cases for the system test:
 
 \begin{enumerate}[A.]
-\item \textbf{WS-Nu and WSN standard compliance:} WSN support was the main concern of the customer, and as the protocol is the NATO standard, it holds the highest level of impact if defects are uncovered. Full standard support is desired.
-\item \textbf{Qpid Proton:} The encoding of messages to be sent across the AMQP protocol needs preestimation of byte array size and enumeration until actual size is matched. This could cause a major performance hit on the AMQP protocol, and needs profiling tests.
+\item \textbf{WS-Nu and WSN standard compliance:} WSN support was the main concern of the customer, and as the protocol is the NATO standard, it holds the highest level of impact if defects are uncovered. Full standard support was desired.
+\item \textbf{Qpid Proton:} The encoding of messages to be sent across the AMQP protocol needed preestimation of byte array size and enumeration until actual size is matched. This could cause a major performance hit on the AMQP protocol, and required profiling tests.
 \item \textbf{Customer operational needs:} As the finished product will be used during military operational testing, support features like topic mapping and relay functionality is important for the the product. Additionally, working initialization and setup of configuration directories and files are paramount to the effectiveness and features of the product.
 \item \textbf{Core broker functionality.} The main task of the OKSE Message Broker is to act as a relay and translator for messages. Failure of the system to perform these core tasks would have devastating impact on the effectiveness of the product.
 \end{enumerate}
@@ -120,7 +120,7 @@ The following risks affected the choice of test cases for the system test:
 \subsubsection{Components and features not to be tested}
 
 To reduce the amount of resources needed to perform the testing, some components and features were not tested during the system test. Partially because they are covered by unit or integration tests, or that they have too small related risk to the effectiveness and operation of the product.
-Components and features that were not tested in the system test:
+These are the components and features that were not covered by the system test:
 
 \begin{enumerate}[A.]
 \item The Log View pane in the administration interface, and its related controllers.
@@ -149,7 +149,7 @@ The complete listings of pass criteria for each test case and their respective r
 \subsection{Acceptance test}
 \label{subsec:testing-test_execution-acceptance_test}
 
-A final demonstration of the system was performed at a customer meeting the 8th of May at NTNU. As previously stated, the customer did not have a strictly defined set of requirements for the product. This meant that the demonstration acted as our acceptance test. The group demonstrated the implementation of the customers requirements, as well as additional features and internal requirements from the requirements elicitation process. Due to time limitations, it was not possible to demonstrate all the different permutations of functionality acting together, as the customer had another meeting later that day. Nonetheless, the feedback given from the customer was very positive. There was some discussion regarding limitations of the WS-Nu library, as well as compatibility issues regarding translating messages between WSN and other non-XML protocols. Apart from one minor request for supporting topic based relaying between different instances of the product, the product as a whole was accepted by the customer. Documentation of the limitations of WS-Nu and the challenges regarding message translation were also requested. A summary of the feedback is presented below:
+A final demonstration of the system was performed at a customer meeting the 8th of May at NTNU. As previously stated, the customer did not have a strictly defined set of requirements for the product. This meant that the demonstration acted as our acceptance test. The group demonstrated the implementation of the customers requirements, as well as additional features and internal requirements from the requirements elicitation process. Due to time limitations, it was not possible to demonstrate all the different permutations of functionality acting together, as the customer had another meeting later that day. Nonetheless, the feedback given from the customer was very positive. There was some discussion regarding limitations of the WS-Nu library, as well as compatibility issues regarding translating messages between WSN and other non-XML based protocols. Apart from one minor request for supporting topic based relaying between different instances of the product, the product as a whole was accepted by the customer. Documentation of the limitations of WS-Nu and the challenges regarding message translation were also requested. A summary of the feedback is presented below:
 
 \begin{itemize}
 \item Having a relay function that can forward messages of certain topics to other instances of the system.
