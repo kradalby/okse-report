@@ -33,7 +33,7 @@ System testing is performed to ensure that the product meets its requirements. I
 \subsection{Acceptance Testing}
 \label{subsec:testing-test_description-acceptance_testing}
 Acceptance testing is generally concerned with whether or not the requirements of the system are met in a satisfiable way. Since the system has a lot of functionality that is not visible, the acceptance test focused on testing the administration interface and to send and receive messages with the implemented applications.
-As parts of the acceptance testing, the group performed internal smoke tests \cite{smoke-test} of the system after every medium to big component was implemented. General aspects that were tested were requirements compliance, look and feel of the related user interface components, and double checking the interpretation of the customers stated wishes. The reasoning for the smoke tests was to be able to find errors that could impact the result of the final acceptance test.
+As a precursor to the acceptance test, the group performed internal smoke tests \cite{smoke-test} of the system after every medium to big component was implemented. General aspects that were tested were requirements compliance, look and feel of the related user interface components, and double checking the interpretation of the customers stated wishes. The reasoning for the smoke tests was to be able to find errors that could impact the result of the final acceptance test.
 
 \section{Test Execution}
 \label{subsec:testing-test_execution}
@@ -106,7 +106,7 @@ The group assessed the functional requirements and the non-functional requiremen
 
 \subsubsection{Software risk issues}
 
-There are several parts of the OKSE Message Broker that were not directly in control of the group. It was therefore important that edge cases involving support features from the 3rd party libraries used are assessed as well.
+There are several parts of the OKSE Message Broker that were not directly in control of the group. It was therefore important that edge cases involving support features from the 3rd party libraries used were assessed as well.
 
 The following risks affected the choice of test cases for the system test:
 
@@ -149,17 +149,17 @@ The complete listings of pass criteria for each test case and their respective r
 \subsection{Acceptance test}
 \label{subsec:testing-test_execution-acceptance_test}
 
-A final demonstration of the system was performed at a customer meeting the 8th of May at NTNU. As previously stated, the customer did not have a strictly defined set of requirements for the product. This meant that the demonstration acted as our acceptance test. The group demonstrated the implementation of the customers requirements, as well as additional features and internal requirements from the requirements elicitation process. Due to time limitations, it was not possible to demonstrate all the different permutations of functionality acting together, as the customer had another meeting later that day. Nonetheless, the feedback given from the customer was very positive. There was some discussion regarding limitations of the WS-Nu library, as well as compatibility issues regarding translating messages between WSN and other non-XML based protocols. Apart from one minor request for supporting topic based relaying between different instances of the product, the product as a whole was accepted by the customer. Documentation of the limitations of WS-Nu and the challenges regarding message translation were also requested. A summary of the feedback is presented below:
+A final demonstration of the system was performed at a customer meeting the 8th of May at NTNU. As previously stated, the customer did not have a strictly defined set of requirements for the product. This meant that the demonstration acted as our acceptance test. The group demonstrated the implementation of the customers requirements, as well as additional features and internal requirements from the requirements elicitation process. Due to time limitations, it was not possible to demonstrate all the different permutations of functionality acting together, as the customer had another meeting later that day. Nonetheless, the feedback given from the customer was very positive. There was some discussion regarding limitations of the WS-Nu library, as well as compatibility issues regarding translation of messages between WSN and other non-XML based protocols. Apart from one minor request for supporting topic based relaying between different instances of the product, the product as a whole was accepted by the customer. Documentation of the limitations of WS-Nu and the challenges regarding message translation were also requested. A summary of the feedback is presented below:
 
 \begin{itemize}
 \item Having a relay function that can forward messages of certain topics to other instances of the system.
 \item Support of WS-BrokeredNotification \cite{wsn-brokerednotification} and WS-BaseNotification, it was important that both were tested and documented.
 \item Document the research done on MQTT and MQTT libraries for further development.
-\item The general functionality and purpose of the system were met.
+\item All the general requirements and expectations of the system were met.
 \item The interface was intuitive, and the functionality was sufficient and good.
 \item The name was approved, and kept for release.
 \end{itemize}
 
-These factors were taken into consideration, and the few issues were assessed towards the end.
+These factors were taken into consideration, and the few issues were assessed prior or during the final phase of the project.
 
 \clearpage
