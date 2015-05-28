@@ -104,7 +104,7 @@ In depth explanations of the different challenges and shortcomings are described
 \subsection{Web technologies}
 \label{subsec:Web_technologies}
 
-Bootstrap and jQuery generally made it simpler and less time-consuming to build the web application. Bootstrap also made it simple to give the site a clean and intuitive design. All the requirements (see section \ref{sec:requirements_engineering-functional_requirements}) related to the user interface were tested and met.
+Bootstrap and jQuery generally made it simpler and less time-consuming to build the administration interface. Bootstrap also made it simple to give the site a clean and intuitive design. All the requirements (see section \ref{sec:requirements_engineering-functional_requirements}) related to the user interface were tested and met.
 
 In retrospect, using WebSockets \cite{web-sockets} would have been a better approach for the administration interface. The system is now designed with AJAX for real-time update of content. This is not very scalable, and may result in high server load. Using WebSockets for this purpose would have proven much more efficient. Similar to the publish/subscribe pattern, WebSockets notify clients on a state change, instead of the clients constantly asking the server for the newest state. WebSockets would not make AJAX obsolete, but it would have been a better solution for serving true real-time update of content. AJAX would still have been used for making short-lived web service calls (e.g. HTTP DELETE requests).
 
