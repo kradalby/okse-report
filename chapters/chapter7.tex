@@ -6,7 +6,7 @@
 \section{Planning and research}
 \label{sec:project_lifecycle-planning_and_research}
 
-This section provides a general description of the planning and research phase of the process. It attempts to capture the main aspects of the process and work done.
+This section provides a general description of the planning and research phase of the project. It attempts to capture the main aspects of the process and work done.
 
 \subsection{Planning phase}
 \label{subsec:project_lifecycle-planning_and_research-planning_phase}
@@ -27,7 +27,7 @@ The planning phase of this project consisted mainly of defining the outer scope 
 \subsubsection{Discussion}
 \label{subsec:project_lifecycle-planning_and_research-planning_phase-discussion}
 
-All of the goals were achieved in this phase. The work required during this phase was somewhat overestimated. This was mainly due to reaching agreement with the customer quickly, and the group working well together from the beginning. In total, 180 hours were spent on the planning phase, out of the 240 hours initially planned. 40 of these hours were dedicated to defining the report structure and writing chapter 1 and 2. The remaining 60 hours could have been used more efficiently. Partn of this time was used to construct the outlines of the report, but the remainder should have been allocated to the research phase. 
+All of the goals were achieved in this phase. The work required during this phase was somewhat overestimated. This was mainly due to reaching agreement with the customer quickly, and the group working well together from the beginning. In total, 182 hours were spent on the planning phase, out of the 240 hours initially planned. 40 of these hours were dedicated to defining the report structure and start writing chapter 1 and 2. The remaining 58 hours could have been used more efficiently, and should have been allocated to the research phase.
 
 \subsection{Research phase}
 \label{subsec:project_lifecycle-planning_and_research-research_phase}
@@ -46,25 +46,20 @@ The group was able to reach a decision regarding the system. The choice was a re
 \item The group could not justify proceeding with Apollo, given the time available and the risk of not being able to gain a proper understanding in time to complete a working product.
 \end{itemize}
 
-A large amount of time had been invested in this research phase, and one might argue that it impacted the product development in a negative way. This is mainly due to lost development time. The positive aspect of it was that several good practices and ways to implement a brokering system were learned. Additionally, the group might not have been able to finish a working product in time, had the decision been to proceed with Apollo before understanding the amount of knowledge and effort required.
-
-The first chapters of the report were also being written at this stage, and 56 hours were used on this task as well as project management during the research phase.
+A large amount of time had been invested in this research phase, and one might argue that it impacted the product development in a negative way. This is mainly due to lost development time. The positive aspect of it was that several good practices and ways to implement a brokering system were learned. Additionally, the group might not have been able to finish a working product in time, had the decision been to proceed with Apollo before understanding the amount of knowledge and effort required. In total, 218 hours were spent on the research phase, out of the 240 hours initially planed. 56 of these hours were spent on finalizing chapter 1 and 2. Furthermore the research done on Apollo were documented in appendix \ref{appendix:apache-apollo}.  
 
 \section{Development}
 \label{subsec:project_lifecycle-development}
 
-This section describes the iterations devoted to development of the software. The following section include a general explanation of each sprint, as well as issues that were faced by the group. With the development phase of the project, burndown charts were introduced. The charts reflect the planned and actual time usage for each sprint. This was made in combination with a list of development tasks to be executed for each sprint. Tasks that were not completed in a sprint were transferred to the next sprint. The tasks functioned as an interpretation of sprint backlogs. They do not directly consider the requirements or user stories, but rather work packages from the development part of the WBS (see section \ref{subsec:process_and_methodology-resource_management-work_breakdown}).  The charts do not consider time used on non-development tasks like the report, peer evaluation and meetings.
+This section describes the iterations devoted to development of the software. The following section include a general explanation of each sprint, as well as issues that were faced by the group. With the development phase of the project, burndown charts were introduced. The charts reflect the planned and actual time usage for each sprint. This was made in combination with an activity plan, which were a list of tasks to be executed for each sprint. Tasks that were not completed in a sprint were transferred to the next sprint. Each sprint documented below includes a simplified activity plan, and an example a full activity plan is found in appendix \ref{AppendixB:activity_plan}. They do not directly consider the requirements or user stories, but rather work packages from the development part of the WBS (see section \ref{subsec:process_and_methodology-resource_management-work_breakdown}).  The simplified charts do not consider time used on non-development tasks like the report, peer evaluation and meetings.
 
 \subsection{Sprint 1}
 \label{subsec:project_lifecycle-development-sprint_1}
 
-This was the first of the development cycles. It consisted mainly of setting up the development environment, and constructing the base project templates and structure. At the end of the sprint, the goal was to have a solid foundation both for the broker and for the web interface. Additionally, the development methodology were to be documented in the report.
-
-\subsubsection{Goals}
-\label{subsec:project_lifecycle-development-sprint_1-goals}
+This was the first of the development cycles. It consisted mainly of setting up the development environment, and constructing the base project templates and structure. At the end of the sprint, the goal was to have a solid foundation both for the broker and for the administration interface. Additionally, the development methodology were to be documented in the report.
 
 \begin{center}
-\begin{table}[ht!]
+\begin{table}[H]
 \small
 \centering
 \begin{tabular}{|p{10cm}|p{2cm}|}
@@ -93,6 +88,12 @@ This was the first of the development cycles. It consisted mainly of setting up 
 \end{table}
 \end{center}
 
+
+\subsubsection{Discussion}
+\label{subsec:project_lifecycle-development-sprint_1-discussion}
+
+As expected, the first development sprint was fairly straightforward. The structure of the project was strongly influenced by Apollo. That made the work of defining the structure and base templates simpler, and less time consuming than first expected. However, due to the outcome of the research phase, time had to be used researching technologies and tools relevant to the new plan. There were also some minor deviations in the time spent on tasks versus the time that was estimated, but no specific issues arose at the time. 40 hours were spent on report writing and project management during this sprint and 52 hours were used to research technologies.
+
 \begin{center}
   \begin{figure}[htbp!]
     \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/burndown/sprint1Burndown.png}}
@@ -101,20 +102,12 @@ This was the first of the development cycles. It consisted mainly of setting up 
   \end{figure}
 \end{center}
 
-\subsubsection{Discussion}
-\label{subsec:project_lifecycle-development-sprint_1-discussion}
-
-As expected, the first development sprint was fairly straightforward. The structure of the project was strongly influenced by Apollo. That made the work of defining the structure and base templates simpler, and less time consuming than first expected. There were also some minor deviations in the time spent on tasks versus the time that was estimated, but no specific issues arose at the time. 40 hours were spent on report writing and project management during this sprint.
-
 \subsection{Sprint 2}
 \label{subsec:project_lifecycle-development-sprint_2}
 
-The major goals of sprint 2 was to initialize the first draft of the web interface, as well as identify and implement support for processing incoming WSN messages. The midterm report was also due at the end of this sprint.
+The major goals of sprint 2 was to initialize the first draft of the administration interface, as well as identify and implement support for processing incoming WSN messages. The midterm report was also due at the end of this sprint.
 
-\subsubsection{Goals}
-\label{subsec:project_lifecycle-development-sprint_2-goals}
-
-\begin{table}[ht!]
+\begin{table}[H]
 \small
 \centering
 \begin{tabular}{ | p{10cm} | p{2cm} |}
@@ -146,6 +139,10 @@ Create initial core service architecture & Completed \\
 \label{tab:sprint 2, goals}
 \end{table}
 
+\subsubsection{Discussion}
+\label{subsec:project_lifecycle-development-sprint_2-discussion}
+
+At the starting point of this sprint, quite a bit of content lacked on the report in order to deliver a satisfying mid term version. That prompted the group to dedicate a lot of time to the report, and 39 hours were spent on this task. Some of the work regarding WSN had to be pushed to the next sprint along with other, less important, tasks. Obviously, it would have been preferable to finish the work on time. However, quite a lot of time was left before a functional version of the WSN broker was to be completed. Thus, transferring the packages to the next sprint did not cause much concern time-wise. Additionally, the customer seemed happy with the progress, and was satisfied with the topic handling part of the user interface. One group member was ill throughout much of the sprint. This prompted a redistribution of tasks, according to the risk analysis (see section \ref{sec:prestudies-risk_analysis}).
 
 \begin{center}
   \begin{figure}[ht!]
@@ -155,20 +152,15 @@ Create initial core service architecture & Completed \\
   \end{figure}
 \end{center}
 
-\subsubsection{Discussion}
-\label{subsec:project_lifecycle-development-sprint_2-discussion}
-
-At the starting point of this sprint, quite a bit of content lacked on the report in order to deliver a satisfying mid term version. That prompted the group to dedicate a lot of time to the report, and 39 hours were spent on this task. Some of the work regarding WSN had to be pushed to the next sprint along with other, less important, tasks. Obviously, it would have been preferable to finish the work on time. However, quite a lot of time was left before a functional version of the WSN broker was to be completed. Thus, transferring the packages to the next sprint did not cause much concern time-wise. Additionally, the customer seemed happy with the progress, and was satisfied with the topic handling part of the user interface. One group member was ill throughout much of the sprint. This prompted a redistribution of tasks, according to the risk analysis (see section \ref{sec:prestudies-risk_analysis}).
 
 \subsection{Sprint 3}
 \label{subsec:project_lifecycle-development-sprint_3}
 
 Only 60 hours of development were initially scheduled for sprint 3. This was due to Easter, and the fact that three of the group members were on a class trip. The main goals of this sprint were topic and subscription mapping. That included both the logic of it, and passing it to the web interface. The incomplete packages from sprint 2 were also included.
 
-\subsubsection{Goals}
-\label{subsec:project_lifecycle-development-sprint_3-goals}
+\clearpage
 
-\begin{table}[ht!]
+\begin{table}[t]
 \small
 \centering
 \begin{tabular}{ | p{10cm} | p{2cm} |}
@@ -213,9 +205,6 @@ At this point, the progress and status of the project was not ideal. After the s
 
 A lot of work had to be put into the report, the peer evaluation and general research on WSN. The group realized that finishing WSN would be difficult this sprint, so the main focus was to finalize the subscription and publish parts of it. Completing this would be a step in the right direction. The one major issue was deliveries in other courses. This led to little time being scheduled for this sprint. This is something that could have been assessed earlier, and planned for better by following the risk analysis.
 
-\subsubsection{Goals}
-\label{subsec:project_lifecycle-development-sprint_4-goals}
-
 \begin{table}[ht!]
 \small
 \centering
@@ -248,6 +237,12 @@ Start looking into MQTT	& Not completed \\
 \label{tab:sprint 4, goals}
 \end{table}
 
+
+\subsubsection{Discussion}
+\label{subsec:project_lifecycle-development-sprint_4-discussion}
+
+The two main reasons for this sprint not containing the planned workload were major deliveries in other courses, as well as group members being in Oslo for summer job interviews. Additionally, 25 hours were spent on the report, which included time spent assessing the mid term feedback. Due to the challenges discussed in the previous sprint, the group had to discuss the priority of requirements with the customer. The solution was to re-prioritize the requirements of MQTT and AMQP support. The result was that AMQP now was the first-in-line protocol to be implemented, pushing MQTT down at a lower priority level. Previously, both AMQP and MQTT had been at the same priority level. That led to a rework of the schedule for the remaining sprints. A lot of time was used for research on the remaining parts of WSN this sprint, along with a lot of report work. WSN proved to be more comprehensive and complex than initially expected, and more code was needed for the implementation than first expected. Even with this in mind, the group still somewhat underperformed. Too little time was dedicated to actual development work. This was an issue, and the solution was to dedicate a lot of time to development the next sprint. A new work plan was made for the remaining sprints (see table \ref{tab:workplan, revised}).
+
 \begin{center}
   \begin{figure}[ht!]
     \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/burndown/sprint4Burndown.png}}
@@ -255,11 +250,6 @@ Start looking into MQTT	& Not completed \\
     \label{fig:sprint 4, burndown}
   \end{figure}
 \end{center}
-
-\subsubsection{Discussion}
-\label{subsec:project_lifecycle-development-sprint_4-discussion}
-
-The two main reasons for this sprint not containing the planned workload were major deliveries in other courses, as well as group members being in Oslo for summer job interviews. Additionally, 25 hours were spent on the report, which included time spent assessing the mid term feedback. Due to the challenges discussed in the previous sprint, the group had to discuss the priority of requirements with the customer. The solution was to re-prioritize the requirements of MQTT and AMQP support. The result was that AMQP now was the first-in-line protocol to be implemented, pushing MQTT down at a lower priority level. Previously, both AMQP and MQTT had been at the same priority level. That led to a rework of the schedule for the remaining sprints. A lot of time was used for research on the remaining parts of WSN this sprint, along with a lot of report work. WSN proved to be more comprehensive and complex than initially expected, and more code was needed for the implementation than first expected. Even with this in mind, the group still somewhat underperformed. Too little time was dedicated to actual development work. This was an issue, and the solution was to dedicate a lot of time to development the next sprint. A new work plan was made for the remaining sprints (see table \ref{tab:workplan, revised}).
 
 
 \begin{center}
@@ -296,10 +286,7 @@ The two main reasons for this sprint not containing the planned workload were ma
 
 \subsection{Sprint 5}
 \label{subsec:project_lifecycle-development-sprint_5}
-At the start of sprint 5, lectures and tasks were completed in other courses. That meant that all resources could be devoted to the project. Considering the issues explained in the previous sprint, as well as the fact that the time left was getting short, a lot of work was scheduled for this sprint. Extra work hours were introduced in the evenings to assess the lack of time, in accordance with the risk analysis. The main task for this sprint was finalizing the most important aspects of WSN, as well as getting an overview of, and start implementing AMQP support.
-
-\subsubsection{Goals}
-\label{subsec:project_lifecycle-development-sprint_5-goals}
+At the start of sprint 5, lectures and tasks were completed in other courses. That meant that all resources could be devoted to the project. Considering the issues explained in the previous sprint, as well as the fact that the time left was getting short, a lot of work was scheduled for this sprint. Extra work hours were introduced in the evenings to assess the lack of time, in accordance with the risk analysis. The main task for this sprint was finalizing the most important aspects of WSN, as well as getting an overview of and start of implementing AMQP support.
 
 \begin{table}[ht!]
 \small
@@ -343,6 +330,11 @@ AMQP Driver.stop() & Completed \\
 \label{tab:sprint 5, goals}
 \end{table}
 
+\subsubsection{Discussion}
+\label{subsec:project_lifecycle-development-sprint_5-discussion}
+
+Almost all resources were assigned to implementation this sprint, and a lot of work was done on the system. Although a fair amount of the packages were not fully completed at the end, WSN only lacked proper testing before completion. A lot of work had also been done on AMQP, and the protocol proved much simpler than WSN. Thus, the project was almost back on schedule, and it seemed likely that the implementation would be completed after the next sprint. It did, however, seem unlikely that there was sufficient time to implement MQTT. Thus, MQTT was completely abandoned during the group meeting at the end of the sprint, with compliance from the customer. The group noted that research done on the MQTT protocol, and libraries of interest should be documented in the report regardless.
+
 \begin{center}
   \begin{figure}[ht!]
     \makebox[\textwidth]{\includegraphics[width=\textwidth]{fig/burndown/sprint5Burndown.png}}
@@ -351,21 +343,17 @@ AMQP Driver.stop() & Completed \\
   \end{figure}
 \end{center}
 
-
-\subsubsection{Discussion}
-\label{subsec:project_lifecycle-development-sprint_5-discussion}
-
-Almost all resources were assigned to implementation this sprint, and a lot of work was done on the system. Although a fair amount of the packages were not fully completed at the end, WSN only lacked proper testing before completion. A lot of work had also been done on AMQP, and the protocol proved much simpler than WSN. Thus, the project was almost back on schedule, and it seemed likely that the implementation would be completed after the next sprint. It did, however, seem unlikely that there was sufficient time to implement MQTT. Thus, MQTT was completely abandoned during the group meeting at the end of the sprint, with compliance from the customer. The group noted that research done on the MQTT protocol, and libraries of interest should be documented in the report regardless.
-
 \subsection{Sprint 6}
 \label{subsec:project_lifecycle-development-sprint_6}
 
-This was the final period of development. Only a small amount of development work remained before completion of the product. That, along with testing and a lot of report writing were the most important aspects of the sprint. The plan was to finish up the development at the beginning of the sprints, and work on testing and report writing after that. The final days of this sprint had to be dedicated to studying for exams in other courses.
+This was the final period of development. Only a small amount of development work remained before completion of the product. That, along with testing and a lot of report writing, were the most important aspects of the sprint. The plan was to finish up the development at the beginning of the sprints, and work on testing and report writing after that. The final days of this sprint had to be dedicated to studying for exams in other courses.
+
+\subsubsection{Discussion}
+\label{subsec:project_lifecycle-development-sprint_6-discussion}
+
+Having exams coming up, most of the work was done at the beginning of this sprint. All tasks were completed by the end of this sprint, and both AMQP and WSN was implemented at this point. Only minor challenges arose, but were quickly overcome. The major challenges and headaches regarding WSN and AMQP were already resolved during the last sprint. With a clear remaining path, finalizing the last work packages progressed without noteworthy incidents. As the report had to start shaping up, 50 hours were also spent on writing.
 
 \clearpage
-
-\subsubsection{Goals}
-\label{subsec:project_lifecycle-development-sprint_6-goals}
 
 \begin{table}[ht!]
 \small
@@ -416,16 +404,9 @@ Test functionality for graceful shutdown and restart & Completed \\
   \end{figure}
 \end{center}
 
-\subsubsection{Discussion}
-\label{subsec:project_lifecycle-development-sprint_6-discussion}
-
-Having exams coming up, most of the work was done at the beginning of this sprint. All tasks were completed by the end of this sprint, and both AMQP and WSN was implemented at this point. Only minor challenges arose, but were quickly overcome. The major challenges and headaches regarding WSN and AMQP were already resolved during the last sprint. With a clear remaining path, finalizing the last work packages progressed without noteworthy incidents. As the report had to start shaping up, 50 hours were also spent on writing.
-
 \section{Final phase}
 
-The final phase mostly consisted of report writing and documentation. A lot of final work and reviewing had to be done in order to deliver a satisfying report. That included writing the user and development manual, as well as the evaluation of the project. The plan was to finish the report on the May 26. The report would then be handed to a third party for proofreading. The proofreading covered evaluation of structure, semantics and general language. The final delivery deadline was the May 30, at which point the report would be delivered.
-
-The final phase consisted of the tasks listed in table \ref{tab:final_phase-tasks}, as well as the total amount of time spent on each task.
+The final phase mostly consisted of report writing and documentation. A lot of final work and reviewing had to be done in order to deliver a satisfying report. That included writing the user and development manual, as well as an evaluation of the project. The plan was to finish the report on May 26. The report would then be handed to a third party for proofreading. The proofreading covered evaluation of structure, semantics and general language. The final delivery deadline was May 30, at which point the report would be delivered. The final phase consisted of the tasks listed in table \ref{tab:final_phase-tasks}, as well as the total amount of time spent on each task.
 
 \begin{table}[ht!]
 \small
@@ -451,6 +432,5 @@ Sum & 220 \\
 
 \subsubsection{Discussion}
 
-As the final deadline approached, the group had to put in a large effort to finalize the formal parts of the project. The most prominent part was dedicated to the main report, focusing on the formulation of sentences, syntax, overall structure and readability. Additionally, the group put much effort into evaluating the project as a whole. This had to be done both to summarize lessons learned throughout the project, as well as documenting product related findings to the customer.
-
-An additional task during the final phase was to perform one final system test including all the stated requirements, as well as additional tests of the product. The main reason being that the group had to assure that the results provided were consistent with the behaviour of the system after development had ended. As some flaws were discovered during development, it was also important to check if they were still reproducible, and in any case documented accordingly. This task was performed based on the plan outlined in section \ref{subsec:testing-test_execution-system_testing}.
+As the final deadline approached, the group had to put in large effort to finalize the formal parts of the project. The most prominent part was dedicated to the main report, focusing on the formulation of sentences, syntax, overall structure and readability. Additionally, the group put much effort into evaluating the project as a whole. This had to be done both to summarize lessons learned throughout the project, as well as documenting product related findings for the customer.
+An additional task during the final phase was to perform one final system test including all the stated requirements, as well as additional tests of the product. The main reason being that the group had to assure that the results provided were consistent with the behaviour of the system after development had ended. As some flaws were discovered during development, it was also important to check if they were still reproducible and, in any case, documented accordingly. This task was performed based on the plan outlined in section \ref{subsec:testing-test_execution-system_testing}.
