@@ -11,7 +11,7 @@ This section discusses the high-level aspects of the broker architecture. Some p
 \subsection{Goals and strategy}
 \label{subsec:architecture_and_implementation-broker_architecture-goals_and_strategy}
 
-Building on the results and findings in the research phase, a set of goals were created for the design of the system architecture. Several aspects of the Apollo broker were really well thought out, and were on the priority list from the start. These included, but were not limited to: Complete protocol agnostic interface. A priority message queue supported by a multi-threaded execution service. Loose coupling of modules, as well as high extendability and low maintenance effort was important and in accordance with the non-functional requirements.
+Building on the results and findings in the research phase, a set of goals were created for the design of the system architecture. Several aspects of the Apollo broker were really well thought trough, and were on the priority list from the start. These included, but were not limited to: Complete protocol agnostic interface. A priority message queue supported by a multi-threaded execution service. Loose coupling of modules, as well as high extendability and low maintenance effort was important and in accordance with the non-functional requirements.
 
 Expanding on these traits, the group wanted a system architecture where each component was a standalone service. A service would expose a public interface from which other components could request data access or services from. Another goal of the design was to have a core service responsible for registering other services, starting them, stopping them, and registering protocols. This would allow the system to be extended by simply registering the new component, without further modifications.
 
@@ -58,7 +58,7 @@ Usage dependency could however, not be reduced to a level lower than what was ne
 
 After much thought was put into these challenges, a component dependency diagram (see figure \ref{fig:architecture_dependency}) was created to illustrate how the administration interface, services and protocols should depend on each other. As with the high-level architecture, core services are denoted with yellow and protocols with gray.
 
-Dependencies between components that are annotated with $<< Use >>$ represent situations where a component depends on the other to offer its full set of features. In practice, a complete implementation of the brokering system would rely on all these dependencies to meet the specified requirements. But they should not be required for a component to perform its own internal responsibilities. Hence, a single instance of the WSN protocol should be able to run without connectivity to the rest of the system, and fully function in its local environment. This would however, mean that the rest of the system would be unaware of the subscribers, topics and messages handled by the local instance.
+Dependencies between components that are annotated with $<< Use >>$ represent situations where one component depends on the other to offer its full set of features. In practice, a complete implementation of the brokering system would rely on all these dependencies to meet the specified requirements. But they should not be required for a component to perform its own internal responsibilities. Hence, a single instance of the WSN protocol should be able to run without connectivity to the rest of the system, and fully function in its local environment. This would, however, mean that the rest of the system would be unaware of the subscribers, topics and messages handled by the local instance.
 
 \subsection{Data flow}
 \label{subsec:architecture_and_implementation-broker_architecture-data_flow}
@@ -71,11 +71,11 @@ Dependencies between components that are annotated with $<< Use >>$ represent si
   \end{figure}
 \end{center}
 
-During the analysis of component dependencies, several potential data flows were analysed. They were used as references when evaluating what components would have critical dependencies and usage dependencies. This proved helpful, as the complexity and scope of what the group had to take into consideration began to dawn at that point. An example of one of these data flows is a possible notification message being sent. A simplified version of the data flow is illustrated in figure \ref{fig:architecture_data_flow_simple}, and assesses requirement FR1.
+During the analysis of component dependencies, several potential data flows were analysed. They were used as references when evaluating which components would have critical dependencies and usage dependencies. This proved helpful, as the complexity and scope of what the group had to take into consideration began to dawn at that point. An example of one of these data flows is a possible notification message being sent. A simplified version of the data flow is illustrated in figure \ref{fig:architecture_data_flow_simple}, and assesses requirement FR1.
 
 The figure illustrates which system calls are needed for a sender to send a message, process it, and deliver it. In practice, there might be several receivers and many additional calls, but this has been abstracted away for simplicity.
 
-These simplified sequences were expanded later on, to provide a more realistic data flow in greater detail. During development, the detailed sequences were used as support when implementing proper start up sequences of the different components. Additionally, they were helpful in identifying possible computational bottlenecks, and provide insight into different ways of structuring the code.
+These simplified sequences were expanded later on, to provide a more realistic data flow in greater detail. During development, the detailed sequences were used as support when implementing proper start up sequences of the different components. Additionally, they were helpful for identifying possible computational bottlenecks, and in provideing insight into different ways of structuring the code.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -90,12 +90,12 @@ Figure \ref{fig:architecture_data_flow} illustrates an expanded version of what 
 \section{Broker implementation}
 \label{sec:architecture_and_implementation-implementation}
 
-This section provides a brief outline of implementation specific details in the OKSE message brokering system. It lists some common patterns used, choices that were made and the reasoning behind these. The main system components referenced in this section are illustrated in figure \ref{fig:abstract_architecture}. The following sections assume a higher level of technical knowledge, and does not elaborate on every technical term used to describe the implementation. The scope of these terms fall into what can be described as general programming domain knowledge.
+This section provides a brief outline of implementation specific details in the OKSE message brokering system. It lists some common patterns used, choices that were made and the reasoning behind these. The main system components referred in this section are illustrated in figure \ref{fig:abstract_architecture}. The following sections assume a higher level of technical knowledge, and does not elaborate on every technical term used to describe the implementation. The scope of these terms fall into what can be described as general programming domain knowledge.
 
 \subsection{Core}
 \label{subsec:architecture_and_implementation-implementation-core}
 
-As outlined in the architecture design goals, the core components of the system were implemented as standalone services, using the singleton pattern \cite{singleton}. To provide a thread safe execution environment, all services were implemented with an internal task queue. This reactor thread pattern \cite{reactor-pattern} acts as a demultiplexer, collecting requests for service methods from other threads and executes them synchronously by order of arrival.
+As outlined in the architecture design goals, the core components of the system were implemented as standalone services, using the singleton pattern \cite{singleton}. To provide a thread safe execution environment, all services were implemented with an internal task queue. This reactor thread pattern \cite{reactor-pattern} acts as a demultiplexer, collecting requests for service methods from other threads and executing them synchronously by order of arrival.
 
 \subsubsection{CoreService}
 \label{subsec:architecture_and_implementation-implementation-core-coreservice}
@@ -106,7 +106,7 @@ Additionally, the CoreService boots up registered ProtocolServers, which are des
 
 As with all the OKSE core services, the main CoreService extends the AbstractCoreService class. This class holds some common attributes that are needed, as well as definitions of the abstract methods for \verb!init()!, \verb!boot()!, \verb!run()! and \verb!stop()! actions.
 
-All the services are intended to follow the singleton pattern, uses static references in the implementation. Thus, the remaining needed methods and fields for initialization and instantiation are not provided by the abstract super class. They have to be implemented using a similar approach as described in the \ref{sec:common-patterns-used} and \ref{sec:adding-new-core-services} chapters.
+All of these services are intended to follow the singleton pattern, uses static references in the implementation. Thus, the remaining needed methods and fields for initialization and instantiation are not provided by the abstract super class. They have to be implemented using a similar approach as described in the \ref{sec:common-patterns-used} and \ref{sec:adding-new-core-services} chapters.
 
 An overview of the boot sequence of the main OKSE components is described in figure \ref{fig:boot-sequence}.
 
@@ -119,14 +119,14 @@ An overview of the boot sequence of the main OKSE components is described in fig
   \end{figure}
 \end{center}
 
-The details of the \verb!init()!, \verb!boot()! and \verb!run()! methods will vary from service to service, and protocol server to protocol server.
+The details of the \verb!init()!, \verb!boot()! and \verb!run()! methods will vary from service to service, and from protocol server to protocol server.
 
 After the boot sequence has completed, all of the instances of either core services or protocol servers have their own dedicated thread that awaits the next task or event to execute.
 
 \subsubsection{TopicService}
 \label{subsec:architecture_and_implementation-implementation-core-topicservice}
 
-The \verb!TopicService! is responsible for creating, updating and  deleting topics, as well as event propagation for topic related events. It runs, as a single threaded reactor that consumes tasks from a blocking queue, securing thread safety. It is also supported by the \verb!TopicTools! class, which provides helper methods for topic tree traversal. It is worth mentioning that all topics that have subpaths will be linked together into a tree, regardless of the fact that none of the implemented protocols use this feature. It was implemented this way to account for future protocols that does support hierarchy based message distribution, and complements the non-functional requirement extendability  (see section \ref{subsec:requirements_engineering-non_functional_requirements-extendibility}) in that way.
+The \verb!TopicService! is responsible for creating, updating and  deleting topics, as well as event propagation for topic related events. It runs, as a single threaded reactor that consumes tasks from a blocking queue, securing thread safety. It is also supported by the \verb!TopicTools! class, which provides helper methods for topic tree traversal. It is worth mentioning that all topics that have subpaths will be linked together into a tree, regardless of the fact that none of the implemented protocols use this feature. They were implemented this way to account for future protocols that does support hierarchy based message distribution, and complements the non-functional requirement extendability  (see section \ref{subsec:requirements_engineering-non_functional_requirements-extendibility}) in that way.
 
 The \verb!Topic! object itself has two ways of retrieving its name. A \verb!getName()! which returns the name of that particular node, and a \verb!getFullRawTopicString()! which traverses the tree until a root topic node is found. The latter will return a concatenation of the topic node names found on the path to the root node. A concatenated string of topic names is the default identifier of topics throughout the system.
 
@@ -137,7 +137,7 @@ As topics may be deleted from the administration panel, or new topics could be c
 \subsubsection{SubscriptionService}
 \label{subsec:architecture_and_implementation-implementation-core-subscriptionservice}
 
-The \verb!SubscriptionService! is responsible for creating, updating and deleting subscribers and publishers, as well as event propagation for these types of events. It runs as a single threaded reactor that consumes tasks from a blocking queue, securing thread safety.
+The \verb!SubscriptionService! is responsible for the creating, updating and deleting subscribers and publishers, as well as event propagation for these types of events. It runs as a single threaded reactor that consumes tasks from a blocking queue, securing thread safety.
 
 The \verb!SubscriptionService! implements listener support, which is used by other services that need to know when subscribers or publishers are created, updated or deleted. This is done by implementing \verb!SubscriptionChangeListener! and \\ \verb!PublisherChangeListener! respectively, and registering the class in question to the \verb!SubscriptionService! using the \verb!addSubscriptionChangeListener()! and  \verb!addPublisherChangeListener()! methods.
 
@@ -152,9 +152,9 @@ It runs as a single threaded reactor that consumes message distribution requests
 
 When a message is received for distribution, it is added into the \verb!MessageService!'s message queue, and consumed in order of arrival. In turn, the \verb!MessageService! iterates through all registered protocol servers, and calls the \verb!sendMessage()! method on each. Each of these calls are executed as a runnable job which is dispatched to the \verb!CoreService!'s central thread pool.
 
-It is important to note that the \verb!MessageService! is oblivious to how protocol servers handle messages locally. This means that the \verb!MessageService! will call the \verb!send! \verb!Message()! method on the same protocol server the message was received from. This allows the protocol server implementations to choose how they handle message distribution. A requirement is that they check the \verb!originProtocol! field of the message in their \verb!send!\verb!Message()! method, to prevent messages from entering an infinite loop.
+It is important to note that the \verb!MessageService! is oblivious to how protocol servers handle messages locally. This means that the \verb!MessageService! will call the \verb!send! \verb!Message()! method on the same protocol server as the message was received from. This allows the protocol server implementations to choose how they handle message distribution. A requirement is that they check the \verb!originProtocol! field of the message in their \verb!send!\verb!Message()! method, to prevent messages from entering an infinite loop.
 
-Additionally, the \verb!MessageService! keeps the latest messages sent on a topic in local cache, such that protocols like WSN that requires this feature can retrieve them.
+Additionally, the \verb!MessageService! keeps the latest messages sent on a topic in local cache, so that protocols like WSN that require this feature can retrieve them.
 
 In order to update the local latest message cache, the \verb!MessageService! is registered as a listener to \verb!TopicChangeEvent!s, to respond appropriately if topics are deleted from the administration panel.
 
@@ -223,12 +223,12 @@ Similar to the \verb!WSNSubscriptionManager!, the \verb!WSNRegistrationManager! 
 
 \subsection{AMQP}
 \label{subsec:architecture_and_implementation-implementation-amqp}
-The implementation of AMQP consists of mainly two parts. The first part is the handling of AMQP decoding and encoding of messages and the handling of the AMQP data in the network requests and responses. The second part is the handling of broker behaviour and the integration with the rest of the system. 
+The implementation of AMQP mainly consists of two parts. The first part is the handling of AMQP decoding and encoding of messages and the handling of the AMQP data in the network requests and responses. The second part is the handling of broker behaviour and the integration with the rest of the system. 
 
-As every protocol server is implemented to run on a single thread, there was a need to handle the incoming and outgoing requests/messages in a clever way. After some consideration, the AMQP protocol server was implemented using the reactor event loop pattern \cite{event-loop}. 
+As every protocol server is implemented to run on a single thread, there is a need to handle the incoming and outgoing requests/messages in a clever way. After some consideration, the AMQP protocol server was implemented using the reactor event loop pattern \cite{event-loop}. 
 The AMQP network socket was implemented using the Java non-blocking I/O library. The benefits of using a non-blocking socket is that instead of having to devote one thread per client, it will instead keep multiple channels open and perform multiplexing. This is ideal for the single thread approach, as no single client will halt the program when it has stopped sending data. After the input is received and has been demultiplexed, Qpid (see section \ref{subsub-apache_qpid_proton}) will convert the incoming data to an event, which is then added to the event queue.
 
-Simultaneously as the event queue gets new events, the event loop is continuously dispatching the events to the correct methods on different handlers. A handler is a class that extends the \verb!BaseHandler! class from Qpid. The handler can override event methods invoked by the event queue. The AMQP implementation has the following handlers; \verb!AMQPServer!, \verb!Driver!, \verb!Handshaker! and \verb!SubscriptionHandler!, with their own specific task.
+Simultaneously with the event queue getting new events, the event loop is continuously dispatching the events to the correct methods on different handlers. A handler is a class that extends the \verb!BaseHandler! class from Qpid. The handler can override event methods invoked by the event queue. The AMQP implementation has the following handlers; \verb!AMQPServer!, \verb!Driver!, \verb!Handshaker! and \verb!SubscriptionHandler!, with their own specific task.
 
 \begin{center}
   \begin{figure}[ht!]
@@ -263,13 +263,13 @@ WSN and AMQP use different behaviour for handling topics/queues. As WSN is a pur
 
 In the initial implementation, the system only complied with the given standards for each protocol. To cope with the differences, the group implemented logic to handle the conversion between the two behaviours. In addition, the group consulted the customer with the idea of implementing a non-standard topic implementation of AMQP. This meant that AMQP could be used with the same behaviour as WSN, and that all AMQP subscribers on one topic/queue would receive the message. The customer liked the idea, as it would fit nicely with their usage pattern. 
 
-A configuration switch was implemented to select which mode to use. The switch is available through the configuration file and the web administration interface. The logic for this feature is implemented in AMQPServer, which as previously stated is responsible for the outgoing message logic.
+A configuration switch was implemented to select which mode to use. The switch is available through the configuration file and the web administration interface. The logic for this feature is implemented in AMQPServer which, as previously stated, is responsible for the outgoing message logic.
 
 
 \section{User interface}
 \label{sec:architecture_and_implementation-user_interface}
 
-One of the initial requirements from the customer, was to have a graphical user interface. It was supposed to display relevant data and allow the administrator to moderate topics and subscriptions. After an initial consideration, the Spring Framework was chosen to be the most suitable framework (see section  \ref{subsec:prestudies-tools-spring_mvc}) for building the administration panel. The user interface was implemented using the MVC-pattern. 
+One of the initial requirements from the customer, was to have a graphical user interface. This was supposed to display relevant data and allow the administrator to moderate topics and subscriptions. After an initial consideration, the Spring Framework was chosen to be the most suitable framework (see section  \ref{subsec:prestudies-tools-spring_mvc}) for building the administration panel. The user interface was implemented using the MVC-pattern. 
 
 \subsection{Design}
 \label{subsec:architecture_and_implementation-user_interface-design}
@@ -282,22 +282,22 @@ One of the initial requirements from the customer, was to have a graphical user 
   \end{figure}
 \end{center}
 
-As previously stated a considerable amount of time was spent researching the Apollo broker during the research phase. This  provided information about what an administration interface should provide. The customer had initially not stated any specific requirements for the administration panel. Therefore, an initial website wireframe was created, and shown to the customer. The wireframe was heavily influenced by Apollo. This wireframe (see figure \ref{fig:initial_prototype}), along with the creation of use cases, set the terms for creating a prototype.
+As previously stated a considerable amount of time were spent researching the Apollo broker during the research phase. This  provided information about what an administration interface should provide. The customer had initially not stated any specific requirements for the administration panel. Therefore, an initial website wireframe was created, and shown to the customer. The wireframe was heavily influenced by Apollo. This wireframe (see figure \ref{fig:initial_prototype}), along with the creation of use cases, set the terms for creating a prototype.
 
-The group agreed upon creating a functional prototype for the customer. This prototype was made available, so that the customer could provide feedback. During most customer meetings, the current version of the administration panel was discussed. The customer gave feedback on how new elements in the panel met the customers expectations. This approach gave the group one big advantage; rapid response from the customer, which made it easy to improve the interface and add additional features. Throughout the lifetime of the development phase, the administration panel was continuously deployed on the test server.
+The group agreed upon creating a functional prototype for the customer. This prototype was made available, so that the customer could provide feedback. During most customer meetings, the current version of the administration panel was discussed. The customer gave feedback on how new elements in the panel met the customers expectations. This approach gave the group great advantage; rapid response from the customer, which made it easy to improve the interface and add additional features. Throughout the lifetime of the development phase, the administration panel was continuously deployed on the test server.
 
-The final interface contained six panes; "Main", "Topics", "Subscribers", "Statistics", "Logs" and "Configuration". The "Main"-pane contains information about the message broker. It is meant to give a general overview of the current operating environment, as well as the system status and memory usage. The "Statistics"-pane contains useful statistics about requests, messages etc on the different protocols. The "Logs"-pane contains runtime logs for debugging purposes. The "Topics"-pane shows all registered topics in the message broker. On this pane, information about the current topics, as well as the possibility to remove them. The "Subscribers"-pane has exactly the same functionality as the "Topics"-pane, but for subscribers. Finally, in the "Configuration"-pane, the user can change the brokers settings and map topics together. Also, a possibility to add relays between multiple OKSE brokers is located here.
+The final interface contains six panes; "Main", "Topics", "Subscribers", "Statistics", "Logs" and "Configuration". The "Main"-pane contains information about the message broker. It is meant to give a general overview of the current operating environment, as well as the system status and memory usage. The "Statistics"-pane contains useful statistics about requests, messages etc on the different protocols. The "Logs"-pane contains runtime logs for debugging purposes. The "Topics"-pane shows all registered topics in the message broker. On this pane, information about the current topics, as well as the possibility to remove them. The "Subscribers"-pane has exactly the same functionality as the "Topics"-pane, but for subscribers. Finally, in the "Configuration"-pane, the user can change the brokers settings and map topics together. Also, a possibility to add relays between multiple OKSE brokers is located here.
 
 A user manual, including a visual guide to the interface, can be found in appendix \ref{appendix-user-manual}.
 
 \subsection{Implementation}
 \label{subsec:architecture_and_implementation-implementation}
 
-The OKSE administration interface was designed in a modularized way, to achieve loose coupling as defined by the modularization requirement (see section  \ref{subsec:requirements_engineering-non_functional_requirements-modularization}). Each pane of the interface would have its own controller and a respective front-end JavaScript file. The advantage of this approach was having the administration panel designed as a single page web application. The page uses AJAX-requests to reach a representational state transfer (hereby denoted REST) API. By using the Spring Framework, the system exposes API-endpoints which can be used to access and/or modify data. This is the main data source for the front-end and is a critical part of the single page design. Translated to the MVC-pattern, the Spring Framework works as a controller through REST-controllers, and the different panes works as views. Each AJAX-request to the API-endpoints will reach the controllers and modify the models and/or message broker. Structuring the system this way gave some advantages: 
+The OKSE administration interface was designed in a modularized way, to achieve loose coupling as defined by the modularization requirement (see section  \ref{subsec:requirements_engineering-non_functional_requirements-modularization}). Each pane of the interface would have its own controller and a respective front-end JavaScript file. The advantage of this approach was having the administration panel designed as a single page web application. The page uses AJAX-requests to reach a representational state transfer (hereby denoted REST) API. By using the Spring Framework, the system exposes API-endpoints which can be used to access and/or modify data. This is the main data source for the front-end and is a critical part of the single page design. Translated to the MVC-pattern, the Spring Framework work as a controller through REST-controllers, and the different panes works as views. Each AJAX-request to the API-endpoints will reach the controllers and modify the models and/or message broker. Structuring the system this way gives some advantages: 
 
 \begin{itemize}
     \item No need to refresh the entire administration panel.
-    \item One controller class served one pane; easy to debug.
+    \item One controller class serves one pane; easy to debug.
     \item Loose coupling, no dependencies between panes.
     \item Easy to extend the application further.
 \end{itemize}
@@ -316,7 +316,7 @@ The back-end of OKSE works as a RESTful Web Service. It works as a link between 
 
 \subsubsection{Front-end}
 
-The front-end of OKSE is the only component of the system that is directly accessible for graphical user interaction. It is responsible for making HTTP-requests to the back-end for manipulation and presentation of the state the system is currently in. To ensure and minimize the probability for cross-browser incompatibilities, the front-end is implemented using the jQuery framework. Each pane of the administration interface has its own module implemented with jQuery. These modules are responsible for event-handling, AJAX-requests and updating of information in their respective pane.
+The front-end of OKSE is the only component of the system that is directly accessible for graphical user interaction. It is responsible for making HTTP-requests to the back-end for manipulation and presentation of the state that the system is currently in. To ensure and minimize the probability for cross-browser incompatibilities, the front-end is implemented using the jQuery framework. Each pane of the administration interface has its own module implemented with jQuery. These modules are responsible for event-handling, AJAX-requests and updating of information in their respective pane.
 
 For a more detailed description about the user interface architecture, see appendix \ref{appendix-developer-manual}.
 

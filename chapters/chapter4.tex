@@ -7,7 +7,7 @@
 
 The requirements engineering process was a continuous negotiation between the customer and the development team. Although the customer had a general idea of what the system was supposed to do, this process went on throughout the duration of the project. This was done to make sure that the requirements were realistic, given the time available. The requirements lists reflect the final result of the process.
 
-Requirements are separated into two categories. A functional requirement describes a function of the system or one of its components. A non-functional requirement can be viewed with regards to the operation of the system. Rather than listing specific functions of the system, it describes the performance or operation of the system as a whole. In this project, strict requirements and narrow requirement scope was not provided by the customer. The requirements given were general, and listed some features the system would have to provide, but not an extensive list. This led to the group having to create a more comprehensive set of requirements as a basis for development.
+Requirements are separated into two categories. A functional requirement describes a function of the system or one of its components. A non-functional requirement can be viewed with regards to the operation of the system. Rather than listing specific functions of the system, it describes the performance or operation of the system as a whole. In this project, strict requirement and narrow requirement scope was not provided by the customer. The requirements given were general, and listed some features that the system would have to provide, but not an extensive list. This led to the group having to create a more comprehensive set of requirements as a basis for development.
 
 For the remainder of this chapter, a client is defined as any application that implements the protocol in question as its means of communication. Implementing a general purpose client was not a part of the product description. To the best of the groups knowledge, only one general purpose client exists for the protocol versions implemented. And it is a commercial client supporting AMQP 1.0. As such, libraries and scripts were used internally as client representations. These are covered in appendix \ref{sec:test_clients}.
 
@@ -18,14 +18,14 @@ The functional requirements were elicited as a result of discussion both within 
 
 The non-functional requirements elicitation was purely a result of discussion with the customer. After identifying the properties of the system, they were classified and rated in order of importance.
 
-Two issues arose when requirements for the different protocols were to be defined. First of all, the customer wanted as many protocols to be implemented as possible. After considering the time available, the three most important protocols were listed as requirements. The decision was subject to change however, depending on how much time it would take to implement each protocol.
+Two issues arose when requirements for the different protocols were to be defined. First of all, the customer wanted as many protocols as possible to be implemented. After considering the time available, the three most important protocols were listed as requirements. The decision was subject to change however, depending on how much time it would take to implement each protocol.
 
-The other issue was defining the protocols as requirements. On the one hand, they could be seen as functional requirements. "As a user, one must be able to send a message using protocol A". This would be regarded as a functional requirement. On the other hand, protocol support could be viewed as a property of the system. The protocol would then be considered a set of standards the system has to conform to, and fall under the compatibility category of non-functional requirements. The functional requirements would then only be described as "a user being able to send a message", regardless of protocol. The decision would not make any profound difference to the product. Thus, extensive research into this definition was not pursued.
+The other issue was defining the protocols as requirements. On one hand, they could be seen as functional requirements. "As a user, one must be able to send a message using protocol A". This would be regarded as a functional requirement. On the other hand, protocol support could be viewed as a property of the system. The protocol would then be considered a set of standards that the system has to conform to, and fall under the compatibility category of non-functional requirements. The functional requirements would then only be described as "a user being able to send a message", regardless of protocol. The decision would not make any profound difference to the product. Thus, extensive research into this definition was not pursued.
 
 \section{Functional requirements}
 \label{sec:requirements_engineering-functional_requirements}
 
-After a brief evaluation, the aspects around different protocols were defined as functional requirements, noted as FR in the requirements table. Mainly due to a consideration of how they would be tested. It seemed more reasonable to include them as functional requirements when considering the integration testing of components, as well as system and acceptance testing. The other functional requirements were concerned with what a user was supposed to do with the user interface. The general goal of the interface was to expose configuration of mappings between supported protocols, publisher and subscriber database listings, as well as topics and content filters. The functional requirements are described in table \ref{tab:func-requirements}, and was a result of the requirements elicitation process.
+After a brief evaluation, the aspects around different protocols were defined as functional requirements, noted as FR in the requirements table. Mainly due to a consideration of how they would be tested. It seemed more reasonable to include them as functional requirements when considering the integration testing of components, as well as system and acceptance testing. The other functional requirements were concerned with what a user was supposed to do with the user interface. The main goal of the interface was to expose configuration of mappings between supported protocols, publisher and subscriber database listings, as well as topics and content filters. The functional requirements are described in table \ref{tab:func-requirements}, and were a result of the requirements elicitation process.
 
 \begin{longtable}{@{\extracolsep{\fill}}|l|l|p{8cm}|l|@{}}
 \hline
@@ -80,12 +80,12 @@ Following is a list of the non-functional requirements (hereby denoted NFR) crea
 \subsubsection{NFR1.1 - Modularization}
 \label{subsec:requirements_engineering-non_functional_requirements-modularization}
 
-The different components of the system should be decomposed in such a way that the respective components are loosely coupled, to allow easier addition of more protocols at a later point in time. It also allows upgrading and further developing of different parts of the system individually.
+The different components of the system should be decomposed in such a way that the respective components are loosely coupled, to allow easier addition of more protocols at a later point of time. It also allows upgrading and further development of different parts of the system individually.
 
 \subsubsection{NFR1.2 - Protocol Independence}
 \label{subsec:requirements_engineering-non_functional_requirements-protocol_independence}
 
-The system must be able to translate between protocols independent of their type, more precisely it must not only support to/from WSN, but also between other supported protocols, without having to go through WSN.
+The system must be able to translate between protocols independent of their type. More precisely, it must not only support to/from WSN, but also between other supported protocols, without having to go through WSN.
 
 \subsection{NFR2 - Documentation}
 \label{subsec:requirements_engineering-non_functional_requirements-documentation}
@@ -100,7 +100,7 @@ The software shall be open source. The software shall be available for use, chan
 \section{User stories}
 \label{sec:requirements_engineering-user_stories}
 
-The following table describes the user stories defined. The stories were used as a tool to create use cases. The stories were defined based on conversations with the customer, and answers to what the customer wanted to do with the system. The different aspects were then structured in table \ref{tab:user-stories}. 
+The following table describes the user stories defined. The stories were used as a tool to create use cases. They were defined based on conversations with the customer, and answers to what the customer wanted to do with the system. The different aspects were then structured in table \ref{tab:user-stories}. 
 
 \clearpage
 

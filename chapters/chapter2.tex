@@ -6,14 +6,14 @@
 \section{Customer input}
 \label{sec:prestudies-customer_input}
 
-In the first meeting with the customer, the group received input about the overall structure of the product, as well as the research required. The customer put emphasis on a few important factors when designing the application. The protocol implementation had to be modularized in such a way that additional protocol support could be added with ease at a later time. A graphical administration interface was also required, to be able to review broker data and adjust publisher/subscriber mappings. Additionally, extensive research had to be done, both to learn how the different protocols work, and to get an overview of the publish/subscribe pattern in general. These factors had an impact when choosing what sort of solution the group would develop. It also affected the development and research methodology.
+In our first meeting with the customer, the group received input about the overall structure of the desired product, as well as the research required. The customer put emphasis on a few important factors when designing the application. The protocol implementation had to be modularized in such a way that additional protocol support could be added with ease at a later time. A graphical administration interface was also required, to ensure ability to review broker data and adjust publisher/subscriber mappings. Additionally, extensive research had to be done, both to learn how the different protocols work and to get an overview of the publish/subscribe pattern in general. These factors had an impact on the group's choice of which sort of solution to develop. They also affected the development and research methodology.
 
-The application was meant to be used internally by FFI researchers in training and experimentation exercises. This meant that the product was targeted towards a very narrow user base. Due to this, less resources were allocated to prototyping and testing of the user interface. Having a continuous dialogue with the customer, and being able to adapt to the customers feedback was deemed sufficient to accommodate this area of development.
+The application was meant to be used internally by FFI researchers in training and experimentation exercises. This meant that the product was targeted towards a very narrow user base. Due to this, less resources were allocated to prototyping and testing of the user interface. Having a continuous dialogue with the customer and being able to adapt to the customers feedback was deemed sufficient to accommodate this area of development.
 
 \section{Publish/subscribe}
 \label{sec:prestudies-publish_subscribe}
 
-The implementation of the product had to be structured in a publish/subscribe messaging pattern. In standard messaging protocols, users send messages directly to other users or groups of users. Publish/subscribe is based on categories, and each message sent is placed in a specific category. Whenever a message is put in a category and sent, every subscriber on the category will receive the message. Publishers and subscribers are separated, as subscribers do not know which publishers, if any, exists. In the same manner, publishers have no insight into which, if any subscribers exists to the category. A user can be both a subscriber and publisher at the same time, depending on the category in question.
+The implementation of the product had to be structured in a publish/subscribe messaging pattern. In standard messaging protocols, users send messages directly to other users or groups of users. Publish/subscribe is based on categories, and each message sent is placed in a specific category. Whenever a message is put in a category and sent, every subscriber on the category will receive the message. Publishers and subscribers are separated, as subscribers do not know which publishers, if any, exist. In the same manner, publishers have no insight into which, if any, subscribers exists to the category. A user can be both a subscriber and publisher at the same time, depending on the category in question.
 
 In the publish/subscribe pattern, the category is commonly known as a topic. The concept of topics is a close sibling to other messaging paradigms, like queues. The difference between queues and topics are described in the next section. 
 
@@ -29,18 +29,18 @@ The general publish/subscribe pattern is visualized in the figure \cite{pub-sub-
 
 \subsection{Topics and Queues}
 \label{subsec:architecture_and_implementation-topic_and_queue_differecnce}
-While the publish/subscriber pattern and WSN uses the concept of topics to describe where a message is supposed to be routed, AMQP uses the concept of queues. As there is a fundamental difference between them, a detailed description of each is needed.
+While both the publish/subscribe pattern and WSN use the concept of topics to describe where a message is supposed to be routed, AMQP uses the concept of queues. As there is a fundamental difference between them, a detailed description of each is needed.
 
 \subsubsection{Topic}
 In a system implemented with topics, an incoming message will be distributed to every subscriber on the given topic. This means that if the topic "example" has three subscribers, and a message is sent to this topic, the message will be sent to all three subscribers.
 
 \subsubsection{Queue}
-When a system is implemented with the behaviour of a queue, an incoming message will be distributed to \textit{one} of the subscribers on the given queue. This means that if the queue has three subscribers, and the message is sent to this queue, the message will be sent to \textit{one} of the subscribers. The way the subscriber is chosen can be implemented in a number of ways, for example at random or with the round-robin algorithm \cite{round-robin}. A typical usage for queue based messaging protocols is load balancing, which works out of the box when using queues. Additionally, with a queue based implementation, messages sent to a queue without subscribers will be stored until someone subscribes, and then offloaded on that subscriber.
+When a system is implemented with the behaviour of a queue, an incoming message will be distributed to \textit{one} of the subscribers on the given queue. This means that if the queue has three subscribers, and a message is sent to this queue, the message will be sent to \textit{one} of the subscribers. The way the subscriber is chosen can be implemented in a number of ways, for example at random or with the round-robin algorithm \cite{round-robin}. A typical usage for queue based messaging protocols is load balancing, which works out of the box when using queues. Additionally, with a queue based implementation, messages sent to a queue without subscribers will be stored until someone subscribes, and then offloaded on to that subscriber.
 
 \section{Protocols}
 \label{prestudies-protocols}
 
-The following sections describe the protocols the system was intended to support. The protocols are all based on either the publish/subscribe or the queue pattern, but differ in their structure and implementation.
+The following sections describe the protocols that the system was intended to support. The protocols are all based on either the publish/subscribe or the queue pattern, but differ in their structure and implementation.
 
 \subsection{Web Services Notification}
 \label{subsec:prestudies-wsnotification}
@@ -53,32 +53,28 @@ AMQP is a binary protocol designed to send messages over a computer network. The
 
 \subsubsection{AMQP version}
 \label{subsec:prestudies-amqp-amqp_version}
-AMQP has mainly two versions being used, with some substantial differences. The current version, 1.0, has fewer public implementations and less documentation and examples. It is radically different from 0.9.1. As 1.0 was a requirement from the customer, little research was done on 0.9.1. It is important to note that the difference gap between the two, are big enough to almost regard them as different protocols. The developers of RabbitMQ (see section \ref{subsec:prestudies-existing_solutions-rabbitmq}), one of the most popular AMQP brokers states: "AMQP 1.0 is a completely different protocol than AMQP 0.9.1 and hence not a suitable replacement for the latter."
+AMQP has mainly two versions, with some substantial differences being used. The newest version, 1.0, has fewer public implementations and less documentation and examples. It is radically different from 0.9.1. As 1.0 was a requirement from the customer, little research was done on 0.9.1. It is important to note that the difference gap between the two, are big enough to almost regard them as different protocols. The developers of RabbitMQ (see section \ref{subsec:prestudies-existing_solutions-rabbitmq}), one of the most popular AMQP brokers state: "AMQP 1.0 is a completely different protocol than AMQP 0.9.1 and hence not a suitable replacement for the latter."
 
 \subsection{Message Queue Telemetry Transport}
 \label{subsec:prestudies-mqtt}
-MQTT is a publish/subscribe based protocol. It has the advantage of being lightweight and uses a minimal footprint wherever it can. The protocol also minimizes its use of bandwidth. MQTT has gained a lot of popularity over the last years, and its properties makes it suitable for everything from embedded systems to big implementations like Facebook Messenger \cite{facebook-messenger}.
+MQTT is a publish/subscribe based protocol. It has the advantage of being lightweight and has minimal overhead. This protocol minimizes its use of bandwidth. MQTT has gained a lot of popularity over the last years, and its properties makes it suitable for everything from embedded systems to big implementations like Facebook Messenger \cite{facebook-messenger}.
 
 \section{Existing solutions}
 \label{subsec:prestudies-existing_solutions}
 
-Following is the evaluation of currently existing solutions. These are products that partially covers the requirements, or could be used in the implementation in some way.
+Following is an evaluation of currently existing solutions. These are products that partially cover the requirements, or could be used in the implementation in some way.
 
 \subsection{Apache Apollo}
 \label{subsec:prestudies-existing_solutions-apache_apollo}
 
-Apache Apollo \cite{apache-apollo} is an open source project maintained by the Apache Software Foundation \cite{apache} and commercially supported by Red Hat \cite{red-hat}. This application distinguishes itself from the existing solutions presented below, because it is a complete, protocol agnostic broker that translates freely between AMQP, MQTT, OpenWire \cite{openwire} and STOMP \cite{stomp}. It is an up to date project, that is continually updated by the development team.
-
-Apache Apollo can be considered the next generation of the older Apache ActiveMQ broker \cite{activemq}. It is a complete reimplementation of the old broker, built on more modern programming concepts and has a more efficient message handler.
-
-A more comprehensive description and analysis of Apollo can be found in appendix \ref{appendix:apache-apollo}.
+Apache Apollo \cite{apache-apollo} is an open source project maintained by the Apache Software Foundation \cite{apache} and commercially supported by Red Hat \cite{red-hat}. This application distinguishes itself from the existing solutions presented below, because it is a complete protocol agnostic broker that translates freely between AMQP, MQTT, OpenWire \cite{openwire} and STOMP \cite{stomp}. It is an up to date project, that is continually updated by the development team. Apache Apollo can be considered the next generation of the older Apache ActiveMQ broker \cite{activemq}. It is a complete reimplementation of the old broker, built on more modern programming concepts and has a more efficient message handler. A more comprehensive description and analysis of Apollo can be found in appendix \ref{appendix:apache-apollo}.
 
 \subsubsection{Evaluation}
 \label{subsec:prestudies-existing_solutions-apache_apollo-evaluation}
 
-Initially, the group set up an instance of Apache Apollo and read through both the user and developer documentation. Apollo seemed to be a very well written broker, and covered many of the requirements given by the customer.
+Initially, the group set up an instance of Apache Apollo and read through both the user and developer documentation. Apollo seemed to be a very well written broker, and it covered many of the requirements given by the customer.
 
-The internals of the message queuing and message translation systems are well designed. It uses a non-blocking reactor thread model, which keeps all threads running and consumes tasks asynchronously, allowing a fast message processing rate. Apollo dynamically converts large message queues from actual objects to pointer references when the queue becomes large. This helps mitigate the memory limits of the Java Virtual Machine (hereby denoted JVM), and allows Apollo to maintain queues larger than what a regular in-memory queue system would have. One of the issues with Apollo however, was that a lot of the functionality is written in Scala  \cite{scala}, which none of the group members had any experience with.
+The internals of the message queuing and message translation systems are well designed. It uses a non-blocking reactor thread model, which keeps all threads running and consumes tasks asynchronously, allowing a fast message processing rate. Apollo dynamically converts large message queues from actual objects to pointer references when the queue becomes large. This helps mitigate the memory limits of the Java Virtual Machine (hereby denoted JVM), and allows Apollo to maintain queues larger than what a regular in-memory queue system would have. One of the issues with Apollo however, was that a lot of the functionality is written in Scala  \cite{scala}, which none of the group's members had any experience with.
 
 \subsection{RabbitMQ}
 \label{subsec:prestudies-existing_solutions-rabbitmq}
@@ -88,7 +84,7 @@ RabbitMQ \cite{rabbit-mq} is an open source project created and maintained by Pi
 \subsubsection{Evaluation}
 \label{subsec:prestudies-existing_solutions-rabbitmq-evaluation}
 
-RabbitMQ and its plugins are implemented in a programming language and paradigm that was not preferred by the customer. Thus, it would not be practical to build upon this solution. Additionally, no-one in the group had previous experience with Erlang. Therefore, the group concluded that further research was unnecessary.
+RabbitMQ and its plugins are implemented in a programming language and paradigm that was not preferred by the customer. Thus, it would not be practical to build upon this solution. Additionally, no one in the group had previous experience with Erlang. Therefore, the group concluded that further research was unnecessary.
 
 \subsection{WS-Nu}
 \label{subsec:prestudies-existing_solutions-ws_nu}
@@ -98,35 +94,31 @@ WS-Nu \cite{ws-nu} is a project developed as an assignment at NTNU. It is an imp
 \subsubsection{Evaluation}
 \label{subsec:prestudies-existing_solution-ws_nu-evaluation}
 
-WS-Nu is well written, uses common patterns and has a quite decent level of documentation and code comments. From what can be concluded from the prestudy, most or all aspects of the WSN protocol standard has been implemented.
-
-Additionally, the WS-Nu implementation was recommended from FFI, as it had passed several of their tests. At this level of evaluation, the WS-Nu library is deemed a good fit as a protocol library to use in the project.
+WS-Nu is well written, uses common patterns and has quite a decent level of documentation and code comments. From what can be concluded from the prestudy most, if not all, aspects of the WSN protocol standard has been implemented. Additionally, the WS-Nu implementation was recommended from FFI, as it had passed several of their tests. At this level of evaluation, the WS-Nu library was deemed a good fit as a protocol library to use in the project.
 
 \subsection{Apache Qpid Proton}
 \label{subsub-apache_qpid_proton}
 Apache Qpid Proton \cite{amqp-qpid-proton} is a library that implements the AMQP protocol version 1.0. It is one of the few library implementations that use this version.
 
 \subsubsection{Evaluation}
-The Proton library is recommended by OASIS as it provides language library bindings to over ten popular languages in addition to the native Java and C++ implementation.
-
-Proton is widely used and is actively maintained. Due to this, it was chosen as the only viable alternative for implementation.
+The Proton library is recommended by OASIS as it provides language library bindings to over ten popular languages in addition to the native Java and C++ implementation. Proton is widely used and is actively maintained. Due to this, it was chosen as the only viable alternative for implementation.
 
 \subsection{MicroWSN and NFFIPlayer}
 \label{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer}
 
-MicroWSN and NFFIplayer are both software developed and provided by FFI. MicroWSN is an implementation of a WSN broker. NFFIPlayer is a program for testing WSN by simulating a publisher. The package was created by FFI for testing in the field. However, the implementation is incomplete, and lacks several features that a complete implementation should have. This software was property of FFI, and could not be further distributed by the group (see appendix \ref{appendix-eula}).
+MicroWSN and NFFIplayer are both software developed and provided by FFI. MicroWSN is an implementation of a WSN broker. NFFIPlayer is a program for testing WSN by simulating a publisher. This package was created by FFI for testing in the field. However, the implementation is incomplete, and it lacks several features that a complete implementation should have. Since this software was property of FFI, it could not be further distributed by the group (see appendix \ref{appendix-eula}).
 
 \subsubsection{Evaluation}
 \label{subsec:prestudies-existing_solutions-micro_wsn_and_nffiplayer-evaluation}
 
-The package was not considered for further development, due to its incompleteness, and that it is purely a broker for WSN. However, due to the graphical interface provided, it could be used to test the WSN implementation.
+The package was not considered for further development, due to its incompleteness, and the fact that it is purely a broker for WSN. However, due to the graphical interface provided, it could be used for testing the WSN implementation.
 
 \section{Overall evaluation}
 \label{sec:prestudies-overall_evaluation}
 
-The main outcome of the prestudies phase, was the discovery of Apollo. It proved to be a solution it was possible to expand upon. One issue with Apollo, proved to be the massive code base. It was clear that it would be difficult to grasp, given its sheer size and complexity. A lot of the code was hard to understand, and lacked thorough documentation and community usage. Additionally, the web interface and a few core system components were built using Scala. Regardless, Apollo provided what seemed a very dynamic and robust implementation of both the AMQP and MQTT protocols, which were requirements from the customer. Expanding Apollo with WSN would be the best solution implementation wise, as it would possibly open up time for adding other protocols the customer wanted.
+The main outcome of the prestudies phase, was the discovery of Apollo. This proved to be a solution that it was possible to expand upon. One issue with Apollo however, proved to be the massive code base. It was clear that it would be difficult to grasp, given its sheer size and complexity. A lot of the code was hard to understand, and lacked thorough documentation and community usage. Additionally, the web interface and a few core system components were built using Scala. Regardless, Apollo provided what seemed a very dynamic and robust implementation of both the AMQP and MQTT protocols, which were requirements from the customer. In our opinion, expanding Apollo with WSN would be the best solution implementation wise, as it would probably open up time for adding other protocols the customer wanted.
 
-The group chose to introduce an extended research phase, in order to make a final decision regarding Apollo. This was based on an initial risk analysis of what would become a research project. These risks would lay the foundation of the research process, and define the different areas of focus. The risk analysis is shown below, and a more detailed description of the methodology is explained in section \ref{subsec:process_and_methodology-process-methodology-research}.
+The group chose to introduce an extended research phase, in order to make a final decision regarding Apollo. Due to this, a risk analysis targeted towards the research of Apollo was created. These risks would lay the foundation of the research process, and define the different areas of focus. The risk analysis is shown below, and a more detailed description of the methodology is explained in section \ref{subsec:process_and_methodology-process-methodology-research}.
 
 \begin{table}[ht!]
 \centering
@@ -156,9 +148,11 @@ Unable to learn Scala well enough           & 2                & 6            & 
 \subsection{Alternative solution}
 \label{subsec:prestudies-alternate_solution}
 
-If the outcome of the research phase would result in discarding of Apollo as a foundation for the new system, a plan B was outlined. Plan B was to develop a completely new protocol brokering solution. WS-Nu would then be used as the WSN library of the product. 
+If the outcome of the research phase would result in discarding Apollo as a foundation for the new system, a plan B was outlined. Plan B was to develop a completely new protocol brokering solution. WS-Nu would then be used as the WSN library of the product. 
 
-The two major development tasks, were to create a web interface and the brokering solution itself. The initial architecture outline was strongly influenced by the architecture of Apollo, due to its robustness and the sheer quality of the product. A quick draft was constructed to get an idea of the components needed to build a system from scratch. Influences from Apollo are the components in figure \ref{fig:arch_proposal} marked with green background color.
+The two major development tasks were to create an administration interface in addition to the brokering solution itself. The initial architecture outline was strongly influenced by the architecture of Apollo, due to its robustness and the sheer quality of the product. A quick draft was constructed to get an idea of the components needed to build a system from scratch. Influences from Apollo are the components in figure \ref{fig:arch_proposal} marked with green background color.
+
+\clearpage
 
 \begin{center}
   \begin{figure}[ht!]
@@ -171,49 +165,49 @@ The two major development tasks, were to create a web interface and the brokerin
 \section{Tools}
 \label{sec:prestudies-tools}
 
-The following section contains descriptions of all the main tools used in the project. This includes tools used for communication, document sharing and development.
+The following section contains descriptions of all the tools used in this project. This includes tools used for communication, document sharing and development.
 
 \subsection{Skype}
 \label{subsec:prestudies-tools-skype}
 
-Skype \cite{skype} was the main tool used for communication with the customer. Meetings were held using the group call feature of Skype. Communication within the group was done using both group calls, as well as the instant messaging feature within Skype. The tool was convenient to use both for the customer and the group. It provided all the communication features needed, both voice communication and a textual chat.
+Skype \cite{skype} was the main tool used for communication with the customer. Meetings were held using the group call feature of Skype. Communication within the group was done using both group calls, as well as the instant messaging feature within Skype. This tool was convenient to use both for the customer and for the group. It provided all the communication features needed, both voice communication and a textual chat.
 
 \subsection{Mailing list}
 \label{subsec:prestudies-tools-mailinglist}
 
-In addition to Skype, the group and the customer used email for communication between the meetings. To make sure that every group member were up to speed on all relevant information, a mailing list was created. The mailing list was used to send a copy of every email received to the whole group. This was beneficial, as all of the group members received information both from the supervisor and customer.
+In addition to Skype, the group and the customer used email for communication inbetween the meetings. To make sure that every group member was up to speed on all relevant information, a mailing list was created. The mailing list was used to send a copy of every email received to the whole group. This was beneficial, as all of the group members received all information both from supervisor and customer.
 
 \subsection{Java}
 \label{subsec:prestudies-tools-java}
 
-The customer preferred that the main part of development was done with Java \cite{java}. Java is a programming language widely used in software development. The group chose version 8 as the target, which is the newest version. One of the main benefits of choosing Java and the JVM as the language and platform is that the broker could run on every system where JVM is available. This means that the broker would not be affected by different hardware architectures or operating systems as long as they were supported.
+The customer preferred that the main part of development was done with Java \cite{java}. Java is a programming language widely used in software development. The group chose version 8, which is the newest version, as the target. One of the main benefits of choosing Java and the JVM as language and platform is that the broker could run on every system where JVM was available. This means that the broker would not be affected by different hardware architectures or operating systems as long as they were supported.
 
 \subsection{Spring Framework}
 \label{subsec:prestudies-tools-spring_mvc}
 
-Spring Framework \cite{spring-framework} is a model view controller (hereby denoted MVC) \cite{mvc} framework developed in Java. It is a modern framework mostly used for development of web-based applications. The framework was chosen after a quick evaluation of different possibilities. It was chosen because it was easy to learn, and provided exactly what was required, with a small amount of work to set up.
+Spring Framework \cite{spring-framework} is a model view controller (hereby denoted MVC) \cite{mvc} framework developed in Java. It is a modern framework used mostly for development of web-based applications. This framework was chosen after a quick evaluation of different possibilities. It was chosen because it was easy to learn, and it provided exactly what was required, with a small amount of work to set up.
 
 \subsection{Bootstrap}
 \label{subsec:prestudies-tools-bootstrap}
 
-Bootstrap \cite{bootstrap} was chosen as a suitable framework for the visual aspects of the web application. Bootstrap provides a solid foundation that includes almost everything a typical website requires, while also being easy and flexible to customize. The foundation provided a large set of tools for page layout and elements, such as buttons, forms, navigation and most importantly a layout grid system. Designing it from scratch would have taken a lot of time, and was less important than the broker solution and the functionality of the web application. Also, based on previous experience, Bootstrap has proven to be a stable framework that is easy to learn. Thus, the framework seemed like an appropriate tool for its purpose.
+Bootstrap \cite{bootstrap} was chosen as a suitable framework for the visual aspects of the web application. Bootstrap provides a solid foundation that includes almost everything a typical website requires, while also being easy and flexible to customize. This foundation provided a large set of tools for page layout and elements, such as buttons, forms, navigation and, most importantly, a layout grid system. Designing it from scratch would have taken a lot of time, and this was less important than the broker solution and the functionality of the web application. Also, based on previous experience, Bootstrap has proven to be a stable framework that is easy to learn. Thus, the framework seemed like an appropriate tool for its purpose.
 
 \subsection{jQuery}
 \label{subsec:prestudies-tools-jQuery}
 
-jQuery \cite{jquery} is a lightweight and fast JavaScript library. The main purpouse of jQuery is to promote simplicity to the use of JavaScript. By using jQuery, things like document object model manipulations,  asynchronous JavaScript and asynchronous requests (hereby denoted AJAX) and event handling are less comprehensive, and the total amount of code needed decreases. It has also made a great impact in the enterprise market. Finally, it eliminates a lot of cross-browser incompatibilities. Different browsers use different JavaScript engines, and jQuery handles almost all of these inconsistencies.
+jQuery \cite{jquery} is a lightweight and fast JavaScript library. The main purpouse of jQuery is to promote simplicity in the use of JavaScript. By using jQuery, things like document object model manipulations,  asynchronous JavaScript and XML (hereby denoted AJAX) and event handling is less comprehensive. Thus, the total amount of code needed decreases. It has also made a great impact in the enterprise market. Finally, it eliminates a lot of cross-browser incompatibilities. Different browsers use different JavaScript engines, and jQuery handles almost every one of these inconsistencies.
 
 \subsection{JavaDoc}
 \label{subsec:prestudies-tools-javadoc}
 
-The group chose to use JavaDoc, an automatic, comment based documentation tool to provide developer documentation of the code base. JavaDoc is supported in most Java Integrated Development Environments (hereby denoted as IDE), and allows for easy generation and update of developer documentation. JavaDoc is the standard documentation tool for development in Java. Few good alternatives exist that covers the same functionality, and the tool was an obvious choice in this project.
+The group chose to use JavaDoc, an automatic, comment based documentation tool to provide developer documentation of the code base. JavaDoc is supported in most Java Integrated Development Environments (hereby denoted IDE), and allows easy generation and update of developer documentation. JavaDoc is the standard documentation tool for development in Java. Few good alternatives that covers the same functionality exist, and the tool was an obvious choice in this project.
 
 \subsection{IntelliJ IDEA}
 \label{subsec:prestudies-tools-intellij_idea}
 
 IntelliJ IDEA \cite{intellij-idea} is a Java IDE. It contains a wide array of useful built-in functions for development in Java. It also includes support for build systems like Maven \cite{maven} and Gradle \cite{gradle}. Version control systems are also well integrated in the tool.
 
-Several different development environments exist. Everything from simple text editors, to fully integrated development environments might be used. Considering development in Java however, one might achieve some advantages by using a big platform. Both code completion, and functions for compiling code in the environment, makes the development process easier and faster. The group considered mainly three alternatives when evaluating the environment. IntelliJ, Eclipse \cite{eclipse} and Netbeans \cite{netbeans}. The choice came down to mainly two deciding factors. Both eclipse and Netbeans suffer from having a confusing amount of plugins for different tasks, where as the built in features of IntelliJ are widely cohesive. Secondly, IntelliJ was the first to release support for Java 8, and has proven to be stable and efficient over time.
+Several different development environments exist. Everything from simple text editors, to fully integrated development environments might be used. Considering development in Java however, one might achieve some advantages by using a big platform. Both code completion, and functions for compiling code in the environment, make the development process easier and faster. The group considered mainly three alternatives when evaluating the environment: IntelliJ, Eclipse \cite{eclipse} and Netbeans \cite{netbeans}. The choice was based on mainly two deciding factors. Both Eclipse and Netbeans suffer from having a confusing amount of plugins for different tasks, where as the built in features of IntelliJ are widely cohesive. Secondly, IntelliJ was the first to release support for Java 8, and has proven to be stable and efficient over time. Thus, IntelliJ was chosen as the IDE.
 
 \subsection{Apache Maven}
 \label{subsec:prestudies-tools-apache_maven}
@@ -223,14 +217,14 @@ Apache Maven is a software solution for handling structuring, building and testi
 \subsection{TestNG}
 \label{subsec:prestudies-tools-testng}
 
-TestNG \cite{test-ng} is a framework used for writing unit tests in Java. Compared to the more commonly used JUnit \cite{junit}, TestNG is implemented with better handling of tests that require threads, easier parametrized tests and the ability to more efficiently use data providers in the tests. TestNG also integrates out of the box with both Maven and Intellj IDEA.
+TestNG \cite{test-ng} is a framework used for writing unit tests in Java. Compared to the more commonly used JUnit \cite{junit}, TestNG is implemented with better handling of tests that require threads, easier parametrized tests and the ability to more efficiently use of data providers in the tests. TestNG also integrates out of the box with both Maven and Intellj IDEA.
 
 \subsection{Git}
 \label{subsec:prestudies-tools-git}
 
 Version control is important when working on mid and large scale development projects. The group chose to use Git \cite{git} in collaboration with GitHub \cite{github}, a cloud hosted, distributed revision control system that allows all team members to access the code. Git provides complete history and version control, with complete offline support, as the Git working directory acts as a complete repository.
 
-There are other distributed version control systems (hereby denoted DVCS) available. However, the whole group had experience with both Git and GitHub beforehand, and the group agreed that using these services would be the best choice. Additionally, it would have been counterproductive to research and learn a different version control system. As most of the DVCS accomplishes the same tasks, the time should rather be spent on research and development.
+There are other distributed version control systems (hereby denoted DVCS) available. However, the whole group had experience with both Git and GitHub beforehand, and the group agreed that using these services would be the best choice. It would have been counterproductive to research and learn a different version control system. As most of the DVCS accomplish the same tasks, the time should rather be spent on research and development.
 
 % Someone please read if engrish makes sense.
 \subsection{Jenkins}
@@ -248,7 +242,7 @@ Gantt project \cite{gantt-project} is a tool used to create gantt charts. It is 
 \subsection{Google Drive}
 \label{subsec:prestudies-tools-google_drive}
 
-Google Drive \cite{google-drive} is a platform for sharing documents. Drive supports all necessary types of files, as well as support for real time cooperation on documents. The simplicity of Drive is what makes it an attractive platform. The ability to simply upload a file to the website, and instantly having it shared is both efficient and easy to grasp. Compared to using email or storage on a physical medium for file sharing, a cloud solution seemed more suitable. 
+Google Drive \cite{google-drive} is a platform for sharing documents. Drive supports all necessary types of files, as well as support for real time cooperation on documents. The simplicity of Drive is what makes it an attractive platform. The ability to simply upload a file to the website, and instantly having it shared, is both efficient and easy to grasp. Compared to using email or storage on a physical medium for file sharing, a cloud solution seemed more suitable. 
 
 Drive was used to share all text and image files used in the report. It also served as the main platform for sharing and collaborating on time-tables and agendas for meetings.
 
@@ -257,14 +251,14 @@ Drive was used to share all text and image files used in the report. It also ser
 
 ShareLatex \cite{sharelatex} is an online platform for collaborative editing of LaTeX documents. Furthermore, LaTeX is a typesetting system, designed for production of technical and scientific documentation.
 
-LaTeX was chosen as the typesetting system for the report. Compared to other solutions like Microsoft Word, it generates cleaner and well formed documents. It also opens the opportunity for automatically generating a front page and table of contents. In the end however, the choice fell on LaTeX due to it being better, and more professional looking than many of its alternatives.
+LaTeX was chosen as typesetting system for the report. Compared to other solutions, like Microsoft Word, it generates cleaner and well formed documents. It also opens the opportunity for automatically generating a front page and table of contents. In the end however, the choice fell on LaTeX due to it being better, and more professional looking than many of its alternatives.
 
-ShareLatex can in some ways be compared to Google Drive. The difference is that it is exclusively built for sharing LaTeX documents. It features the ability to cooperate on documents in real time, as well as compile and preview documents.
+ShareLatex can to a certain degree be compared to Google Drive. The difference is that it is exclusively built for sharing LaTeX documents. It features the ability to cooperate on documents in real time, as well as compile and preview documents.
 
 \section{Risk analysis}
 \label{sec:prestudies-risk_analysis}
 
-The risk assessment was made early in the planning phase. The table \ref{fig:risk_analysis} shows what was considered to be the most likely events happening, as well as preventive actions. The analysis include both events applying to individuals and the group as a whole. Upon inspection of each of the risks, a number between 1 and 10 was chosen for the likelihood of the case happening, as well as the potential impact it would have. The final rank of the risk was defined as these two numbers multiplied. When a risk was identified, a remedial action was included, in order to reduce the potential impact it would have.
+Risk assessment was made early in the planning phase. The table \ref{fig:risk_analysis} shows which risks were most likely to occur, as well as preventive actions. The analysis includes both events applying to individuals and the group as a whole. Upon inspection of each of the risks, a number between 1 and 9 was chosen for the likelihood of the case happening, as well as the potential impact it would have. The final rank of the risk was defined as these two numbers multiplied. When a risk was identified, a remedial action was included, in order to reduce the potential impact it would have.
 
 \small
 \begin{longtable}{@{\extracolsep{\fill}}|p{0.13\linewidth}

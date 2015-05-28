@@ -11,12 +11,12 @@ The sections below cover the different test phases. It explains the different te
 \subsection{Unit Testing}
 \label{subsec:testing-test_description-unit_testing}
 
-A unit is a portion of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures. A unit test is a specific test written to test the validity of said component or components. In Java, a unit is commonly defined as an entire class, but could also be a single object method. A unit test is written to confirm that the methods will act as intended, even if other parts of the program code is changed. Unit tests were used on the parts of the system containing many logical operations and calculations. Unit tests does not however, exclude the possibility of errors. It only reduces the amount of cases where an error might occur.
+A unit is a portion of source code, sets of one or more computer program modules together with associated control data, usage procedures, and operating procedures. A unit test is a specific test written to test the validity of said component or components. In Java, a unit is commonly defined as an entire class, but can also be a single object method. A unit test is written to confirm that the methods will act as intended, even if other parts of the program code is changed. Unit tests were used on the parts of the system containing many logical operations and calculations. Unit tests do not, however, exclude the possibility of errors. It only reduces the amount of cases where an error might occur.
 
 \subsection{Integration testing}
 \label{subsec:testing-test_description-integration_testing}
 
-Integration testing considers testing where individual modules of the software are grouped. It is a black-box test, in which major parts of the system are tested. The goal of the tests is to make sure that the major parts of the system are working as individual modules. It also ensures that modules are able to communicate with each other.
+Integration testing is testing where individual modules of the software are grouped. It is a black-box test, in which major parts of the system are tested. The goal of the tests is to make sure that the major parts of the system are working as individual modules. It also ensures that modules are able to communicate with each other.
 
 As each of the protocol implementations and core services of the system are standalone components that communicate with each other, integration testing was vital to the operation of the system. 
 
@@ -113,7 +113,7 @@ The following risks affected the choice of test cases for the system test:
 \begin{enumerate}[A.]
 \item \textbf{WS-Nu and WSN standard compliance:} WSN support was the main concern of the customer, and as the protocol is the NATO standard, it holds the highest level of impact if defects are uncovered. Full standard support was desired.
 \item \textbf{Qpid Proton:} The encoding of messages to be sent across the AMQP protocol needed preestimation of byte array size and enumeration until actual size is matched. This could cause a major performance hit on the AMQP protocol, and required profiling tests.
-\item \textbf{Customer operational needs:} As the finished product will be used during military operational testing, support features like topic mapping and relay functionality is important for the the product. Additionally, working initialization and setup of configuration directories and files are paramount to the effectiveness and features of the product.
+\item \textbf{Customer operational needs:} As the finished product will be used during military operational testing, support features like topic mapping and relay functionality is important for the product. Additionally, working initialization and setup of configuration directories and files are paramount to the effectiveness and features of the product.
 \item \textbf{Core broker functionality.} The main task of the OKSE Message Broker is to act as a relay and translator for messages. Failure of the system to perform these core tasks would have devastating impact on the effectiveness of the product.
 \end{enumerate}
 
@@ -130,7 +130,7 @@ These are the components and features that were not covered by the system test:
 
 \subsubsection{Approach}
 
-The execution of the system test would be managed by the group member responsible for testing and configuration management, with support from the lead developer and involved team members. All the test were to be performed during normal system operation. Deliverables after execution were the test results, which is included in the complete system test case table in appendix \ref{ch:tables_and_graphs}. \\
+The execution of the system test would be managed by the group member responsible for testing and configuration management, with support from the lead developer and involved team members. All the tests were to be performed during normal system operation. Deliverables after execution were the test results, which is included in the complete system test case table in appendix \ref{ch:tables_and_graphs}. \\
 \\
 \textit{Configuration management}
 \\
