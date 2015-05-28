@@ -204,7 +204,7 @@ The TopicService is responsible for maintaining an overview of all topics that h
 
 A Topic in itself is a part of a tree of nodes. It may have a parent, and it may have children. The TopicService keeps track of all these trees. For the implemented protocols in the OKSE system, none use this hierarchical nature. Still, they are represented in this way for future use.
 
-In order to retrieve the canonical name of a topic, one uses the \verb!getFullTopicString()! method on a Topic object. This representation is what is expected in all parts of the OKSE system that accepts topics represented by strings.
+In order to retrieve the canonical name of a topic, one uses the \verb!getFullTopicStrin! \verb!g()! method on a Topic object. This representation is what is expected in all parts of the OKSE system that accepts topics represented by strings.
 
 The following code shows how to add a new topic to the system.
 
@@ -216,7 +216,7 @@ The following code shows how to add a new topic to the system.
     TopicService.getInstance().addTopic("no/ffi/uav");
 \end{lstlisting}
 
-In the second \verb!addTopic! call, the TopicService will identify that the \verb!no! topic already exists. It will only generate the new topic nodes that are needed, link these together, and connect the branch to the already existing \verb!no! topic node. After the second \verb!addTopic! call, the \verb!no! topic node is reachable by traversing the tree from \verb!uav! by using the \verb!getParent()! method of a topic node.
+In the second \verb!addTopic! call, the TopicService will identify that the \verb!no! topic already exists. It will only generate the new topic nodes that are needed, link these together, and connect the branch to the already existing \verb!no! topic node. After the second \verb!addTopic! call, the \verb!no! topic node is reachable by traversing the tree from \verb!uav! by using the \verb!getPare! \verb!nt()! method of a topic node.
 
 The following code snipped demonstrates how Topics are removed from the system.
 
@@ -400,9 +400,9 @@ public class SomeListener implements SubscriptionChangeListener {
 
 The OKSE system was designed such that extending the system with additional protocols should be as easy as possible. Some boilerplate code is still needed to have a minimum foundation on which the protocol server is intended to run.
 
-To add a new protocol to the OKSE system, the first step is to extend the \\\verb!AbstractProtocolServer! class. This will prompt the developer to implement a set of methods needed in a protocol server. Additionally, some extra static methods are needed for implementing it as a singleton.
+To add a new protocol to the OKSE system, the first step is to extend the \verb!AbstractPr! \verb!otocolServer! class. This will prompt the developer to implement a set of methods needed in a protocol server. Additionally, some extra static methods are needed for implementing it as a singleton.
 
-Below is an example of the structure of a class extending from the \\\verb!AbstractProtocolServer! class.
+Below is an example of the structure of a class extending from the \verb!AbstractProtoc! \verb!olServer! class.
 
 \begin{lstlisting}[language=Java, captionpos=b, caption=Adding a new protocol, frame=bt, showstringspaces=false]
 public class NewProtocolServer extends AbstractProtocolServer {
@@ -525,9 +525,9 @@ The only thing needed to include the new protocol in the OKSE system is to add i
 
 The OKSE system was designed such that extending the system with additional core services should be as easy as possible. Some boilerplate code is still needed to have a minimum foundation on which the core service is intended to run.
 
-To add a new core service to the OKSE system, the first step is to extend the \\\verb!AbstractCoreService! class. This will prompt the developer to implement a set of methods needed in a core service. Additionally, some extra static methods are needed for implementing it as a singleton.
+To add a new core service to the OKSE system, the first step is to extend the \verb!Abstract! \verb!CoreService! class. This will prompt the developer to implement a set of methods needed in a core service. Additionally, some extra static methods are needed for implementing it as a singleton.
 
-Below is an example implementation of a new core service, which extends the \\\verb!AbstractCoreService! class. No clear purpose is defined for this service other than for the intent of clarifying the structure.
+Below is an example implementation of a new core service, which extends the \verb!Abstra! \verb!ctCoreService! class. No clear purpose is defined for this service other than for the intent of clarifying the structure.
 
 \begin{lstlisting}[language=Java, captionpos=b, caption=Creating a new core service, frame=bt, showstringspaces=false]
 public class NewService extends AbstractCoreService {
@@ -750,7 +750,7 @@ var MYPANE = (function($) {
 When adding a new pane it is important to register the panes corresponding JavaScript module in the \verb!main.js! file. This is done by appending a \verb!switch-case! for your pane. It is also important to register the panes template in \verb!indexLoggedIn.html!
 
 \section{AMQP Send and Receive}
-Along with the source code, two simple test classes for AMQP are bundled. One that implements a receiver and one that implements a sender. The classes are used for amqprecv.jar and amqpsender.jar files that can be used to test the broker as mentioned in \ref{subsec:test_clients-amqp_receive} and \ref{subsec:test_clients-amqp_send}. The example classes are located in the folder \verb!src/main/java/no/ntnu/okse/! \verb!examples/amqp! starting at the root of the project.
+Along with the source code, two simple test classes for AMQP are bundled. One that implements a receiver and one that implements a sender. The classes are used for amqprecv.jar and amqpsender.jar files that can be used to test the broker as mentioned in \ref{subsec:test_clients-amqp_receive} and \ref{subsec:test_clients-amqp_send}. The example classes are located in the folder \verb!src/main/java/no/ntnu/! \verb!okse/examples/amqp! starting at the root of the project.
 
 Both classes has Apache Qpid Proton as a dependency and it is recommended that they are used together with Maven to fetch the needed dependencies.
 

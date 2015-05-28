@@ -27,7 +27,6 @@ Usually this can by done on Windows by entering:
 path %path%;C:\ProgramData\Oracle\Java\javapath
 \end{verbatim}
 The variable can also be accessed and modified through the "Environmental variables" tab in the advanced system settings. The system should be possible to run on all platforms with JRE installed. 
-
 In addition to JRE, OKSE requires a network connection to be able to send and receive messages. It does not however, require Internet on the connection. 
 
 \section{Installation}
@@ -59,9 +58,7 @@ cd <PATH-TO-OKSE>
 java -jar okse.jar
 \end{verbatim}
 
-\noindent If the broker is going to be used for bigger files or a very high amount of messages, a higher memory limit should be set for Java. Note that it is not possible to set the memory limit higher than the amount of memory that is available: 
-
-The following command changes the memory limit:
+\noindent If the broker is going to be used for bigger files or a very high amount of messages, a higher memory limit should be set for Java. Note that it is not possible to set the memory limit higher than the amount of memory that is available: The following command changes the memory limit:
 
 \begin{verbatim}
 java -jar -Xms2048m -Xmx4096m okse.jar
@@ -469,7 +466,6 @@ After the installation, change directory of the cmd session to the location of b
 path %path%;C:\Python27
 \end{verbatim}
 Note that this will have to be done for every new cmd.exe window you open.
-
 Now that Python and Requests are installed, move on to the Usage section.
 
 \subsubsection{Linux/OS X}
@@ -481,7 +477,6 @@ Python 2.7.9 (default, Mar  1 2015, 12:57:24)
 \end{verbatim}
 
 \noindent If "command not found" appears, check the package manager of the distribution for instructions on installing Python 2.7, or go to python.org and download the installer from there.
-
 When Python 2.7 is installed, Requests needs to be installed. In the terminal, install the software by typing the following command.
 
 \begin{verbatim}
