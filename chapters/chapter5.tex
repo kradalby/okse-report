@@ -243,6 +243,10 @@ One of the initial requirements from the customer, was to have a graphical user 
 \subsection{Design}
 \label{subsec:architecture_and_implementation-user_interface-design}
 
+As previously stated, a considerable amount of time was spent researching the Apollo broker during the research phase. This provided information about what an administration interface should provide. The customer had initially not stated any specific requirements for the administration panel. Therefore, an initial administration user interface wireframe was created and shown to the customer. The wireframe was heavily influenced by Apollo. This wireframe (see figure \ref{fig:initial_prototype}), along with the creation of use cases, set the terms for creating a prototype.
+
+The group agreed upon creating a functional prototype for the customer. This prototype was made available, so that the customer could provide feedback. During most customer meetings, the current version of the administration interface was discussed. The customer gave feedback on how new elements in the panel met the customers expectations. This approach gave the group great advantage; rapid response from the customer, which made it easy to improve the interface and add additional features. Throughout the lifetime of the development phase, the administration panel was continuously deployed on the test server.
+
 \begin{center}
   \begin{figure}[ht!]
     \makebox[\textwidth]{\includegraphics[scale=0.5]{fig/initial_prototype.png}}
@@ -250,10 +254,6 @@ One of the initial requirements from the customer, was to have a graphical user 
     \label{fig:initial_prototype}
   \end{figure}
 \end{center}
-
-As previously stated, a considerable amount of time was spent researching the Apollo broker during the research phase. This provided information about what an administration interface should provide. The customer had initially not stated any specific requirements for the administration panel. Therefore, an initial administration user interface wireframe was created and shown to the customer. The wireframe was heavily influenced by Apollo. This wireframe (see figure \ref{fig:initial_prototype}), along with the creation of use cases, set the terms for creating a prototype.
-
-The group agreed upon creating a functional prototype for the customer. This prototype was made available, so that the customer could provide feedback. During most customer meetings, the current version of the administration interface was discussed. The customer gave feedback on how new elements in the panel met the customers expectations. This approach gave the group great advantage; rapid response from the customer, which made it easy to improve the interface and add additional features. Throughout the lifetime of the development phase, the administration panel was continuously deployed on the test server.
 
 The final interface contains six panes; "Main", "Topics", "Subscribers", "Statistics", "Logs" and "Configuration". The "Main"-pane contains information about the message broker. It is meant to give a general overview of the current operating environment, as well as the system status and memory usage. The "Statistics"-pane contains useful statistics about requests, messages etc on the different protocols. The "Logs"-pane contains runtime logs for debugging purposes. The "Topics"-pane shows all registered topics in the message broker and information about the current topics, as well as the possibility to remove them. The "Subscribers"-pane has the same functionality as the "Topics"-pane, but for subscribers. Finally, in the "Configuration"-pane, the user can change the brokers settings and map topics together. Also, a possibility to add relays between multiple OKSE brokers is located here. A user manual, including a visual guide to the interface, can be found in appendix \ref{appendix-user-manual}.
 
